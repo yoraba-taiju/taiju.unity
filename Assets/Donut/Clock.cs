@@ -1,23 +1,28 @@
 using System;
+using Lib;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
 namespace Donut {
   public class Clock : MonoBehaviour {
-    const uint RECORD_LEN = 600;
+    private PlayerInput playerInput_;
+    private const uint RECORD_LEN = 600;
     private uint leaps_;
     private uint current_;
     private PlayableDirector playableDirector_;
     
     private readonly double[] times_ = new double[RECORD_LEN];
 
+    public PlayerInput PlayerInput => playerInput_;
+
     private void Start() {
       playableDirector_ = gameObject.GetComponent<PlayableDirector>();
+      playerInput_ = new PlayerInput();
+      playerInput_.Enable();
     }
 
     private void Update() {
-      this.
       tick();
     }
 

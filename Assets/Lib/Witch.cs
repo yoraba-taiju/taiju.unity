@@ -1,26 +1,27 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Donut;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
 
 namespace Lib {
-  public class Witch : MonoBehaviour {
-    private PlayerInput playerInput_;
-    private void Start() {
-      playerInput_ = new PlayerInput();
-      playerInput_.Enable();
+  public class Witch : DonutBehaviour {
+    protected override void OnStart() {
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
     }
-
-    // Update is called once per frame
-    private void Update() {
-      var move = playerInput_.Player.Move.ReadValue<Vector2>() * Time.deltaTime * 7;
+    protected override void OnUpdate() {
+      var player = PlayerInput.Player;
+      var move = player.Move.ReadValue<Vector2>() * Time.deltaTime * 7;
       var trans = transform;
       var pos = trans.position;
       pos.x += move.x;
       pos.y += move.y;
       trans.position = pos;
+      if (player.BackClock.triggered) {
+        Debug.Log("Back");
+      }
+    }
+
+    private void OnBecameVisible() {
+      Debug.Log("Visible");
     }
   }
 }

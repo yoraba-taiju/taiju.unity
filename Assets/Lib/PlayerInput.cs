@@ -37,6 +37,24 @@ namespace Lib
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""99284659-668a-4879-99f8-07ba0744b17d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BackClock"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbde9c19-f494-4604-be08-3dc432808b2b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -94,6 +112,28 @@ namespace Lib
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""103e26dc-d696-4f29-8ccb-3a81c01526b1"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlayerScheme"",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ba02c71-6090-4e6a-a768-641d4dbc0d49"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PlayerScheme"",
+                    ""action"": ""BackClock"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -115,6 +155,8 @@ namespace Lib
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
+            m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+            m_Player_BackClock = m_Player.FindAction("BackClock", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -175,11 +217,15 @@ namespace Lib
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
         private readonly InputAction m_Player_Move;
+        private readonly InputAction m_Player_Fire;
+        private readonly InputAction m_Player_BackClock;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
             public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Player_Move;
+            public InputAction @Fire => m_Wrapper.m_Player_Fire;
+            public InputAction @BackClock => m_Wrapper.m_Player_BackClock;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -192,6 +238,12 @@ namespace Lib
                     @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                     @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                     @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
+                    @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                    @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                    @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                    @BackClock.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
+                    @BackClock.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
+                    @BackClock.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -199,6 +251,12 @@ namespace Lib
                     @Move.started += instance.OnMove;
                     @Move.performed += instance.OnMove;
                     @Move.canceled += instance.OnMove;
+                    @Fire.started += instance.OnFire;
+                    @Fire.performed += instance.OnFire;
+                    @Fire.canceled += instance.OnFire;
+                    @BackClock.started += instance.OnBackClock;
+                    @BackClock.performed += instance.OnBackClock;
+                    @BackClock.canceled += instance.OnBackClock;
                 }
             }
         }
@@ -215,6 +273,8 @@ namespace Lib
         public interface IPlayerActions
         {
             void OnMove(InputAction.CallbackContext context);
+            void OnFire(InputAction.CallbackContext context);
+            void OnBackClock(InputAction.CallbackContext context);
         }
     }
 }
