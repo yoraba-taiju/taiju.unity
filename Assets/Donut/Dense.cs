@@ -1,14 +1,15 @@
 ﻿namespace Donut {
-  public struct History<T> {
-    private const int HistoryLength = 600;
-    private Clock clock_;
-    private int lastRead_;
-    private readonly T[] values_;
+  public struct Dense<T> {
+    private const int HISTORY_LENGTH = 600;
 
-    public History(Clock clock) {
+    private Clock clock_;
+    private readonly T[] values_;
+    private readonly uint[] leaps_;
+
+    public Dense(Clock clock) {
       clock_ = clock;
-      this.lastRead_ = 0;
-      values_ = new T[HistoryLength];
+      values_ = new T[HISTORY_LENGTH];
+      leaps_ = new uint[HISTORY_LENGTH];
     }
 
     public ref T Value {

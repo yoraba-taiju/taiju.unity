@@ -21,6 +21,7 @@ namespace Lib {
     }
 
     private void OnBecameVisible() {
+      // https://forum.unity.com/threads/check-if-gameobject-in-visible-on-screen.424586/
       Debug.Log("Visible");
     }
   }

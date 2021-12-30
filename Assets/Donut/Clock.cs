@@ -6,15 +6,19 @@ using UnityEngine.Timeline;
 
 namespace Donut {
   public class Clock : MonoBehaviour {
+    private const uint RECORD_LENGTH = 600;
+
+    /* player info */
     private PlayerInput playerInput_;
-    private const uint RECORD_LEN = 600;
-    private uint leaps_;
-    private uint current_;
     private PlayableDirector playableDirector_;
     
-    private readonly double[] times_ = new double[RECORD_LEN];
+    /* current leaps */
+    private uint currentLeaps_ = 0;
+    private uint currentTicks_ = 0;
 
-    public PlayerInput PlayerInput => playerInput_;
+    /* Timeline management */
+    private readonly double[] times_ = new double[RECORD_LENGTH];
+    private uint minTimes_ = 0;
 
     private void Start() {
       playableDirector_ = gameObject.GetComponent<PlayableDirector>();
@@ -23,20 +27,27 @@ namespace Donut {
     }
 
     private void Update() {
-      tick();
+      var player = playerInput_.Player;
+      var backPressed = player.BackClock;
+      var isLeaping = backPressed.IsPressed();
+      if (isLeaping) {
+        if (backPressed.triggered) {
+          currentLeaps_++;
+          Debug.Log("backed");
+        }
+        if (currentTicks_ > 0) {
+          currentTicks_--;
+        }
+        playableDirector_.time = times_[currentTicks_ % RECORD_LENGTH];
+      } else {
+        times_[currentTicks_ % RECORD_LENGTH] = playableDirector_.time;
+        
+        currentTicks_++;
+      }
     }
 
-    public Clock() {
-      this.leaps_ = 0;
-      this.current_ = 0;
-    }
-
-    public void tick() {
-      current_++;
-    }
-
-    public void back() {
-      current_--;
-    }
+    public PlayerInput PlayerInput => playerInput_;
+    public uint CurrentTicks => currentTicks_;
+    public uint CurrentLeaps => currentLeaps_;
   }
 }
