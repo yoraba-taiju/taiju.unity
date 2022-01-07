@@ -19,7 +19,7 @@ namespace Donut.Unity {
       playerInput_.Enable();
     }
 
-    private void Update() {
+    private void LateUpdate() {
       var player = playerInput_.Player;
       var backPressed = player.BackClock;
       if (backPressed.IsPressed()) {
@@ -33,5 +33,6 @@ namespace Donut.Unity {
 
     // getter
     public PlayerInput PlayerInput => playerInput_;
+    public Clock Clock => clock_;
   }
 }

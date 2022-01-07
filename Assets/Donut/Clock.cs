@@ -1,8 +1,4 @@
 using System;
-using Lib;
-using UnityEngine;
-using UnityEngine.Playables;
-using UnityEngine.Timeline;
 
 namespace Donut {
   public class Clock {
@@ -10,11 +6,14 @@ namespace Donut {
 
     /* State management */
     private enum State {
-      Normal,
+      Ticking,
       Leaping,
     }
 
-    private State state_ = State.Normal;
+    private State state_ = State.Ticking;
+    
+    public bool IsTicking => state_ == State.Ticking;
+    public bool IsLeaping => state_ == State.Leaping;
 
     /* current leaps */
     private uint currentLeaps_ = 0;
@@ -30,7 +29,7 @@ namespace Donut {
     }
 
     public void Tick() {
-      if (state_ != State.Normal) {
+      if (state_ != State.Ticking) {
         DecideToLeap();
         return;
       }
@@ -40,9 +39,9 @@ namespace Donut {
     }
 
     public void Back() {
-      if (state_ == State.Normal) {
+      if (state_ == State.Ticking) {
         state_ = State.Leaping;
-      } else {
+      } else if (currentTicks_ > 0) {
         currentTicks_--;
         historyEnd_ = currentTicks_;
       }
@@ -61,7 +60,7 @@ namespace Donut {
       currentLeaps_++;
       historyBranches_[currentLeaps_ % HISTORY_LENGTH] = uint.MaxValue;
       historyEnd_ = currentTicks_;
-      state_ = State.Normal;
+      state_ = State.Ticking;
     }
 
     public uint AdjustTick(uint lastTouchLeap, uint time) {

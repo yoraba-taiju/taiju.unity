@@ -4,12 +4,14 @@ using UnityEngine;
 
 namespace Donut.Unity {
   public abstract class DonutBehaviour: MonoBehaviour {
-    private ClockComponent clock_;
-    protected PlayerInput PlayerInput => clock_.PlayerInput;
+    private ClockComponent clockComponent_;
+    private Clock clock_;
+    protected PlayerInput PlayerInput => clockComponent_.PlayerInput;
     protected abstract void OnStart();
     private void Start() {
       var obj = GameObject.FindGameObjectWithTag("Clock");
-      clock_ = obj.GetComponent<ClockComponent>();
+      clockComponent_ = obj.GetComponent<ClockComponent>();
+      clock_ = clockComponent_.Clock;
       OnStart();
     }
     protected abstract void OnUpdate();

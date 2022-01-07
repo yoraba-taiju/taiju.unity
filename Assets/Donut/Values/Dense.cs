@@ -13,7 +13,7 @@
     public ref T Value {
       get {
         var currentTick = clock_.CurrentTicks;
-        if (clock_.CurrentLeaps == lastTouched_) {
+        if (clock_.CurrentLeaps != lastTouched_) {
           var branch = clock_.BranchTick(lastTouched_);
           var v = entries_[branch % Clock.HISTORY_LENGTH];
           for (var i = branch + 1; i < currentTick; i++) {
