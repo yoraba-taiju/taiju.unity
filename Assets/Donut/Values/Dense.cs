@@ -1,22 +1,27 @@
 ﻿namespace Donut.Values {
   public struct Dense<T> {
-    private struct Entry {
-      public uint leap;
-      public T value;
-    }
-
     private Clock clock_;
-    private readonly Entry[] entries_;
+    private T[] entries_;
+    private uint lastTouched_;
 
     public Dense(Clock clock) {
       clock_ = clock;
-      entries_ = new Entry[Clock.HISTORY_LENGTH];
+      entries_ = new T[Clock.HISTORY_LENGTH];
+      lastTouched_ = clock.CurrentLeaps;
     }
 
     public ref T Value {
       get {
-        var index = 0;
-        return ref entries_[index].value;
+        var currentTick = clock_.CurrentTicks;
+        if (clock_.CurrentLeaps == lastTouched_) {
+          var branch = clock_.BranchTick(lastTouched_);
+          var v = entries_[branch % Clock.HISTORY_LENGTH];
+          for (var i = branch + 1; i < currentTick; i++) {
+            entries_[i % Clock.HISTORY_LENGTH] = v;
+          }
+          lastTouched_ = clock_.CurrentLeaps;
+        }
+        return ref entries_[currentTick % Clock.HISTORY_LENGTH];
       }
     }
   }

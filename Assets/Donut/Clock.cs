@@ -64,8 +64,11 @@ namespace Donut {
       state_ = State.Normal;
     }
 
-    public uint AdjustTime(uint lastTouchLeap, uint time) {
+    public uint AdjustTick(uint lastTouchLeap, uint time) {
       return Math.Min(historyBranches_[lastTouchLeap % HISTORY_LENGTH], time);
+    }
+    public uint BranchTick(uint leap) {
+      return historyBranches_[leap % HISTORY_LENGTH];
     }
     
     public uint CurrentTicks => currentTicks_;
