@@ -1,7 +1,7 @@
 ﻿namespace Donut.Values {
   public struct Dense<T> {
-    private Clock clock_;
-    private T[] entries_;
+    private readonly Clock clock_;
+    private readonly T[] entries_;
     private uint lastTouched_;
 
     public Dense(Clock clock) {
