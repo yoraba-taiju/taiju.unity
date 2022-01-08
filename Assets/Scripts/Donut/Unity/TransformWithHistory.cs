@@ -14,9 +14,16 @@ namespace Donut.Unity {
       var obj = GameObject.FindGameObjectWithTag("Clock");
       clockComponent_ = obj.GetComponent<ClockComponent>();
       clock_ = clockComponent_.Clock;
-      position_ = new Dense<Vector3>(clock_);
-      scale_ = new Dense<Vector3>(clock_);
-      rot_ = new Dense<Quaternion>(clock_);
+      var trans = transform;
+      position_ = new Dense<Vector3>(clock_) {
+        Value = trans.localPosition,
+      };
+      scale_ = new Dense<Vector3>(clock_) {
+        Value = trans.localScale,
+      };
+      rot_ = new Dense<Quaternion>(clock_) {
+        Value = trans.localRotation,
+      };
     }
 
     private void Update() {

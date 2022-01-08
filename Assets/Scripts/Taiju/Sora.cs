@@ -1,7 +1,7 @@
 using Donut.Unity;
 using UnityEngine;
 
-namespace Lib {
+namespace Taiju {
   public class Witch : DonutBehaviour {
     protected override void OnStart() {
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");

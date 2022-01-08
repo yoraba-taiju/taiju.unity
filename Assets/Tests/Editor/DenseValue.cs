@@ -1,25 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEngine;
-using UnityEngine.TestTools;
+using Donut;
+using Donut.Values;
 
-public class DenseValue
-{
-    // A Test behaves as an ordinary method
-    [Test]
-    public void DenseValueSimplePasses()
-    {
-        // Use the Assert class to test conditions
-    }
-
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator DenseValueWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
-    }
+public class DenseValue {
+  [Test]
+  public void DenseValueSimplePasses() {
+    var clock = new Clock();
+    var v = new Dense<int>(clock) {
+      Value = 0
+    };
+    Assert.AreEqual(0, v.Value);
+  }
 }

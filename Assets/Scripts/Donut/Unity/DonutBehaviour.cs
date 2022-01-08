@@ -1,6 +1,4 @@
-﻿using System;
-using Lib;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Donut.Unity {
   public abstract class DonutBehaviour: MonoBehaviour {

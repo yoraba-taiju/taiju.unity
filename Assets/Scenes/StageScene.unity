@@ -405,7 +405,7 @@ GameObject:
   - component: {fileID: 1095268801}
   - component: {fileID: 1095268802}
   m_Layer: 0
-  m_Name: Witch
+  m_Name: Sora
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,6 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4da6397eafe82646bf4085b4726b004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clockComponent_: {fileID: 0}
 --- !u!114 &1095268802
 MonoBehaviour:
   m_ObjectHideFlags: 0
