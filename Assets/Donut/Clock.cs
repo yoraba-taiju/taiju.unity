@@ -52,7 +52,7 @@ namespace Donut {
         throw new InvalidOperationException("Clock can't leap before using magick.");
       }
 
-      for (var i = (currentLeaps_ >= HISTORY_LENGTH) ? (currentLeaps_ - HISTORY_LENGTH) : 0; i < currentLeaps_; ++i) {
+      for (var i = (currentLeaps_ >= HISTORY_LENGTH) ? (currentLeaps_ - HISTORY_LENGTH) : 0; i <= currentLeaps_; ++i) {
         var idx = i % HISTORY_LENGTH;
         historyBranches_[idx] = Math.Min(historyBranches_[idx], currentTicks_);
       }
