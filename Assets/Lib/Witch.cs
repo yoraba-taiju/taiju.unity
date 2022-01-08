@@ -15,9 +15,6 @@ namespace Lib {
       pos.x += move.x;
       pos.y += move.y;
       trans.position = pos;
-      if (player.BackClock.triggered) {
-        Debug.Log("Back");
-      }
     }
 
     private void OnBecameVisible() {

@@ -16,7 +16,7 @@
         if (clock_.CurrentLeaps != lastTouched_) {
           var branch = clock_.BranchTick(lastTouched_);
           var v = entries_[branch % Clock.HISTORY_LENGTH];
-          for (var i = branch + 1; i < currentTick; i++) {
+          for (var i = branch + 1; i <= currentTick; i++) {
             entries_[i % Clock.HISTORY_LENGTH] = v;
           }
           lastTouched_ = clock_.CurrentLeaps;
