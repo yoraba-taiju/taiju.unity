@@ -15,15 +15,9 @@ namespace Donut.Unity {
       clockComponent_ = obj.GetComponent<ClockComponent>();
       clock_ = clockComponent_.Clock;
       var trans = transform;
-      position_ = new Dense<Vector3>(clock_) {
-        Value = trans.localPosition,
-      };
-      scale_ = new Dense<Vector3>(clock_) {
-        Value = trans.localScale,
-      };
-      rot_ = new Dense<Quaternion>(clock_) {
-        Value = trans.localRotation,
-      };
+      position_ = new Dense<Vector3>(clock_, trans.localPosition);
+      scale_ = new Dense<Vector3>(clock_, trans.localScale);
+      rot_ = new Dense<Quaternion>(clock_, trans.localRotation);
     }
 
     private void Update() {

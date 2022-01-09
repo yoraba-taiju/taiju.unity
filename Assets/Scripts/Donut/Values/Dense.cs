@@ -1,13 +1,18 @@
-﻿namespace Donut.Values {
+﻿using System;
+
+namespace Donut.Values {
   public struct Dense<T> {
     private readonly Clock clock_;
     private readonly T[] entries_;
+    private readonly uint bornAt_;
     private uint lastTouchedLeap_;
     private uint lastTouchedTick_;
 
-    public Dense(Clock clock) {
+    public Dense(Clock clock, T initial) {
       clock_ = clock;
       entries_ = new T[Clock.HISTORY_LENGTH];
+      entries_[0] = initial;
+      bornAt_ = clock.CurrentTick;
       lastTouchedLeap_ = clock.CurrentLeap;
       lastTouchedTick_ = clock.CurrentTick;
     }
@@ -15,6 +20,9 @@
     public ref T Value {
       get {
         var currentTick = clock_.CurrentTick;
+        if (currentTick < bornAt_) {
+          throw new InvalidOperationException("Can't access before value born.");
+        }
         if (clock_.CurrentLeap != lastTouchedLeap_) {
           var branch = clock_.BranchTick(lastTouchedLeap_);
           var v = entries_[branch % Clock.HISTORY_LENGTH];
