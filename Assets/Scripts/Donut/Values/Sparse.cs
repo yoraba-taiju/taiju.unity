@@ -56,8 +56,7 @@ namespace Donut.Values {
       get {
         var currentTick = clock_.CurrentTick;
         var currentLeap = clock_.CurrentLeap;
-        var lastTouchedTick = entries_[entriesEnd_].tick;
-        if (currentLeap == lastTouchedLeap_ && currentTick == lastTouchedTick) {
+        if (currentLeap == lastTouchedLeap_ && currentTick == lastTouchedTick_) {
           return ref entries_[entriesEnd_].value;
         }
         var idx = AllocateEntry(
