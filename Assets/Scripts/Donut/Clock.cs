@@ -16,8 +16,8 @@ namespace Donut {
     public bool IsLeaping => state_ == State.Leaping;
 
     /* current leaps */
-    private uint currentLeaps_ = 0;
-    private uint currentTicks_ = 0;
+    private uint currentLeap_ = 0;
+    private uint currentTick_ = 0;
 
     /* History management */
     private readonly uint[] historyBranches_ = new uint[HISTORY_LENGTH];
@@ -33,17 +33,18 @@ namespace Donut {
         DecideToLeap();
         return;
       }
-      currentTicks_++;
-      historyBegin_ = (currentTicks_ >= HISTORY_LENGTH) ? (currentTicks_ - HISTORY_LENGTH) : 0;
-      historyEnd_ = currentTicks_;
+      currentTick_++;
+      historyBegin_ = (currentTick_ >= HISTORY_LENGTH) ? (currentTick_ - HISTORY_LENGTH) : 0;
+      historyEnd_ = currentTick_;
     }
 
     public void Back() {
       if (state_ == State.Ticking) {
         state_ = State.Leaping;
-      } else if (currentTicks_ > 0) {
-        currentTicks_--;
-        historyEnd_ = currentTicks_;
+      }
+      if (currentTick_ > 0) {
+        currentTick_--;
+        historyEnd_ = currentTick_;
       }
     }
 
@@ -52,14 +53,14 @@ namespace Donut {
         throw new InvalidOperationException("Clock can't leap before using magick.");
       }
 
-      for (var i = (currentLeaps_ >= HISTORY_LENGTH) ? (currentLeaps_ - HISTORY_LENGTH) : 0; i <= currentLeaps_; ++i) {
+      for (var i = (currentLeap_ >= HISTORY_LENGTH) ? (currentLeap_ - HISTORY_LENGTH) : 0; i <= currentLeap_; ++i) {
         var idx = i % HISTORY_LENGTH;
-        historyBranches_[idx] = Math.Min(historyBranches_[idx], currentTicks_);
+        historyBranches_[idx] = Math.Min(historyBranches_[idx], currentTick_);
       }
 
-      currentLeaps_++;
-      historyBranches_[currentLeaps_ % HISTORY_LENGTH] = uint.MaxValue;
-      historyEnd_ = currentTicks_;
+      currentLeap_++;
+      historyBranches_[currentLeap_ % HISTORY_LENGTH] = uint.MaxValue;
+      historyEnd_ = currentTick_;
       state_ = State.Ticking;
     }
 
@@ -70,8 +71,8 @@ namespace Donut {
       return historyBranches_[leap % HISTORY_LENGTH];
     }
     
-    public uint CurrentTicks => currentTicks_;
-    public uint CurrentLeaps => currentLeaps_;
+    public uint CurrentTick => currentTick_;
+    public uint CurrentLeap => currentLeap_;
 
     public uint HistoryBegin => historyBegin_;
     public uint HistoryEnd => historyEnd_;

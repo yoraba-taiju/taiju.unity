@@ -23,10 +23,10 @@ namespace Donut.Unity {
       var backPressed = player.BackClock;
       if (backPressed.IsPressed()) {
         clock_.Back();
-        playableDirector_.time = timeHistory_[clock_.CurrentTicks % Clock.HISTORY_LENGTH];
+        playableDirector_.time = timeHistory_[clock_.CurrentTick % Clock.HISTORY_LENGTH];
       } else {
         clock_.Tick();
-        timeHistory_[clock_.CurrentTicks % Clock.HISTORY_LENGTH] = playableDirector_.time;
+        timeHistory_[clock_.CurrentTick % Clock.HISTORY_LENGTH] = playableDirector_.time;
       }
     }
 
