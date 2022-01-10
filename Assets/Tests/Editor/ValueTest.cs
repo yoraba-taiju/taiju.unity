@@ -55,5 +55,15 @@ namespace Tests.Editor {
       v.Value = 3;
       Assert.AreEqual(3, v.Value);
     }
+    [Test]
+    public void SparseValueCantBeAccessedBefore() {
+      var clock = new Clock();
+      clock.Tick();
+      var v = new Sparse<int>(clock, 0);
+      clock.Back();
+      Assert.Throws<InvalidOperationException>(() => {
+        v.Value = 10;
+      });
+    }
   }
 }

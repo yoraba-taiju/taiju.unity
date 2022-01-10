@@ -12,7 +12,7 @@ namespace Donut.Values {
 
     private readonly Entry[] entries_;
     private uint entriesBeg_;
-    private uint entriesEnd_;
+    private uint entriesLen_;
 
     public Sparse(Clock clock, T initial) {
       clock_ = clock;
@@ -24,32 +24,20 @@ namespace Donut.Values {
       lastTouchedLeap_ = clock.CurrentLeap;
       lastTouchedTick_ = clock.CurrentTick;
       entriesBeg_ = 0;
-      entriesEnd_ = 0;
+      entriesLen_ = 0;
     }
-
-    private uint AllocateEntry(uint beg, uint end, uint currentTick) {
-      if (beg == entriesEnd_) {
-        var idx = (entriesEnd_ + 1) % Clock.HISTORY_LENGTH;
-        if (idx == entriesBeg_) {
-          entriesBeg_ = (entriesBeg_ + 1) % Clock.HISTORY_LENGTH;
+    
+    private uint LowerBound(uint beg, uint end, uint tick) {
+      while (beg < end) {
+        var midIdx = (beg + (end - beg) / 2) % Clock.HISTORY_LENGTH;
+        var midTick = entries_[midIdx].tick;
+        if (tick <= midTick) {
+          end = midIdx;
+        } else {
+          beg = midIdx + 1;
         }
-        entriesEnd_ = idx;
-        entries_[idx].tick = currentTick;
-        entries_[idx].value = entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value;
-        return idx;
       }
-      if (end == entriesBeg_) {
-        throw new InvalidOperationException("Can't access before value born or forgotten.");
-      }
-      var mid = (beg + ((end - beg) / 2)) % Clock.HISTORY_LENGTH;
-      var midTick = entries_[mid].tick;
-      if (midTick < currentTick) {
-        return AllocateEntry(beg + 1, end, currentTick);
-      } else if (currentTick < midTick) {
-        return AllocateEntry(beg, end - 1, currentTick);
-      } else {
-        return mid;
-      }
+      return beg;
     }
 
     public ref T Value {
@@ -57,13 +45,21 @@ namespace Donut.Values {
         var currentTick = clock_.CurrentTick;
         var currentLeap = clock_.CurrentLeap;
         if (currentLeap == lastTouchedLeap_ && currentTick == lastTouchedTick_) {
-          return ref entries_[entriesEnd_].value;
+          return ref entries_[(entriesBeg_ + entriesLen_ - 1) % Clock.HISTORY_LENGTH].value;
         }
-        var idx = AllocateEntry(
+        var rawIdx = LowerBound(
           entriesBeg_,
-          (entriesBeg_ <= entriesEnd_) ? entriesEnd_ : entriesEnd_ + Clock.HISTORY_LENGTH,
+          entriesBeg_ + entriesLen_,
           currentTick
         );
+        var idx = rawIdx % Clock.HISTORY_LENGTH;
+        if (idx == entriesBeg_ && entriesLen_ == Clock.HISTORY_LENGTH) {
+          entriesBeg_ = (entriesBeg_ + 1) % Clock.HISTORY_LENGTH;
+        } else {
+          entriesLen_ = (rawIdx - entriesBeg_) + 1;
+        }
+        entries_[idx].tick = currentTick;
+        entries_[idx].value = entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value;
         lastTouchedLeap_ = currentLeap;
         lastTouchedTick_ = currentTick;
         return ref entries_[idx].value;
