@@ -24,7 +24,7 @@ namespace Donut.Values {
       lastTouchedLeap_ = clock.CurrentLeap;
       lastTouchedTick_ = clock.CurrentTick;
       entriesBeg_ = 0;
-      entriesLen_ = 0;
+      entriesLen_ = 1;
     }
     
     private uint LowerBound(uint beg, uint end, uint tick) {
@@ -52,14 +52,24 @@ namespace Donut.Values {
           entriesBeg_ + entriesLen_,
           currentTick
         );
+        var oldEntriesLen = entriesLen_;
         var idx = rawIdx % Clock.HISTORY_LENGTH;
-        if (idx == entriesBeg_ && entriesLen_ == Clock.HISTORY_LENGTH) {
-          entriesBeg_ = (entriesBeg_ + 1) % Clock.HISTORY_LENGTH;
+        if (idx == entriesBeg_) {
+          if (entriesLen_ == Clock.HISTORY_LENGTH) {
+            entriesBeg_ = (entriesBeg_ + 1) % Clock.HISTORY_LENGTH;
+          } else {
+            if (currentTick < entries_[idx].tick) {
+              throw new InvalidOperationException("Can't access before value born.");
+            }
+            entriesLen_ = (rawIdx - entriesBeg_) + 1;
+          }
         } else {
           entriesLen_ = (rawIdx - entriesBeg_) + 1;
         }
         entries_[idx].tick = currentTick;
-        entries_[idx].value = entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value;
+        if (oldEntriesLen < entriesLen_) {
+          entries_[idx].value = entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value;
+        }
         lastTouchedLeap_ = currentLeap;
         lastTouchedTick_ = currentTick;
         return ref entries_[idx].value;
