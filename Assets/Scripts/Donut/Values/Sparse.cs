@@ -29,8 +29,8 @@ namespace Donut.Values {
     
     private uint LowerBound(uint beg, uint end, uint tick) {
       while (beg < end) {
-        var midIdx = (beg + (end - beg) / 2) % Clock.HISTORY_LENGTH;
-        var midTick = entries_[midIdx].tick;
+        var midIdx = beg + (end - beg) / 2;
+        var midTick = entries_[midIdx % Clock.HISTORY_LENGTH].tick;
         if (tick <= midTick) {
           end = midIdx;
         } else {
