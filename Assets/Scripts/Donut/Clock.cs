@@ -34,7 +34,7 @@ namespace Donut {
         return;
       }
       currentTick_++;
-      historyBegin_ = (currentTick_ >= HISTORY_LENGTH) ? (currentTick_ - HISTORY_LENGTH) : 0;
+      historyBegin_ = (currentTick_ >= HISTORY_LENGTH) ? (currentTick_ - HISTORY_LENGTH + 1) : 0;
       historyEnd_ = currentTick_;
     }
 
@@ -42,7 +42,7 @@ namespace Donut {
       if (state_ == State.Ticking) {
         state_ = State.Leaping;
       }
-      if (currentTick_ > 0) {
+      if (currentTick_ > historyBegin_) {
         currentTick_--;
         historyEnd_ = currentTick_;
       }
