@@ -10,9 +10,10 @@ namespace Enemy.Bullet {
 
     protected override void OnUpdate() {
       var trans = transform;
-      var vec = sora_.transform.position - trans.position;
+      var pos = trans.position;
+      var vec = sora_.transform.position - pos;
       vec /= vec.magnitude;
-      trans.position += vec * 0.11f;
+      trans.position = pos + vec * 0.11f;
       Debug.Log(vec);
     }
   }
