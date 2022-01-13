@@ -4,7 +4,7 @@ namespace Donut.Values {
   public struct Dense<T> {
     private readonly Clock clock_;
     private readonly T[] entries_;
-    private readonly uint bornAt_;
+    private uint historyBegin_;
     private uint lastTouchedLeap_;
     private uint lastTouchedTick_;
 
@@ -12,7 +12,7 @@ namespace Donut.Values {
       clock_ = clock;
       entries_ = new T[Clock.HISTORY_LENGTH];
       entries_[0] = initial;
-      bornAt_ = clock.CurrentTick;
+      historyBegin_ = clock.CurrentTick;
       lastTouchedLeap_ = clock.CurrentLeap;
       lastTouchedTick_ = clock.CurrentTick;
     }
@@ -20,7 +20,7 @@ namespace Donut.Values {
     public ref T Value {
       get {
         var currentTick = clock_.CurrentTick;
-        if (currentTick < bornAt_) {
+        if (currentTick < historyBegin_) {
           throw new InvalidOperationException("Can't access before value born.");
         }
         if (clock_.CurrentLeap != lastTouchedLeap_) {
@@ -31,12 +31,14 @@ namespace Donut.Values {
           }
           lastTouchedLeap_ = clock_.CurrentLeap;
           lastTouchedTick_ = currentTick;
+          historyBegin_ = Math.Max(historyBegin_, (currentTick <= Clock.HISTORY_LENGTH) ? 0 : currentTick - Clock.HISTORY_LENGTH + 1);
         } else if (lastTouchedTick_ != currentTick) {
           var v = entries_[lastTouchedTick_ % Clock.HISTORY_LENGTH];
           for (var i = lastTouchedTick_; i <= currentTick; i++) {
             entries_[i % Clock.HISTORY_LENGTH] = v;
           }
           lastTouchedTick_ = currentTick;
+          historyBegin_ = Math.Max(historyBegin_, (currentTick <= Clock.HISTORY_LENGTH) ? 0 : currentTick - Clock.HISTORY_LENGTH + 1);
         }
         return ref entries_[currentTick % Clock.HISTORY_LENGTH];
       }
