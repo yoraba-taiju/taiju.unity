@@ -14,7 +14,6 @@ namespace Enemy.Bullet {
       var vec = sora_.transform.position - pos;
       vec /= vec.magnitude;
       trans.position = pos + vec * 0.11f;
-      Debug.Log(vec);
     }
   }
 }
