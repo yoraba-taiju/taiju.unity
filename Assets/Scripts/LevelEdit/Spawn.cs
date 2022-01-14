@@ -2,13 +2,15 @@
 using UnityEngine;
 
 namespace LevelEdit {
-  public class Appear : MonoBehaviour {
+  public class Spawn : MonoBehaviour {
+    [SerializeField]
+    public GameObject target;
     private void OnBecameInvisible() {
-      Debug.Log("Appear");
     }
 
     private void OnBecameVisible() {
-      
+      Debug.Log("Appear");
+      target.SetActive(true);
     }
   }
 }
