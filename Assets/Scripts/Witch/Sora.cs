@@ -1,3 +1,4 @@
+using System;
 using Donut.Unity;
 using UnityEngine;
 
@@ -14,6 +15,10 @@ namespace Witch {
       pos.x += move.x;
       pos.y += move.y;
       trans.position = pos;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col) {
+      Debug.Log("Collided");
     }
   }
 }

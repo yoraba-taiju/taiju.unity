@@ -15,7 +15,7 @@ namespace Enemy.Bullet {
     }
 
     protected override void OnUpdate() {
-      transform.position += speed_;
+      transform.position += speed_ * 0.5f;
     }
   }
 }
