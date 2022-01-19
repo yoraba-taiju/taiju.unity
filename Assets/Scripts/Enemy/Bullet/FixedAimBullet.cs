@@ -2,20 +2,23 @@
 using UnityEngine;
 
 namespace Enemy.Bullet {
-  public sealed class SoraJumper : DonutBehaviour {
+  public sealed class FixedAimBullet : DonutBehaviour {
+    [SerializeField] public float speed = 0.1f;
+    [SerializeField] public float angle;
     private GameObject sora_;
-    private Vector3 speed_;
+    private Vector3 direction_;
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       var trans = transform;
       var pos = trans.position;
       var vec = sora_.transform.position - pos;
       vec /= vec.magnitude;
-      speed_ = vec;
+      direction_ = vec * speed;
+      direction_ = Quaternion.AngleAxis(angle, Vector3.forward) * direction_;
     }
 
     protected override void OnUpdate() {
-      transform.position += speed_ * 0.1f;
+      transform.position += direction_;
     }
   }
 }
