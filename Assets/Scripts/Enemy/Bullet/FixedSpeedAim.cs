@@ -12,6 +12,7 @@ namespace Enemy.Bullet {
       var trans = transform;
       var pos = trans.position;
       var vec = sora_.transform.position - pos;
+      vec.z = 0.0f;
       vec /= vec.magnitude;
       direction_ = vec * speed;
       direction_ = Quaternion.AngleAxis(angle, Vector3.forward) * direction_;
