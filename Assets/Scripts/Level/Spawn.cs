@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace LevelEdit {
+namespace Level {
   public class Spawn : MonoBehaviour {
     [SerializeField]
     public GameObject target;
