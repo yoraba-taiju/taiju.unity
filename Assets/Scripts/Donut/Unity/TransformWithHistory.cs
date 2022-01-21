@@ -7,6 +7,7 @@ namespace Donut.Unity {
     // Clock
     private ClockComponent clockComponent_;
     private Clock clock_;
+    private uint bornAt_;
 
     // Visibility
     [SerializeField] public bool destroyWhenInvisible = true;
@@ -21,6 +22,7 @@ namespace Donut.Unity {
       var obj = GameObject.FindGameObjectWithTag("Clock");
       clockComponent_ = obj.GetComponent<ClockComponent>();
       clock_ = clockComponent_.Clock;
+      bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {
         renderers_ = GetComponentsInChildren<Renderer>();
         wasVisible_ = renderers_.All(it => it.isVisible);
@@ -32,6 +34,10 @@ namespace Donut.Unity {
     }
 
     private void Update() {
+      if (bornAt_ > clock_.CurrentTick) {
+        Destroy(gameObject);
+        return;
+      }
       if(destroyWhenInvisible) { // Visibility Management
         var visible = renderers_.Any(it => it.isVisible);
         if (wasVisible_) {
