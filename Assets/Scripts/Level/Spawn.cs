@@ -9,8 +9,7 @@ namespace Level {
     }
 
     private void OnBecameVisible() {
-      Debug.Log("Appear");
-      target.SetActive(true);
+      Instantiate(target);
     }
   }
 }
