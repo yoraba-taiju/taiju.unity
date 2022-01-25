@@ -31,14 +31,14 @@ namespace Donut.Values {
           }
           lastTouchedLeap_ = clock_.CurrentLeap;
           lastTouchedTick_ = currentTick;
-          historyBegin_ = Math.Max(historyBegin_, (currentTick <= Clock.HISTORY_LENGTH) ? 0 : currentTick - Clock.HISTORY_LENGTH + 1);
+          historyBegin_ = Math.Max(historyBegin_, (currentTick >= Clock.HISTORY_LENGTH) ? currentTick - Clock.HISTORY_LENGTH + 1 : 0);
         } else if (lastTouchedTick_ != currentTick) {
           var v = entries_[lastTouchedTick_ % Clock.HISTORY_LENGTH];
           for (var i = lastTouchedTick_; i <= currentTick; i++) {
             entries_[i % Clock.HISTORY_LENGTH] = v;
           }
           lastTouchedTick_ = currentTick;
-          historyBegin_ = Math.Max(historyBegin_, (currentTick <= Clock.HISTORY_LENGTH) ? 0 : currentTick - Clock.HISTORY_LENGTH + 1);
+          historyBegin_ = Math.Max(historyBegin_, (currentTick >= Clock.HISTORY_LENGTH) ? currentTick - Clock.HISTORY_LENGTH + 1 : 0);
         }
         return ref entries_[currentTick % Clock.HISTORY_LENGTH];
       }
