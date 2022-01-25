@@ -60,10 +60,9 @@ namespace Tests.Editor {
     [Test]
     public void InvalidOperation() {
       var clock = new Clock();
+      clock.Tick();
       var w = new Sparse<int>(clock, 1);
-      for (var i = 0; i < Clock.HISTORY_LENGTH; ++i) {
-        clock.Tick();
-      }
+      clock.Back();
       Assert.Throws<InvalidOperationException>(() => {
         var unused = w.Value;
       });

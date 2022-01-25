@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Donut.Values {
   public struct Dense<T> {
@@ -20,6 +21,7 @@ namespace Donut.Values {
     public ref T Value {
       get {
         var currentTick = clock_.CurrentTick;
+        Debug.Log($"{currentTick}, {historyBegin_}");
         if (currentTick < historyBegin_) {
           throw new InvalidOperationException("Can't access before value born.");
         }
