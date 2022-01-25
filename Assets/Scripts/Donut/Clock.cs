@@ -34,7 +34,7 @@ namespace Donut {
         return;
       }
       currentTick_++;
-      historyBegin_ = (currentTick_ >= HISTORY_LENGTH) ? (currentTick_ - HISTORY_LENGTH + 1) : 0;
+      historyBegin_ = Math.Max(historyBegin_, (currentTick_ >= HISTORY_LENGTH) ? (currentTick_ - HISTORY_LENGTH + 1) : 0);
       historyEnd_ = currentTick_;
     }
 
