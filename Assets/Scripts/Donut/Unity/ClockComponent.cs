@@ -3,16 +3,17 @@ using UnityEngine.Playables;
 
 namespace Donut.Unity {
   public sealed class ClockComponent: MonoBehaviour {
+    /* Clock */
+    private readonly Clock clock_ = new();
+
     /* player info */
     private PlayerInput playerInput_;
     private PlayableDirector playableDirector_;
-    private Clock clock_;
-    
+
     /* Timeline */
     private readonly double[] timeHistory_ = new double[Clock.HISTORY_LENGTH];
-    
+
     private void Start() {
-      clock_ = new Clock();
       playableDirector_ = gameObject.GetComponent<PlayableDirector>();
       playerInput_ = new PlayerInput();
       playerInput_.Enable();

@@ -6,8 +6,14 @@ namespace Donut.Unity {
   public class TransformWithHistory: MonoBehaviour {
     // Clock
     private ClockComponent clockComponent_;
+    private Graveyard graveyard_;
     private Clock clock_;
     private uint bornAt_;
+
+    public uint BornAt {
+      get => bornAt_;
+      private set => bornAt_ = value;
+    }
 
     // Visibility
     [SerializeField] public bool destroyWhenInvisible = true;
@@ -21,6 +27,7 @@ namespace Donut.Unity {
     private void Start() {
       var obj = GameObject.FindGameObjectWithTag("Clock");
       clockComponent_ = obj.GetComponent<ClockComponent>();
+      graveyard_ = obj.GetComponent<Graveyard>();
       clock_ = clockComponent_.Clock;
       bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {
@@ -42,8 +49,7 @@ namespace Donut.Unity {
         var visible = renderers_.Any(it => it.isVisible);
         if (wasVisible_) {
           if (!visible) {
-            // TODO
-            Destroy(gameObject);
+            graveyard_.Destroy(gameObject);
           }
         } else {
           wasVisible_ = visible;

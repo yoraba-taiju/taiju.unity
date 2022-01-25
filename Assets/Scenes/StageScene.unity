@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 1016049314}
   - component: {fileID: 1016049313}
   - component: {fileID: 1016049315}
+  - component: {fileID: 1016049316}
   m_Layer: 0
   m_Name: Clock
   m_TagString: Clock
@@ -455,6 +456,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4f61f3d2fed40dea34a38590544adcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1016049316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016049312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a7f2cf5f8894cbe906f70a9bb451e63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1095268799
@@ -517,6 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d15ecc74f9747e3b0fe19b8515759bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyWhenInvisible: 1
 --- !u!58 &1095268803
 CircleCollider2D:
   m_ObjectHideFlags: 0
