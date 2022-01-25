@@ -46,6 +46,7 @@ namespace Donut.Unity {
         return;
       }
       if(destroyWhenInvisible) { // Visibility Management
+        // TODO: Only vanishes when ticking
         var visible = renderers_.Any(it => it.isVisible);
         if (wasVisible_) {
           if (!visible) {
