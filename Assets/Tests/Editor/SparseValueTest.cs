@@ -47,10 +47,14 @@ namespace Tests.Editor {
         clock.Tick();
         v.Value = i;
       }
+      var backCount = 0;
       for (var i = Clock.HISTORY_LENGTH * 2 - 1; i >= Clock.HISTORY_LENGTH; --i) {
         Assert.AreEqual(i, v.Value);
+        Assert.AreEqual(clock.CurrentTick, v.Value + 4);
         clock.Back();
+        backCount++;
       }
+      Assert.AreEqual(Clock.HISTORY_LENGTH, backCount);
       Assert.Throws<InvalidOperationException>(() => {
         var unused = v.Value;
       });
