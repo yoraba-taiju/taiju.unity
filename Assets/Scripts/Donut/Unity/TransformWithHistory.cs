@@ -45,8 +45,7 @@ namespace Donut.Unity {
         Destroy(gameObject);
         return;
       }
-      if(destroyWhenInvisible) { // Visibility Management
-        // TODO: Only vanishes when ticking
+      if(destroyWhenInvisible && clock_.IsTicking) { // Visibility Management
         var visible = renderers_.Any(it => it.isVisible);
         if (wasVisible_) {
           if (!visible) {
