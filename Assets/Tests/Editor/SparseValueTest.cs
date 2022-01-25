@@ -39,6 +39,7 @@ namespace Tests.Editor {
     [Test]
     public void LongTest() {
       var clock = new Clock();
+      var w = new Sparse<int>(clock, 1);
       clock.Tick();
       clock.Tick();
       clock.Tick();
@@ -56,7 +57,7 @@ namespace Tests.Editor {
       }
       Assert.AreEqual(Clock.HISTORY_LENGTH, backCount);
       Assert.Throws<InvalidOperationException>(() => {
-        var unused = v.Value;
+        var unused = w.Value;
       });
     }
   }
