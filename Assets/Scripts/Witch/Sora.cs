@@ -8,7 +8,7 @@ namespace Witch {
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
     }
     protected override void OnUpdate() {
-      var player = PlayerInput.Player;
+      var player = playerInput.Player;
       var move = player.Move.ReadValue<Vector2>() * Time.deltaTime * 7;
       var trans = transform;
       var pos = trans.position;

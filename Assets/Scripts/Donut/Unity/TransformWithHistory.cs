@@ -8,12 +8,7 @@ namespace Donut.Unity {
     private ClockComponent clockComponent_;
     private Graveyard graveyard_;
     private Clock clock_;
-    private uint bornAt_;
-
-    public uint BornAt {
-      get => bornAt_;
-      private set => bornAt_ = value;
-    }
+    public uint BornAt { get; private set; }
 
     // Visibility
     [SerializeField] public bool destroyWhenInvisible = true;
@@ -29,7 +24,7 @@ namespace Donut.Unity {
       clockComponent_ = obj.GetComponent<ClockComponent>();
       graveyard_ = obj.GetComponent<Graveyard>();
       clock_ = clockComponent_.Clock;
-      bornAt_ = clock_.CurrentTick;
+      BornAt = clock_.CurrentTick;
       if (destroyWhenInvisible) {
         renderers_ = GetComponentsInChildren<Renderer>();
         wasVisible_ = renderers_.All(it => it.isVisible);
@@ -41,7 +36,7 @@ namespace Donut.Unity {
     }
 
     private void Update() {
-      if (bornAt_ > clock_.CurrentTick) {
+      if (BornAt > clock_.CurrentTick) {
         Destroy(gameObject);
         return;
       }

@@ -2,14 +2,14 @@
 
 namespace Donut.Unity {
   public abstract class DonutBehaviour: MonoBehaviour {
-    private ClockComponent clockComponent_;
     protected Clock clock;
-    protected PlayerInput PlayerInput => clockComponent_.PlayerInput;
+    protected PlayerInput playerInput;
     protected abstract void OnStart();
     private void Start() {
       var obj = GameObject.FindGameObjectWithTag("Clock");
-      clockComponent_ = obj.GetComponent<ClockComponent>();
-      clock = clockComponent_.Clock;
+      var clockComponent = obj.GetComponent<ClockComponent>();
+      playerInput = clockComponent.PlayerInput;
+      clock = clockComponent.Clock;
       OnStart();
     }
     protected abstract void OnUpdate();

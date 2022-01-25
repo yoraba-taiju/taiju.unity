@@ -16,13 +16,13 @@ namespace Donut {
     public bool IsLeaping => state_ == State.Leaping;
 
     /* current leaps */
-    private uint currentLeap_ = 0;
-    private uint currentTick_ = 0;
+    public uint CurrentLeap { get; private set; } = 0;
+    public uint CurrentTick { get; private set; } = 0;
 
     /* History management */
     private readonly uint[] historyBranches_ = new uint[HISTORY_LENGTH];
-    private uint historyBegin_ = 0;
-    private uint historyEnd_ = 0;
+    private uint HistoryBegin { get; set; }
+    private uint HistoryEnd => CurrentTick;
 
     public Clock() {
       historyBranches_[0] = 0;
@@ -33,18 +33,16 @@ namespace Donut {
         DecideToLeap();
         return;
       }
-      currentTick_++;
-      historyBegin_ = Math.Max(historyBegin_, (currentTick_ >= HISTORY_LENGTH) ? (currentTick_ - HISTORY_LENGTH + 1) : 0);
-      historyEnd_ = currentTick_;
+      CurrentTick++;
+      HistoryBegin = Math.Max(HistoryBegin, (CurrentTick >= HISTORY_LENGTH) ? (CurrentTick - HISTORY_LENGTH + 1) : 0);
     }
 
     public void Back() {
       if (state_ == State.Ticking) {
         state_ = State.Leaping;
       }
-      if (currentTick_ > historyBegin_) {
-        currentTick_--;
-        historyEnd_ = currentTick_;
+      if (CurrentTick > HistoryBegin) {
+        CurrentTick--;
       }
     }
 
@@ -53,14 +51,13 @@ namespace Donut {
         throw new InvalidOperationException("Clock can't leap before using magick.");
       }
 
-      for (var i = (currentLeap_ >= HISTORY_LENGTH) ? (currentLeap_ - HISTORY_LENGTH) : 0; i <= currentLeap_; ++i) {
+      for (var i = (CurrentLeap >= HISTORY_LENGTH) ? (CurrentLeap - HISTORY_LENGTH) : 0; i <= CurrentLeap; ++i) {
         var idx = i % HISTORY_LENGTH;
-        historyBranches_[idx] = Math.Min(historyBranches_[idx], currentTick_);
+        historyBranches_[idx] = Math.Min(historyBranches_[idx], CurrentTick);
       }
 
-      currentLeap_++;
-      historyBranches_[currentLeap_ % HISTORY_LENGTH] = uint.MaxValue;
-      historyEnd_ = currentTick_;
+      CurrentLeap++;
+      historyBranches_[CurrentLeap % HISTORY_LENGTH] = uint.MaxValue;
       state_ = State.Ticking;
     }
 
@@ -70,11 +67,5 @@ namespace Donut {
     public uint BranchTick(uint leap) {
       return historyBranches_[leap % HISTORY_LENGTH];
     }
-    
-    public uint CurrentTick => currentTick_;
-    public uint CurrentLeap => currentLeap_;
-
-    public uint HistoryBegin => historyBegin_;
-    public uint HistoryEnd => historyEnd_;
   }
 }
