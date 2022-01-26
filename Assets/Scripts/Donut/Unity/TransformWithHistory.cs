@@ -8,7 +8,7 @@ namespace Donut.Unity {
     private ClockComponent clockComponent_;
     private Graveyard graveyard_;
     private Clock clock_;
-    public uint BornAt { get; private set; }
+    private uint BornAt { get; set; }
 
     // Visibility
     [SerializeField] public bool destroyWhenInvisible = true;
