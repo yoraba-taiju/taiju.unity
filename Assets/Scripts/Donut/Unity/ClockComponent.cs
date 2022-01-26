@@ -4,23 +4,23 @@ using UnityEngine.Playables;
 namespace Donut.Unity {
   public sealed class ClockComponent: MonoBehaviour {
     // getter
-    public PlayerInput PlayerInput { get; } = new();
+    public PlayerInput PlayerInput { get; private set; }
     public Clock Clock { get; } = new();
 
     /* player info */
-    private PlayerInput playerInput_;
     private PlayableDirector playableDirector_;
 
     /* Timeline */
     private readonly double[] timeHistory_ = new double[Clock.HISTORY_LENGTH];
 
     private void Start() {
-      playableDirector_ = gameObject.GetComponent<PlayableDirector>();
+      PlayerInput = new PlayerInput();
       PlayerInput.Enable();
+      playableDirector_ = gameObject.GetComponent<PlayableDirector>();
     }
 
     private void LateUpdate() {
-      var player = playerInput_.Player;
+      var player = PlayerInput.Player;
       var backPressed = player.BackClock;
       if (backPressed.IsPressed()) {
         Clock.Back();

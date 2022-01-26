@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6413188552317400813}
   - component: {fileID: 6413188552317400814}
   - component: {fileID: 6413188552317400812}
+  - component: {fileID: 5200809274809147822}
   - component: {fileID: 6413188552317400815}
   m_Layer: 0
   m_Name: RedBullet
@@ -49,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d15ecc74f9747e3b0fe19b8515759bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderTarget: {fileID: 6413188554239388772}
+  destroyWhenInvisible: 1
 --- !u!114 &6413188552317400814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +78,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foreground: {fileID: 6413188553842928462}
+--- !u!114 &5200809274809147822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6413188552317400800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e206a7508340460098cbb8ae1083e3ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!58 &6413188552317400815
 CircleCollider2D:
   m_ObjectHideFlags: 0
