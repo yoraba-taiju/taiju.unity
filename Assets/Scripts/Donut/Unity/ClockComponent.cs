@@ -31,7 +31,9 @@ namespace Donut.Unity {
 
       var player = PlayerInput.Player;
       var backPressed = player.BackClock;
-      timeToTick_ += 1.0f / 30.0f;
+      while (timeToTick_ < 0) {
+        timeToTick_ += 1.0f / 30.0f;
+      }
       if (backPressed.IsPressed()) {
         Clock.Back();
         playableDirector_.time = timeHistory_[Clock.CurrentTick % Clock.HISTORY_LENGTH];
