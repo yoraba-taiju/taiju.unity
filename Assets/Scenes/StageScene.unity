@@ -465,7 +465,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &747168048
 Transform:
   m_ObjectHideFlags: 0
@@ -882,9 +882,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e67995546249c087f3160eba7095ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.2
+  speed: 10
   angle: 5
-  intervalFrames: 5
+  clockInterval: 3
   bulletForOdd: {fileID: 6413188552317400800, guid: 73fec64e526061147b143f7057eb8fa4, type: 3}
   numBulletForOdd: 3
   bulletForEven: {fileID: 4074047190606247663, guid: 5eb10b2ac69b3e943837b34617a1654d, type: 3}

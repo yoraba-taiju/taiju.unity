@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enemy.Bullet {
   public sealed class FixedSpeedAim : DonutBehaviour {
-    [SerializeField] public float speed = 0.1f;
+    [SerializeField] public float speed = 10.0f;
     [SerializeField] public float angle;
     private GameObject sora_;
     private Vector3 direction_;
@@ -28,7 +28,7 @@ namespace Enemy.Bullet {
     }
 
     protected override void OnUpdate() {
-      transform.position += direction_;
+      transform.position += direction_ * Time.deltaTime;
     }
   }
 }
