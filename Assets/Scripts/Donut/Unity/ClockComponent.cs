@@ -29,11 +29,11 @@ namespace Donut.Unity {
         return;
       }
 
-      var player = PlayerInput.Player;
-      var backPressed = player.BackClock;
       while (timeToTick_ < 0) {
         timeToTick_ += 1.0f / 30.0f;
       }
+      var player = PlayerInput.Player;
+      var backPressed = player.BackClock;
       if (backPressed.IsPressed()) {
         Clock.Back();
         playableDirector_.time = timeHistory_[Clock.CurrentTick % Clock.HISTORY_LENGTH];
