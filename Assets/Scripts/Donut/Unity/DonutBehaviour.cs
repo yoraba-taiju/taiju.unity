@@ -6,10 +6,9 @@ namespace Donut.Unity {
     protected PlayerInput playerInput;
     protected abstract void OnStart();
     private void Start() {
-      var obj = GameObject.FindGameObjectWithTag("Clock");
-      var clockComponent = obj.GetComponent<ClockComponent>();
-      playerInput = clockComponent.PlayerInput;
-      clock = clockComponent.Clock;
+      var clockHolder = GameObject.FindGameObjectWithTag("Clock").GetComponent<ClockHolder>();
+      playerInput = clockHolder.PlayerInput;
+      clock = clockHolder.Clock;
       OnStart();
     }
     protected abstract void OnUpdate();

@@ -9,8 +9,7 @@ namespace Donut.Unity {
     private readonly LinkedList<Tuple<uint, GameObject>> objects_ = new();
 
     private void Start() {
-      var clockComponent = gameObject.GetComponent<ClockComponent>();
-      clock_ = clockComponent.Clock;
+      clock_ = gameObject.GetComponent<ClockHolder>().Clock;
     }
 
     private void Update() {

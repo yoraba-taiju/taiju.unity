@@ -8,9 +8,9 @@ namespace Enemy.Bullet {
     private Graveyard graveyard_;
     private Clock clock_;
     private void Start() {
-      var obj = GameObject.FindGameObjectWithTag("Clock");
-      graveyard_ = obj.GetComponent<Graveyard>();
-      clock_ = obj.GetComponent<ClockComponent>().Clock;
+      var clockObj = GameObject.FindGameObjectWithTag("Clock");
+      graveyard_ = clockObj.GetComponent<Graveyard>();
+      clock_ = clockObj.GetComponent<ClockHolder>().Clock;
     }
 
     private void OnTriggerEnter2D(Collider2D col) {

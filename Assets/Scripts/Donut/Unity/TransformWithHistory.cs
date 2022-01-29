@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Donut.Unity {
   public class TransformWithHistory: MonoBehaviour {
     // Clock
-    private ClockComponent clockComponent_;
     private Graveyard graveyard_;
     private Clock clock_;
     private uint BornAt { get; set; }
@@ -20,10 +19,9 @@ namespace Donut.Unity {
     private Dense<Vector3> scale_;
     private Dense<Quaternion> rot_;
     private void Start() {
-      var obj = GameObject.FindGameObjectWithTag("Clock");
-      clockComponent_ = obj.GetComponent<ClockComponent>();
-      graveyard_ = obj.GetComponent<Graveyard>();
-      clock_ = clockComponent_.Clock;
+      var clockObj = GameObject.FindGameObjectWithTag("Clock");
+      clock_ = clockObj.GetComponent<ClockHolder>().Clock;
+      graveyard_ = clockObj.GetComponent<Graveyard>();
       BornAt = clock_.CurrentTick;
       if (destroyWhenInvisible) {
         renderers_ = GetComponentsInChildren<Renderer>();
