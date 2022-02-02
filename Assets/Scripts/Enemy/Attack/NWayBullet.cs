@@ -56,8 +56,5 @@ namespace Enemy.Attack {
         }
       }
     }
-
-    private void Fire(GameObject prefab, uint num, float offset) {
-    }
   }
 }
