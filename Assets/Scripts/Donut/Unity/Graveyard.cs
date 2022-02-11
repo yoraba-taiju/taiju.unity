@@ -15,13 +15,13 @@ namespace Donut.Unity {
     private void Update() {
       var currentTick = clock_.CurrentTick;
       if (clock_.IsTicking) {
-        FlushOutdated(currentTick);
+        RemoveOutdated(currentTick);
       } else {
         RestoreOutdated(currentTick);
       }
     }
 
-    private void FlushOutdated(uint currentTick) {
+    private void RemoveOutdated(uint currentTick) {
       while (objects_.Count > 0) {
         var (destroyedAt, obj) = objects_.First.Value;
         if (destroyedAt + Clock.HISTORY_LENGTH < currentTick) {
