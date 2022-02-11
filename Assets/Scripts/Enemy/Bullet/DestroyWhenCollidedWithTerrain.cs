@@ -13,7 +13,7 @@ namespace Enemy.Bullet {
       clock_ = clockObj.GetComponent<ClockHolder>().Clock;
     }
 
-    private void OnTriggerEnter2D(Collider2D col) {
+    private void OnTriggerStay2D(Collider2D col) {
       if (col.gameObject.CompareTag("Terrain") && clock_.IsTicking) {
         graveyard_.Destroy(gameObject);
       }
