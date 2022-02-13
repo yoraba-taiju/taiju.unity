@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Donut {
   public class Clock {
@@ -25,7 +26,7 @@ namespace Donut {
     private uint HistoryEnd => CurrentTick;
 
     public Clock() {
-      historyBranches_[0] = 0;
+      historyBranches_[0] = uint.MaxValue;
     }
 
     public void Tick() {
@@ -59,6 +60,13 @@ namespace Donut {
       CurrentLeap++;
       historyBranches_[CurrentLeap % HISTORY_LENGTH] = uint.MaxValue;
       state_ = State.Ticking;
+      // {
+      //   var branches = "";
+      //   for (var i = (CurrentLeap >= HISTORY_LENGTH) ? (CurrentLeap - HISTORY_LENGTH) : 0; i <= CurrentLeap; ++i) {
+      //     branches += $"(i={historyBranches_[i % HISTORY_LENGTH]}), ";
+      //   }
+      //   UnityEngine.Debug.Log($"Leaping {CurrentLeap} at {CurrentTick}. branches: [{branches}]");
+      // }
     }
 
     public uint AdjustTick(uint lastTouchLeap, uint time) {

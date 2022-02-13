@@ -43,5 +43,13 @@ namespace Donut.Values {
         return ref entries_[currentTick % Clock.HISTORY_LENGTH];
       }
     }
+    public void Debug() {
+      var vs = "[";
+      for (var i = historyBegin_; i <= lastTouchedTick_; i++) {
+        vs += $"[{i}]{entries_[i % Clock.HISTORY_LENGTH]}, ";
+      }
+      vs += "]";
+      UnityEngine.Debug.Log($"Beg: {historyBegin_}, last: ({lastTouchedLeap_}, {lastTouchedTick_}), rec: {vs}");
+    }
   }
 }
