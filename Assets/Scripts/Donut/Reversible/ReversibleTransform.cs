@@ -1,9 +1,10 @@
 ﻿using System.Linq;
+using Donut.Unity;
 using Donut.Values;
 using UnityEngine;
 
-namespace Donut.Unity {
-  public class TransformWithHistory: MonoBehaviour {
+namespace Donut.Reversible {
+  public class ReversibleTransform: MonoBehaviour {
     // Clock
     private Graveyard graveyard_;
     private Clock clock_;

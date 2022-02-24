@@ -1,10 +1,11 @@
 ﻿using System.Linq;
+using Donut.Unity;
 using Donut.Values;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace Donut.Unity {
-  public class PlayableWithHistory: MonoBehaviour {
+namespace Donut.Reversible {
+  public class ReversiblePlayable: MonoBehaviour {
     // Clock
     private Clock clock_;
     private PlayableDirector playableDirector_;
