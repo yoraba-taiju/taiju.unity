@@ -8,7 +8,7 @@ namespace Donut.Reversible {
     // Clock
     private Graveyard graveyard_;
     private Clock clock_;
-    private uint BornAt { get; set; }
+    private uint bornAt_;
 
     // Visibility
     [SerializeField] public bool destroyWhenInvisible = true;
@@ -23,7 +23,7 @@ namespace Donut.Reversible {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
       clock_ = clockObj.GetComponent<ClockHolder>().Clock;
       graveyard_ = clockObj.GetComponent<Graveyard>();
-      BornAt = clock_.CurrentTick;
+      bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {
         renderers_ = GetComponentsInChildren<Renderer>();
         wasVisible_ = renderers_.All(it => it.isVisible);
@@ -35,7 +35,7 @@ namespace Donut.Reversible {
     }
 
     private void Update() {
-      if (BornAt > clock_.CurrentTick) {
+      if (bornAt_ > clock_.CurrentTick) {
         Destroy(gameObject);
         return;
       }
