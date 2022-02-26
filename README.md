@@ -11,10 +11,6 @@
 - [Unity - Manual: Order of execution for event functions](https://docs.unity3d.com/Manual/ExecutionOrder.html)
 - [【Unity】狙った順に処理したい時はスクリプトの実行順を指定する │ エクスプラボ](https://ekulabo.com/execution-order)
 
-### Timeline
-
-- [カスタム Timeline Marker の作成方法 | Unity Blog](https://blog.unity.com/ja/technology/how-to-create-custom-timeline-markers)
-
 ### Unit Test
 
 - [Unity Assembly Definition 完全に理解した](https://qiita.com/toRisouP/items/d206af3029c7d80326ed)
@@ -28,3 +24,8 @@
 ## Collision
 
 - [[Unity] 衝突判定における、IsTriggerとRigidbodyとIsKinematicのパターンを実験 - Qiita](https://qiita.com/sensuikan1973/items/055384e1145bbbe73e40)
+
+## Timeline
+
+- [カスタム Timeline Marker の作成方法 | Unity Blog](https://blog.unity.com/ja/technology/how-to-create-custom-timeline-markers)
+- [【Unity】Timelineからメソッドを呼ぶ新機能 「Marker」と「Signal、Signal Receiver」 - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2018/12/10/233146)
