@@ -17,9 +17,15 @@
 - [Unityでテストを書くのが当然になる時代に今から備えよう](https://qiita.com/naninunenoy/items/b5092774fed30739adbc)
 - [c# - How to set up unit tests in Unity and fix missing assembly reference error? - Stack Overflow](https://stackoverflow.com/questions/50223866/how-to-set-up-unit-tests-in-unity-and-fix-missing-assembly-reference-error)
 
-## Camera
+## Rendering
+
+### Camera
 
 - [【Unity】オブジェクトがカメラに写っているかと注意点 - ヘチマのノート](https://hetima333.hatenablog.com/entry/2017/02/13/161150)
+
+### Scriptable Render Pipeline
+
+- [【Unity】SRP (Scriptable Render Pipeline) 入門① - シェーダーTips](https://ny-program.hatenablog.com/entry/2021/06/13/185047)
 
 ## Collision
 
