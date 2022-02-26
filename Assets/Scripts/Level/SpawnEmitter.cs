@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Timeline;
 
 namespace Level {
@@ -6,5 +7,10 @@ namespace Level {
   {
     [SerializeField]
     public GameObject prefab;
+
+    public void OnEnable() {
+      // Fill in empty signal asset.
+      asset = ScriptableObject.CreateInstance<SignalAsset>();
+    }
   }
 }
