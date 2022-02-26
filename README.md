@@ -11,6 +11,10 @@
 - [Unity - Manual: Order of execution for event functions](https://docs.unity3d.com/Manual/ExecutionOrder.html)
 - [【Unity】狙った順に処理したい時はスクリプトの実行順を指定する │ エクスプラボ](https://ekulabo.com/execution-order)
 
+### Timeline
+
+- [カスタム Timeline Marker の作成方法 | Unity Blog](https://blog.unity.com/ja/technology/how-to-create-custom-timeline-markers)
+
 ### Unit Test
 
 - [Unity Assembly Definition 完全に理解した](https://qiita.com/toRisouP/items/d206af3029c7d80326ed)
