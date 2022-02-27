@@ -35,3 +35,8 @@
 
 - [カスタム Timeline Marker の作成方法 | Unity Blog](https://blog.unity.com/ja/technology/how-to-create-custom-timeline-markers)
 - [【Unity】Timelineからメソッドを呼ぶ新機能 「Marker」と「Signal、Signal Receiver」 - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2018/12/10/233146)
+
+## Animation
+
+- [【Unityネタ】アニメーションの再生開始位置をランダムにする - Raspberlyのブログ](https://raspberly.hateblo.jp/entry/UnityAnimatorNormalizedTime)
+- [UnityのMecanimアニメで、ムービープレーヤーのスライダーのような制御がしたい - Qiita](https://qiita.com/tetr4lab/items/db97a1f89f22f93e393d)
