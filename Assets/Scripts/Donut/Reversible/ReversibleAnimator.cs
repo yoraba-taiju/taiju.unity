@@ -52,7 +52,7 @@ namespace Donut.Reversible {
         var layerCount = animator_.layerCount;
         for (var i = 0; i < layerCount; i++) {
           ref var layer = ref layers_[i].Value;
-          animator_.Play(layer.hash, 0, layer.time);
+          animator_.Play(layer.hash, i, layer.time);
         }
       }
     }
