@@ -6,7 +6,7 @@ namespace Donut.Reversible {
   public class ReversibleAnimator: MonoBehaviour {
     // Clock
     private Clock clock_;
-    private uint BornAt { get; set; }
+    private uint bornAt_;
     private Animator animator_;
 
     // Animation records
@@ -20,7 +20,7 @@ namespace Donut.Reversible {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
       clock_ = clockObj.GetComponent<ClockHolder>().Clock;
       animator_ = gameObject.GetComponent<Animator>();
-      BornAt = clock_.CurrentTick;
+      bornAt_ = clock_.CurrentTick;
 
       var layerCount = animator_.layerCount;
       layers_ = new LayerState[layerCount];
@@ -32,7 +32,7 @@ namespace Donut.Reversible {
     } 
 
     private void Update() {
-      if (BornAt > clock_.CurrentTick) {
+      if (bornAt_ > clock_.CurrentTick) {
         Destroy(gameObject);
         return;
       }
