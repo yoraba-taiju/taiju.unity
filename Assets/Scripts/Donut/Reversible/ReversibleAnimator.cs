@@ -11,11 +11,13 @@ namespace Donut.Reversible {
 
     // Animation records
     private struct LayerState {
-      public Dense<int> hash;
-      public Dense<float> time;
+      public int hash;
+      public float time;
     };
+    public Dense<int> hash;
+    public Dense<float> time;
 
-    private LayerState[] layers_;
+    private Dense<LayerState>[] layers_;
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
       clock_ = clockObj.GetComponent<ClockHolder>().Clock;
@@ -23,11 +25,13 @@ namespace Donut.Reversible {
       bornAt_ = clock_.CurrentTick;
 
       var layerCount = animator_.layerCount;
-      layers_ = new LayerState[layerCount];
+      layers_ = new Dense<LayerState>[layerCount];
       for (var i = 0; i < layerCount; i++) {
         var info = animator_.GetCurrentAnimatorStateInfo(i);
-        layers_[i].hash = new Dense<int>(clock_, info.shortNameHash);
-        layers_[i].time = new Dense<float>(clock_, info.normalizedTime);
+        layers_[i] = new Dense<LayerState>(clock_, new LayerState {
+          hash = info.shortNameHash,
+          time = info.normalizedTime,
+        });
       }
     } 
 
@@ -40,13 +44,15 @@ namespace Donut.Reversible {
         var layerCount = animator_.layerCount;
         for (var i = 0; i < layerCount; i++) {
           var info = animator_.GetCurrentAnimatorStateInfo(i);
-          layers_[i].hash.Value = info.shortNameHash;
-          layers_[i].time.Value = info.normalizedTime;
+          ref var layer = ref layers_[i].Value;
+          layer.hash = info.shortNameHash;
+          layer.time = info.normalizedTime;
         }
       } else {
         var layerCount = animator_.layerCount;
         for (var i = 0; i < layerCount; i++) {
-          animator_.Play(layers_[i].hash.Value, 0, layers_[i].time.Value);
+          ref var layer = ref layers_[i].Value;
+          animator_.Play(layer.hash, 0, layer.time);
         }
       }
     }
