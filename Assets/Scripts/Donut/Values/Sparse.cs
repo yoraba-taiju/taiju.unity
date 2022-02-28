@@ -14,7 +14,13 @@ namespace Donut.Values {
     private uint entriesBeg_;
     private uint entriesLen_;
 
-    public Sparse(Clock clock, T initial) {
+    public delegate void Cloner(ref T dst, in T src);
+    private readonly Cloner cloner_;
+
+    public Sparse(Clock clock, T initial): this(clock, null, initial) {
+    }
+
+    public Sparse(Clock clock, Cloner clonerImpl, T initial) {
       clock_ = clock;
       entries_ = new Entry[Clock.HISTORY_LENGTH];
       entries_[0] = new Entry {
@@ -25,6 +31,7 @@ namespace Donut.Values {
       lastTouchedTick_ = clock.CurrentTick;
       entriesBeg_ = 0;
       entriesLen_ = 1;
+      cloner_ = clonerImpl;
     }
     
     private uint LowerBound(uint beg, uint end, uint tick) {
@@ -68,7 +75,14 @@ namespace Donut.Values {
         }
         entries_[idx].tick = currentTick;
         if (oldEntriesLen < entriesLen_) {
-          entries_[idx].value = entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value;
+          if (cloner_ == null) {
+            entries_[idx].value = entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value;
+          } else {
+            cloner_(
+              ref entries_[idx].value,
+              in entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value
+              );
+          }
         }
         lastTouchedLeap_ = currentLeap;
         lastTouchedTick_ = currentTick;
