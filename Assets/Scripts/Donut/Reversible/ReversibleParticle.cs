@@ -58,7 +58,6 @@ namespace Donut.Reversible {
       if (clock_.IsTicking) {
         ref var record = ref record_.Value;
         record.time = particleSystem_.time;
-        // FIXME: PERFORMANCE
         record.count = particleSystem_.GetParticles(record.particles);
         if (particleSystem_.isPaused) {
           particleSystem_.Play();
