@@ -16,9 +16,12 @@ namespace Donut.Reversible {
     private bool wasVisible_;
 
     // Transform records
-    private Dense<Vector3> position_;
-    private Dense<Vector3> scale_;
-    private Dense<Quaternion> rot_;
+    private struct Record {
+      public Vector3 position;
+      public Vector3 scale;
+      public Quaternion rot;
+    }
+    private Dense<Record> record_;
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
       clock_ = clockObj.GetComponent<ClockHolder>().Clock;
@@ -29,9 +32,11 @@ namespace Donut.Reversible {
         wasVisible_ = renderers_.All(it => it.isVisible);
       }
       var trans = transform;
-      position_ = new Dense<Vector3>(clock_, trans.localPosition);
-      scale_ = new Dense<Vector3>(clock_, trans.localScale);
-      rot_ = new Dense<Quaternion>(clock_, trans.localRotation);
+      record_ = new Dense<Record>(clock_, new Record() {
+        position = trans.localPosition,
+        scale = trans.localScale,
+        rot = trans.localRotation,
+      });
     }
 
     private void Update() {
@@ -52,13 +57,15 @@ namespace Donut.Reversible {
       { // Manage transforms
         var trans = transform;
         if (clock_.IsTicking) {
-          position_.Value = trans.localPosition;
-          scale_.Value = trans.localScale;
-          rot_.Value = trans.localRotation;
+          ref var record = ref record_.Value;
+          record.position = trans.localPosition;
+          record.scale = trans.localScale;
+          record.rot = trans.localRotation;
         } else {
-          trans.localPosition = position_.Value;
-          trans.localScale = scale_.Value;
-          trans.localRotation = rot_.Value;
+          ref var record = ref record_.Value;
+          trans.localPosition = record.position;
+          trans.localScale = record.scale;
+          trans.localRotation = record.rot;
         }
       }
     }

@@ -6,7 +6,7 @@ namespace Donut.Reversible {
   public class ReversibleRenderer: MonoBehaviour {
     // Clock
     private Clock clock_;
-    private uint BornAt { get; set; }
+    private uint bornAt_;
 
     // Visibility
     private Renderer renderer_;
@@ -16,13 +16,13 @@ namespace Donut.Reversible {
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
       clock_ = clockObj.GetComponent<ClockHolder>().Clock;
-      BornAt = clock_.CurrentTick;
+      bornAt_ = clock_.CurrentTick;
       renderer_ = gameObject.GetComponent<Renderer>();
       offset_ = new Dense<Vector2>(clock_, renderer_.material.mainTextureOffset);
     }
 
     private void Update() {
-      if (BornAt > clock_.CurrentTick) {
+      if (bornAt_ > clock_.CurrentTick) {
         Destroy(gameObject);
         return;
       }
