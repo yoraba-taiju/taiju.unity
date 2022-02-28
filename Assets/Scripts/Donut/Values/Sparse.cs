@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Donut.Values {
-  public struct Sparse<T> {
+  public struct Sparse<T> where T: struct {
     private struct Entry {
       public uint tick;
       public T value;
