@@ -1,4 +1,4 @@
-﻿namespace Donut.Values {
+﻿namespace Donut {
   public interface IValue<T> where T: struct {
     public ref readonly T Ref {
       get;
