@@ -44,14 +44,14 @@ namespace Donut.Reversible {
         var layerCount = animator_.layerCount;
         for (var i = 0; i < layerCount; i++) {
           var info = animator_.GetCurrentAnimatorStateInfo(i);
-          ref var layer = ref layers_[i].Value;
+          ref var layer = ref layers_[i].Mut;
           layer.hash = info.shortNameHash;
           layer.time = info.normalizedTime;
         }
       } else {
         var layerCount = animator_.layerCount;
         for (var i = 0; i < layerCount; i++) {
-          ref var layer = ref layers_[i].Value;
+          ref readonly var layer = ref layers_[i].Ref;
           animator_.Play(layer.hash, i, layer.time);
         }
       }

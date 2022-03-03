@@ -4,35 +4,37 @@ using Donut;
 using Donut.Values;
 
 namespace Tests.Editor {
-  public class DenseValueTest {
+  public abstract class ValueTest<T>
+    where T: IValue<int> {
+    protected abstract T Create(Clock clock, int initial);
     [Test]
     public void BasicTest() {
       var clock = new Clock();
-      var v = new Dense<int>(clock, 0);
+      var v = Create(clock, 0);
 
-      Assert.AreEqual(0, v.Value);
-      v.Value = 1;
-      Assert.AreEqual(1, v.Value);
+      Assert.AreEqual(0, v.Ref);
+      v.Mut = 1;
+      Assert.AreEqual(1, v.Ref);
       clock.Tick();
-      Assert.AreEqual(1, v.Value);
-      v.Value = 2;
-      Assert.AreEqual(2, v.Value);
+      Assert.AreEqual(1, v.Ref);
+      v.Mut = 2;
+      Assert.AreEqual(2, v.Ref);
       clock.Back();
-      Assert.AreEqual(1, v.Value);
+      Assert.AreEqual(1, v.Ref);
       clock.Tick();
-      Assert.AreEqual(1, v.Value);
-      v.Value = 3;
-      Assert.AreEqual(3, v.Value);
+      Assert.AreEqual(1, v.Ref);
+      v.Mut = 3;
+      Assert.AreEqual(3, v.Ref);
     }
 
     [Test]
     public void CantBeAccessedBefore() {
       var clock = new Clock();
       clock.Tick();
-      var v = new Dense<int>(clock, 0);
+      var v = Create(clock, 0);
       clock.Back();
       Assert.Throws<InvalidOperationException>(() => {
-        v.Value = 10;
+        v.Mut = 10;
       });
     }
 
@@ -42,15 +44,15 @@ namespace Tests.Editor {
       clock.Tick();
       clock.Tick();
       clock.Tick();
-      var v = new Dense<int>(clock, 0);
+      var v = Create(clock, 0);
       for (var i = 0; i < Clock.HISTORY_LENGTH * 2; ++i) {
         clock.Tick();
-        v.Value = i;
+        v.Mut = i;
       }
       var backCount = 0;
       for (var i = Clock.HISTORY_LENGTH * 2 - 1; i >= Clock.HISTORY_LENGTH; --i) {
-        Assert.AreEqual(i, v.Value);
-        Assert.AreEqual(clock.CurrentTick, v.Value + 4);
+        Assert.AreEqual(i, v.Ref);
+        Assert.AreEqual(clock.CurrentTick, v.Ref + 4);
         clock.Back();
         backCount++;
       }
@@ -60,12 +62,22 @@ namespace Tests.Editor {
     public void InvalidOperation() {
       var clock = new Clock();
       clock.Tick();
-      var w = new Dense<int>(clock, 1);
+      var w = Create(clock, 1);
       clock.Back();
       Assert.Throws<InvalidOperationException>(() => {
-        var unused = w.Value;
+        var unused = w.Ref;
       });
     }
+  }
 
+  public class DenseValueTest : ValueTest<Dense<int>> {
+    protected override Dense<int> Create(Clock clock, int initial) {
+      return new Dense<int>(clock, initial);
+    }
+  }
+  public class SparseValueTest : ValueTest<Sparse<int>> {
+    protected override Sparse<int> Create(Clock clock, int initial) {
+      return new Sparse<int>(clock, initial);
+    }
   }
 }

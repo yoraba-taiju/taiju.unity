@@ -56,14 +56,14 @@ namespace Donut.Reversible {
         return;
       }
       if (clock_.IsTicking) {
-        ref var record = ref record_.Value;
+        ref var record = ref record_.Mut;
         record.time = particleSystem_.time;
         record.count = particleSystem_.GetParticles(record.particles);
         if (particleSystem_.isPaused) {
           particleSystem_.Play();
         }
       } else {
-        ref var record = ref record_.Value;
+        ref readonly var record = ref record_.Ref;
         particleSystem_.time = record.time;
         particleSystem_.SetParticles(record.particles, record.count, 0);
         if (particleSystem_.isPlaying) {

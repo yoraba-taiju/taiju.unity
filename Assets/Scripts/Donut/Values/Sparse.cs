@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Donut.Values {
-  public struct Sparse<T> where T: struct {
+  public struct Sparse<T>: IValue<T> where T: struct {
     private struct Entry {
       public uint tick;
       public T value;
@@ -34,7 +34,7 @@ namespace Donut.Values {
       cloner_ = clonerImpl;
     }
     
-    private uint LowerBound(uint beg, uint end, uint tick) {
+    private readonly uint LowerBound(uint beg, uint end, uint tick) {
       while (beg < end) {
         var midIdx = beg + (end - beg) / 2;
         var midTick = entries_[midIdx % Clock.HISTORY_LENGTH].tick;
@@ -47,7 +47,31 @@ namespace Donut.Values {
       return beg;
     }
 
-    public ref T Value {
+    public ref readonly T Ref {
+      get {
+        var currentTick = clock_.CurrentTick;
+        var currentLeap = clock_.CurrentLeap;
+        if (currentLeap == lastTouchedLeap_ && currentTick == lastTouchedTick_) {
+          return ref entries_[(entriesBeg_ + entriesLen_ - 1) % Clock.HISTORY_LENGTH].value;
+        }
+        var rawIdx = LowerBound(
+          entriesBeg_,
+          entriesBeg_ + entriesLen_,
+          currentTick
+        );
+        var idx = rawIdx % Clock.HISTORY_LENGTH;
+        if (currentTick < entries_[idx].tick) {
+          throw new InvalidOperationException("Can't access before value born.");
+        }
+        var currentLen = rawIdx - entriesBeg_ + 1;
+        entriesLen_ = Math.Min(currentLen, entriesLen_);
+        lastTouchedLeap_ = currentLeap;
+        lastTouchedTick_ = currentTick;
+        return ref entries_[idx].value;
+      }
+    }
+
+    public ref T Mut {
       get {
         var currentTick = clock_.CurrentTick;
         var currentLeap = clock_.CurrentLeap;

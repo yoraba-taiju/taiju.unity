@@ -57,12 +57,12 @@ namespace Donut.Reversible {
       { // Manage transforms
         var trans = transform;
         if (clock_.IsTicking) {
-          ref var record = ref record_.Value;
+          ref var record = ref record_.Mut;
           record.position = trans.localPosition;
           record.scale = trans.localScale;
           record.rot = trans.localRotation;
         } else {
-          ref var record = ref record_.Value;
+          ref readonly var record = ref record_.Ref;
           trans.localPosition = record.position;
           trans.localScale = record.scale;
           trans.localRotation = record.rot;

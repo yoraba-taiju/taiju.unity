@@ -28,9 +28,9 @@ namespace Donut.Reversible {
       }
 
       if (clock_.IsTicking) {
-        offset_.Value = renderer_.material.mainTextureOffset;
+        offset_.Mut = renderer_.material.mainTextureOffset;
       } else {
-        renderer_.material.mainTextureOffset = offset_.Value;
+        renderer_.material.mainTextureOffset = offset_.Ref;
       }
     }
   }

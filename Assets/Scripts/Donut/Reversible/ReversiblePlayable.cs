@@ -26,11 +26,11 @@ namespace Donut.Reversible {
         return;
       }
       if (clock_.IsTicking) {
-        time_.Value = playableDirector_.time;
+        time_.Mut = playableDirector_.time;
       } else {
-        // Debug.Log($"Back: {clock_.CurrentTick}: {playableDirector_.time} -> {time_.Value}");
+        // Debug.Log($"Back: {clock_.CurrentTick}: {playableDirector_.time} -> {time_.Ref}");
         // time_.Debug();
-        playableDirector_.time = time_.Value;
+        playableDirector_.time = time_.Ref;
       }
     }
   }
