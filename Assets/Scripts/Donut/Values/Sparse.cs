@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Donut.Values {
   public struct Sparse<T>: IValue<T> where T: struct {
@@ -34,8 +35,19 @@ namespace Donut.Values {
       cloner_ = clonerImpl;
     }
     
+    public void Debug() {
+      var vs = "[";
+      for (var i = 0; i < entriesLen_; i++) {
+        ref readonly var e = ref entries_[(i+entriesBeg_) % Clock.HISTORY_LENGTH];
+        vs += $"[{i}]({e.tick}, {e.value}), ";
+      }
+      vs += "]";
+      UnityEngine.Debug.Log($"rec: {vs}");
+    }
+    
     private readonly uint LowerBound(uint beg, uint end, uint tick) {
       while (beg < end) {
+        // tick[beg] < tick <= tick[end]
         var midIdx = beg + (end - beg) / 2;
         var midTick = entries_[midIdx % Clock.HISTORY_LENGTH].tick;
         if (tick <= midTick) {
@@ -51,7 +63,7 @@ namespace Donut.Values {
       get {
         var currentTick = clock_.CurrentTick;
         var currentLeap = clock_.CurrentLeap;
-        if (currentLeap == lastTouchedLeap_ && currentTick == lastTouchedTick_) {
+        if (currentLeap == lastTouchedLeap_ && lastTouchedTick_ <= currentTick) {
           return ref entries_[(entriesBeg_ + entriesLen_ - 1) % Clock.HISTORY_LENGTH].value;
         }
         var rawIdx = LowerBound(
@@ -59,15 +71,17 @@ namespace Donut.Values {
           entriesBeg_ + entriesLen_,
           currentTick
         );
+
         var idx = rawIdx % Clock.HISTORY_LENGTH;
         if (currentTick < entries_[idx].tick) {
           throw new InvalidOperationException("Can't access before value born.");
         }
         var currentLen = rawIdx - entriesBeg_ + 1;
+        ref var e = ref entries_[idx];
         entriesLen_ = Math.Min(currentLen, entriesLen_);
         lastTouchedLeap_ = currentLeap;
-        lastTouchedTick_ = currentTick;
-        return ref entries_[idx].value;
+        lastTouchedTick_ = e.tick;
+        return ref e.value;
       }
     }
 
@@ -83,6 +97,7 @@ namespace Donut.Values {
           entriesBeg_ + entriesLen_,
           currentTick
         );
+        UnityEngine.Debug.Log($"{rawIdx}");
         var oldEntriesLen = entriesLen_;
         var idx = rawIdx % Clock.HISTORY_LENGTH;
         if (idx == entriesBeg_) {

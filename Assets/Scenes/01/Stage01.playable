@@ -1,5 +1,22 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5528439914522698828
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
+  m_Name: Spawn Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 5.033333333333333
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: af5e76936b97f184e8a5a6eaf5a6eeb7, type: 2}
+  prefab: {fileID: 0}
 --- !u!114 &-4419501922103840173
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24,6 +41,7 @@ MonoBehaviour:
   m_Markers:
     m_Objects:
     - {fileID: 7569250418641217901}
+    - {fileID: -5528439914522698828}
 --- !u!114 &-3239647783080845849
 MonoBehaviour:
   m_ObjectHideFlags: 1
