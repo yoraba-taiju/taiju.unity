@@ -11,41 +11,39 @@ namespace Enemy.Motion {
 
     private GameObject sora_;
 
-    protected override void OnStart(out State first) {
-      first = State.Seek;
+    protected override Motion OnStart(out State self) {
       sora_ = GameObject.FindWithTag("Player");
+      self = State.Seek;
+      return new MoveToTarget(sora_, 3.0f);
     }
 
-    protected override void OnDispatch(ref State self) {
+    protected override Motion OnDispatch(ref State self) {
       var trans = transform;
+      Motion motion = null;
       switch (self) {
         case State.Seek: {
           var delta = sora_.transform.position - transform.position;
           var mag = delta.magnitude;
-          if (mag > 2.0f) {
-            speed.Mut = delta.normalized * 20.0f / mag;
-            rotationSpeed.Mut = Quaternion.identity;
-          } else {
+          if (mag <= 3.0f) {
             self = State.Watching;
-            speed.Mut = Vector3.zero;
-            rotationSpeed.Mut = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+            motion = new MoveToTarget(sora_, 0.5f).Chain(new RotateConstant(Quaternion.Euler(0.0f, 180.0f, 0.0f), 1f));
           }
           break;
         }
         case State.Watching:
-          if (trans.transform.rotation.eulerAngles.y > 180.0f) {
+          // FIXME
+          if (trans.rotation.eulerAngles.y < 180.0f) {
             self = State.Quit;
-            trans.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
-            rotationSpeed.Mut = Quaternion.identity;
+            motion = new MoveConstant(Vector3.right, 3.0f);
           }
           break;
         case State.Quit:
-          speed.Mut = Vector3.right * 5.0f;
           break;
         default:
           self = State.Quit;
           break;
       }
+      return motion;
     }
   }
 }
