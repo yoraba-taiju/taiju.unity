@@ -17,21 +17,30 @@ namespace Enemy.Plan {
     }
 
     protected override void OnDispatch(ref State self) {
+      var trans = transform;
       switch (self) {
         case State.Seek: {
           var delta = sora_.transform.position - transform.position;
-          if (delta.magnitude > 0.5f) {
-            transform.Translate(delta.normalized * 0.166f);
+          var mag = delta.magnitude;
+          if (mag > 2.0f) {
+            speed.Mut = delta.normalized * 20.0f / mag;
+            rotationSpeed.Mut = Quaternion.identity;
           } else {
             self = State.Watching;
+            speed.Mut = Vector3.zero;
+            rotationSpeed.Mut = Quaternion.Euler(0.0f, 90.0f, 0.0f);
           }
           break;
         }
         case State.Watching:
-          self = State.Quit;
+          if (trans.transform.rotation.eulerAngles.y > 180.0f) {
+            self = State.Quit;
+            trans.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
+            rotationSpeed.Mut = Quaternion.identity;
+          }
           break;
         case State.Quit:
-          transform.Translate(Vector3.right* 0.166f);
+          speed.Mut = Vector3.right * 5.0f;
           break;
         default:
           self = State.Quit;
