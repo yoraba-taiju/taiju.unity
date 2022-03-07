@@ -13,7 +13,9 @@ namespace Donut.Unity {
     }
     protected abstract void OnUpdate();
     private void Update() {
-      OnUpdate();
+      if (clock.IsTicking) {
+        OnUpdate();
+      }
     }
   }
 }
