@@ -26,7 +26,7 @@ namespace Enemy.Motion {
           var mag = delta.magnitude;
           if (mag <= 3.0f) {
             self = State.Watching;
-            motion = new MoveToTarget(sora_, 0.5f).Chain(new RotateConstant(Quaternion.Euler(0.0f, 180.0f, 0.0f), 1f));
+            motion = new MoveToTarget(sora_, 0.5f).Then(new RotateConstant(Quaternion.Euler(0.0f, 180.0f, 0.0f), 1f));
           }
           break;
         }

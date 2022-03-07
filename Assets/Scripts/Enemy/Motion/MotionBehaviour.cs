@@ -11,12 +11,14 @@ namespace Enemy.Motion {
 
     private struct State {
       public T state;
+      public float fromStart;
       public Motion motion;
     }
 
     protected override void OnStart() {
       var first = new State();
       first.motion = OnStart(out first.state);
+      first.fromStart = 0.0f;
       state_ = new Dense<State>(clock, first);
     }
 
@@ -26,19 +28,35 @@ namespace Enemy.Motion {
         var nextMotion = OnDispatch(ref state.state);
         if (nextMotion != null) {
           state.motion = nextMotion;
+          state.fromStart = 0.0f;
         }
       }
-      state.motion?.Move(gameObject, Time.deltaTime);
+      state.motion?.Move(gameObject, Time.deltaTime, state.fromStart);
+      state.fromStart += Time.deltaTime;
     }
 
     protected abstract Motion OnStart(out T self);
     protected abstract Motion OnDispatch(ref T self);
     
     protected abstract class Motion {
-      public abstract void Move(GameObject self, float deltaTime);
+      public abstract void Move(GameObject self, float deltaTime, float fromStart);
 
-      public virtual Motion Chain(Motion nextMotion) {
+      public virtual Motion Then(Motion nextMotion) {
         return new Chained(this, nextMotion);
+      }
+    }
+
+    protected class While: Motion {
+      private readonly Motion motion_;
+      private readonly float duration_;
+      public While(Motion motion, float duration) {
+        motion_ = motion;
+        duration_ = duration;
+      }
+      public override void Move(GameObject self, float deltaTime, float fromStart) {
+        if (fromStart <= duration_) {
+          motion_.Move(self, deltaTime, fromStart);
+        }
       }
     }
 
@@ -50,13 +68,13 @@ namespace Enemy.Motion {
         motions_.Add(b);
       }
 
-      public override void Move(GameObject self, float deltaTime) {
+      public override void Move(GameObject self, float deltaTime, float fromStart) {
         foreach (var motion in motions_) {
-          motion.Move(self, deltaTime);
+          motion.Move(self, deltaTime, fromStart);
         }
       }
 
-      public override Motion Chain(Motion nextMotion) {
+      public override Motion Then(Motion nextMotion) {
         motions_.Add(nextMotion);
         return this;
       }
@@ -69,7 +87,7 @@ namespace Enemy.Motion {
         target_ = target;
         speed_ = speed;
       }
-      public override void Move(GameObject self, float deltaTime) {
+      public override void Move(GameObject self, float deltaTime, float fromStart) {
         var trans = self.transform;
         var vec = (target_.transform.position - trans.position).normalized;
         trans.Translate(vec * deltaTime * speed_);
@@ -83,7 +101,7 @@ namespace Enemy.Motion {
         direction_ = direction;
         speed_ = speed;
       }
-      public override void Move(GameObject self, float deltaTime) {
+      public override void Move(GameObject self, float deltaTime, float fromStart) {
         self.transform.position += direction_ * deltaTime * speed_;
       }
     }
@@ -95,7 +113,7 @@ namespace Enemy.Motion {
         quaternion_ = quaternion;
         speed_ = speed;
       }
-      public override void Move(GameObject self, float deltaTime) {
+      public override void Move(GameObject self, float deltaTime, float fromStart) {
         self.transform.rotation *= Quaternion.Lerp(Quaternion.identity,quaternion_, deltaTime * speed_);
       }
     }
