@@ -1,8 +1,8 @@
 ﻿using Donut.Unity;
 using UnityEngine;
 
-namespace Enemy.Plan {
-  public class Drone2: StateBehaviour<Drone2.State> {
+namespace Enemy.Motion {
+  public class Drone2: MotionBehaviour<Drone2.State> {
     public enum State {
       Seek,
       Watching,

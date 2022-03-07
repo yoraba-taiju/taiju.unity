@@ -3,8 +3,8 @@ using Donut.Unity;
 using Donut.Values;
 using UnityEngine;
 
-namespace Enemy.Plan {
-  public abstract class StateBehaviour<T>: DonutBehaviour where T: struct {
+namespace Enemy.Motion {
+  public abstract class MotionBehaviour<T>: DonutBehaviour where T: struct {
     private Dense<T> current_;
     protected Dense<Vector3> speed;
     protected Dense<Quaternion> rotationSpeed;
