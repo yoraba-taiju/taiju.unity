@@ -4,7 +4,7 @@ using Donut.Values;
 using UnityEngine;
 
 namespace Enemy.Plan {
-  public abstract class PlannerBehaviour<T>: DonutBehaviour where T: struct {
+  public abstract class StateBehaviour<T>: DonutBehaviour where T: struct {
     private Dense<T> current_;
     protected Dense<Vector3> speed;
     protected Dense<Quaternion> rotationSpeed;
