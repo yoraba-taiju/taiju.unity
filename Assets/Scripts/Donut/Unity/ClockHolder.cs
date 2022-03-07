@@ -6,6 +6,7 @@ namespace Donut.Unity {
     // getter
     public PlayerInput PlayerInput { get; private set; }
     public Clock Clock { get; } = new();
+    public bool Ticked { get; private set; }
 
     /* Ticking */
     private float timeToTick_;
@@ -15,9 +16,11 @@ namespace Donut.Unity {
       PlayerInput = new PlayerInput();
       PlayerInput.Enable();
       timeToTick_ = MillsPerFrame;
+      Ticked = false;
     }
 
     private void LateUpdate() {
+      Ticked = false;
       timeToTick_ -= Time.deltaTime;
       if (timeToTick_ > 0.0f) {
         return;
@@ -30,6 +33,7 @@ namespace Donut.Unity {
         Clock.Back();
       } else {
         Clock.Tick();
+        Ticked = true;
       }
     }
   }
