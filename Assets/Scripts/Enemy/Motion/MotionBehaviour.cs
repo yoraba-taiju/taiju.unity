@@ -41,7 +41,7 @@ namespace Enemy.Motion {
     protected abstract class Motion {
       public abstract void Move(GameObject self, float deltaTime, float fromStart);
 
-      public virtual Motion Then(Motion nextMotion) {
+      public virtual Chained Then(Motion nextMotion) {
         return new Chained(this, nextMotion);
       }
     }
@@ -74,7 +74,7 @@ namespace Enemy.Motion {
         }
       }
 
-      public override Motion Then(Motion nextMotion) {
+      public override Chained Then(Motion nextMotion) {
         motions_.Add(nextMotion);
         return this;
       }
