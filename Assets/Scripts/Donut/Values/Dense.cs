@@ -17,8 +17,8 @@ namespace Donut.Values {
     public Dense(Clock clock, Cloner clonerImpl, T initial) {
       clock_ = clock;
       entries_ = new T[Clock.HISTORY_LENGTH];
-      entries_[0] = initial;
       historyBegin_ = clock.CurrentTick;
+      entries_[historyBegin_ % Clock.HISTORY_LENGTH] = initial;
       lastTouchedLeap_ = clock.CurrentLeap;
       lastTouchedTick_ = clock.CurrentTick;
       cloner_ = clonerImpl;
