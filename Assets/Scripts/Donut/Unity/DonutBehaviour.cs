@@ -13,9 +13,15 @@ namespace Donut.Unity {
       OnStart();
     }
     protected abstract void OnUpdate();
+
+    protected virtual void OnReverse() {
+      
+    }
     private void Update() {
       if (clock.IsTicking) {
         OnUpdate();
+      } else {
+        OnReverse();
       }
     }
   }
