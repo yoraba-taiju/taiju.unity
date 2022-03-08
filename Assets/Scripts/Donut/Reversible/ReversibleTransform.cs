@@ -44,7 +44,9 @@ namespace Donut.Reversible {
         Destroy(gameObject);
         return;
       }
-      if(destroyWhenInvisible && clock_.IsTicking) { // Visibility Management
+
+      var isTicking = clock_.IsTicking;
+      if(destroyWhenInvisible && isTicking) { // Visibility Management
         var visible = renderers_.Any(it => it.isVisible);
         if (wasVisible_) {
           if (!visible) {
@@ -56,7 +58,7 @@ namespace Donut.Reversible {
       }
       { // Manage transforms
         var trans = transform;
-        if (clock_.IsTicking) {
+        if (isTicking) {
           ref var record = ref record_.Mut;
           record.position = trans.localPosition;
           record.scale = trans.localScale;
