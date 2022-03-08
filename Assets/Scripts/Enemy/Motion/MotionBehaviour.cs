@@ -29,7 +29,7 @@ namespace Enemy.Motion {
           state.totalDuration = 0.0f;
         }
       }
-      state.motion?.Move(gameObject, Time.deltaTime, state.totalDuration);
+      state.motion.Move(gameObject, Time.deltaTime, state.totalDuration);
       state.totalDuration += Time.deltaTime;
     }
 
