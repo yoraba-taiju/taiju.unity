@@ -19,7 +19,7 @@ namespace Enemy.Attack {
       lastTick_ = clock.CurrentTick;
     }
 
-    protected override void OnUpdate() {
+    protected override void OnForward() {
       var currentTick = clock.CurrentTick;
       if (currentTick == lastTick_) {
         return;

@@ -12,14 +12,14 @@ namespace Donut.Unity {
       clock = clockHolder.Clock;
       OnStart();
     }
-    protected abstract void OnUpdate();
+    protected abstract void OnForward();
 
     protected virtual void OnReverse() {
       
     }
     private void Update() {
       if (clock.IsTicking) {
-        OnUpdate();
+        OnForward();
       } else {
         OnReverse();
       }

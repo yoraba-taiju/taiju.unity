@@ -20,7 +20,7 @@ namespace Enemy.Motion {
       state_ = new Dense<State>(clock, first);
     }
 
-    protected override void OnUpdate() {
+    protected override void OnForward() {
       ref var state = ref state_.Mut;
       if (clockHolder.Ticked) {
         var nextMotion = OnDispatch(ref state.state);

@@ -11,7 +11,7 @@ namespace Enemy.Bullet.Graphic {
       bornAt_ = clock.CurrentTick;
     }
 
-    protected override void OnUpdate() {
+    protected override void OnForward() {
       var scale = 0.88f + ((float)Math.Sin((clock.CurrentTick - bornAt_) / 30.0f * Math.PI * 2) * 0.05f);
       foreground.transform.localScale = Vector3.one * scale;
     }

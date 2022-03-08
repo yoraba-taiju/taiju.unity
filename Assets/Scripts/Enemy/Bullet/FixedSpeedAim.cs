@@ -27,7 +27,7 @@ namespace Enemy.Bullet {
       }
     }
 
-    protected override void OnUpdate() {
+    protected override void OnForward() {
       transform.position += direction_ * Time.deltaTime;
     }
   }
