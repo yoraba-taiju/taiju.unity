@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 163999548}
   - component: {fileID: 163999547}
   - component: {fileID: 163999546}
-  - component: {fileID: 163999545}
+  - component: {fileID: 163999549}
   m_Layer: 0
   m_Name: Timeline
   m_TagString: Untagged
@@ -190,21 +190,6 @@ Transform:
   m_Father: {fileID: 579062968}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &163999545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 163999543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals: []
-    m_Events: []
 --- !u!114 &163999546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,10 +232,25 @@ PlayableDirector:
   m_SceneBindings:
   - key: {fileID: 0}
     value: {fileID: 0}
-  - key: {fileID: -4419501922103840173, guid: 28189bb21fb9d494ea02dccd22ec838e, type: 2}
-    value: {fileID: 163999545}
+  - key: {fileID: 1925516610913927750, guid: 28189bb21fb9d494ea02dccd22ec838e, type: 2}
+    value: {fileID: 163999549}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &163999549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163999543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals: []
+    m_Events: []
 --- !u!1 &253968929
 GameObject:
   m_ObjectHideFlags: 0
