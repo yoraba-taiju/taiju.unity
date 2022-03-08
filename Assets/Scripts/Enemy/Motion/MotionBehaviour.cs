@@ -11,14 +11,14 @@ namespace Enemy.Motion {
 
     private struct State {
       public T state;
-      public float fromStart;
+      public float totalDuration;
       public Motion motion;
     }
 
     protected override void OnStart() {
       var first = new State();
       first.motion = OnStart(out first.state);
-      first.fromStart = 0.0f;
+      first.totalDuration = 0.0f;
       state_ = new Dense<State>(clock, first);
     }
 
@@ -28,11 +28,11 @@ namespace Enemy.Motion {
         var nextMotion = OnDispatch(ref state.state);
         if (nextMotion != null) {
           state.motion = nextMotion;
-          state.fromStart = 0.0f;
+          state.totalDuration = 0.0f;
         }
       }
-      state.motion?.Move(gameObject, Time.deltaTime, state.fromStart);
-      state.fromStart += Time.deltaTime;
+      state.motion?.Move(gameObject, Time.deltaTime, state.totalDuration);
+      state.totalDuration += Time.deltaTime;
     }
 
     protected abstract Motion OnStart(out T self);
