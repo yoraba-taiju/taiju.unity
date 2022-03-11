@@ -13,9 +13,7 @@ namespace Donut.Reversible {
     private struct LayerState {
       public int hash;
       public float time;
-    };
-    public Dense<int> hash;
-    public Dense<float> time;
+    }
 
     private Dense<LayerState>[] layers_;
     private void Start() {
