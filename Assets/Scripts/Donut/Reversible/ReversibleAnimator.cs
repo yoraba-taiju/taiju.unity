@@ -104,6 +104,8 @@ namespace Donut.Reversible {
           }
         }
         params_ = new Dense<ParameterState>(clock_, CloneParamState, initial);
+      } else {
+        params_ = null;
       }
     }
 
