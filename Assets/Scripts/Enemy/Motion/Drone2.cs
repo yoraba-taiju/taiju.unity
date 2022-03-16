@@ -11,9 +11,20 @@ namespace Enemy.Motion {
 
     private GameObject sora_;
 
+    private struct States {
+      public Motion kMove;
+    }
+
+    private States states_;
+    
+    private readonly Motion seekMotion_;
+
     protected override Motion OnStart(out State self) {
       sora_ = GameObject.FindWithTag("Player");
       self = State.Seek;
+      states_ = new States() {
+        kMove = new MoveToTarget(sora_, 3.0f),
+      };
       return new MoveToTarget(sora_, 3.0f);
     }
 
