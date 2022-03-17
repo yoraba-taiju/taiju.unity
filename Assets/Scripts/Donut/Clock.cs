@@ -17,8 +17,8 @@ namespace Donut {
     public bool IsLeaping => state_ == State.Leaping;
 
     /* current leaps */
-    public uint CurrentLeap { get; private set; } = 0;
-    public uint CurrentTick { get; private set; } = 0;
+    public uint CurrentLeap { get; private set; }
+    public uint CurrentTick { get; private set; }
 
     /* History management */
     private readonly uint[] historyBranches_ = new uint[HISTORY_LENGTH];
