@@ -10,23 +10,25 @@ namespace Donut.Reversible {
     private uint bornAt_;
     private Animator animator_;
 
-    // Animation records
+    // Layer states
     private struct LayerState {
       public int hash;
       public float time;
     }
     private Dense<LayerState>[] layers_;
 
+    // Parameters
     private struct ParameterState {
       public float[] floatStates;
       public int[] intStates;
       public bool[] boolStates;
     }
-
     private AnimatorControllerParameter[] parameters_;
     private int[] parameterIdx_;
-    private int[] triggers_;
     private Dense<ParameterState>? params_;
+
+    // Triggers
+    private int[] triggers_;
 
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
@@ -196,7 +198,6 @@ namespace Donut.Reversible {
             }
           }
         }
-
         if (triggers_ != null) {
           foreach(var t in triggers_) {
             animator_.ResetTrigger(t);
