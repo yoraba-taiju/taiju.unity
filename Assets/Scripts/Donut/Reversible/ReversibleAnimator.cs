@@ -25,6 +25,7 @@ namespace Donut.Reversible {
 
     private AnimatorControllerParameter[] parameters_;
     private int[] parameterIdx_;
+    private int[] triggers_;
     private Dense<ParameterState>? params_;
 
     private void Start() {
@@ -47,8 +48,11 @@ namespace Donut.Reversible {
 
       var parameters = animator_.parameters;
       var numValueParams = 0;
+      var numTriggers = 0;
       foreach (var p in parameters) {
-        if (p.type != AnimatorControllerParameterType.Trigger) {
+        if (p.type == AnimatorControllerParameterType.Trigger) {
+          numTriggers++;
+        } else {
           numValueParams++;
         }
       }
@@ -80,7 +84,6 @@ namespace Donut.Reversible {
               break;
           }
         }
-
         var initial = new ParameterState {
           floatStates = numFloat > 0 ? new float[numFloat] : null,
           intStates = numInt > 0 ? new int[numInt] : null,
@@ -106,6 +109,16 @@ namespace Donut.Reversible {
         params_ = new Dense<ParameterState>(clock_, CloneParamState, initial);
       } else {
         params_ = null;
+      }
+      if (numTriggers > 0) {
+        triggers_ = new int[numTriggers];
+        var triggerIdx = 0;
+        foreach (var p in parameters) {
+          if (p.type == AnimatorControllerParameterType.Trigger) {
+            triggers_[triggerIdx] = p.nameHash;
+            triggerIdx++;
+          }
+        }
       }
     }
 
@@ -137,7 +150,6 @@ namespace Donut.Reversible {
           layer.hash = info.shortNameHash;
           layer.time = info.normalizedTime;
         }
-
         if (params_ != null) {
           for (var i = 0; i < parameters_.Length; i++) {
             var p = parameters_[i];
@@ -164,7 +176,6 @@ namespace Donut.Reversible {
           ref readonly var layer = ref layers_[i].Ref;
           animator_.Play(layer.hash, i, layer.time);
         }
-
         if (params_ != null) {
           for (var i = 0; i < parameters_.Length; i++) {
             var p = parameters_[i];
@@ -183,6 +194,12 @@ namespace Donut.Reversible {
               default:
                 break;
             }
+          }
+        }
+
+        if (triggers_ != null) {
+          foreach(var t in triggers_) {
+            animator_.ResetTrigger(t);
           }
         }
       }
