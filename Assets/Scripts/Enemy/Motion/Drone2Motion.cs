@@ -33,8 +33,8 @@ namespace Enemy.Motion {
         }
       } else if (currentHash == Watching) {
         var delta = sora_.transform.position - trans.position;
-        var distance = delta.magnitude - 3.0f;
-        trans.localPosition += delta.normalized * Math.Clamp(distance, -0.1f, 0.1f) * Time.deltaTime;
+        var d = Math.Clamp(delta.magnitude - 3.0f, -0.7f, 0.7f);
+        trans.localPosition += delta.normalized * d * d * Time.deltaTime;
       } else if (currentHash == Return) {
         var pos = trans.localPosition;
         pos.x += 3.0f * Time.deltaTime;
