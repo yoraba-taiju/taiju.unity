@@ -33,6 +33,9 @@ namespace Donut.Reversible {
         // Debug.Log($"Back: {clock_.CurrentTick}: {playableDirector_.time} -> {time_.Ref}");
         // time_.Debug();
         playableDirector_.time = time_.Ref;
+        if (playableDirector_.state != PlayState.Playing) {
+          playableDirector_.Play();
+        }
       }
     }
   }
