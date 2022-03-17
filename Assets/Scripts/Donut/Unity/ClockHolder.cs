@@ -23,7 +23,7 @@ namespace Donut.Unity {
     private void LateUpdate() {
       Ticked = false;
       Backed = false;
-      timeToTick_ -= Time.unscaledTime;
+      timeToTick_ -= Time.unscaledDeltaTime;
       if (timeToTick_ > 0.0f) {
         return;
       }
