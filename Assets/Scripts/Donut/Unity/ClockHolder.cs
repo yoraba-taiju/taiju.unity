@@ -11,12 +11,12 @@ namespace Donut.Unity {
 
     /* Ticking */
     private float timeToTick_;
-    private const float MillsPerFrame = 1.0f / 30.0f;
+    private const float SecondPerFrame = 1.0f / 30.0f;
 
     private void Start() {
       PlayerInput = new PlayerInput();
       PlayerInput.Enable();
-      timeToTick_ = MillsPerFrame;
+      timeToTick_ = SecondPerFrame;
       Ticked = false;
     }
 
@@ -28,7 +28,7 @@ namespace Donut.Unity {
         return;
       }
       while (timeToTick_ < 0) {
-        timeToTick_ += MillsPerFrame;
+        timeToTick_ += SecondPerFrame;
       }
       var backPressed = PlayerInput.Player.BackClock;
       if (backPressed.IsPressed()) {
