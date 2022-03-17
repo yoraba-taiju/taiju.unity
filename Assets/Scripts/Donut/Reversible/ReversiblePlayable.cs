@@ -6,8 +6,8 @@ using UnityEngine.Playables;
 
 namespace Donut.Reversible {
   public class ReversiblePlayable : MonoBehaviour {
-  // Clock
-  private ClockHolder holder_;
+    // Clock
+    private ClockHolder holder_;
     private Clock clock_;
     private PlayableDirector playableDirector_;
     private uint bornAt_;
