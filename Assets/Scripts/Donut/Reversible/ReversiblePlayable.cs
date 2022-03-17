@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.Playables;
 
 namespace Donut.Reversible {
-  public class ReversiblePlayable: MonoBehaviour {
-    // Clock
+  public class ReversiblePlayable : MonoBehaviour {
+  // Clock
+  private ClockHolder holder_;
     private Clock clock_;
     private PlayableDirector playableDirector_;
     private uint bornAt_;
@@ -14,7 +15,8 @@ namespace Donut.Reversible {
     // Transform records
     private Dense<double> time_;
     private void Start() {
-      clock_ = GameObject.FindGameObjectWithTag("Clock").GetComponent<ClockHolder>().Clock;
+      holder_ = GameObject.FindGameObjectWithTag("Clock").GetComponent<ClockHolder>();
+      clock_ = holder_.Clock;
       bornAt_ = clock_.CurrentTick;
       playableDirector_ = gameObject.GetComponent<PlayableDirector>();
       time_ = new Dense<double>(clock_, playableDirector_.time);
@@ -25,9 +27,9 @@ namespace Donut.Reversible {
         Destroy(gameObject);
         return;
       }
-      if (clock_.IsTicking) {
+      if (holder_.Ticked) {
         time_.Mut = playableDirector_.time;
-      } else {
+      } else if (holder_.Backed) {
         // Debug.Log($"Back: {clock_.CurrentTick}: {playableDirector_.time} -> {time_.Ref}");
         // time_.Debug();
         playableDirector_.time = time_.Ref;

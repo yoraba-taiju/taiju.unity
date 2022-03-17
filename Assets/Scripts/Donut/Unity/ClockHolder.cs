@@ -7,6 +7,7 @@ namespace Donut.Unity {
     public PlayerInput PlayerInput { get; private set; }
     public Clock Clock { get; } = new();
     public bool Ticked { get; private set; }
+    public bool Backed { get; private set; }
 
     /* Ticking */
     private float timeToTick_;
@@ -21,7 +22,8 @@ namespace Donut.Unity {
 
     private void LateUpdate() {
       Ticked = false;
-      timeToTick_ -= Time.deltaTime;
+      Backed = false;
+      timeToTick_ -= Time.unscaledTime;
       if (timeToTick_ > 0.0f) {
         return;
       }
@@ -31,9 +33,12 @@ namespace Donut.Unity {
       var backPressed = PlayerInput.Player.BackClock;
       if (backPressed.IsPressed()) {
         Clock.Back();
+        Backed = true;
+        Time.timeScale = 0.0f;
       } else {
         Clock.Tick();
         Ticked = true;
+        Time.timeScale = 1.0f;
       }
     }
   }

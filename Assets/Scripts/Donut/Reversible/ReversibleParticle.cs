@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Donut.Reversible {
   public class ReversibleParticle: MonoBehaviour {
     // Clock
+    private ClockHolder holder_;
     private Clock clock_;
     private uint bornAt_;
     private ParticleSystem particleSystem_;
@@ -35,7 +36,8 @@ namespace Donut.Reversible {
 
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      clock_ = clockObj.GetComponent<ClockHolder>().Clock;
+      holder_ = clockObj.GetComponent<ClockHolder>();
+      clock_ = holder_.Clock;
       bornAt_ = clock_.CurrentTick;
       particleSystem_ = gameObject.GetComponent<ParticleSystem>();
       maxParticles_ = particleSystem_.main.maxParticles;
@@ -55,14 +57,14 @@ namespace Donut.Reversible {
         Destroy(gameObject);
         return;
       }
-      if (clock_.IsTicking) {
+      if (holder_.Ticked) {
         ref var record = ref record_.Mut;
         record.time = particleSystem_.time;
         record.count = particleSystem_.GetParticles(record.particles);
         if (particleSystem_.isPaused) {
           particleSystem_.Play();
         }
-      } else {
+      } else if (holder_.Backed) {
         ref readonly var record = ref record_.Ref;
         particleSystem_.time = record.time;
         particleSystem_.SetParticles(record.particles, record.count, 0);

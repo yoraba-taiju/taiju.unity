@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Donut.Reversible {
   public class ReversibleAnimator: MonoBehaviour {
     // Clock
+    private ClockHolder holder_;
     private Clock clock_;
     private uint bornAt_;
     private Animator animator_;
@@ -32,7 +33,8 @@ namespace Donut.Reversible {
 
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      clock_ = clockObj.GetComponent<ClockHolder>().Clock;
+      holder_ = clockObj.GetComponent<ClockHolder>();
+      clock_ = holder_.Clock;
       animator_ = gameObject.GetComponent<Animator>();
       bornAt_ = clock_.CurrentTick;
 
@@ -144,7 +146,7 @@ namespace Donut.Reversible {
         Destroy(gameObject);
         return;
       }
-      if (clock_.IsTicking) {
+      if (holder_.Ticked) {
         var layerCount = animator_.layerCount;
         for (var i = 0; i < layerCount; i++) {
           var info = animator_.GetCurrentAnimatorStateInfo(i);
@@ -172,7 +174,7 @@ namespace Donut.Reversible {
             }
           }
         }
-      } else {
+      } else if (holder_.Backed) {
         var layerCount = animator_.layerCount;
         for (var i = 0; i < layerCount; i++) {
           ref readonly var layer = ref layers_[i].Ref;

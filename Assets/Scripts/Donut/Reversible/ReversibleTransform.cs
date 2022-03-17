@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace Donut.Reversible {
   public class ReversibleTransform: MonoBehaviour {
-    // Clock
     private Graveyard graveyard_;
+
+    // Clock
+    private ClockHolder holder_;
     private Clock clock_;
     private uint bornAt_;
 
@@ -24,7 +26,8 @@ namespace Donut.Reversible {
     private Dense<Record> record_;
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      clock_ = clockObj.GetComponent<ClockHolder>().Clock;
+      holder_ = clockObj.GetComponent<ClockHolder>();
+      clock_ = holder_.Clock;
       graveyard_ = clockObj.GetComponent<Graveyard>();
       bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {
@@ -44,26 +47,30 @@ namespace Donut.Reversible {
         Destroy(gameObject);
         return;
       }
-
-      var isTicking = clock_.IsTicking;
-      if(destroyWhenInvisible && isTicking) { // Visibility Management
-        var visible = renderers_.Any(it => it.isVisible);
-        if (wasVisible_) {
-          if (!visible) {
-            graveyard_.Destroy(gameObject);
+      var ticked = holder_.Ticked;
+      var backed = holder_.Backed;
+      if (destroyWhenInvisible) {
+        if (ticked) {
+          var visible = renderers_.Any(it => it.isVisible);
+          if (wasVisible_) {
+            if (!visible) {
+              graveyard_.Destroy(gameObject);
+            }
+          } else {
+            wasVisible_ = visible;
           }
-        } else {
-          wasVisible_ = visible;
+        } else if (backed) {
+          wasVisible_ = false;
         }
       }
       { // Manage transforms
         var trans = transform;
-        if (isTicking) {
+        if (ticked) {
           ref var record = ref record_.Mut;
           record.position = trans.localPosition;
           record.scale = trans.localScale;
           record.rot = trans.localRotation;
-        } else {
+        } else if (backed) {
           ref readonly var record = ref record_.Ref;
           trans.localPosition = record.position;
           trans.localScale = record.scale;
