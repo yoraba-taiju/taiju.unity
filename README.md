@@ -47,6 +47,7 @@
 - [【Unityネタ】アニメーションの再生開始位置をランダムにする - Raspberlyのブログ](https://raspberly.hateblo.jp/entry/UnityAnimatorNormalizedTime)
 - [UnityのMecanimアニメで、ムービープレーヤーのスライダーのような制御がしたい - Qiita](https://qiita.com/tetr4lab/items/db97a1f89f22f93e393d)
 - [【Blender】複数のアニメーションを作成してUnityで使う方法 | yamagablog](https://ymgsapo.com/2021/01/27/blender-make-several-animation/)
+- [【Unity】アニメーション中、指定の位置に到達するように位置を補正する - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2017/01/30/233000)
 
 # Blender
 
