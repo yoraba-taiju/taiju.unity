@@ -6,6 +6,10 @@
 
 ## Scripts
 
+### C#
+
+- [C# 関連のドキュメント | Microsoft Docs](https://docs.microsoft.com/ja-jp/dotnet/csharp/)
+
 ### Execution Order
 
 - [Unity - Manual: Order of execution for event functions](https://docs.unity3d.com/Manual/ExecutionOrder.html)
