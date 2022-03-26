@@ -147,6 +147,11 @@ namespace Donut.Reversible {
         return;
       }
       if (holder_.Ticked) {
+        if (triggers_ != null && holder_.Leaped) {
+          foreach(var t in triggers_) {
+            animator_.ResetTrigger(t);
+          }
+        }
         var layerCount = animator_.layerCount;
         for (var i = 0; i < layerCount; i++) {
           var info = animator_.GetCurrentAnimatorStateInfo(i);
@@ -198,11 +203,6 @@ namespace Donut.Reversible {
               default:
                 break;
             }
-          }
-        }
-        if (triggers_ != null) {
-          foreach(var t in triggers_) {
-            animator_.ResetTrigger(t);
           }
         }
       }

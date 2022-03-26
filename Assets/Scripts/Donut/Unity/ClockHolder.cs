@@ -8,6 +8,7 @@ namespace Donut.Unity {
     public Clock Clock { get; } = new();
     public bool Ticked { get; private set; }
     public bool Backed { get; private set; }
+    public bool Leaped { get; private set; }
 
     /* Ticking */
     private float timeToTick_;
@@ -18,11 +19,13 @@ namespace Donut.Unity {
       PlayerInput.Enable();
       timeToTick_ = SecondPerFrame;
       Ticked = false;
+      Leaped = false;
     }
 
     private void LateUpdate() {
       Ticked = false;
       Backed = false;
+      Leaped = false;
       timeToTick_ -= Time.unscaledDeltaTime;
       if (timeToTick_ > 0.0f) {
         return;
@@ -36,6 +39,9 @@ namespace Donut.Unity {
         Backed = true;
         Time.timeScale = 0.0f;
       } else {
+        if (Clock.IsLeaping) {
+          Leaped = true;
+        }
         Clock.Tick();
         Ticked = true;
         Time.timeScale = 1.0f;
