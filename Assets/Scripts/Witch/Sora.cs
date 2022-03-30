@@ -19,11 +19,16 @@ namespace Witch {
       pos.y += move.y;
       trans.position = pos;
       if (player.Fire.triggered) {
-        var b = Instantiate(bullet, field_.transform);
-        b.transform.position = trans.position + Vector3.right * 1f;
-        b.transform.rotation = Quaternion.identity;
-        b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 15, ForceMode2D.Impulse);
+        Fire();
       }
+    }
+
+    private void Fire() {
+      var b = Instantiate(bullet, field_.transform);
+      var bt = b.transform;
+      bt.localPosition = transform.localPosition + Vector3.right * 1f;
+      bt.rotation = Quaternion.identity;
+      b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 15, ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
