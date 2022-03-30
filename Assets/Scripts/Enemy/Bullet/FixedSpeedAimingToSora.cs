@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Enemy.Bullet {
-  public sealed class FixedSpeedAim : DonutBehaviour {
+  public sealed class FixedSpeedAimingToSora : DonutBehaviour {
     [SerializeField] public float speed = 10.0f;
     [SerializeField] public float angle;
     private GameObject sora_;

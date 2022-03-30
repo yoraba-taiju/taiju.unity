@@ -34,7 +34,7 @@ namespace Enemy.Attack {
         for (var i = 0; i < numBulletForEven; ++i) {
           var obj = Instantiate(bulletForEven, transform);
           obj.gameObject.gameObject.name = "EvenBullet";
-          var aim = obj.GetComponent<FixedSpeedAim>();
+          var aim = obj.GetComponent<FixedSpeedAimingToSora>();
           aim.speed = speed;
           if (i % 2 == 0) {
             aim.angle = angle * (i >> 1) + (angle/2);
@@ -46,7 +46,7 @@ namespace Enemy.Attack {
         for (var i = 0; i < numBulletForOdd; ++i) {
           var obj = Instantiate(bulletForOdd, transform);
           obj.gameObject.gameObject.name = "OddBullet";
-          var aim = obj.GetComponent<FixedSpeedAim>();
+          var aim = obj.GetComponent<FixedSpeedAimingToSora>();
           aim.speed = speed;
           if (i % 2 == 0) {
             aim.angle = angle * ((i+1) >> 1);
