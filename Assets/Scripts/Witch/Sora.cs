@@ -20,9 +20,9 @@ namespace Witch {
       trans.position = pos;
       if (player.Fire.triggered) {
         var b = Instantiate(bullet, field_.transform);
-        b.transform.position = trans.position + Vector3.right * 0.3f;
+        b.transform.position = trans.position + Vector3.right * 1f;
         b.transform.rotation = Quaternion.identity;
-        b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 10, ForceMode2D.Impulse);
+        b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 15, ForceMode2D.Impulse);
       }
     }
 
