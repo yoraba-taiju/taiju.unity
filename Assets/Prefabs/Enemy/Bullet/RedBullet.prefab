@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6413188552317400812}
   - component: {fileID: 5200809274809147822}
   - component: {fileID: 6413188552317400815}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RedBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6413188553842928463}
   - component: {fileID: 6413188553842928460}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6413188554239388775}
   - component: {fileID: 6413188554239388772}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

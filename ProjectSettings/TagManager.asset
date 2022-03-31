@@ -15,11 +15,11 @@ TagManager:
   - Water
   - UI
   - HID
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Terrain
+  - Witch
+  - WitchBullet
+  - Enemy
+  - EnemyBullet
   - 
   - 
   - 
