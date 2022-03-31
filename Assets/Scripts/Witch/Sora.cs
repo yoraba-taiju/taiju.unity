@@ -10,6 +10,8 @@ namespace Witch {
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field");
     }
+
+    private float toFire_ = 0.0f;
     protected override void OnForward() {
       var player = playerInput.Player;
       var move = player.Move.ReadValue<Vector2>() * Time.deltaTime * 7;
@@ -18,9 +20,20 @@ namespace Witch {
       pos.x += move.x;
       pos.y += move.y;
       trans.position = pos;
-      if (player.Fire.triggered) {
-        Fire();
+      if (player.Fire.IsPressed()) {
+        if (toFire_ <= 0.0f) {
+          Fire();
+          toFire_ += 120.0f / 1000.0f;
+        } else {
+          toFire_ -= Time.deltaTime;
+        }
+      } else {
+        toFire_ = 0.0f;
       }
+    }
+
+    protected override void OnReverse() {
+      toFire_ = 0.0f;
     }
 
     private void Fire() {
