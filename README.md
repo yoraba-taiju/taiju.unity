@@ -60,3 +60,7 @@
 ## HDRI
 
 - [【Blender】HDRIを自作する｜yugaki｜note](https://note.com/info_/n/nce33546f57ab)
+
+## Armature
+
+- [Blenderのアーマチュア、ボーン、リグを理解する - 3DCGで何をどう作るか考え中](https://www.yamato-tsukasa.com/entry/b3d-armature-bone-rig-diff)
