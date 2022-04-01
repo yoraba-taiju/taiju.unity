@@ -6,18 +6,19 @@ namespace Donut.Unity {
   public class Graveyard : MonoBehaviour {
     /* Clock */
     private Clock clock_;
+    private ClockHolder clockHolder_;
     private readonly LinkedList<Tuple<uint, GameObject>> objects_ = new();
 
     private void Start() {
-      clock_ = gameObject.GetComponent<ClockHolder>().Clock;
+      clockHolder_ = gameObject.GetComponent<ClockHolder>();
+      clock_ = clockHolder_.Clock;
     }
 
     private void Update() {
-      var currentTick = clock_.CurrentTick;
-      if (clock_.IsTicking) {
-        RemoveOutdated(currentTick);
-      } else {
-        RestoreOutdated(currentTick);
+      if (clockHolder_.Ticked) {
+        RemoveOutdated(clock_.CurrentTick);
+      } else if(clockHolder_.Backed) {
+        RestoreOutdated(clock_.CurrentTick);
       }
     }
 
