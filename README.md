@@ -50,6 +50,7 @@
 - [カスタム Timeline Marker の作成方法 | Unity Blog](https://blog.unity.com/ja/technology/how-to-create-custom-timeline-markers)
 - [【Unity】Timelineからメソッドを呼ぶ新機能 「Marker」と「Signal、Signal Receiver」 - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2018/12/10/233146)
 - [【Unity】Timelineで敵の”出現タイミング”や”動き”を制御してみる - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2017/12/04/115255)
+- [Unity-Technologies/TimelineMarkerCustomization: Examples to show how markers and notifications work.](https://github.com/Unity-Technologies/TimelineMarkerCustomization)
 
 ## Animation (Mechanim）
 
