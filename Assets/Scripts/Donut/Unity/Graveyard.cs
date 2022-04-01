@@ -26,7 +26,7 @@ namespace Donut.Unity {
         var (destroyedAt, obj) = objects_.First.Value;
         if (destroyedAt + Clock.HISTORY_LENGTH < currentTick) {
           objects_.RemoveFirst();
-          GameObject.Destroy(obj);
+          MonoBehaviour.Destroy(obj);
         } else {
           break;
         }
