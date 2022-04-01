@@ -31,6 +31,7 @@
 ### Camera
 
 - [【Unity】オブジェクトがカメラに写っているかと注意点 - ヘチマのノート](https://hetima333.hatenablog.com/entry/2017/02/13/161150)
+- [Unity URP のカメラ｜npaka｜note](https://note.com/npaka/n/n856472efa5bc)
 
 ### Scriptable Render Pipeline
 
