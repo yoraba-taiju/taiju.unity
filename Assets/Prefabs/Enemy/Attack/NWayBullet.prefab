@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1504464791724941575}
   - component: {fileID: 1504464791724941574}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: NWayBullet
   m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
