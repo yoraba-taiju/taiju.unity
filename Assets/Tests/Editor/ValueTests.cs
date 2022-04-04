@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
-using Donut;
-using Donut.Values;
+using Reversible;
+using Reversible.Value;
 
 namespace Tests.Editor {
   public abstract class ValueTest<T>

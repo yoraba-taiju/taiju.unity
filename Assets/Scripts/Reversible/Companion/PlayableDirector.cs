@@ -1,0 +1,43 @@
+﻿using UnityEngine.Playables;
+using Reversible.Unity;
+using Reversible.Value;
+
+namespace Reversible.Companion {
+  public struct PlayableDirector : ICompanion {
+    private readonly UnityEngine.Playables.PlayableDirector playableDirector_;
+    private struct State {
+      public double time;
+      public bool isPlaying;
+    }
+    private Dense<State> states_;
+
+    public PlayableDirector(ClockHolder holder, UnityEngine.Playables.PlayableDirector playableDirector) {
+      playableDirector_ = playableDirector;
+      states_ = new Dense<State>(holder.Clock, new State {
+        time = playableDirector_.time,
+        isPlaying = playableDirector_.state == PlayState.Playing,
+      });
+    }
+
+    public void OnTick() {
+      ref var state = ref states_.Mut;
+      state.time = playableDirector_.time;
+      state.isPlaying = playableDirector_.state == PlayState.Playing;
+    }
+
+    public void OnBack() {
+      // Debug.Log($"Back: {clock_.CurrentTick}: {playableDirector_.time} -> {time_.Ref}");
+      // time_.Debug();
+      ref readonly var state = ref states_.Ref;
+      playableDirector_.time = state.time;
+      if (state.isPlaying) {
+        playableDirector_.Play();
+      } else {
+        playableDirector_.Pause();
+      }
+    }
+
+    public void OnLeap() {
+    }
+  }
+}

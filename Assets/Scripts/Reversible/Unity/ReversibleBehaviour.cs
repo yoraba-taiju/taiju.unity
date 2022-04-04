@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-namespace Donut.Unity {
-  public abstract class DonutBehaviour: MonoBehaviour {
+namespace Reversible.Unity {
+  public abstract class ReversibleBehaviour: MonoBehaviour {
     protected ClockHolder clockHolder;
     protected Clock clock;
     protected PlayerInput playerInput;

@@ -1,7 +1,6 @@
-﻿using System;
-using Donut;
-using Donut.Unity;
-using UnityEngine;
+﻿using UnityEngine;
+using Reversible;
+using Reversible.Unity;
 
 namespace Enemy.Bullet {
   public class DestroyWhenCollidedWithTerrain : MonoBehaviour {

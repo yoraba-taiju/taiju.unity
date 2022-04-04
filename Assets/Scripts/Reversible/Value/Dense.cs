@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Donut.Values {
+namespace Reversible.Value {
   public struct Dense<T> : IValue<T> where T: struct {
     private readonly Clock clock_;
     private readonly T[] entries_;

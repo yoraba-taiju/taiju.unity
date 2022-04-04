@@ -1,9 +1,9 @@
 ﻿using System;
-using Donut.Unity;
 using UnityEngine;
+using Reversible.Unity;
 
 namespace Enemy.Bullet.Graphic {
-  public sealed class CircleBulletSpriteResizer : DonutBehaviour {
+  public sealed class CircleBulletSpriteResizer : ReversibleBehaviour {
     [SerializeField] public GameObject foreground;
     private uint bornAt_;
 

@@ -47,10 +47,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6413188552317400800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d15ecc74f9747e3b0fe19b8515759bb, type: 3}
+  m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destroyWhenInvisible: 1
+  targetComponents: 01000000
 --- !u!114 &6413188552317400814
 MonoBehaviour:
   m_ObjectHideFlags: 0

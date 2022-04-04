@@ -1,6 +1,4 @@
-﻿using System;
-using Donut.Unity;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Enemy.Motion {
   public class Drone2: MonoBehaviour {

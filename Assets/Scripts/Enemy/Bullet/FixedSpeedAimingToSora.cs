@@ -1,8 +1,8 @@
-﻿using Donut.Unity;
-using UnityEngine;
+﻿using UnityEngine;
+using Reversible.Unity;
 
 namespace Enemy.Bullet {
-  public sealed class FixedSpeedAimingToSora : DonutBehaviour {
+  public sealed class FixedSpeedAimingToSora : ReversibleBehaviour {
     [SerializeField] public float speed = 10.0f;
     [SerializeField] public float angle;
     private GameObject sora_;

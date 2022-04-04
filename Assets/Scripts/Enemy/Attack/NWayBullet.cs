@@ -1,9 +1,9 @@
-﻿using Donut.Unity;
+﻿using UnityEngine;
+using Reversible.Unity;
 using Enemy.Bullet;
-using UnityEngine;
 
 namespace Enemy.Attack {
-  public class NWayBullet: DonutBehaviour {
+  public class NWayBullet: ReversibleBehaviour {
     [SerializeField] public float speed = 10.0f;
     [SerializeField] public float angle = 5.0f;
     [SerializeField] public uint clockInterval = 3;

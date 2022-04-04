@@ -1,9 +1,8 @@
-using System;
-using Donut.Unity;
 using UnityEngine;
+using Reversible.Unity;
 
 namespace Witch {
-  public class Sora : DonutBehaviour {
+  public class Sora : ReversibleBehaviour {
     [SerializeField] public GameObject bullet;
     private GameObject field_;
     protected override void OnStart() {
