@@ -22,7 +22,7 @@ namespace Witch {
       if (player.Fire.IsPressed()) {
         if (toFire_ <= 0.0f) {
           Fire();
-          toFire_ += 120.0f / 1000.0f;
+          toFire_ += 60.0f / 1000.0f;
         } else {
           toFire_ -= Time.deltaTime;
         }
@@ -40,7 +40,7 @@ namespace Witch {
       var bt = b.transform;
       bt.localPosition = transform.localPosition + Vector3.right * 1f;
       bt.rotation = Quaternion.identity;
-      b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 15, ForceMode2D.Impulse);
+      b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 30, ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
