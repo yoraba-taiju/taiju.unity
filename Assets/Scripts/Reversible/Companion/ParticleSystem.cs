@@ -7,7 +7,7 @@ namespace Reversible.Companion {
   public struct ParticleSystem: ICompanion {
     private readonly UnityEngine.ParticleSystem particleSystem_;
     // Animation records
-    private readonly Dense<Record> record_;
+    private Dense<Record> record_;
 
     private struct Record {
       public float time;
@@ -20,12 +20,10 @@ namespace Reversible.Companion {
       dst.count = src.count;
       if (dst.particles == null) {
         dst.particles = new UnityEngine.ParticleSystem.Particle[src.particles.Length];
-      } else {
-        if (dst.particles.Length < src.particles.Length) {
-          dst.particles = new UnityEngine.ParticleSystem.Particle[src.particles.Length];
-        }
-        Array.Copy(src.particles, dst.particles, src.particles.Length);
+      } else if (dst.particles.Length < src.particles.Length) {
+        dst.particles = new UnityEngine.ParticleSystem.Particle[src.particles.Length];
       }
+      Array.Copy(src.particles, dst.particles, src.count);
     }
 
     public ParticleSystem(ClockHolder holder, UnityEngine.ParticleSystem particleSystem) {
@@ -34,7 +32,7 @@ namespace Reversible.Companion {
       var count = particleSystem_.GetParticles(particles);
 
       record_ = new Dense<Record>(holder.Clock, CloneRecord, new Record {
-        time = 0.0f,
+        time = particleSystem.time,
         count = count,
         particles = particles,
       });
@@ -55,7 +53,6 @@ namespace Reversible.Companion {
       if (particleSystem_.isPlaying) {
         particleSystem_.Pause();
       }
-      Debug.Log($"count: {record.count}");
     }
     public void OnLeap() {
     }

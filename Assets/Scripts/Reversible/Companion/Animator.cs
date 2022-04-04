@@ -13,7 +13,7 @@ namespace Reversible.Companion {
       public int hash;
       public float time;
     }
-    private readonly Dense<LayerState>[] layers_;
+    private Dense<LayerState>[] layers_;
 
     // Parameters
     private struct ParameterState {
