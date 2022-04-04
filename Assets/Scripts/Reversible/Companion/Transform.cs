@@ -6,13 +6,14 @@ using UnityEngine;
 namespace Reversible.Companion {
   public struct Transform: ICompanion {
     private readonly UnityEngine.Transform transform_;
-    // Transform records
+
     private struct Record {
       public Vector3 position;
       public Vector3 scale;
       public Quaternion rot;
     }
     private Dense<Record> record_;
+
     public Transform(ClockHolder holder, UnityEngine.Transform transform) {
       transform_ = transform;
       record_ = new Dense<Record>(holder.Clock, new Record() {

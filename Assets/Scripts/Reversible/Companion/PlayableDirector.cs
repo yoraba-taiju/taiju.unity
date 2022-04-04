@@ -5,6 +5,7 @@ using Reversible.Value;
 namespace Reversible.Companion {
   public struct PlayableDirector : ICompanion {
     private readonly UnityEngine.Playables.PlayableDirector playableDirector_;
+
     private struct State {
       public double time;
       public bool isPlaying;

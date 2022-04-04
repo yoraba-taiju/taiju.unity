@@ -6,14 +6,13 @@ using UnityEngine;
 namespace Reversible.Companion {
   public struct ParticleSystem: ICompanion {
     private readonly UnityEngine.ParticleSystem particleSystem_;
-    // Animation records
-    private Dense<Record> record_;
 
     private struct Record {
       public float time;
       public int count;
       public UnityEngine.ParticleSystem.Particle[] particles;
     }
+    private Dense<Record> record_;
 
     private static void CloneRecord(ref Record dst, in Record src) {
       dst.time = src.time;

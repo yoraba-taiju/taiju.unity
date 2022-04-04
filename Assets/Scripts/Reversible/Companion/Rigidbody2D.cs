@@ -6,7 +6,6 @@ namespace Reversible.Companion {
   public struct Rigidbody2D : ICompanion {
     private readonly UnityEngine.Rigidbody2D body_;
 
-    // Transform records
     private struct Record {
       public Vector2 position;
       public Vector2 velocity;

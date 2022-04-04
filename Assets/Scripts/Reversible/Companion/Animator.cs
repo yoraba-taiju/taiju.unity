@@ -4,7 +4,7 @@ using Reversible.Unity;
 using Reversible.Value;
 
 namespace Reversible.Companion {
-  public struct Animator: ICompanion {
+  public readonly struct Animator: ICompanion {
     // Clock
     private readonly UnityEngine.Animator animator_;
 
@@ -13,19 +13,13 @@ namespace Reversible.Companion {
       public int hash;
       public float time;
     }
-    private Dense<LayerState>[] layers_;
+    private readonly Dense<LayerState>[] layers_;
 
     // Parameters
     private struct ParameterState {
       public float[] floatStates;
       public int[] intStates;
       public bool[] boolStates;
-
-      public ParameterState(int numFloats, int numInts, int numBools) {
-        floatStates = numFloats > 0 ? new float[numFloats] : null;
-        intStates = numInts > 0 ? new int[numInts] : null;
-        boolStates = numBools > 0 ? new bool[numBools] : null;
-      }
     }
     private readonly AnimatorControllerParameter[] parameters_;
     private readonly int[] parameterIdx_;
