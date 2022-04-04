@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Reversible.Unity {
-  public sealed class ReversibleCompanion: MonoBehaviour {
+  public sealed class ReversibleComponents: MonoBehaviour {
     // Clock
     private ClockHolder holder_;
     private Clock clock_;
