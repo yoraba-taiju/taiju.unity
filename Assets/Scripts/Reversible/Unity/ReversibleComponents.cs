@@ -30,8 +30,12 @@ namespace Reversible.Unity {
       clock_ = holder_.Clock;
       bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {
-        graveyard_ = clockObj.GetComponent<Graveyard>();
         renderers_ = GetComponentsInChildren<Renderer>();
+        if (renderers_.Length == 0) {
+          Debug.LogWarning("No renderers attached.");
+          destroyWhenInvisible = false;
+        }
+        graveyard_ = clockObj.GetComponent<Graveyard>();
         wasVisible_ = false;
       }
       companions_ = new ICompanion[targetComponents.Length];
