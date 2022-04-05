@@ -25,6 +25,7 @@ namespace Reversible.Unity {
     }
     [SerializeField] public Component[] targetComponents = {Component.Transform};
     private ICompanion[] companions_;
+
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
       holder_ = clockObj.GetComponent<ClockHolder>();
@@ -54,6 +55,7 @@ namespace Reversible.Unity {
         };
       }
     }
+
     private void Update() {
       if (bornAt_ > clock_.CurrentTick) {
         Destroy(gameObject);
