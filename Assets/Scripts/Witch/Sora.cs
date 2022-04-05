@@ -23,10 +23,10 @@ namespace Witch {
       if (toFire_ <= 0.0f) {
         if (fire.IsPressed()) {
           if (fire.WasPressedThisFrame()) {
-            Fire();
+            Fire1();
             toFire_ += 100.0f / 1000.0f;
           } else {
-            Fire();
+            Fire2();
             toFire_ += 50.0f / 1000.0f;
           }
         }
@@ -39,12 +39,21 @@ namespace Witch {
       toFire_ = 0.0f;
     }
 
-    private void Fire() {
+    private void Fire1() {
       var b = Instantiate(bullet, field_.transform);
-      var bt = b.transform;
-      bt.localPosition = transform.localPosition + Vector3.right * 1f;
-      bt.rotation = Quaternion.identity;
+      var trans = b.transform;
+      trans.localPosition = transform.localPosition + Vector3.right * 1f;
       b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+    }
+    
+    private void Fire2() {
+      var b1 = Instantiate(bullet, field_.transform);
+      var b2 = Instantiate(bullet, field_.transform);
+      var pos = transform.localPosition;
+      b1.transform.localPosition = pos + Vector3.right * 1f + Vector3.up * 0.25f;
+      b2.transform.localPosition = pos + Vector3.right * 1f + Vector3.down * 0.25f;
+      b1.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+      b2.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 30, ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
