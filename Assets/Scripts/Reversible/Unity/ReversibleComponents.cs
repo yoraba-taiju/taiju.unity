@@ -7,6 +7,7 @@ namespace Reversible.Unity {
     private ClockHolder holder_;
     private Clock clock_;
     private uint bornAt_;
+
     // Visibility
     [SerializeField] public bool destroyWhenInvisible = true;
     private Graveyard graveyard_;
