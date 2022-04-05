@@ -19,15 +19,19 @@ namespace Witch {
       pos.x += move.x;
       pos.y += move.y;
       trans.position = pos;
-      if (player.Fire.IsPressed()) {
-        if (toFire_ <= 0.0f) {
-          Fire();
-          toFire_ += 60.0f / 1000.0f;
-        } else {
-          toFire_ -= Time.deltaTime;
+      var fire = player.Fire;
+      if (toFire_ <= 0.0f) {
+        if (fire.IsPressed()) {
+          if (fire.WasPressedThisFrame()) {
+            Fire();
+            toFire_ += 100.0f / 1000.0f;
+          } else {
+            Fire();
+            toFire_ += 50.0f / 1000.0f;
+          }
         }
       } else {
-        toFire_ = 0.0f;
+        toFire_ -= Time.deltaTime;
       }
     }
 
