@@ -1,16 +1,21 @@
+using System;
 using UnityEngine;
 using Reversible.Unity;
 
 namespace Witch {
   public class Sora : ReversibleBehaviour {
     [SerializeField] public GameObject bullet;
+
     private GameObject field_;
+    private int damagedLayers_;
+    private float toFire_;
     protected override void OnStart() {
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field");
+      damagedLayers_ = LayerMask.GetMask("EnemyBullet", "Enemy");
+      toFire_ = 0.0f;
     }
 
-    private float toFire_ = 0.0f;
     protected override void OnForward() {
       var player = playerInput.Player;
       var move = player.Move.ReadValue<Vector2>() * Time.deltaTime * 7;
@@ -24,7 +29,7 @@ namespace Witch {
         if (fire.IsPressed()) {
           if (fire.WasPressedThisFrame()) {
             Fire1();
-            toFire_ += 100.0f / 1000.0f;
+            toFire_ += 120.0f / 1000.0f;
           } else {
             Fire2();
             toFire_ += 50.0f / 1000.0f;
@@ -56,8 +61,11 @@ namespace Witch {
       b2.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 30, ForceMode2D.Impulse);
     }
 
-    private void OnTriggerEnter2D(Collider2D col) {
-      Debug.Log("Collided");
+    private void OnCollisionStay2D(Collision2D other) {
+      if(other.otherCollider.IsTouchingLayers(damagedLayers_)) {
+        // TODO(ledyba): take some action
+        Debug.Log("Sora: damaged");
+      }
     }
   }
 }
