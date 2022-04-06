@@ -3,7 +3,7 @@
 namespace Enemy.Motion {
   public class Drone1: MonoBehaviour {
 
-    public GameObject sora;
+    [HideInInspector] public GameObject sora;
 
     private void Start() {
       sora = GameObject.FindWithTag("Player");
