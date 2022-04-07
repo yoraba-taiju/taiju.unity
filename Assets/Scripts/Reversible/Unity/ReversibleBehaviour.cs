@@ -10,7 +10,7 @@ namespace Reversible.Unity {
     protected abstract void OnStart();
     protected abstract void OnForward();
 
-    private void Start() {
+    public void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
       clockHolder_ = clockObj.GetComponent<ClockHolder>();
       graveyard_ = clockObj.GetComponent<Graveyard>();
@@ -20,7 +20,7 @@ namespace Reversible.Unity {
     }
 
     protected virtual void OnReverse() {}
-    private void Update() {
+    public void Update() {
       if (clock.IsTicking) {
         OnForward();
       } else {

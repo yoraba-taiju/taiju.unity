@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Reversible.Unity;
 
-namespace Witch.Motion {
+namespace Witch.Bullet {
   public class SoraBullet : ReversibleBehaviour {
 
     protected override void OnStart() {

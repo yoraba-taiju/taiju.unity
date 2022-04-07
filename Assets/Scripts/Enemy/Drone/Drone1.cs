@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Enemy.Drone {
-  public class Drone1: ReversibleBehaviour {
+  public class Drone1: EnemyBehaviour {
 
     [HideInInspector] public GameObject sora;
 
@@ -13,11 +13,7 @@ namespace Enemy.Drone {
     protected override void OnForward() {
     }
 
-    private void OnCollisionEnter2D(Collision2D col) {
-      
-    }
-
-    private void OnCollisionStay2D(Collision2D collision) {
+    protected override void OnCollide(Collision2D collision) {
       
     }
   }
