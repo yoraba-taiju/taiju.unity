@@ -13,14 +13,7 @@ namespace Effect {
     }
 
     protected override void OnUpdate() {
-      if (clockHolder.Ticked) {
-        if (clockHolder.Leaped) {
-          companion_.OnLeap();
-        }
-        companion_.OnTick();
-      } else if (clockHolder.Backed) {
-        companion_.OnBack();
-      }
+      UpdateCompanion(ref companion_);
     }
 
     private void OnParticleSystemStopped() {
