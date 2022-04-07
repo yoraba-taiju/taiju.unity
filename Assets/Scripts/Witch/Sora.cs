@@ -7,13 +7,13 @@ namespace Witch {
     [SerializeField] public GameObject bullet;
 
     private GameObject field_;
-    private int damagedLayers_;
+    private int damageLayerMask_;
     private float toFire_;
 
     protected override void OnStart() {
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field");
-      damagedLayers_ = LayerMask.GetMask("EnemyBullet", "Enemy");
+      damageLayerMask_ = LayerMask.GetMask("Enemy", "EnemyBullet");
       toFire_ = 0.0f;
     }
 
@@ -62,8 +62,17 @@ namespace Witch {
       b2.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 3.0f, ForceMode2D.Impulse);
     }
 
-    private void OnCollisionStay2D(Collision2D other) {
-      if(other.otherCollider.IsTouchingLayers(damagedLayers_)) {
+    private void OnCollisionEnter2D(Collision2D collision) {
+      var layer = collision.gameObject.layer;
+      if (((1 << layer) & damageLayerMask_) != 0) {
+        // TODO(ledyba): take some action
+        Debug.Log("Sora: damaged");
+      }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision) {
+      var layer = collision.gameObject.layer;
+      if (((1 << layer) & damageLayerMask_) != 0) {
         // TODO(ledyba): take some action
         Debug.Log("Sora: damaged");
       }
