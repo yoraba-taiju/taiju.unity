@@ -6,6 +6,7 @@ namespace Enemy.Drone {
 
     [HideInInspector] public GameObject sora;
     [SerializeField] public float shield = 1.0f;
+    [SerializeField] public GameObject explosion;
 
     protected override void OnStart() {
       sora = GameObject.FindWithTag("Player");
@@ -16,9 +17,10 @@ namespace Enemy.Drone {
 
     protected override void OnCollide(Collision2D collision) {
       shield -= 1.0f;
-      Debug.Log($"Left: {shield}");
       if (shield <= 0) {
         Destroy();
+        var e = Instantiate(explosion, transform.parent);
+        e.transform.localPosition = transform.localPosition;
       }
     }
   }

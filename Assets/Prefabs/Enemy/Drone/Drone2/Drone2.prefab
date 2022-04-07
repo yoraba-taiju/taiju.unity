@@ -203,3 +203,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sora: {fileID: 0}
   shield: 1
+  explosion: {fileID: 3444446105023976292, guid: 57368165dbebb724588a6734e9745984, type: 3}
