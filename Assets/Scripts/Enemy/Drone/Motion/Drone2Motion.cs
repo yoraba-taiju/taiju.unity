@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Enemy.Motion {
+namespace Enemy.Drone.Motion {
   public class Drone2Motion : StateMachineBehaviour {
     private static readonly int Seeking = Animator.StringToHash("Seeking");
     private static readonly int Watching = Animator.StringToHash("Watching");

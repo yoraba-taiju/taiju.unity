@@ -1,7 +1,7 @@
 ﻿using Reversible.Unity;
 using UnityEngine;
 
-namespace Enemy {
+namespace Enemy.Drone {
   public class Drone2: ReversibleBehaviour {
 
     [HideInInspector] public GameObject sora;
