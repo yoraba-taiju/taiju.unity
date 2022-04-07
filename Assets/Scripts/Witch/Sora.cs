@@ -9,6 +9,7 @@ namespace Witch {
     private GameObject field_;
     private int damagedLayers_;
     private float toFire_;
+
     protected override void OnStart() {
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field");
@@ -48,7 +49,7 @@ namespace Witch {
       var b = Instantiate(bullet, field_.transform);
       var trans = b.transform;
       trans.localPosition = transform.localPosition + Vector3.right * 1f;
-      b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+      b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 3.0f, ForceMode2D.Impulse);
     }
     
     private void Fire2() {
@@ -57,8 +58,8 @@ namespace Witch {
       var pos = transform.localPosition;
       b1.transform.localPosition = pos + Vector3.right * 1f + Vector3.up * 0.25f;
       b2.transform.localPosition = pos + Vector3.right * 1f + Vector3.down * 0.25f;
-      b1.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 30, ForceMode2D.Impulse);
-      b2.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 30, ForceMode2D.Impulse);
+      b1.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 3.0f, ForceMode2D.Impulse);
+      b2.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 3.0f, ForceMode2D.Impulse);
     }
 
     private void OnCollisionStay2D(Collision2D other) {
