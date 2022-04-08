@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Reversible.Unity {
-  public abstract class EffectBehaviour : MonoBehaviour {
+  public abstract class ReversibleEffectBehaviour : MonoBehaviour {
     protected ClockHolder clockHolder;
     protected Graveyard graveyard;
     protected Clock clock;
