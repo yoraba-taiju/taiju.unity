@@ -1,9 +1,6 @@
-﻿using System;
-using Reversible;
-using Reversible.Unity;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Effect {
+namespace Reversible.Unity {
   public abstract class EffectBehaviour : MonoBehaviour {
     protected ClockHolder clockHolder;
     protected Graveyard graveyard;
