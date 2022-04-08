@@ -65,9 +65,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
   m_Name: Spawn Emitter(Clone)
   m_EditorClassIdentifier: 
-  m_Time: 4.516666666666667
+  m_Time: 6.55
   prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 12, y: -2}
+  position: {x: 12, y: -5}
 --- !u!114 &-1193683229181117725
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -248,9 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
   m_Name: Spawn Emitter(Clone)
   m_EditorClassIdentifier: 
-  m_Time: 4.083333333333333
+  m_Time: 5.3
   prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 12, y: 1}
+  position: {x: 12, y: 5}
 --- !u!114 &7569250418641217901
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -278,6 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
   m_Name: Spawn Emitter(Clone)
   m_EditorClassIdentifier: 
-  m_Time: 3.05
+  m_Time: 3.1666666666666665
   prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
   position: {x: 12, y: 0}
