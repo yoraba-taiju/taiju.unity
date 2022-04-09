@@ -11,23 +11,21 @@ namespace Enemy {
       damageLayerMask_ = LayerMask.GetMask("Witch", "WitchBullet");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-      if (!clock.IsTicking) {
-        return;
-      }
-      var layer = collision.gameObject.layer;
-      if (((1 << layer) & damageLayerMask_) != 0) {
-        OnCollide(collision);
-      }
+    private void OnCollisionEnter2D(Collision2D other) {
+      OnCollision2D(other);
     }
 
-    private void OnCollisionStay2D(Collision2D collision) {
+    private void OnCollisionStay2D(Collision2D other) {
+      OnCollision2D(other);
+    }
+
+    private void OnCollision2D(Collision2D other) {
       if (!clock.IsTicking) {
         return;
       }
-      var layer = collision.gameObject.layer;
+      var layer = other.gameObject.layer;
       if (((1 << layer) & damageLayerMask_) != 0) {
-        OnCollide(collision);
+        OnCollide(other);
       }
     }
 
