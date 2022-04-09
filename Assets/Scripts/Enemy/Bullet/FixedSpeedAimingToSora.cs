@@ -2,7 +2,7 @@
 using Reversible.Unity;
 
 namespace Enemy.Bullet {
-  public sealed class FixedSpeedAimingToSora : ReversibleBehaviour {
+  public sealed class FixedSpeedAimingToSora : EnemyBulletBehaviour {
     [SerializeField] public float speed = 5.0f;
     [SerializeField] public float angle;
     private GameObject sora_;
@@ -29,6 +29,10 @@ namespace Enemy.Bullet {
 
     protected override void OnForward() {
       transform.position += direction_ * Time.deltaTime;
+    }
+
+    protected override void OnCollide(Collision2D collision) {
+      Destroy();
     }
   }
 }
