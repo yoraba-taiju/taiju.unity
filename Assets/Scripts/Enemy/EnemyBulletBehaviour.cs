@@ -2,11 +2,13 @@
 
 namespace Enemy {
   public abstract class EnemyBulletBehaviour: Reversible.Unity.ReversibleBehaviour {
-    private int witchLayerMask_;
+    private int witchLayer_;
+    private int terrainLayer_;
     private new void Start() {
       var self = this as Reversible.Unity.ReversibleBehaviour;
       self.Start();
-      witchLayerMask_ = LayerMask.NameToLayer("Witch");
+      witchLayer_ = LayerMask.NameToLayer("Witch");
+      terrainLayer_ = LayerMask.NameToLayer("Terrain");
     }
     
     private void OnCollisionEnter2D(Collision2D other) {
@@ -21,7 +23,7 @@ namespace Enemy {
       if (!clock.IsTicking) {
         return;
       }
-      if (other.gameObject.layer == witchLayerMask_) {
+      if (other.gameObject.layer == witchLayer_) {
         OnCollide(other);
       }
     }
@@ -38,7 +40,7 @@ namespace Enemy {
       if (!clock.IsTicking) {
         return;
       }
-      if (other.gameObject.CompareTag("Terrain")) {
+      if (other.gameObject.layer == terrainLayer_) {
         Destroy();
       }
     }

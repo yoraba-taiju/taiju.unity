@@ -1,11 +1,18 @@
 using System;
 using UnityEngine;
-using Reversible.Unity;
 
 namespace Witch.Bullet {
-  public class SoraBullet : ReversibleBehaviour {
+  public class SoraBullet : Reversible.Unity.ReversibleBehaviour {
+    private int terrainLayer_;
+
+    private new void Start() {
+      var self = this as Reversible.Unity.ReversibleBehaviour;
+      self.Start();
+      terrainLayer_ = LayerMask.NameToLayer("Terrain");
+    }
 
     protected override void OnStart() {
+      
     }
 
     protected override void OnForward() {
@@ -31,7 +38,7 @@ namespace Witch.Bullet {
       if (!clock.IsTicking) {
         return;
       }
-      if (other.gameObject.CompareTag("Terrain")) {
+      if (other.gameObject.layer == terrainLayer_) {
         Destroy();
       }
     }
