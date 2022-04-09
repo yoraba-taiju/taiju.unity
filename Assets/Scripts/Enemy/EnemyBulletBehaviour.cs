@@ -10,7 +10,7 @@ namespace Enemy {
       witchLayer_ = LayerMask.NameToLayer("Witch");
       terrainLayer_ = LayerMask.NameToLayer("Terrain");
     }
-    
+
     private void OnCollisionEnter2D(Collision2D other) {
       OnCollision2D(other);
     }
@@ -27,11 +27,11 @@ namespace Enemy {
         OnCollide(other);
       }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other) {
       OnTrigger2D(other);
     }
-    
+
     private void OnTriggerStay2D(Collider2D other) {
       OnTrigger2D(other);
     }
@@ -44,6 +44,7 @@ namespace Enemy {
         Destroy();
       }
     }
+
     protected abstract void OnCollide(Collision2D collision);
   }
 }
