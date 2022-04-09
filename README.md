@@ -14,21 +14,26 @@
 
 - [C# 関連のドキュメント | Microsoft Docs](https://docs.microsoft.com/ja-jp/dotnet/csharp/)
 
-### Execution Order
-
-- [Unity - Manual: Order of execution for event functions](https://docs.unity3d.com/Manual/ExecutionOrder.html)
-- [【Unity】狙った順に処理したい時はスクリプトの実行順を指定する │ エクスプラボ](https://ekulabo.com/execution-order)
-
-### StateMachineBehaviour
-
-- [Unity5 MecanimのStateMachineBehaviourと戯れる - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2015/05/01/032208)
-- [【Unity】AnimationController間でStateMachineBehaviourのインスタンスを共有するSharedBetweenAnimatorsの挙動 - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2017/05/22/212548)
 
 ### Unit Test
 
 - [Unity Assembly Definition 完全に理解した](https://qiita.com/toRisouP/items/d206af3029c7d80326ed)
 - [Unityでテストを書くのが当然になる時代に今から備えよう](https://qiita.com/naninunenoy/items/b5092774fed30739adbc)
 - [c# - How to set up unit tests in Unity and fix missing assembly reference error? - Stack Overflow](https://stackoverflow.com/questions/50223866/how-to-set-up-unit-tests-in-unity-and-fix-missing-assembly-reference-error)
+
+### Execution Order
+
+- [Unity - Manual: Order of execution for event functions](https://docs.unity3d.com/Manual/ExecutionOrder.html)
+- [【Unity】狙った順に処理したい時はスクリプトの実行順を指定する │ エクスプラボ](https://ekulabo.com/execution-order)
+
+### InputSystem
+
+- [【Input System】ゲーム内キーコンフィグをリバインディングで簡単に実装【Unity】](https://gamedev65535.com/entry/unity_inputsystem_rebinding/)
+
+### StateMachineBehaviour
+
+- [Unity5 MecanimのStateMachineBehaviourと戯れる - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2015/05/01/032208)
+- [【Unity】AnimationController間でStateMachineBehaviourのインスタンスを共有するSharedBetweenAnimatorsの挙動 - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2017/05/22/212548)
 
 ## Rendering
 
