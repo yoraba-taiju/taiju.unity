@@ -31,7 +31,7 @@ namespace Enemy.Bullet {
       transform.position += direction_ * Time.deltaTime;
     }
 
-    protected override void OnCollide(Collision2D collision) {
+    protected override void OnCollideWithWitch(GameObject other) {
       Destroy();
     }
   }

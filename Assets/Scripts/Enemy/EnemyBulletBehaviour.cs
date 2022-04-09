@@ -11,40 +11,36 @@ namespace Enemy {
       terrainLayer_ = LayerMask.NameToLayer("Terrain");
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
-      OnCollision2D(other);
+    private void OnCollisionEnter2D(Collision2D col) {
+      OnCollision2D(col.gameObject);
     }
 
-    private void OnCollisionStay2D(Collision2D other) {
-      OnCollision2D(other);
+    private void OnCollisionStay2D(Collision2D col) {
+      OnCollision2D(col.gameObject);
     }
 
-    private void OnCollision2D(Collision2D other) {
+    private void OnTriggerEnter2D(Collider2D col) {
+      OnCollision2D(col.gameObject);
+    }
+
+    private void OnTriggerStay2D(Collider2D col) {
+      OnCollision2D(col.gameObject);
+    }
+
+    private void OnCollision2D(GameObject other) {
       if (!clock.IsTicking) {
         return;
       }
-      if (other.gameObject.layer == witchLayer_) {
-        OnCollide(other);
-      }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other) {
-      OnTrigger2D(other);
-    }
-
-    private void OnTriggerStay2D(Collider2D other) {
-      OnTrigger2D(other);
-    }
-
-    private void OnTrigger2D(Collider2D other) {
-      if (!clock.IsTicking) {
-        return;
-      }
-      if (other.gameObject.layer == terrainLayer_) {
+      var layer = other.gameObject.layer;
+      if (layer == terrainLayer_) {
         Destroy();
+        return;
+      }
+      if (layer == witchLayer_) {
+        OnCollideWithWitch(other);
       }
     }
 
-    protected abstract void OnCollide(Collision2D collision);
+    protected abstract void OnCollideWithWitch(GameObject other);
   }
 }
