@@ -14,7 +14,6 @@ namespace Witch {
 
     private void OnCollisionEnter2D(Collision2D col) {
       OnCollision2D(col.gameObject);
-
     }
 
     private void OnCollisionStay2D(Collision2D col) {
