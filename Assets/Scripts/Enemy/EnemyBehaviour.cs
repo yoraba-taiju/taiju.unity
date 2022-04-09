@@ -12,6 +12,9 @@ namespace Enemy {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
+      if (!clock.IsTicking) {
+        return;
+      }
       var layer = collision.gameObject.layer;
       if (((1 << layer) & damageLayerMask_) != 0) {
         OnCollide(collision);
@@ -19,6 +22,9 @@ namespace Enemy {
     }
 
     private void OnCollisionStay2D(Collision2D collision) {
+      if (!clock.IsTicking) {
+        return;
+      }
       var layer = collision.gameObject.layer;
       if (((1 << layer) & damageLayerMask_) != 0) {
         OnCollide(collision);
