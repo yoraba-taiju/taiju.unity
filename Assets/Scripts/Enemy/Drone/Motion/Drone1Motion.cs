@@ -17,6 +17,9 @@ namespace Enemy.Drone.Motion {
       sora_ ??= drone_.sora;
     }
 
+    // FIXME: not reversible.
+    private float time_ = 0.1f;
+
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       var trans = droneObj_.transform;
@@ -25,12 +28,17 @@ namespace Enemy.Drone.Motion {
         var delta = sora_.transform.position - trans.position;
         if (delta.magnitude <= 5.0f) {
           animator.SetTrigger(ToFighting);
+          time_ = 0.1f;
         } else {
           trans.localPosition += delta.normalized * 2.5f * Time.deltaTime;;
         }
       } else if (currentHash == Fighting) {
-        var e = Instantiate(drone_.bullet, trans.parent);
-        e.transform.localPosition = trans.localPosition;
+        time_ -= Time.deltaTime;
+        if (time_ <= 0.0f) {
+          var e = Instantiate(drone_.bullet, trans.parent);
+          e.transform.localPosition = trans.localPosition;
+          time_ += 0.1f;
+        }
         animator.SetTrigger(ToSeeking);
       }
     }
