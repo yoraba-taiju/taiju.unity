@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 6413188552317400801}
   - component: {fileID: 6413188552317400813}
   - component: {fileID: 6413188552317400814}
-  - component: {fileID: 6413188552317400812}
   - component: {fileID: 5200809274809147822}
   - component: {fileID: 6413188552317400815}
+  - component: {fileID: 2618672499506973401}
   m_Layer: 10
-  m_Name: RedBullet
+  m_Name: CurcleBulletRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyWhenInvisible: 1
-  targetComponents: 01000000
+  targetComponents: 0100000004000000
 --- !u!114 &6413188552317400814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,19 +66,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.1
   angle: 0
---- !u!114 &6413188552317400812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6413188552317400800}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e49645f4b84ed98a2f2547e2a1c79f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  foreground: {fileID: 6413188553842928462}
 --- !u!114 &5200809274809147822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,6 +94,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!95 &2618672499506973401
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6413188552317400800}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e7d7e0c604561d1479f75a70ec0714ab, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6413188553842928462
 GameObject:
   m_ObjectHideFlags: 0
