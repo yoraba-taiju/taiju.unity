@@ -2,7 +2,7 @@
 using ParticleSystem = Reversible.Companion.ParticleSystem;
 
 namespace Effect {
-  public class ParticleEffect : Reversible.Unity.ReversibleEffectBehaviour {
+  public class ParticleEffect : EffectBehaviour {
     private UnityEngine.ParticleSystem particle_;
     private ParticleSystem companion_;
     protected override void OnStart() {
