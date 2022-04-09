@@ -3,7 +3,7 @@ using Reversible.Unity;
 
 namespace Enemy.Bullet {
   public sealed class FixedSpeedAimingToSora : ReversibleBehaviour {
-    [SerializeField] public float speed = 10.0f;
+    [SerializeField] public float speed = 5.0f;
     [SerializeField] public float angle;
     private GameObject sora_;
     private Vector3 direction_;
