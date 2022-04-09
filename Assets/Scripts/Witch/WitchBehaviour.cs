@@ -1,4 +1,5 @@
-﻿using Reversible.Unity;
+﻿using System;
+using Reversible.Unity;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -11,26 +12,32 @@ namespace Witch {
       damageLayerMask_ = LayerMask.GetMask("Enemy", "EnemyBullet");
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnCollisionEnter2D(Collision2D col) {
+      OnCollision2D(col.gameObject);
+
+    }
+
+    private void OnCollisionStay2D(Collision2D col) {
+      OnCollision2D(col.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D col) {
+      OnCollision2D(col.gameObject);
+    }
+
+    private void OnTriggerStay2D(Collider2D col) {
+      OnCollision2D(col.gameObject);
+    }
+
+    private void OnCollision2D(GameObject other) {
       if (!clock.IsTicking) {
         return;
       }
-      var layer = collision.gameObject.layer;
-      if (((1 << layer) & damageLayerMask_) != 0) {
-        OnCollide(collision);
+      if (((1 << other.layer) & damageLayerMask_) != 0) {
+        OnCollide(other);
       }
     }
 
-    private void OnCollisionStay2D(Collision2D collision) {
-      if (!clock.IsTicking) {
-        return;
-      }
-      var layer = collision.gameObject.layer;
-      if (((1 << layer) & damageLayerMask_) != 0) {
-        OnCollide(collision);
-      }
-    }
-
-    protected abstract void OnCollide(Collision2D collision);
+    protected abstract void OnCollide(GameObject other);
   }
 }

@@ -60,7 +60,7 @@ namespace Witch {
       b2.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 3.0f, ForceMode2D.Impulse);
     }
 
-    protected override void OnCollide(Collision2D collision) {
+    protected override void OnCollide(GameObject other) {
       // TODO(ledyba): take some action
       Debug.Log("Sora: damaged");
     }
