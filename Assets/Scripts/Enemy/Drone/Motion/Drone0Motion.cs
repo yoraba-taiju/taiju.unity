@@ -25,15 +25,15 @@ namespace Enemy.Drone.Motion {
       var currentHash = stateInfo.shortNameHash;
       if (currentHash == Seeking) {
         var delta = sora_.transform.position - trans.position;
-        if (delta.magnitude <= 3.0f) {
+        if (delta.magnitude <= 6.0f) {
           animator.SetTrigger(ToWatching);
         } else {
-          trans.localPosition += delta.normalized * 3.0f * Time.deltaTime;;
+          trans.localPosition += delta.normalized * 7.0f * Time.deltaTime;;
         }
       } else if (currentHash == Watching) {
         var delta = sora_.transform.position - trans.position;
         var d = Math.Clamp(delta.magnitude - 4.0f, -0.9f, 0.9f);
-        trans.localPosition += delta.normalized * d * d * d * Time.deltaTime;
+        trans.localPosition += delta.normalized * d * Time.deltaTime;
       } else if (currentHash == Return) {
         var pos = trans.localPosition;
         pos.x += 3.0f * Time.deltaTime;

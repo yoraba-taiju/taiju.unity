@@ -17,7 +17,7 @@ namespace Witch {
 
     protected override void OnForward() {
       var player = playerInput.Player;
-      var move = player.Move.ReadValue<Vector2>() * Time.deltaTime * 7;
+      var move = player.Move.ReadValue<Vector2>() * Time.deltaTime * 15.0f;
       var trans = transform;
       var pos = trans.position;
       pos.x += move.x;
@@ -46,18 +46,18 @@ namespace Witch {
     private void Fire1() {
       var b = Instantiate(bullet, field_.transform);
       var trans = b.transform;
-      trans.localPosition = transform.localPosition + Vector3.right * 1f;
-      b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 3.0f, ForceMode2D.Impulse);
+      trans.localPosition = transform.localPosition + Vector3.right * 2f;
+      b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 6.0f, ForceMode2D.Impulse);
     }
     
     private void Fire2() {
       var b1 = Instantiate(bullet, field_.transform);
       var b2 = Instantiate(bullet, field_.transform);
       var pos = transform.localPosition;
-      b1.transform.localPosition = pos + Vector3.right * 1f + Vector3.up * 0.25f;
-      b2.transform.localPosition = pos + Vector3.right * 1f + Vector3.down * 0.25f;
-      b1.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 3.0f, ForceMode2D.Impulse);
-      b2.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 3.0f, ForceMode2D.Impulse);
+      b1.transform.localPosition = pos + Vector3.right * 2f + Vector3.up * 0.5f;
+      b2.transform.localPosition = pos + Vector3.right * 2f + Vector3.down * 0.5f;
+      b1.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 6.0f, ForceMode2D.Impulse);
+      b2.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 6.0f, ForceMode2D.Impulse);
     }
 
     protected override void OnCollide(GameObject other) {

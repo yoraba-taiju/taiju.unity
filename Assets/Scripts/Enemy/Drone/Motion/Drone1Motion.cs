@@ -26,11 +26,11 @@ namespace Enemy.Drone.Motion {
       var currentHash = stateInfo.shortNameHash;
       if (currentHash == Seeking) {
         var delta = sora_.transform.position - trans.position;
-        if (delta.magnitude <= 5.0f) {
+        if (delta.magnitude <= 15.0f) {
           animator.SetTrigger(ToFighting);
           time_ = 0.1f;
         } else {
-          trans.localPosition += delta.normalized * 2.5f * Time.deltaTime;;
+          trans.localPosition += delta.normalized * 5.0f * Time.deltaTime;;
         }
       } else if (currentHash == Fighting) {
         time_ -= Time.deltaTime;
