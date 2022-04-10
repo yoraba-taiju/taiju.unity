@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Enemy.Drone {
-  public class Drone2: EnemyBehaviour {
+  public class Drone0: EnemyBehaviour {
 
     [HideInInspector] public GameObject sora;
     [SerializeField] public float initialShield = 1.0f;

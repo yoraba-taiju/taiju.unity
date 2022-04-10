@@ -2,20 +2,20 @@ using System;
 using UnityEngine;
 
 namespace Enemy.Drone.Motion {
-  public class Drone2Motion : StateMachineBehaviour {
+  public class Drone0Motion : StateMachineBehaviour {
     private static readonly int Seeking = Animator.StringToHash("Seeking");
     private static readonly int Watching = Animator.StringToHash("Watching");
     private static readonly int Return = Animator.StringToHash("Return");
     private static readonly int ToWatching = Animator.StringToHash("ToWatching");
 
     private GameObject droneObj_;
-    private Drone2 drone_;
+    private Drone0 drone_;
     private GameObject sora_;
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       droneObj_ ??= animator.gameObject;
-      drone_ ??= droneObj_.GetComponent<Drone2>();
+      drone_ ??= droneObj_.GetComponent<Drone0>();
       sora_ ??= drone_.sora;
     }
 
