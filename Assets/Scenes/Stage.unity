@@ -6445,7 +6445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyWhenInvisible: 1
-  targetComponents: 0100000004000000
+  targetComponents: 010000000400000002000000
 --- !u!114 &1960468947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6459,8 +6459,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sora: {fileID: 0}
-  shield: 10
-  explosion: {fileID: 3444446105023976292, guid: 57368165dbebb724588a6734e9745984, type: 3}
+  initialShield: 10
+  explosionEffect: {fileID: 3444446105023976292, guid: 57368165dbebb724588a6734e9745984, type: 3}
   bullet: {fileID: 4074047190606247663, guid: 5eb10b2ac69b3e943837b34617a1654d, type: 3}
 --- !u!58 &1960468948
 CircleCollider2D:
