@@ -66,12 +66,12 @@ namespace Reversible.Value {
         if (currentLeap == lastTouchedLeap_ && lastTouchedTick_ <= currentTick) {
           return ref entries_[(entriesBeg_ + entriesLen_ - 1) % Clock.HISTORY_LENGTH].value;
         }
+        var tick = clock_.AdjustTick(lastTouchedLeap_, currentTick);
         var rawIdx = LowerBound(
           entriesBeg_,
           entriesBeg_ + entriesLen_,
-          currentTick
+          tick
         );
-
         var idx = rawIdx % Clock.HISTORY_LENGTH;
         if (currentTick < entries_[idx].tick) {
           throw new InvalidOperationException("Can't access before value born.");
@@ -92,12 +92,13 @@ namespace Reversible.Value {
         if (currentLeap == lastTouchedLeap_ && currentTick == lastTouchedTick_) {
           return ref entries_[(entriesBeg_ + entriesLen_ - 1) % Clock.HISTORY_LENGTH].value;
         }
+        var tick = clock_.AdjustTick(lastTouchedLeap_, currentTick);
         var rawIdx = LowerBound(
           entriesBeg_,
           entriesBeg_ + entriesLen_,
-          currentTick
+          tick
         );
-        UnityEngine.Debug.Log($"{rawIdx}");
+        //UnityEngine.Debug.Log($"{rawIdx}");
         var oldEntriesLen = entriesLen_;
         var idx = rawIdx % Clock.HISTORY_LENGTH;
         if (idx == entriesBeg_) {
