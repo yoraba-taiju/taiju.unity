@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Transform = Reversible.Companion.Transform;
 
 namespace Enemy.Drone.Motion {
   public class Drone0Motion : StateMachineBehaviour {
@@ -9,37 +10,35 @@ namespace Enemy.Drone.Motion {
     private static readonly int ToWatching = Animator.StringToHash("ToWatching");
 
     private GameObject droneObj_;
+    private Transform transform_;
     private Drone0 drone_;
+    private Rigidbody2D rigidbody_;
     private GameObject sora_;
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-      droneObj_ ??= animator.gameObject;
+      droneObj_ ??= animator.gameObject; 
       drone_ ??= droneObj_.GetComponent<Drone0>();
+      rigidbody_ ??= droneObj_.GetComponent<Rigidbody2D>();
       sora_ ??= drone_.sora;
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-      var trans = droneObj_.transform;
       var currentHash = stateInfo.shortNameHash;
+      var delta = (Vector2)(sora_.transform.position - droneObj_.transform.position);
       if (currentHash == Seeking) {
-        var delta = sora_.transform.position - trans.position;
         if (delta.magnitude <= 6.0f) {
           animator.SetTrigger(ToWatching);
         } else {
-          trans.localPosition += delta.normalized * 7.0f * Time.deltaTime;;
+          rigidbody_.velocity = delta.normalized * 7.0f;
         }
       } else if (currentHash == Watching) {
-        var delta = sora_.transform.position - trans.position;
         var d = Math.Clamp(delta.magnitude - 4.0f, -0.9f, 0.9f);
-        trans.localPosition += delta.normalized * d * Time.deltaTime;
+        rigidbody_.velocity = delta.normalized * d;
       } else if (currentHash == Return) {
-        var pos = trans.localPosition;
-        pos.x += 3.0f * Time.deltaTime;
-        trans.localPosition = pos;
+        rigidbody_.velocity = Vector2.right * 3.0f;
       }
     }
-
   }
 }
