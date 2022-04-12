@@ -31,7 +31,6 @@ namespace Enemy.Drone.Motion {
         if (delta.magnitude <= 15.0f) {
           animator.SetTrigger(ToFighting);
           time_ = 0.1f;
-          rigidbody_.velocity = Vector2.zero;
         } else {
           rigidbody_.velocity = delta.normalized * 5.0f;
         }
