@@ -104,6 +104,21 @@ MonoBehaviour:
     m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: -3239647783080845849}
+--- !u!114 &395319771616746501
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
+  m_Name: Spawn Emitter
+  m_EditorClassIdentifier: 
+  m_Time: 10
+  prefab: {fileID: 5644944058210672130, guid: 9b2eb4456682ea0458ab0631dc1eefb8, type: 3}
+  position: {x: 25, y: 0}
 --- !u!114 &513320277732594740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -160,6 +175,7 @@ MonoBehaviour:
     - {fileID: 8481645518334026892}
     - {fileID: 6502936256945746508}
     - {fileID: -1755185339521520211}
+    - {fileID: 395319771616746501}
 --- !u!114 &2992676592693697332
 MonoBehaviour:
   m_ObjectHideFlags: 1

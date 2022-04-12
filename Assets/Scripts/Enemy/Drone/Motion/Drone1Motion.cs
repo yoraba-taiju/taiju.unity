@@ -42,6 +42,5 @@ namespace Enemy.Drone.Motion {
         animator.SetTrigger(ToSeeking);
       }
     }
-
   }
 }
