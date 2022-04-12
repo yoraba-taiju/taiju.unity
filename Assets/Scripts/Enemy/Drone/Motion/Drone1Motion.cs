@@ -7,6 +7,7 @@ namespace Enemy.Drone.Motion {
     private static readonly int ToFighting = Animator.StringToHash("ToFighting");
     private static readonly int ToSeeking = Animator.StringToHash("ToSeeking");
     private GameObject droneObj_;
+    private Rigidbody2D rigidbody_;
     private Drone1 drone_;
     private GameObject sora_;
 
@@ -14,6 +15,7 @@ namespace Enemy.Drone.Motion {
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       droneObj_ ??= animator.gameObject;
       drone_ ??= droneObj_.GetComponent<Drone1>();
+      rigidbody_ ??= droneObj_.GetComponent<Rigidbody2D>();
       sora_ ??= drone_.sora;
     }
 
@@ -24,13 +26,14 @@ namespace Enemy.Drone.Motion {
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       var trans = droneObj_.transform;
       var currentHash = stateInfo.shortNameHash;
+      var delta = sora_.transform.position - trans.position;
       if (currentHash == Seeking) {
-        var delta = sora_.transform.position - trans.position;
         if (delta.magnitude <= 15.0f) {
           animator.SetTrigger(ToFighting);
           time_ = 0.1f;
+          rigidbody_.velocity = Vector2.zero;
         } else {
-          trans.localPosition += delta.normalized * 5.0f * Time.deltaTime;;
+          rigidbody_.velocity = delta.normalized * 5.0f;
         }
       } else if (currentHash == Fighting) {
         time_ -= Time.deltaTime;
@@ -39,7 +42,10 @@ namespace Enemy.Drone.Motion {
           e.transform.localPosition = trans.localPosition;
           time_ += 0.1f;
         }
-        animator.SetTrigger(ToSeeking);
+        if (delta.magnitude >= 20.0f) {
+          animator.SetTrigger(ToSeeking);
+        }
+        rigidbody_.velocity = Vector2.zero;
       }
     }
   }
