@@ -1,17 +1,18 @@
-using System;
+using Reversible;
 using UnityEngine;
-using Reversible.Unity;
 
 namespace Witch {
   public class Sora : WitchBehaviour {
     [SerializeField] public GameObject bullet;
+    private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
+    private PlayerInput.PlayerActions player_;
     private GameObject field_;
     private Rigidbody2D rigidbody_;
     private float toFire_;
-    private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
     protected override void OnStart() {
+      player_ = playerInput.Player;
       rigidbody_ = GetComponent<Rigidbody2D>();
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field");
@@ -19,12 +20,11 @@ namespace Witch {
     }
 
     private void FixedUpdate() {
-      var player = playerInput.Player;
-      rigidbody_.velocity = player.Move.ReadValue<Vector2>() * 15.0f;
+      rigidbody_.velocity = player_.Move.ReadValue<Vector2>() * 15.0f;
     }
 
     protected override void OnForward() {
-      var fire = playerInput.Player.Fire;
+      var fire = player_.Fire;
       if (toFire_ <= 0.0f) {
         if (fire.IsPressed()) {
           if (fire.WasPressedThisFrame()) {
