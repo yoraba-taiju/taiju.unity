@@ -7,12 +7,18 @@ namespace Witch {
     [SerializeField] public GameObject bullet;
 
     private GameObject field_;
+    private Rigidbody2D rigidbody_;
     private float toFire_;
 
     protected override void OnStart() {
+      rigidbody_ = GetComponent<Rigidbody2D>();
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field");
       toFire_ = 0.0f;
+    }
+
+    private void FixedUpdate() {
+      rigidbody_.velocity = Vector2.zero;
     }
 
     protected override void OnForward() {
