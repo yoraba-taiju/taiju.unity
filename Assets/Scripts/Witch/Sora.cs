@@ -1,4 +1,3 @@
-using Reversible;
 using UnityEngine;
 
 namespace Witch {
@@ -6,7 +5,7 @@ namespace Witch {
     [SerializeField] public GameObject bullet;
     private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
-    private PlayerInput.PlayerActions player_;
+    private Reversible.PlayerInput.PlayerActions player_;
     private GameObject field_;
     private Rigidbody2D rigidbody_;
     private float toFire_;
