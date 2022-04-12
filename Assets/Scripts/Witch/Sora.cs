@@ -9,6 +9,7 @@ namespace Witch {
     private GameObject field_;
     private Rigidbody2D rigidbody_;
     private float toFire_;
+    private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
     protected override void OnStart() {
       rigidbody_ = GetComponent<Rigidbody2D>();
@@ -47,7 +48,7 @@ namespace Witch {
       var b = Instantiate(bullet, field_.transform);
       var trans = b.transform;
       trans.localPosition = transform.localPosition + Vector3.right * 2f;
-      b.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 6.0f, ForceMode2D.Impulse);
+      b.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
     }
     
     private void Fire2() {
@@ -56,8 +57,8 @@ namespace Witch {
       var pos = transform.localPosition;
       b1.transform.localPosition = pos + Vector3.right * 2f + Vector3.up * 0.5f;
       b2.transform.localPosition = pos + Vector3.right * 2f + Vector3.down * 0.5f;
-      b1.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 6.0f, ForceMode2D.Impulse);
-      b2.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 6.0f, ForceMode2D.Impulse);
+      b1.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
+      b2.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
     }
 
     protected override void OnCollide(GameObject other) {
