@@ -34,7 +34,7 @@ namespace Enemy.Drone.Motion {
           rigidbody_.velocity = delta.normalized * 7.0f;
         }
       } else if (currentHash == Watching) {
-        var d = Math.Clamp(delta.magnitude - 4.0f, -0.9f, 0.9f);
+        var d = Math.Clamp(delta.magnitude - 4.0f, -2.0f, 2.0f);
         rigidbody_.velocity = delta.normalized * d;
       } else if (currentHash == Return) {
         rigidbody_.velocity = Vector2.right * 3.0f;
