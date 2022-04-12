@@ -18,18 +18,12 @@ namespace Witch {
     }
 
     private void FixedUpdate() {
-      rigidbody_.velocity = Vector2.zero;
+      var player = playerInput.Player;
+      rigidbody_.velocity = player.Move.ReadValue<Vector2>() * 15.0f;
     }
 
     protected override void OnForward() {
-      var player = playerInput.Player;
-      var move = player.Move.ReadValue<Vector2>() * Time.deltaTime * 15.0f;
-      var trans = transform;
-      var pos = trans.position;
-      pos.x += move.x;
-      pos.y += move.y;
-      trans.position = pos;
-      var fire = player.Fire;
+      var fire = playerInput.Player.Fire;
       if (toFire_ <= 0.0f) {
         if (fire.IsPressed()) {
           if (fire.WasPressedThisFrame()) {
