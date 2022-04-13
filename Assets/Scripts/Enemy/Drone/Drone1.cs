@@ -24,7 +24,7 @@ namespace Enemy.Drone {
       animator_ = GetComponent<Animator>();
       rigidbody_ = GetComponent<Rigidbody2D>();
       shield_ = new Sparse<float>(clock, initialShield);
-      timeToFire_ = new Dense<float>(clock, 0.1f);
+      timeToFire_ = new Dense<float>(clock, 0.3f);
     }
 
     protected override void OnForward() {
@@ -42,8 +42,8 @@ namespace Enemy.Drone {
         timeToFire -= Time.deltaTime;
         if (timeToFire <= 0.0f) {
           var e = Instantiate(bullet, transform.parent);
-          e.transform.localPosition = transform.localPosition;
-          timeToFire += 0.1f;
+          e.transform.localPosition = transform.localPosition + Vector3.left * 2.5f;
+          timeToFire += 0.3f;
         }
         if (delta.magnitude >= 20.0f) {
           animator_.SetTrigger(ToSeeking);
