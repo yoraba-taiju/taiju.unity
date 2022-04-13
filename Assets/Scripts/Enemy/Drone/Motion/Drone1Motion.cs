@@ -26,7 +26,7 @@ namespace Enemy.Drone.Motion {
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       var trans = droneObj_.transform;
       var currentHash = stateInfo.shortNameHash;
-      var delta = sora_.transform.position - trans.position;
+      var delta = (Vector2)(sora_.transform.position - trans.position);
       if (currentHash == Seeking) {
         if (delta.magnitude <= 15.0f) {
           animator.SetTrigger(ToFighting);
