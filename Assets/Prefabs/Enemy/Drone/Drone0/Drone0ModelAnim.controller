@@ -146,6 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca8fd28b6bebd448a9837faa910fab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  droneObj_: {fileID: 0}
+  drone_: {fileID: 0}
+  rigidbody_: {fileID: 0}
+  sora_: {fileID: 0}
 --- !u!1102 &-2355105870051212118
 AnimatorState:
   serializedVersion: 6
@@ -225,8 +229,7 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
-  m_StateMachineBehaviours:
-  - {fileID: -4387288899629681041}
+  m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 40, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}

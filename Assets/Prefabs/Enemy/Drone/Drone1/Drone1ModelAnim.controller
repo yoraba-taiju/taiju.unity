@@ -83,6 +83,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ada183632a1453f8898c1267a9ce25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  droneObj_: {fileID: 0}
+  rigidbody_: {fileID: 0}
+  drone_: {fileID: 0}
+  sora_: {fileID: 0}
+  time_: 0.1
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -97,13 +102,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: ToSeeking
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base
@@ -225,8 +230,7 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
-  m_StateMachineBehaviours:
-  - {fileID: -4240104102174723067}
+  m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
