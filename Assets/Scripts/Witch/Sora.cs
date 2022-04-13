@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Witch {
@@ -23,6 +24,15 @@ namespace Witch {
     }
 
     protected override void OnForward() {
+      {
+        var trans = transform;
+        var pos = trans.localPosition;
+        trans.localPosition = new Vector3(
+          Math.Clamp(pos.x, -17.5f, 17.5f),
+          Math.Clamp(pos.y, -9.5f, 9.5f),
+          0.0f
+        );
+      }
       var fire = playerActions_.Fire;
       if (toFire_ <= 0.0f) {
         if (fire.IsPressed()) {
