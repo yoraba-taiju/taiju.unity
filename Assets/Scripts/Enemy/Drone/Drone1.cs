@@ -14,7 +14,7 @@ namespace Enemy.Drone {
     private Animator animator_;
     private Rigidbody2D rigidbody_;
 
-    [SerializeField] public float initialShield = 10.0f;
+    [SerializeField] public float initialShield = 40.0f;
     private Sparse<float> shield_;
     private Dense<float> timeToFire_;
     [SerializeField] public GameObject explosionEffect;

@@ -189,7 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc2707c910e4467b656483167decdae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sora: {fileID: 0}
-  initialShield: 10
+  initialShield: 40
   explosionEffect: {fileID: 3444446105023976292, guid: 57368165dbebb724588a6734e9745984, type: 3}
   bullet: {fileID: 4074047190606247663, guid: 5eb10b2ac69b3e943837b34617a1654d, type: 3}
