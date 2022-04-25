@@ -41,9 +41,10 @@ namespace Reversible.Unity {
       } else {
         if (Clock.IsLeaping) {
           Leaped = true;
+          timeToTick_ = SecondPerFrame;
         }
-        Clock.Tick();
         Ticked = true;
+        Clock.Tick();
         Time.timeScale = 1.0f;
       }
     }
