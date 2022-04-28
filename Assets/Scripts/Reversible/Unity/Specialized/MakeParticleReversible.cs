@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using ParticleSystem = Reversible.Companion.ParticleSystem;
 
-namespace Reversible.Unity.Effect {
-  public class ParticleEffect : EffectBehaviour {
+namespace Reversible.Unity.Specialized {
+  public class MakeParticleReversible : SpecializedReversibleCompanionBehaviour {
     private UnityEngine.ParticleSystem particle_;
     private ParticleSystem companion_;
     protected override void OnStart() {

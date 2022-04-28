@@ -2,8 +2,8 @@
 using Reversible.Unity;
 using UnityEngine;
 
-namespace Reversible.Unity.Effect {
-  public abstract class EffectBehaviour : MonoBehaviour {
+namespace Reversible.Unity.Specialized {
+  public abstract class SpecializedReversibleCompanionBehaviour : MonoBehaviour {
     protected ClockHolder clockHolder;
     protected Graveyard graveyard;
     protected Clock clock;
