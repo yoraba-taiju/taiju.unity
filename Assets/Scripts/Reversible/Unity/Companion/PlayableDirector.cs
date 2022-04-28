@@ -2,7 +2,7 @@
 using Reversible.Unity;
 using Reversible.Value;
 
-namespace Reversible.Companion {
+namespace Reversible.Unity.Companion {
   public struct PlayableDirector : ICompanion {
     private readonly UnityEngine.Playables.PlayableDirector playableDirector_;
 

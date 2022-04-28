@@ -3,7 +3,7 @@ using Reversible.Unity;
 using Reversible.Value;
 using UnityEngine;
 
-namespace Reversible.Companion {
+namespace Reversible.Unity.Companion {
   public struct Transform: ICompanion {
     private readonly UnityEngine.Transform transform_;
 

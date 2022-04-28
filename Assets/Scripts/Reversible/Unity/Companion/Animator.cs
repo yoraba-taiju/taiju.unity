@@ -1,9 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using Reversible.Unity;
 using Reversible.Value;
 
-namespace Reversible.Companion {
+namespace Reversible.Unity.Companion {
   public readonly struct Animator: ICompanion {
     // Clock
     private readonly UnityEngine.Animator animator_;

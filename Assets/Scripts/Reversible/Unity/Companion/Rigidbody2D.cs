@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using Reversible.Unity;
 using Reversible.Value;
 
-namespace Reversible.Companion {
+namespace Reversible.Unity.Companion {
   public struct Rigidbody2D : ICompanion {
     private readonly UnityEngine.Rigidbody2D body_;
 

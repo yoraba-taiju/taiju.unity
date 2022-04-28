@@ -1,9 +1,7 @@
 ﻿using System;
-using Reversible.Unity;
 using Reversible.Value;
-using UnityEngine;
 
-namespace Reversible.Companion {
+namespace Reversible.Unity.Companion {
   public struct ParticleSystem: ICompanion {
     private readonly UnityEngine.ParticleSystem particleSystem_;
 
