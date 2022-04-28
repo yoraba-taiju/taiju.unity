@@ -3,7 +3,7 @@ using Reversible.Unity;
 using UnityEngine;
 
 namespace Reversible.Unity.Specialized {
-  public abstract class SpecializedReversibleCompanionBehaviour : MonoBehaviour {
+  public abstract class SpecializedReversibleComponentBehaviour : MonoBehaviour {
     protected ClockHolder clockHolder;
     protected Graveyard graveyard;
     protected Clock clock;
