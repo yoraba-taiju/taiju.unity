@@ -5,17 +5,6 @@ namespace Reversible {
   public class Clock {
     public const uint HISTORY_LENGTH = 512;
 
-    /* State management */
-    private enum State {
-      Ticking,
-      Leaping,
-    }
-
-    private State state_ = State.Ticking;
-    
-    public bool IsTicking => state_ == State.Ticking;
-    public bool IsLeaping => state_ == State.Leaping;
-
     /* current leaps */
     public uint CurrentLeap { get; private set; }
     public uint CurrentTick { get; private set; }
@@ -30,28 +19,17 @@ namespace Reversible {
     }
 
     public void Tick() {
-      if (state_ != State.Ticking) {
-        DecideToLeap();
-        return;
-      }
       CurrentTick++;
       HistoryBegin = Math.Max(HistoryBegin, (CurrentTick >= HISTORY_LENGTH) ? (CurrentTick - HISTORY_LENGTH + 1) : 0);
     }
 
     public void Back() {
-      if (state_ == State.Ticking) {
-        state_ = State.Leaping;
-      }
       if (CurrentTick > HistoryBegin) {
         CurrentTick--;
       }
     }
 
-    private void DecideToLeap() {
-      if (state_ != State.Leaping) {
-        throw new InvalidOperationException("Clock can't leap before using magick.");
-      }
-
+    public void DecideToLeap() {
       for (var i = (CurrentLeap >= HISTORY_LENGTH) ? (CurrentLeap - HISTORY_LENGTH) : 0; i <= CurrentLeap; ++i) {
         var idx = i % HISTORY_LENGTH;
         historyBranches_[idx] = Math.Min(historyBranches_[idx], CurrentTick);
@@ -59,20 +37,21 @@ namespace Reversible {
 
       CurrentLeap++;
       historyBranches_[CurrentLeap % HISTORY_LENGTH] = uint.MaxValue;
-      state_ = State.Ticking;
-      // {
-      //   var branches = "";
-      //   for (var i = (CurrentLeap >= HISTORY_LENGTH) ? (CurrentLeap - HISTORY_LENGTH) : 0; i <= CurrentLeap; ++i) {
-      //     branches += $"(i={historyBranches_[i % HISTORY_LENGTH]}), ";
-      //   }
-      //   UnityEngine.Debug.Log($"Leaping {CurrentLeap} at {CurrentTick}. branches: [{branches}]");
-      // }
+      // DebugBranch();
     }
 
-    public uint AdjustTick(uint lastTouchLeap, uint time) {
-      return Math.Min(historyBranches_[lastTouchLeap % HISTORY_LENGTH], time);
+    private void DebugBranch() {
+      var branches = "";
+      for (var i = (CurrentLeap >= HISTORY_LENGTH) ? (CurrentLeap - HISTORY_LENGTH) : 0; i <= CurrentLeap; ++i) {
+        branches += $"(i={historyBranches_[i % HISTORY_LENGTH]}), ";
+      }
+      Debug.Log($"Leaping {CurrentLeap} at {CurrentTick}. branches: [{branches}]");
     }
-    public uint BranchTick(uint leap) {
+
+    public uint AdjustTick(uint lastTouchLeap, uint tick) {
+      return Math.Min(historyBranches_[lastTouchLeap % HISTORY_LENGTH], tick);
+    }
+    public uint BranchTickOfLeap(uint leap) {
       return historyBranches_[leap % HISTORY_LENGTH];
     }
   }

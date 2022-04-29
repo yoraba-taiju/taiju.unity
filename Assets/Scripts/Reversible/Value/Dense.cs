@@ -41,8 +41,7 @@ namespace Reversible.Value {
         }
 
         if (clock_.CurrentLeap != lastTouchedLeap_) {
-          var branch = clock_.BranchTick(lastTouchedLeap_);
-          lastTouchedTick_ = Math.Min(currentTick, branch);
+          lastTouchedTick_ = clock_.AdjustTick(lastTouchedLeap_, currentTick);
           lastTouchedLeap_ = clock_.CurrentLeap;
           return ref entries_[lastTouchedTick_ % Clock.HISTORY_LENGTH];
         }
@@ -61,7 +60,7 @@ namespace Reversible.Value {
           throw new InvalidOperationException("Can't access before value born.");
         }
         if (clock_.CurrentLeap != lastTouchedLeap_) {
-          var branch = clock_.BranchTick(lastTouchedLeap_);
+          var branch = clock_.BranchTickOfLeap(lastTouchedLeap_);
           var v = entries_[branch % Clock.HISTORY_LENGTH];
           for (var i = branch + 1; i <= currentTick; i++) {
             if (clonerFn_ == null) {

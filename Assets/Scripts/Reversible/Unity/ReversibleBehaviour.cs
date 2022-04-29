@@ -2,7 +2,7 @@
 
 namespace Reversible.Unity {
   public abstract class ReversibleBehaviour: MonoBehaviour {
-    private ClockHolder clockHolder_;
+    protected ClockHolder clockHolder;
     private Graveyard graveyard_;
     protected Clock clock;
     protected PlayerInput playerInput;
@@ -12,19 +12,19 @@ namespace Reversible.Unity {
 
     public void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      clockHolder_ = clockObj.GetComponent<ClockHolder>();
+      clockHolder = clockObj.GetComponent<ClockHolder>();
       graveyard_ = clockObj.GetComponent<Graveyard>();
-      playerInput = clockHolder_.PlayerInput;
-      clock = clockHolder_.Clock;
+      playerInput = clockHolder.PlayerInput;
+      clock = clockHolder.Clock;
       OnStart();
     }
 
     protected virtual void OnReverse() {}
     public void Update() {
-      if (clock.IsTicking) {
-        OnForward();
-      } else {
+      if (clockHolder.IsLeaping) {
         OnReverse();
+      } else {
+        OnForward();
       }
     }
 

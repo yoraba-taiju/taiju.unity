@@ -20,7 +20,7 @@ namespace Enemy {
     }
 
     private void OnCollision2D(Collision2D other) {
-      if (!clock.IsTicking) {
+      if (clockHolder.IsLeaping) {
         return;
       }
       var layer = other.gameObject.layer;

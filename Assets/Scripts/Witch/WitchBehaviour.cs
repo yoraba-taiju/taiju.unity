@@ -27,7 +27,7 @@ namespace Witch {
     }
 
     private void OnCollision2D(GameObject other) {
-      if (!clock.IsTicking) {
+      if (clockHolder.IsLeaping) {
         return;
       }
       if (((1 << other.layer) & damageLayerMask_) != 0) {

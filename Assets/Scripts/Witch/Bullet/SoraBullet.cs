@@ -35,7 +35,7 @@ namespace Witch.Bullet {
     }
 
     private void OnTrigger2D(Collider2D other) {
-      if (!clock.IsTicking) {
+      if (clockHolder.IsLeaping) {
         return;
       }
       if (other.gameObject.layer == terrainLayer_) {
