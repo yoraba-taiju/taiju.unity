@@ -10,6 +10,7 @@ namespace Witch {
     private GameObject field_;
     private Rigidbody2D rigidbody_;
     private float toFire_;
+    private bool notFired_;
 
     protected override void OnStart() {
       playerActions_ = playerInput.Player;
@@ -17,6 +18,7 @@ namespace Witch {
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field");
       toFire_ = 0.0f;
+      notFired_ = true;
     }
 
     private void FixedUpdate() {
@@ -36,13 +38,16 @@ namespace Witch {
       var fire = playerActions_.Fire;
       if (toFire_ <= 0.0f) {
         if (fire.IsPressed()) {
-          if (fire.WasPressedThisFrame()) {
+          if (notFired_) {
             Fire1();
             toFire_ += 120.0f / 1000.0f;
           } else {
             Fire2();
             toFire_ += 50.0f / 1000.0f;
           }
+          notFired_ = false;
+        } else {
+          notFired_ = true;
         }
       } else {
         toFire_ -= Time.deltaTime;
@@ -51,6 +56,7 @@ namespace Witch {
 
     protected override void OnReverse() {
       toFire_ = 0.0f;
+      notFired_ = true;
     }
 
     private void Fire1() {
