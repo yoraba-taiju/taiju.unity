@@ -58,8 +58,8 @@ namespace Enemy.Drone {
       shield -= 1.0f;
       if (shield <= 0) {
         Destroy();
-        var e = Instantiate(explosionEffect, transform.parent);
-        e.transform.localPosition = transform.localPosition;
+        var explosion = Instantiate(explosionEffect, transform.parent);
+        explosion.transform.localPosition = transform.localPosition;
       }
     }
   }
