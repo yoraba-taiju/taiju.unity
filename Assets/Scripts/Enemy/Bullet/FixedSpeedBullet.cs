@@ -7,7 +7,8 @@ namespace Enemy.Bullet {
     public Vector2 Direction {
       get => direction_;
       set {
-        transform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(value.x, value.y) * Mathf.Rad2Deg);
+        var angle = AngleDegOf(value);
+        transform.localRotation = Quaternion.Euler(0, 0, angle);
         direction_ = value;
       }
     }

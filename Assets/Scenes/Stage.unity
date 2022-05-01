@@ -940,6 +940,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1504464791724941574, guid: 39a917f978951164b92fd97fd1606030, type: 3}
+      propertyPath: clockInterval
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1504464791724941575, guid: 39a917f978951164b92fd97fd1606030, type: 3}
       propertyPath: m_RootOrder
       value: 0

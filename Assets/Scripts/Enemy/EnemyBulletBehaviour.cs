@@ -47,7 +47,7 @@ namespace Enemy {
       return Quaternion.AngleAxis(angleToRotate, Vector3.forward) * direction;
     }
     protected static float AngleDegOf(Vector2 direction) {
-      return Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+      return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
   }
 }

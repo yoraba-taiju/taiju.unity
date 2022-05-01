@@ -7,7 +7,7 @@ namespace Enemy.Bullet {
     [SerializeField] public float speed = 10.0f;
     [SerializeField] public float maxDegreeDeltaPerSecond = 30.0f;
     private GameObject sora_;
-    private bool soraMissed_;
+    private bool soraMissing_;
     private Vector3 direction_;
     private float angle_;
     protected override void OnStart() {
@@ -15,11 +15,11 @@ namespace Enemy.Bullet {
       if (sora_ == null) {
         direction_ = Vector3.left * speed;
         angle_ = 180;
-        soraMissed_ = true;
+        soraMissing_ = true;
         return;
       }
 
-      soraMissed_ = false;
+      soraMissing_ = false;
       var trans = transform;
       var pos = trans.position;
       var vec = (Vector2) (sora_.transform.position - pos);
@@ -34,7 +34,7 @@ namespace Enemy.Bullet {
     }
 
     protected override void OnForward() {
-      if (soraMissed_) {
+      if (soraMissing_) {
         transform.position += direction_ * Time.deltaTime;
         return;
       }
