@@ -43,11 +43,11 @@ namespace Enemy {
 
     protected abstract void OnCollideWithWitch(GameObject other);
 
-    protected static Vector2 CalcSpeed(Vector2 direction, float speed, float angle) {
-      if (direction.magnitude <= float.Epsilon) {
-        return Vector2.left * speed;
-      }
-      return Quaternion.AngleAxis(angle, Vector3.forward) * direction.normalized * speed;
+    protected static Vector3 RotateByAngleDeg(Vector3 direction, float angleToRotate) {
+      return Quaternion.AngleAxis(angleToRotate, Vector3.forward) * direction;
+    }
+    protected static float AngleDegOf(Vector2 direction) {
+      return Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
     }
   }
 }
