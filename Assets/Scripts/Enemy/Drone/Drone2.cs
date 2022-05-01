@@ -1,15 +1,16 @@
 ﻿using System;
-using Enemy.Bullet;
 using Reversible.Unity;
 using Reversible.Value;
 using UnityEngine;
 
 namespace Enemy.Drone {
-  public class Drone1: EnemyBehaviour {
+  public class Drone2: EnemyBehaviour {
     private static readonly int Seeking = Animator.StringToHash("Seeking");
-    private static readonly int GivingUp = Animator.StringToHash("GivingUp");
     private static readonly int Fighting = Animator.StringToHash("Fighting");
+    private static readonly int ToFighting = Animator.StringToHash("ToFighting");
+    private static readonly int ToSeeking = Animator.StringToHash("ToSeeking");
 
+    private GameObject sora_;
     private Animator animator_;
     private Rigidbody2D rigidbody_;
 
@@ -19,6 +20,7 @@ namespace Enemy.Drone {
     [SerializeField] public GameObject explosionEffect;
     [SerializeField] public GameObject bullet;
     protected override void OnStart() {
+      sora_ = GameObject.FindWithTag("Player");
       animator_ = GetComponent<Animator>();
       rigidbody_ = GetComponent<Rigidbody2D>();
       shield_ = new Sparse<float>(clock, initialShield);
@@ -27,21 +29,27 @@ namespace Enemy.Drone {
 
     protected override void OnForward() {
       var currentHash = animator_.GetCurrentAnimatorStateInfo(1).shortNameHash;
-      if (currentHash == Seeking || currentHash == GivingUp) {
-        rigidbody_.velocity = Vector2.left * 5.0f;
+      var delta = (Vector2)(sora_.transform.position - transform.position);
+      if (currentHash == Seeking) {
+        if (delta.magnitude <= 15.0f) {
+          animator_.SetTrigger(ToFighting);
+          timeToFire_.Mut = 0.1f;
+        } else {
+          rigidbody_.velocity = delta.normalized * 5.0f;
+        }
       } else if (currentHash == Fighting) {
         ref var timeToFire = ref timeToFire_.Mut;
         timeToFire -= Time.deltaTime;
         if (timeToFire <= 0.0f) {
+          var e = Instantiate(bullet, transform.parent);
+          e.transform.localPosition = transform.localPosition + Vector3.left * 2.5f;
           timeToFire += 0.3f;
-
-          var obj = Instantiate(bullet, transform.parent);
-          obj.transform.localPosition = transform.localPosition + Vector3.left * 2.5f;
-
-          var aim = obj.GetComponent<FixedSpeedBullet>();
-          aim.Direction = Vector2.left * 15.0f;
         }
-        rigidbody_.velocity = Vector2.zero;
+        if (delta.magnitude >= 20.0f) {
+          animator_.SetTrigger(ToSeeking);
+        }
+        var d = Math.Clamp(delta.magnitude - 15.0f, -2.0f, 2.0f);
+        rigidbody_.velocity = delta.normalized * d;
       }
     }
 

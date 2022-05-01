@@ -42,5 +42,12 @@ namespace Enemy {
     }
 
     protected abstract void OnCollideWithWitch(GameObject other);
+
+    protected static Vector2 CalcSpeed(Vector2 direction, float speed, float angle) {
+      if (direction.magnitude <= float.Epsilon) {
+        return Vector2.left * speed;
+      }
+      return Quaternion.AngleAxis(angle, Vector3.forward) * direction.normalized * speed;
+    }
   }
 }

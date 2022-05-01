@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 3624479336992453050}
   - component: {fileID: 6521430203132749473}
   - component: {fileID: 5371516944444880739}
+  - component: {fileID: -5043513356367703788}
   m_Layer: 10
   m_Name: MetalBullet_Blue
   m_TagString: Untagged
@@ -196,8 +197,8 @@ Transform:
   m_GameObject: {fileID: 7265134332449134891}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7265134331583611251}
   - {fileID: 7265134332195364194}
@@ -264,3 +265,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-5043513356367703788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7265134332449134891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 227cbdf9c6f9440b8bc37a7b06f3d002, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
