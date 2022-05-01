@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8864089249949062247
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
+  m_Name: Spawn Emitter(Clone)
+  m_EditorClassIdentifier: 
+  m_Time: 14.5
+  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
+  position: {x: 25, y: -15}
 --- !u!114 &-7642012439613571145
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30,6 +45,21 @@ MonoBehaviour:
   m_Time: 10.5
   prefab: {fileID: 5644944058210672130, guid: 9b2eb4456682ea0458ab0631dc1eefb8, type: 3}
   position: {x: 25, y: 7}
+--- !u!114 &-3842784004237942674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
+  m_Name: Spawn Emitter(Clone)
+  m_EditorClassIdentifier: 
+  m_Time: 13.5
+  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
+  position: {x: 25, y: 10}
 --- !u!114 &-3782812827892902729
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,6 +238,26 @@ MonoBehaviour:
     - {fileID: 395319771616746501}
     - {fileID: -6297824035973595427}
     - {fileID: 1098081732844558213}
+    - {fileID: 5606327070903048699}
+    - {fileID: -3842784004237942674}
+    - {fileID: 8632222549710451032}
+    - {fileID: -8864089249949062247}
+    - {fileID: 2705357652254507718}
+--- !u!114 &2705357652254507718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
+  m_Name: Spawn Emitter(Clone)
+  m_EditorClassIdentifier: 
+  m_Time: 13.833333333333332
+  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
+  position: {x: 25, y: -10}
 --- !u!114 &2992676592693697332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -268,6 +318,21 @@ MonoBehaviour:
   m_Time: 1.95
   prefab: {fileID: 0}
   position: {x: 0, y: 0}
+--- !u!114 &5606327070903048699
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
+  m_Name: Spawn Emitter(Clone)
+  m_EditorClassIdentifier: 
+  m_Time: 13.166666666666666
+  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
+  position: {x: 25, y: 0}
 --- !u!114 &5757735731403753067
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -329,3 +394,18 @@ MonoBehaviour:
   m_Time: 3.1666666666666665
   prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
   position: {x: 25, y: 0}
+--- !u!114 &8632222549710451032
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
+  m_Name: Spawn Emitter(Clone)
+  m_EditorClassIdentifier: 
+  m_Time: 14.166666666666666
+  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
+  position: {x: 25, y: 15}
