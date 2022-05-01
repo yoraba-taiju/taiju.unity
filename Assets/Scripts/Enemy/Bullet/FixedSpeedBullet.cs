@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using Reversible.Unity;
+﻿using UnityEngine;
 
 namespace Enemy.Bullet {
   public sealed class FixedSpeedBullet : EnemyBulletBehaviour {
@@ -9,7 +7,7 @@ namespace Enemy.Bullet {
     public Vector2 Direction {
       get => direction_;
       set {
-        transform.localRotation = Quaternion.Euler(0, 0, (float)Math.Atan2(value.x, value.y));
+        transform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(value.x, value.y));
         direction_ = value;
       }
     }

@@ -1,4 +1,5 @@
-﻿using Reversible.Unity;
+﻿using System;
+using Reversible.Unity;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -21,6 +22,10 @@ namespace Enemy {
 
     private void OnCollision2D(Collision2D other) {
       if (clockHolder.IsLeaping) {
+        return;
+      }
+      var pos = transform.localPosition;
+      if (Mathf.Abs(pos.x) >= 18.0f || Mathf.Abs(pos.y) >= 10.0f) {
         return;
       }
       var layer = other.gameObject.layer;
