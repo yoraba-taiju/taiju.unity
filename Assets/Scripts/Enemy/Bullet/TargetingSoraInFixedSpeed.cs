@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Util;
 using UnityEngine;
-using Reversible.Unity;
 
 namespace Enemy.Bullet {
   public sealed class TargetingSoraInFixedSpeed : EnemyBulletBehaviour {
@@ -30,7 +29,7 @@ namespace Enemy.Bullet {
         return;
       }
       direction_ = vec / magnitude * speed;
-      angle_ = AngleDegOf(direction_);
+      angle_ = VecUtil.AngleDegOf(direction_);
     }
 
     protected override void OnForward() {
@@ -43,9 +42,9 @@ namespace Enemy.Bullet {
       var vec = (Vector2)(sora_.transform.position - pos);
 
       var maxDeg = Time.deltaTime * maxDegreeDeltaPerSecond;
-      var nextDeg = Mathf.Clamp(AngleDegOf(vec) - angle_, -maxDeg, maxDeg);
-      direction_ = RotateByAngleDeg(direction_, nextDeg);
-      angle_ = AngleDegOf(direction_);
+      var nextDeg = Mathf.Clamp(VecUtil.AngleDegOf(vec) - angle_, -maxDeg, maxDeg);
+      direction_ = VecUtil.RotateByAngleDeg(direction_, nextDeg);
+      angle_ = VecUtil.AngleDegOf(direction_);
       transform.position += direction_ * Time.deltaTime;
     }
 

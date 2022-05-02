@@ -43,11 +43,5 @@ namespace Enemy {
 
     protected abstract void OnCollideWithWitch(GameObject other);
 
-    protected static Vector3 RotateByAngleDeg(Vector3 direction, float angleToRotate) {
-      return Quaternion.AngleAxis(angleToRotate, Vector3.forward) * direction;
-    }
-    protected static float AngleDegOf(Vector2 direction) {
-      return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-    }
   }
 }

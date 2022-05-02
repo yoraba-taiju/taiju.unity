@@ -1,20 +1,19 @@
-﻿using System;
-using Reversible.Unity;
+﻿using Enemy.Bullet;
 using Reversible.Value;
 using UnityEngine;
+using Util;
 
 namespace Enemy.Drone {
   public class Drone2: EnemyBehaviour {
     private static readonly int Seeking = Animator.StringToHash("Seeking");
     private static readonly int Fighting = Animator.StringToHash("Fighting");
-    private static readonly int ToFighting = Animator.StringToHash("ToFighting");
-    private static readonly int ToSeeking = Animator.StringToHash("ToSeeking");
 
     private GameObject sora_;
     private Animator animator_;
     private Rigidbody2D rigidbody_;
 
-    [SerializeField] public float initialShield = 40.0f;
+    [SerializeField] public float initialShield = 10.0f;
+    [SerializeField] public float maxRotateDegreePerSecond = 3600.0f;
     private Sparse<float> shield_;
     private Dense<float> timeToFire_;
     [SerializeField] public GameObject explosionEffect;
@@ -28,28 +27,34 @@ namespace Enemy.Drone {
     }
 
     protected override void OnForward() {
-      var currentHash = animator_.GetCurrentAnimatorStateInfo(1).shortNameHash;
-      var delta = (Vector2)(sora_.transform.position - transform.position);
+      var trans = transform;
+      var currentHash = animator_.GetCurrentAnimatorStateInfo(0).shortNameHash;
+      var delta = (Vector2)(sora_.transform.position - trans.position);
       if (currentHash == Seeking) {
-        if (delta.magnitude <= 15.0f) {
-          animator_.SetTrigger(ToFighting);
-          timeToFire_.Mut = 0.1f;
-        } else {
+        { // rotation
+          var rot = trans.localRotation;
+          var current = rot.eulerAngles.z;
+          var degreeDelta = VecUtil.AngleDegOf(delta) - rot.eulerAngles.z;
+          var maxDegree = maxRotateDegreePerSecond * Time.deltaTime;
+          trans.localRotation = Quaternion.Euler(0, 0, current + Mathf.Clamp(degreeDelta, -maxDegree, maxDegree));
+        }
+        if (delta.magnitude >= 15.0f) {
           rigidbody_.velocity = delta.normalized * 5.0f;
+        } else {
+          rigidbody_.velocity = Vector2.zero;
         }
       } else if (currentHash == Fighting) {
         ref var timeToFire = ref timeToFire_.Mut;
         timeToFire -= Time.deltaTime;
         if (timeToFire <= 0.0f) {
-          var e = Instantiate(bullet, transform.parent);
-          e.transform.localPosition = transform.localPosition + Vector3.left * 2.5f;
+          var direction = trans.localRotation * Vector3.right;
+          var b = Instantiate(bullet, trans.parent);
+          b.transform.localPosition = trans.localPosition + direction * 1.2f;
+          var aim = b.GetComponent<FixedSpeedBullet>();
+          aim.Direction = direction * 15.0f;
           timeToFire += 0.3f;
         }
-        if (delta.magnitude >= 20.0f) {
-          animator_.SetTrigger(ToSeeking);
-        }
-        var d = Math.Clamp(delta.magnitude - 15.0f, -2.0f, 2.0f);
-        rigidbody_.velocity = delta.normalized * d;
+        rigidbody_.velocity = Vector2.zero;
       }
     }
 
