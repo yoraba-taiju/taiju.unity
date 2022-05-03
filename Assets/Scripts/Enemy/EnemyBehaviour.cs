@@ -2,6 +2,7 @@
 using Reversible.Unity;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Util;
 
 namespace Enemy {
   public abstract class EnemyBehaviour: ReversibleBehaviour {
@@ -35,5 +36,10 @@ namespace Enemy {
     }
 
     protected abstract void OnCollide(Collision2D collision);
+    
+    // Angle utils
+    protected static float AngleDegOf(Vector2 direction) {
+      return VecUtil.AngleDegOf(direction) - 180.0f;
+    }
   }
 }

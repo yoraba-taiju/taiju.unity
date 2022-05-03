@@ -13,7 +13,7 @@ namespace Enemy.Drone {
     private Rigidbody2D rigidbody_;
 
     [SerializeField] public float initialShield = 10.0f;
-    [SerializeField] public float maxRotateDegreePerSecond = 3600.0f;
+    [SerializeField] public float maxRotateDegreePerSecond = 360.0f;
     private Sparse<float> shield_;
     private Dense<float> timeToFire_;
     [SerializeField] public GameObject explosionEffect;
@@ -33,10 +33,11 @@ namespace Enemy.Drone {
       if (currentHash == Seeking) {
         { // rotation
           var rot = trans.localRotation;
-          var current = rot.eulerAngles.z;
-          var degreeDelta = VecUtil.AngleDegOf(delta) - rot.eulerAngles.z;
+          var currentAngle = rot.eulerAngles.z;
+          var deltaAngle = AngleDegOf(delta);
+          var degreeDelta = (currentAngle - deltaAngle) % 360.0f;
           var maxDegree = maxRotateDegreePerSecond * Time.deltaTime;
-          trans.localRotation = Quaternion.Euler(0, 0, current + Mathf.Clamp(degreeDelta, -maxDegree, maxDegree));
+          trans.localRotation = Quaternion.Euler(0, 0, deltaAngle + Mathf.Clamp(degreeDelta, -maxDegree, maxDegree));
         }
         if (delta.magnitude >= 15.0f) {
           rigidbody_.velocity = delta.normalized * 5.0f;
@@ -47,7 +48,7 @@ namespace Enemy.Drone {
         ref var timeToFire = ref timeToFire_.Mut;
         timeToFire -= Time.deltaTime;
         if (timeToFire <= 0.0f) {
-          var direction = trans.localRotation * Vector3.right;
+          var direction = trans.localRotation * Vector3.left;
           var b = Instantiate(bullet, trans.parent);
           b.transform.localPosition = trans.localPosition + direction * 1.2f;
           var aim = b.GetComponent<FixedSpeedBullet>();
