@@ -38,8 +38,8 @@ namespace Enemy {
     protected abstract void OnCollide(Collision2D collision);
     
     // Angle utils
-    protected static float AngleDegOf(Vector2 direction) {
-      return VecUtil.AngleDegOf(direction) - 180.0f;
+    protected static float TargetAngleDegreeOf(Vector2 direction) {
+      return VecUtil.AngleDegreeOf(direction) - 180.0f;
     }
   }
 }

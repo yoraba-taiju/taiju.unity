@@ -1,4 +1,5 @@
-﻿using Enemy.Bullet;
+﻿using System;
+using Enemy.Bullet;
 using Reversible.Value;
 using UnityEngine;
 using Util;
@@ -13,7 +14,7 @@ namespace Enemy.Drone {
     private Rigidbody2D rigidbody_;
 
     [SerializeField] public float initialShield = 10.0f;
-    [SerializeField] public float maxRotateDegreePerSecond = 360.0f;
+    [SerializeField] public float maxRotateDegreePerSecond = 120.0f;
     private Sparse<float> shield_;
     private Dense<float> timeToFire_;
     [SerializeField] public GameObject explosionEffect;
@@ -31,16 +32,22 @@ namespace Enemy.Drone {
       var currentHash = animator_.GetCurrentAnimatorStateInfo(0).shortNameHash;
       var delta = (Vector2)(sora_.transform.position - trans.position);
       if (currentHash == Seeking) {
+        Quaternion nextRot;
         { // rotation
           var rot = trans.localRotation;
           var currentAngle = rot.eulerAngles.z;
-          var deltaAngle = AngleDegOf(delta);
-          var degreeDelta = (currentAngle - deltaAngle) % 360.0f;
-          var maxDegree = maxRotateDegreePerSecond * Time.deltaTime;
-          trans.localRotation = Quaternion.Euler(0, 0, deltaAngle + Mathf.Clamp(degreeDelta, -maxDegree, maxDegree));
+          var targetDegree = TargetAngleDegreeOf(delta);
+          var degreeDelta = VecUtil.NormalizeAngleDegree(targetDegree - currentAngle);
+          if (Mathf.Abs(degreeDelta) > 1) {
+            var maxDegree = maxRotateDegreePerSecond * Time.deltaTime;
+            nextRot = Quaternion.Euler(0, 0, currentAngle + Mathf.Clamp(degreeDelta, -maxDegree, maxDegree));
+            trans.localRotation = nextRot;
+          } else {
+            nextRot = trans.localRotation;
+          }
         }
-        if (delta.magnitude >= 15.0f) {
-          rigidbody_.velocity = delta.normalized * 5.0f;
+        if (delta.magnitude >= 10.0f) {
+          rigidbody_.velocity = nextRot * Vector2.left * 5.0f;
         } else {
           rigidbody_.velocity = Vector2.zero;
         }
