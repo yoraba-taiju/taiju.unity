@@ -46,7 +46,7 @@ namespace Enemy.Drone {
             nextRot = trans.localRotation;
           }
         }
-        if (delta.magnitude >= 10.0f) {
+        if (delta.magnitude >= 5.0f) {
           rigidbody_.velocity = nextRot * Vector2.left * 5.0f;
         } else {
           rigidbody_.velocity = Vector2.zero;
@@ -57,7 +57,7 @@ namespace Enemy.Drone {
         if (timeToFire <= 0.0f) {
           var direction = trans.localRotation * Vector3.left;
           var b = Instantiate(bullet, trans.parent);
-          b.transform.localPosition = trans.localPosition + direction * 1.2f;
+          b.transform.localPosition = trans.localPosition + direction * 1.3f;
           var aim = b.GetComponent<FixedSpeedBullet>();
           aim.Direction = direction * 15.0f;
           timeToFire += 0.3f;
