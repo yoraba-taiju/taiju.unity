@@ -33,10 +33,11 @@ namespace Enemy.Drone {
       var delta = (Vector2)(sora_.transform.position - trans.position);
       if (currentHash == Seeking) {
         var rot = trans.localRotation;
-        trans.localRotation = rot * VecUtil.RotateToTarget(
+        var angleDelta = VecUtil.DeltaDegreeToTarget(
           rot.eulerAngles.z + 180.0f,
           delta,
           maxRotateDegreePerSecond * Time.deltaTime);
+        trans.localRotation = rot * Quaternion.Euler(0, 0, angleDelta);
         if (delta.magnitude >= 7.5f) {
           rigidbody_.velocity = trans.localRotation * Vector2.left * 5.0f;
         } else {

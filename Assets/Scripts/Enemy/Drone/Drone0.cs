@@ -34,15 +34,16 @@ namespace Enemy.Drone {
         if (delta.magnitude <= 6.0f) {
           animator_.SetTrigger(ToWatching);
         } else {
-          var rot = VecUtil.RotateToTarget(rigidbody_.velocity, delta, Time.deltaTime * maxRotateDegreePerSecond);
-          var vec = (rot * rigidbody_.velocity).normalized * 7.0f;
-          rigidbody_.velocity =  vec;
+          var current = rigidbody_.velocity;
+          var angleDelta = VecUtil.DeltaDegreeToTarget(current, delta, Time.deltaTime * maxRotateDegreePerSecond);
+          rigidbody_.velocity =  VecUtil.RotateByAngleDegree(current, angleDelta).normalized * 7.0f;
+
         }
       } else if (currentHash == Watching) {
         var d = Mathf.Clamp(delta.magnitude - 4.0f, -2.0f, 2.0f);
-        var rot = VecUtil.RotateToTarget(rigidbody_.velocity, delta, Time.deltaTime * maxRotateDegreePerSecond);
-        var vec = (rot * rigidbody_.velocity).normalized;
-        rigidbody_.velocity =  vec * d;
+        var current = rigidbody_.velocity;
+        var angleDelta = VecUtil.DeltaDegreeToTarget(current, delta, Time.deltaTime * maxRotateDegreePerSecond);
+        rigidbody_.velocity =  VecUtil.RotateByAngleDegree(current, angleDelta).normalized * d;
       } else if (currentHash == Return) {
         rigidbody_.velocity = Vector2.right * 3.0f;
       }

@@ -377,7 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
   m_Name: Spawn Emitter
   m_EditorClassIdentifier: 
-  m_Time: 0.8333333333333334
+  m_Time: 17
   prefab: {fileID: 1527798816677721594, guid: 5268ce75580793a4bb597d933b70a27c, type: 3}
   position: {x: 0, y: 0}
 --- !u!114 &7569250418641217901
