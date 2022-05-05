@@ -1,5 +1,4 @@
-﻿using System;
-using Enemy.Bullet;
+﻿using Enemy.Bullet;
 using Reversible.Value;
 using UnityEngine;
 using Util;
@@ -8,6 +7,7 @@ namespace Enemy.Drone {
   public class Drone2: EnemyBehaviour {
     private static readonly int Seeking = Animator.StringToHash("Seeking");
     private static readonly int Fighting = Animator.StringToHash("Fighting");
+    private static readonly int ToFighting = Animator.StringToHash("ToFighting");
 
     private GameObject sora_;
     private Animator animator_;
@@ -35,13 +35,19 @@ namespace Enemy.Drone {
         var rot = trans.localRotation;
         var angleDelta = VecUtil.DeltaDegreeToTarget(
           rot.eulerAngles.z + 180.0f,
-          delta,
-          maxRotateDegreePerSecond * Time.deltaTime);
-        trans.localRotation = rot * Quaternion.Euler(0, 0, angleDelta);
+          delta);
+        var maxAngleDegree = maxRotateDegreePerSecond * Time.deltaTime;
+        var moveAngleDegree = Mathf.Clamp(angleDelta, -maxAngleDegree, maxAngleDegree);
+        trans.localRotation = rot * Quaternion.Euler(0, 0, moveAngleDegree);
         if (delta.magnitude >= 7.5f) {
           rigidbody_.velocity = trans.localRotation * Vector2.left * 5.0f;
         } else {
           rigidbody_.velocity = Vector2.zero;
+        }
+
+        if (Mathf.Abs(angleDelta) < 1) {
+          animator_.SetTrigger(ToFighting);
+          Debug.Log($"Triggered: {angleDelta}");
         }
       } else if (currentHash == Fighting) {
         ref var timeToFire = ref timeToFire_.Mut;
