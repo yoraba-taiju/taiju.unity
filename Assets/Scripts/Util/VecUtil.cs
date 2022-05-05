@@ -2,7 +2,7 @@
 
 namespace Util {
   public static class VecUtil {
-    public static Vector2 RotateByAngleDeg(Vector2 direction, float angleToRotate) {
+    public static Vector2 RotateByAngleDegree(Vector2 direction, float angleToRotate) {
       var x = direction.x;
       var y = direction.y;
       var c = Mathf.Cos(angleToRotate);

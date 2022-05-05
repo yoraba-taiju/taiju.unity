@@ -43,7 +43,7 @@ namespace Enemy.Bullet {
 
       var maxDeg = Time.deltaTime * maxDegreeDeltaPerSecond;
       var nextDeg = Mathf.Clamp(VecUtil.AngleDegreeOf(vec) - angle_, -maxDeg, maxDeg);
-      direction_ = VecUtil.RotateByAngleDeg(direction_, nextDeg);
+      direction_ = VecUtil.RotateByAngleDegree(direction_, nextDeg);
       angle_ = VecUtil.AngleDegreeOf(direction_);
       transform.position += direction_ * Time.deltaTime;
     }
