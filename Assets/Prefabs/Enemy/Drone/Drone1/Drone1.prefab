@@ -191,4 +191,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialShield: 40
   explosionEffect: {fileID: 3444446105023976292, guid: 57368165dbebb724588a6734e9745984, type: 3}
-  bullet: {fileID: 7265134332449134891, guid: 27a5c043865f5d3499b4d1993cadfdae, type: 3}
+  bullet: {fileID: 7265134332449134891, guid: 51f0f21083ba4474b965875b3347e326, type: 3}
