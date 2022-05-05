@@ -47,7 +47,6 @@ namespace Enemy.Drone {
 
         if (Mathf.Abs(angleDelta) < 1) {
           animator_.SetTrigger(ToFighting);
-          Debug.Log($"Triggered: {angleDelta}");
         }
       } else if (currentHash == Fighting) {
         ref var timeToFire = ref timeToFire_.Mut;
