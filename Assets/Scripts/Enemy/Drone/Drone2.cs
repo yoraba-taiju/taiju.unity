@@ -46,7 +46,7 @@ namespace Enemy.Drone {
             nextRot = trans.localRotation;
           }
         }
-        if (delta.magnitude >= 5.0f) {
+        if (delta.magnitude >= 7.5f) {
           rigidbody_.velocity = nextRot * Vector2.left * 5.0f;
         } else {
           rigidbody_.velocity = Vector2.zero;

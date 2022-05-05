@@ -2,9 +2,15 @@
 
 namespace Util {
   public static class VecUtil {
-    public static Vector3 RotateByAngleDeg(Vector3 direction, float angleToRotate) {
-      return Quaternion.Euler(0.0f, 0.0f, angleToRotate) * direction;
+    public static Vector2 RotateByAngleDeg(Vector2 direction, float angleToRotate) {
+      var x = direction.x;
+      var y = direction.y;
+      var c = Mathf.Cos(angleToRotate);
+      var s = Mathf.Sin(angleToRotate);
+      return new Vector2(x * c - s * y, x * s + y + c);
+      //return Quaternion.Euler(0.0f, 0.0f, angleToRotate) * direction;
     }
+
     public static float AngleDegreeOf(Vector2 direction) {
       return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
