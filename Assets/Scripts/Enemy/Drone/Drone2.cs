@@ -52,7 +52,7 @@ namespace Enemy.Drone {
           b.transform.localPosition = trans.localPosition + direction * 1.3f;
           var aim = b.GetComponent<FixedSpeedBullet>();
           aim.Direction = direction * 15.0f;
-          timeToFire += 0.3f;
+          timeToFire = 0.3f;
         }
         rigidbody_.velocity = Vector2.zero;
       }
