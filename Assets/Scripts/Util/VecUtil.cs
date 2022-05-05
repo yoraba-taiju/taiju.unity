@@ -11,6 +11,16 @@ namespace Util {
       //return Quaternion.Euler(0.0f, 0.0f, angleToRotate) * direction;
     }
 
+    public static Quaternion RotateToTarget(Vector2 from, Vector2 to, float maxAngleDegree) {
+      return RotateToTarget(AngleDegreeOf(from), to, maxAngleDegree);
+    }
+    
+    public static Quaternion RotateToTarget(float fromDegree, Vector2 to, float maxAngleDegree) {
+      var toDegree = AngleDegreeOf(to);
+      var delta = NormalizeAngleDegree(toDegree - fromDegree);
+      return Quaternion.Euler(0, 0, Mathf.Clamp(delta, -maxAngleDegree, maxAngleDegree));
+    }
+
     public static float AngleDegreeOf(Vector2 direction) {
       return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }

@@ -201,6 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eeaa3dfd01f4397a9d2537f43e614a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sora: {fileID: 0}
   initialShield: 1
+  maxRotateDegreePerSecond: 10
   explosionEffect: {fileID: 3444446105023976292, guid: 57368165dbebb724588a6734e9745984, type: 3}

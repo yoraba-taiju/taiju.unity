@@ -32,22 +32,13 @@ namespace Enemy.Drone {
       var currentHash = animator_.GetCurrentAnimatorStateInfo(0).shortNameHash;
       var delta = (Vector2)(sora_.transform.position - trans.position);
       if (currentHash == Seeking) {
-        Quaternion nextRot;
-        { // rotation
-          var rot = trans.localRotation;
-          var currentAngle = rot.eulerAngles.z;
-          var targetDegree = TargetAngleDegreeOf(delta);
-          var degreeDelta = VecUtil.NormalizeAngleDegree(targetDegree - currentAngle);
-          if (Mathf.Abs(degreeDelta) > 1) {
-            var maxDegree = maxRotateDegreePerSecond * Time.deltaTime;
-            nextRot = Quaternion.Euler(0, 0, currentAngle + Mathf.Clamp(degreeDelta, -maxDegree, maxDegree));
-            trans.localRotation = nextRot;
-          } else {
-            nextRot = trans.localRotation;
-          }
-        }
+        var rot = trans.localRotation;
+        trans.localRotation = rot * VecUtil.RotateToTarget(
+          rot.eulerAngles.z + 180.0f,
+          delta,
+          maxRotateDegreePerSecond * Time.deltaTime);
         if (delta.magnitude >= 7.5f) {
-          rigidbody_.velocity = nextRot * Vector2.left * 5.0f;
+          rigidbody_.velocity = trans.localRotation * Vector2.left * 5.0f;
         } else {
           rigidbody_.velocity = Vector2.zero;
         }
