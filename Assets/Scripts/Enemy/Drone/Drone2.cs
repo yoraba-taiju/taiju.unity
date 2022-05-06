@@ -1,7 +1,7 @@
 ﻿using Enemy.Bullet;
 using Reversible.Value;
 using UnityEngine;
-using Util;
+using Utility;
 
 namespace Enemy.Drone {
   public class Drone2: EnemyBehaviour {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Util {
+namespace Utility {
   public static class VecUtil {
     public static Vector2 RotateByAngleDegree(Vector2 direction, float angleToRotate) {
       var x = direction.x;

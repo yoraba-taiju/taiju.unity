@@ -2,7 +2,7 @@
 using Reversible.Unity;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
-using Util;
+using Utility;
 
 namespace Enemy {
   public abstract class EnemyBehaviour: ReversibleBehaviour {

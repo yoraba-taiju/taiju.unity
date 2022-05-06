@@ -1,4 +1,4 @@
-﻿using Util;
+﻿using Utility;
 using UnityEngine;
 
 namespace Enemy.Bullet {
