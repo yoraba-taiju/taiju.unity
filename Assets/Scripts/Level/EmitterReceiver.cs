@@ -15,19 +15,10 @@ namespace Level {
           break;
         }
         case GroupEmitter groupEmitter: {
-          var obj = Instantiate(groupEmitter.groupPrefab, parentTransform);
-          var trans = obj.transform;
-          trans.localPosition = groupEmitter.position;
-          var childrenTransforms = new List<Transform>();
-          foreach (Transform childTransform in obj.transform) {
-            childrenTransforms.Add(childTransform);
+          foreach (Transform childTransform in groupEmitter.groupPrefab.transform) {
+            var obj = Instantiate(childTransform.gameObject, parentTransform);
+            obj.transform.localPosition += (Vector3)groupEmitter.position;
           }
-          
-          foreach (Transform childTransform in childrenTransforms) {
-            childTransform.SetParent(parentTransform);
-          }
-          trans.DetachChildren();
-          Destroy(obj);
           break;
         }
         default:
