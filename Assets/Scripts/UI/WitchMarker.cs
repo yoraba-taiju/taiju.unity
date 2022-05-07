@@ -3,17 +3,13 @@ using UnityEngine;
 
 namespace UI {
   public class WitchMarker: MonoBehaviour {
-    [SerializeField] private GameObject witch_;
-    [SerializeField] private Vector3 offset_;
-    [SerializeField] private Camera Camera3d_;
-    [SerializeField] private Camera Camera2d_;
+    [SerializeField] private GameObject witch;
+    [SerializeField] private Vector3 offset;
+    [SerializeField] private Camera camera3d;
+    [SerializeField] private Camera camera2d;
 
-    private void Start() {
-      
-    }
-
-    private void Update() {
-      transform.position = Camera2d_.ViewportToWorldPoint(Camera3d_.WorldToViewportPoint(witch_.transform.position + offset_));
+    private void LateUpdate() {
+      transform.position = camera2d.ViewportToWorldPoint(camera3d.WorldToViewportPoint(witch.transform.position + offset));
     }
   }
 }
