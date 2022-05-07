@@ -13,9 +13,7 @@ namespace UI {
     }
 
     private void Update() {
-      var pos = Camera3d_.WorldToViewportPoint(witch_.transform.position + offset_);
-      pos.z = 10;
-      transform.position = Camera2d_.ViewportToWorldPoint(pos);
+      transform.position = Camera2d_.ViewportToWorldPoint(Camera3d_.WorldToViewportPoint(witch_.transform.position + offset_));
     }
   }
 }
