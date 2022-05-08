@@ -28,6 +28,7 @@ namespace UI {
         camera_,
         out var pos
       );
+      // https://tsubakit1.hateblo.jp/entry/2016/03/01/020510
       // https://forum.unity.com/threads/rect-transform-position-not-updating-correctly-but-print-statements-show-correct-values.807261/
       rectTransform_.anchoredPosition = pos;
     }
