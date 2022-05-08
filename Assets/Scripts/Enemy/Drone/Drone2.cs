@@ -39,13 +39,15 @@ namespace Enemy.Drone {
         var maxAngleDegree = maxRotateDegreePerSecond * Time.deltaTime;
         var moveAngleDegree = Mathf.Clamp(angleDelta, -maxAngleDegree, maxAngleDegree);
         trans.localRotation = rot * Quaternion.Euler(0, 0, moveAngleDegree);
-        if (delta.magnitude >= 7.5f) {
+
+        var deltaMagnitude = delta.magnitude;
+        if (deltaMagnitude >= 7.5f) {
           rigidbody_.velocity = trans.localRotation * Vector2.left * 5.0f;
         } else {
           rigidbody_.velocity = Vector2.zero;
         }
 
-        if (Mathf.Abs(angleDelta) < 1) {
+        if (deltaMagnitude <= 10.0f && Mathf.Abs(angleDelta) < 1) {
           animator_.SetTrigger(ToFighting);
         }
       } else if (currentHash == Fighting) {
