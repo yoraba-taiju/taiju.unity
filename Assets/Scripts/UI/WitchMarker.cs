@@ -18,16 +18,15 @@ namespace UI {
     }
 
     private void LateUpdate() {
-      Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(
+      var screenPos = RectTransformUtility.WorldToScreenPoint(
         camera_,
         witch.transform.position
       );
-      Vector2 pos;
       RectTransformUtility.ScreenPointToLocalPointInRectangle(
         canvasRect_,
         screenPos,
         camera_,
-        out pos
+        out var pos
       );
       // https://forum.unity.com/threads/rect-transform-position-not-updating-correctly-but-print-statements-show-correct-values.807261/
       rectTransform_.anchoredPosition = pos;
