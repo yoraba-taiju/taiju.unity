@@ -4,11 +4,12 @@ using UnityEngine;
 using Utility;
 
 namespace Enemy.Drone {
-  public class Drone2: EnemyBehaviour {
-    private static readonly int Seeking = Animator.StringToHash("Seeking");
-    private static readonly int Fighting = Animator.StringToHash("Fighting");
-    private static readonly int ToFighting = Animator.StringToHash("ToFighting");
-
+  public class Drone2: EnemyBehaviour, IAnimatorEventSubscriber {
+    private static readonly int KeyNextAction = Animator.StringToHash("NextAction");
+    private static readonly int HashSeeking = Animator.StringToHash("Seeking");
+    private static readonly int HashFighting = Animator.StringToHash("Fighting");
+    private static readonly int HashEscaping = Animator.StringToHash("Escaping");
+    
     private GameObject sora_;
     private Animator animator_;
     private Rigidbody2D rigidbody_;
@@ -16,6 +17,7 @@ namespace Enemy.Drone {
     [SerializeField] public float initialShield = 10.0f;
     [SerializeField] public float maxRotateDegreePerSecond = 120.0f;
     private Sparse<float> shield_;
+    private Sparse<int> fireCount_;
     private Dense<float> timeToFire_;
     [SerializeField] public GameObject explosionEffect;
     [SerializeField] public GameObject bullet;
@@ -24,6 +26,7 @@ namespace Enemy.Drone {
       animator_ = GetComponent<Animator>();
       rigidbody_ = GetComponent<Rigidbody2D>();
       shield_ = new Sparse<float>(clock, initialShield);
+      fireCount_ = new Sparse<int>(clock, 0);
       timeToFire_ = new Dense<float>(clock, 0.3f);
     }
 
@@ -31,26 +34,25 @@ namespace Enemy.Drone {
       var trans = transform;
       var currentHash = animator_.GetCurrentAnimatorStateInfo(0).shortNameHash;
       var delta = (Vector2)(sora_.transform.position - trans.position);
-      if (currentHash == Seeking) {
-        var rot = trans.localRotation;
+      var distance = delta.magnitude;
+
+      if (currentHash == HashSeeking) {
+        // Rotate to the target
+        var currentRot = trans.localRotation;
         var angleDelta = VecUtil.DeltaDegreeToTarget(
-          rot.eulerAngles.z + 180.0f,
+          currentRot.eulerAngles.z + 180.0f,
           delta);
         var maxAngleDegree = maxRotateDegreePerSecond * Time.deltaTime;
         var moveAngleDegree = Mathf.Clamp(angleDelta, -maxAngleDegree, maxAngleDegree);
-        trans.localRotation = rot * Quaternion.Euler(0, 0, moveAngleDegree);
-
-        var deltaMagnitude = delta.magnitude;
-        if (deltaMagnitude >= 7.5f) {
-          rigidbody_.velocity = trans.localRotation * Vector2.left * 5.0f;
+        var rot = currentRot * Quaternion.Euler(0, 0, moveAngleDegree);
+        trans.localRotation = rot;
+        // Set speed
+        if (distance > 10.0f) {
+          rigidbody_.velocity = rot * Vector2.left * 5.0f;
         } else {
           rigidbody_.velocity = Vector2.zero;
         }
-
-        if (deltaMagnitude <= 10.0f && Mathf.Abs(angleDelta) < 1) {
-          animator_.SetTrigger(ToFighting);
-        }
-      } else if (currentHash == Fighting) {
+      } else if (currentHash == HashFighting) {
         ref var timeToFire = ref timeToFire_.Mut;
         timeToFire -= Time.deltaTime;
         if (timeToFire <= 0.0f) {
@@ -62,6 +64,16 @@ namespace Enemy.Drone {
           timeToFire = 0.3f;
         }
         rigidbody_.velocity = Vector2.zero;
+      } else if (currentHash == HashEscaping) {
+        var direction = trans.localRotation * Vector3.left;
+        rigidbody_.velocity = direction * 15.0f;
+      }
+      if (distance >= 10.0f) {
+        animator_.SetInteger(KeyNextAction, 0);
+      } else if (fireCount_.Ref >= 3) {
+        animator_.SetInteger(KeyNextAction, 2);
+      } else {
+        animator_.SetInteger(KeyNextAction, 1);
       }
     }
 
@@ -72,6 +84,12 @@ namespace Enemy.Drone {
         Destroy();
         var explosion = Instantiate(explosionEffect, transform.parent);
         explosion.transform.localPosition = transform.localPosition;
+      }
+    }
+
+    public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+      if (stateInfo.shortNameHash == HashFighting) {
+        fireCount_.Mut++;
       }
     }
   }
