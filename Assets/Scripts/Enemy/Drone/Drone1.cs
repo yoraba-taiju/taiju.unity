@@ -6,9 +6,11 @@ using UnityEngine;
 
 namespace Enemy.Drone {
   public class Drone1: EnemyBehaviour {
-    private static readonly int Seeking = Animator.StringToHash("Seeking");
-    private static readonly int GivingUp = Animator.StringToHash("GivingUp");
-    private static readonly int Fighting = Animator.StringToHash("Fighting");
+    private struct State {
+      public static readonly int Seeking = Animator.StringToHash("Seeking");
+      public static readonly int GivingUp = Animator.StringToHash("GivingUp");
+      public static readonly int Fighting = Animator.StringToHash("Fighting");
+    }
 
     private Animator animator_;
     private Rigidbody2D rigidbody_;
@@ -27,9 +29,9 @@ namespace Enemy.Drone {
 
     protected override void OnForward() {
       var currentHash = animator_.GetCurrentAnimatorStateInfo(1).shortNameHash;
-      if (currentHash == Seeking || currentHash == GivingUp) {
+      if (currentHash == State.Seeking || currentHash == State.GivingUp) {
         rigidbody_.velocity = Vector2.left * 5.0f;
-      } else if (currentHash == Fighting) {
+      } else if (currentHash == State.Fighting) {
         ref var timeToFire = ref timeToFire_.Mut;
         timeToFire -= Time.deltaTime;
         if (timeToFire <= 0.0f) {
