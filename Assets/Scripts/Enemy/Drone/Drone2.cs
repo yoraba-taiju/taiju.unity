@@ -35,13 +35,13 @@ namespace Enemy.Drone {
       var currentHash = animator_.GetCurrentAnimatorStateInfo(0).shortNameHash;
       var delta = (Vector2)(sora_.transform.position - trans.position);
       var distance = delta.magnitude;
+      var currentRot = trans.localRotation;
+      var angleDelta = VecUtil.DeltaDegreeToTarget(
+        currentRot.eulerAngles.z + 180.0f,
+        delta);
 
       if (currentHash == HashSeeking) {
         // Rotate to the target
-        var currentRot = trans.localRotation;
-        var angleDelta = VecUtil.DeltaDegreeToTarget(
-          currentRot.eulerAngles.z + 180.0f,
-          delta);
         var maxAngleDegree = maxRotateDegreePerSecond * Time.deltaTime;
         var moveAngleDegree = Mathf.Clamp(angleDelta, -maxAngleDegree, maxAngleDegree);
         var rot = currentRot * Quaternion.Euler(0, 0, moveAngleDegree);
@@ -68,7 +68,7 @@ namespace Enemy.Drone {
         var direction = trans.localRotation * Vector3.left;
         rigidbody_.velocity = direction * 15.0f;
       }
-      if (distance >= 10.0f) {
+      if (distance >= 10.0f || angleDelta > 3.0f) {
         animator_.SetInteger(KeyNextAction, 0);
       } else if (fireCount_.Ref >= 3) {
         animator_.SetInteger(KeyNextAction, 2);
