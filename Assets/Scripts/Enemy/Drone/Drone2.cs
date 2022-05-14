@@ -5,7 +5,7 @@ using Utility;
 
 namespace Enemy.Drone {
   public class Drone2: EnemyBehaviour, IAnimatorEventSubscriber {
-    private struct Hash {
+    private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int Fighting = Animator.StringToHash("Fighting");
       public static readonly int Escaping = Animator.StringToHash("Escaping");
@@ -45,7 +45,7 @@ namespace Enemy.Drone {
         currentRot.eulerAngles.z + 180.0f,
         delta);
 
-      if (currentHash == Hash.Seeking) {
+      if (currentHash == State.Seeking) {
         // Rotate to the target
         var maxAngleDegree = maxRotateDegreePerSecond * Time.deltaTime;
         var moveAngleDegree = Mathf.Clamp(angleDelta, -maxAngleDegree, maxAngleDegree);
@@ -57,7 +57,7 @@ namespace Enemy.Drone {
         } else {
           rigidbody_.velocity = Vector2.zero;
         }
-      } else if (currentHash == Hash.Fighting) {
+      } else if (currentHash == State.Fighting) {
         ref var timeToFire = ref timeToFire_.Mut;
         timeToFire -= Time.deltaTime;
         if (timeToFire <= 0.0f) {
@@ -69,7 +69,7 @@ namespace Enemy.Drone {
           timeToFire = 0.3f;
         }
         rigidbody_.velocity = Vector2.zero;
-      } else if (currentHash == Hash.Escaping) {
+      } else if (currentHash == State.Escaping) {
         var direction = trans.localRotation * Vector3.left;
         rigidbody_.velocity = direction * 15.0f;
       }
@@ -93,7 +93,7 @@ namespace Enemy.Drone {
     }
 
     public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-      if (stateInfo.shortNameHash == HashFighting) {
+      if (stateInfo.shortNameHash == State.Fighting) {
         fireCount_.Mut++;
       }
     }
