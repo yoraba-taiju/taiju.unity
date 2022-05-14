@@ -5,10 +5,15 @@ using Utility;
 
 namespace Enemy.Drone {
   public class Drone2: EnemyBehaviour, IAnimatorEventSubscriber {
-    private static readonly int ParamNextAction = Animator.StringToHash("NextAction");
-    private static readonly int HashSeeking = Animator.StringToHash("Seeking");
-    private static readonly int HashFighting = Animator.StringToHash("Fighting");
-    private static readonly int HashEscaping = Animator.StringToHash("Escaping");
+    private struct Hash {
+      public static readonly int Seeking = Animator.StringToHash("Seeking");
+      public static readonly int Fighting = Animator.StringToHash("Fighting");
+      public static readonly int Escaping = Animator.StringToHash("Escaping");
+    }
+    
+    private struct Param {
+      public static readonly int NextAction = Animator.StringToHash("NextAction");
+    }
     
     private GameObject sora_;
     private Animator animator_;
@@ -40,7 +45,7 @@ namespace Enemy.Drone {
         currentRot.eulerAngles.z + 180.0f,
         delta);
 
-      if (currentHash == HashSeeking) {
+      if (currentHash == Hash.Seeking) {
         // Rotate to the target
         var maxAngleDegree = maxRotateDegreePerSecond * Time.deltaTime;
         var moveAngleDegree = Mathf.Clamp(angleDelta, -maxAngleDegree, maxAngleDegree);
@@ -52,7 +57,7 @@ namespace Enemy.Drone {
         } else {
           rigidbody_.velocity = Vector2.zero;
         }
-      } else if (currentHash == HashFighting) {
+      } else if (currentHash == Hash.Fighting) {
         ref var timeToFire = ref timeToFire_.Mut;
         timeToFire -= Time.deltaTime;
         if (timeToFire <= 0.0f) {
@@ -64,16 +69,16 @@ namespace Enemy.Drone {
           timeToFire = 0.3f;
         }
         rigidbody_.velocity = Vector2.zero;
-      } else if (currentHash == HashEscaping) {
+      } else if (currentHash == Hash.Escaping) {
         var direction = trans.localRotation * Vector3.left;
         rigidbody_.velocity = direction * 15.0f;
       }
       if (distance >= 10.0f || angleDelta > 3.0f) {
-        animator_.SetInteger(ParamNextAction, 0);
+        animator_.SetInteger(Param.NextAction, 0);
       } else if (fireCount_.Ref >= 3) {
-        animator_.SetInteger(ParamNextAction, 2);
+        animator_.SetInteger(Param.NextAction, 2);
       } else {
-        animator_.SetInteger(ParamNextAction, 1);
+        animator_.SetInteger(Param.NextAction, 1);
       }
     }
 
