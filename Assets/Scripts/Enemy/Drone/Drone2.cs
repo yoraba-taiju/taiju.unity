@@ -5,7 +5,7 @@ using Utility;
 
 namespace Enemy.Drone {
   public class Drone2: EnemyBehaviour, IAnimatorEventSubscriber {
-    private static readonly int KeyNextAction = Animator.StringToHash("NextAction");
+    private static readonly int ParamNextAction = Animator.StringToHash("NextAction");
     private static readonly int HashSeeking = Animator.StringToHash("Seeking");
     private static readonly int HashFighting = Animator.StringToHash("Fighting");
     private static readonly int HashEscaping = Animator.StringToHash("Escaping");
@@ -69,11 +69,11 @@ namespace Enemy.Drone {
         rigidbody_.velocity = direction * 15.0f;
       }
       if (distance >= 10.0f || angleDelta > 3.0f) {
-        animator_.SetInteger(KeyNextAction, 0);
+        animator_.SetInteger(ParamNextAction, 0);
       } else if (fireCount_.Ref >= 3) {
-        animator_.SetInteger(KeyNextAction, 2);
+        animator_.SetInteger(ParamNextAction, 2);
       } else {
-        animator_.SetInteger(KeyNextAction, 1);
+        animator_.SetInteger(ParamNextAction, 1);
       }
     }
 
