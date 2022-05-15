@@ -21,6 +21,7 @@ namespace Tests.Editor {
       Assert.AreEqual(2, v.Ref);
       clock.Back();
       Assert.AreEqual(1, v.Ref);
+      clock.Leap();
       clock.Tick();
       Assert.AreEqual(1, v.Ref);
       v.Mut = 3;
@@ -33,6 +34,7 @@ namespace Tests.Editor {
       clock.Tick();
       var v = Create(clock, 0);
       clock.Back();
+      clock.Leap();
       Assert.Throws<InvalidOperationException>(() => {
         v.Mut = 10;
       });
