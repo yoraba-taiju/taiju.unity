@@ -75,12 +75,17 @@ namespace Tests.Editor {
     public void BackAndRef() {
       var clock = new Clock();
       var v = Create(clock, 0);
+      // tick = 0
       clock.Tick();
+      // tick = 1
       v.Mut = 1;
       clock.Tick();
+      // tick = 2
       clock.Tick();
+      // tick = 3
       v.Mut = 3;
       clock.Back();
+      // tick = 2
       clock.Leap();
       Assert.AreEqual(1, v.Ref);
     }
