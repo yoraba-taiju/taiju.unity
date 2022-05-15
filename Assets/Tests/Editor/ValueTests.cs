@@ -70,6 +70,20 @@ namespace Tests.Editor {
         var unused = w.Ref;
       });
     }
+
+    [Test]
+    public void BackAndRef() {
+      var clock = new Clock();
+      var v = Create(clock, 0);
+      clock.Tick();
+      v.Mut = 1;
+      clock.Tick();
+      clock.Tick();
+      v.Mut = 3;
+      clock.Back();
+      clock.Leap();
+      Assert.AreEqual(1, v.Ref);
+    }
   }
 
   public class DenseValueTest : ValueTest<Dense<int>> {
