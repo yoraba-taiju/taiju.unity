@@ -62,7 +62,7 @@ namespace Reversible.Unity {
         IsLeaping = false;
         timeToTick_ = SecondPerFrame;
         Time.timeScale = 1.0f;
-        Clock.DecideToLeap();
+        Clock.Leap();
         Clock.Tick();
         IsLeaping = false;
         return;

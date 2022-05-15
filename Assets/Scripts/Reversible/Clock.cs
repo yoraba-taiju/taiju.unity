@@ -29,7 +29,7 @@ namespace Reversible {
       }
     }
 
-    public void DecideToLeap() {
+    public void Leap() {
       for (var i = (CurrentLeap >= HISTORY_LENGTH) ? (CurrentLeap - HISTORY_LENGTH) : 0; i <= CurrentLeap; ++i) {
         var idx = i % HISTORY_LENGTH;
         historyBranches_[idx] = Math.Min(historyBranches_[idx], CurrentTick);
