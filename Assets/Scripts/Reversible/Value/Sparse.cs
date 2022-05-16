@@ -76,9 +76,6 @@ namespace Reversible.Value {
         if (midTick < tick) {
           beg = midIdx;
         } else { // tick < midTick
-          if (midIdx == 0) {
-            return 0;
-          }
           end = midIdx - 1;
         }
       }
