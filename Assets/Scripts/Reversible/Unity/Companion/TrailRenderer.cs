@@ -40,7 +40,8 @@ namespace Reversible.Unity.Companion {
     }
     public void OnBack() {
       ref readonly var record = ref record_.Ref;
-      trailRenderer_.SetPositions(record.positions[..record.count]);
+      trailRenderer_.Clear();
+      trailRenderer_.AddPositions(record.positions[..record.count]);
     }
     public void OnLeap() {
     }
