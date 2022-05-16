@@ -17,7 +17,7 @@ namespace UI {
       camera_ = targetCamera.GetComponent<Camera>();
     }
 
-    private void LateUpdate() {
+    private void Update() {
       var screenPos = RectTransformUtility.WorldToScreenPoint(
         camera_,
         witch.transform.position
