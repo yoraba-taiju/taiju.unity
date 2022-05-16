@@ -66,14 +66,14 @@ namespace Reversible.Value {
       while (beg < end) {
         // tick[beg] <= tick < tick[end]
         var midIdx = beg + (end - beg) / 2;
+        if (beg == midIdx) {
+          return beg;
+        }
         var midTick = entries_[midIdx % Clock.HISTORY_LENGTH].tick;
         if (tick == midTick) {
           return midIdx;
         }
         if (midTick < tick) {
-          if (beg == midIdx) {
-            return beg;
-          }
           beg = midIdx;
         } else { // tick < midTick
           if (midIdx == 0) {
