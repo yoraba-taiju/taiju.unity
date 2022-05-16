@@ -35,7 +35,7 @@ namespace Reversible.Value {
       cloner_ = clonerImpl;
     }
     
-    public string DebugString() {
+    private string DebugString() {
       var vs = "[";
       for (var i = 0; i < entriesLen_; i++) {
         ref readonly var e = ref entries_[(i+entriesBeg_) % Clock.HISTORY_LENGTH];
