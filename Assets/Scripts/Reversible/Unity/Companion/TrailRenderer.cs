@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Reversible.Unity.Companion {
   public struct TrailRenderer: ICompanion {
     private readonly UnityEngine.TrailRenderer trailRenderer_;
+    private int numMaxPositions_;
 
     private struct Record {
       public int count;
@@ -24,8 +25,9 @@ namespace Reversible.Unity.Companion {
 
     public TrailRenderer(ClockHolder holder, UnityEngine.TrailRenderer trailRenderer) {
       trailRenderer_ = trailRenderer;
-      
-      var positions = new Vector3[1024];
+      numMaxPositions_ = Math.Max(256, trailRenderer.positionCount);
+
+      var positions = new Vector3[numMaxPositions_];
       var count = trailRenderer.GetPositions(positions);
 
       record_ = new Dense<Record>(holder.Clock, CloneRecord, new Record {
@@ -36,7 +38,14 @@ namespace Reversible.Unity.Companion {
     
     public void OnTick() {
       ref var record = ref record_.Mut;
-      record.count = trailRenderer_.GetPositions(record.positions);
+      var count = trailRenderer_.positionCount;
+      numMaxPositions_ = Math.Max(numMaxPositions_, count);
+      if (count < record.positions.Length) {
+        record.count = trailRenderer_.GetPositions(record.positions);
+      } else {
+        record.positions = new Vector3[numMaxPositions_];
+        record.count = trailRenderer_.GetPositions(record.positions);
+      }
     }
     public void OnBack() {
       ref readonly var record = ref record_.Ref;
