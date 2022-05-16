@@ -99,8 +99,6 @@ namespace Reversible.Value {
           tick
         );
         var idx = rawIdx % Clock.HISTORY_LENGTH;
-        Debug();
-        UnityEngine.Debug.Log($"{currentTick} < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})");
         if (currentTick < entries_[idx].tick) {
           throw new InvalidOperationException(
             $"Can't access before value born: ({currentTick} => {tick}) < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})"
