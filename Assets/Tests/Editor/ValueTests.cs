@@ -89,6 +89,29 @@ namespace Tests.Editor {
       clock.Leap();
       Assert.AreEqual(1, v.Ref);
     }
+    
+    [Test]
+    public void LastRef() {
+      var clock = new Clock();
+      var v = Create(clock, 0);
+      // tick = 0
+      clock.Tick();
+      // tick = 1
+      v.Mut = 1;
+      clock.Tick();
+      // tick = 2
+      clock.Tick();
+      // tick = 3
+      v.Mut = 3;
+      clock.Back();
+      // tick = 2
+      clock.Leap();
+      clock.Tick();
+      // tick = 3
+      clock.Tick();
+      // tick = 4
+      Assert.AreEqual(1, v.Ref);
+    }
   }
 
   public class DenseValueTest : ValueTest<Dense<int>> {

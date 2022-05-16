@@ -71,6 +71,9 @@ namespace Reversible.Value {
           return midIdx;
         }
         if (midTick < tick) {
+          if (beg == midIdx) {
+            return beg;
+          }
           beg = midIdx;
         } else { // tick < midTick
           if (midIdx == 0) {
@@ -100,7 +103,7 @@ namespace Reversible.Value {
         UnityEngine.Debug.Log($"{currentTick} < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})");
         if (currentTick < entries_[idx].tick) {
           throw new InvalidOperationException(
-            $"Can't access before value born: {currentTick} < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})"
+            $"Can't access before value born: ({currentTick} => {tick}) < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})"
             );
         }
         var currentLen = rawIdx - entriesBeg_ + 1;
@@ -134,7 +137,7 @@ namespace Reversible.Value {
           } else {
             if (currentTick < entries_[idx].tick) {
               throw new InvalidOperationException(
-                $"Can't access before value born: {currentTick} < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})"
+                $"Can't access before value born: ({currentTick} => {tick}) < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})"
               );
             }
             entriesLen_ = (rawIdx - entriesBeg_) + 1;
