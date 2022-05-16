@@ -44,19 +44,42 @@ namespace Reversible.Value {
       vs += "]";
       UnityEngine.Debug.Log($"rec: {vs}");
     }
-    
+
     private readonly uint LowerBound(uint beg, uint end, uint tick) {
       while (beg < end) {
         // tick[beg] < tick <= tick[end]
         var midIdx = beg + (end - beg) / 2;
         var midTick = entries_[midIdx % Clock.HISTORY_LENGTH].tick;
-        if (tick <= midTick) {
-          end = midIdx;
-        } else {
+        if (tick == midTick) {
+          return midIdx;
+        }
+        if (midTick < tick) {
           beg = midIdx + 1;
+        } else { // tick < midTick
+          end = midIdx;
         }
       }
       return beg;
+    }
+
+    private readonly uint UpperBound(uint beg, uint end, uint tick) {
+      while (beg < end) {
+        // tick[beg] <= tick < tick[end]
+        var midIdx = beg + (end - beg) / 2;
+        var midTick = entries_[midIdx % Clock.HISTORY_LENGTH].tick;
+        if (tick == midTick) {
+          return midIdx;
+        }
+        if (midTick < tick) {
+          beg = midIdx;
+        } else { // tick < midTick
+          if (midIdx == 0) {
+            return 0;
+          }
+          end = midIdx - 1;
+        }
+      }
+      return end;
     }
 
     public ref readonly T Ref {
@@ -67,14 +90,18 @@ namespace Reversible.Value {
           return ref entries_[(entriesBeg_ + entriesLen_ - 1) % Clock.HISTORY_LENGTH].value;
         }
         var tick = clock_.AdjustTick(lastTouchedLeap_, currentTick);
-        var rawIdx = LowerBound(
+        var rawIdx = UpperBound(
           entriesBeg_,
           entriesBeg_ + entriesLen_,
           tick
         );
         var idx = rawIdx % Clock.HISTORY_LENGTH;
+        Debug();
+        UnityEngine.Debug.Log($"{currentTick} < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})");
         if (currentTick < entries_[idx].tick) {
-          throw new InvalidOperationException("Can't access before value born.");
+          throw new InvalidOperationException(
+            $"Can't access before value born: {currentTick} < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})"
+            );
         }
         var currentLen = rawIdx - entriesBeg_ + 1;
         ref var e = ref entries_[idx];
@@ -106,7 +133,9 @@ namespace Reversible.Value {
             entriesBeg_ = (entriesBeg_ + 1) % Clock.HISTORY_LENGTH;
           } else {
             if (currentTick < entries_[idx].tick) {
-              throw new InvalidOperationException("Can't access before value born.");
+              throw new InvalidOperationException(
+                $"Can't access before value born: {currentTick} < (idx={idx} tick={entries_[idx].tick}, v={entries_[idx].value})"
+              );
             }
             entriesLen_ = (rawIdx - entriesBeg_) + 1;
           }
