@@ -70,7 +70,7 @@ namespace Enemy.Drone {
         }
         rigidbody_.velocity = Vector2.zero;
       } else if (currentHash == State.Escaping) {
-        var direction = trans.localRotation * Vector3.left;
+        var direction = currentRot * Vector3.left;
         rigidbody_.velocity = direction * 15.0f;
       }
       if (distance >= 10.0f || angleDelta > 3.0f) {
