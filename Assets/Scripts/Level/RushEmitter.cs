@@ -7,7 +7,7 @@ namespace Level {
   [Serializable]
   public class RushEmitter : Marker, INotification {
     [SerializeField]
-    public GameObject groupPrefab;
+    public GameObject rushPrefab;
 
     [SerializeField]
     public Vector2 position;

@@ -1,20 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8864089249949062247
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter(Clone)
-  m_EditorClassIdentifier: 
-  m_Time: 14.5
-  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 25, y: -15}
 --- !u!114 &-7642012439613571145
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30,21 +15,6 @@ MonoBehaviour:
   m_Time: 3.05
   prefab: {fileID: 4572877220966257855, guid: 4c623df59e970474d8d57b78c63720cf, type: 3}
   position: {x: 12, y: 0}
---- !u!114 &-6297824035973595427
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter
-  m_EditorClassIdentifier: 
-  m_Time: 10.5
-  prefab: {fileID: 5644944058210672130, guid: 9b2eb4456682ea0458ab0631dc1eefb8, type: 3}
-  position: {x: 25, y: 7}
 --- !u!114 &-5535306118238720210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -58,23 +28,8 @@ MonoBehaviour:
   m_Name: Group Emitter
   m_EditorClassIdentifier: 
   m_Time: 1.8833333333333333
-  groupPrefab: {fileID: 2836385087626572965, guid: cfadc1d170748ed40ab432cf1a812359, type: 3}
+  rushPrefab: {fileID: 2836385087626572965, guid: cfadc1d170748ed40ab432cf1a812359, type: 3}
   position: {x: 25, y: 0}
---- !u!114 &-3842784004237942674
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter(Clone)
-  m_EditorClassIdentifier: 
-  m_Time: 13.5
-  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 25, y: 10}
 --- !u!114 &-3782812827892902729
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,21 +68,6 @@ MonoBehaviour:
   m_Clips: []
   m_Markers:
     m_Objects: []
---- !u!114 &-1755185339521520211
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter(Clone)
-  m_EditorClassIdentifier: 
-  m_Time: 6.55
-  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 25, y: -15}
 --- !u!114 &-1193683229181117725
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,21 +104,6 @@ MonoBehaviour:
     m_ScenePreview: 1
   m_DurationMode: 0
   m_MarkerTrack: {fileID: -3239647783080845849}
---- !u!114 &395319771616746501
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter
-  m_EditorClassIdentifier: 
-  m_Time: 10
-  prefab: {fileID: 5644944058210672130, guid: 9b2eb4456682ea0458ab0631dc1eefb8, type: 3}
-  position: {x: 25, y: 0}
 --- !u!114 &513320277732594740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,21 +119,6 @@ MonoBehaviour:
   m_Time: 4.083333333333333
   prefab: {fileID: 4572877220966257855, guid: 4c623df59e970474d8d57b78c63720cf, type: 3}
   position: {x: 12, y: 1}
---- !u!114 &1098081732844558213
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter
-  m_EditorClassIdentifier: 
-  m_Time: 10.5
-  prefab: {fileID: 5644944058210672130, guid: 9b2eb4456682ea0458ab0631dc1eefb8, type: 3}
-  position: {x: 25, y: -7}
 --- !u!114 &1842159728827546539
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -247,33 +157,7 @@ MonoBehaviour:
   m_Clips: []
   m_Markers:
     m_Objects:
-    - {fileID: 8481645518334026892}
-    - {fileID: 6502936256945746508}
-    - {fileID: -1755185339521520211}
-    - {fileID: 395319771616746501}
-    - {fileID: -6297824035973595427}
-    - {fileID: 1098081732844558213}
-    - {fileID: 5606327070903048699}
-    - {fileID: -3842784004237942674}
-    - {fileID: 8632222549710451032}
-    - {fileID: -8864089249949062247}
-    - {fileID: 2705357652254507718}
     - {fileID: -5535306118238720210}
---- !u!114 &2705357652254507718
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter(Clone)
-  m_EditorClassIdentifier: 
-  m_Time: 13.833333333333332
-  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 25, y: -10}
 --- !u!114 &2992676592693697332
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -334,21 +218,6 @@ MonoBehaviour:
   m_Time: 1.95
   prefab: {fileID: 0}
   position: {x: 0, y: 0}
---- !u!114 &5606327070903048699
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter(Clone)
-  m_EditorClassIdentifier: 
-  m_Time: 13.166666666666666
-  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 25, y: 0}
 --- !u!114 &5757735731403753067
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,21 +234,6 @@ MonoBehaviour:
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 0}
---- !u!114 &6502936256945746508
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter(Clone)
-  m_EditorClassIdentifier: 
-  m_Time: 5.3
-  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 25, y: 15}
 --- !u!114 &7569250418641217901
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,33 +249,3 @@ MonoBehaviour:
   m_Time: 3.05
   prefab: {fileID: 4572877220966257855, guid: 4c623df59e970474d8d57b78c63720cf, type: 3}
   position: {x: 12, y: 0}
---- !u!114 &8481645518334026892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter(Clone)
-  m_EditorClassIdentifier: 
-  m_Time: 3.1666666666666665
-  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 25, y: 0}
---- !u!114 &8632222549710451032
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeb60538caad483bb4bdcf6d4d57630f, type: 3}
-  m_Name: Spawn Emitter(Clone)
-  m_EditorClassIdentifier: 
-  m_Time: 14.166666666666666
-  prefab: {fileID: 6473192378207735716, guid: 0090b1f09bf824b4c977339d46b5ece1, type: 3}
-  position: {x: 25, y: 15}

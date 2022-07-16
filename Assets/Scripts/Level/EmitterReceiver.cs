@@ -15,7 +15,7 @@ namespace Level {
           break;
         }
         case RushEmitter rushEmitter: {
-          foreach (Transform childTransform in rushEmitter.groupPrefab.transform) {
+          foreach (Transform childTransform in rushEmitter.rushPrefab.transform) {
             var obj = Instantiate(childTransform.gameObject, parentTransform);
             obj.transform.localPosition += (Vector3)rushEmitter.position;
           }
