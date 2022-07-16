@@ -5,13 +5,13 @@ using UnityEngine.Timeline;
 
 namespace Level {
   [Serializable]
-  public class GroupEmitter : Marker, INotification {
+  public class RushEmitter : Marker, INotification {
     [SerializeField]
     public GameObject groupPrefab;
 
     [SerializeField]
     public Vector2 position;
 
-    public PropertyName id => new("Group Spawn");
+    public PropertyName id => new("Rush Spawn");
   }
 }

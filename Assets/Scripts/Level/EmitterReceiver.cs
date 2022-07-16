@@ -14,10 +14,10 @@ namespace Level {
           obj.transform.localPosition = prefabEmitter.position;
           break;
         }
-        case GroupEmitter groupEmitter: {
-          foreach (Transform childTransform in groupEmitter.groupPrefab.transform) {
+        case RushEmitter rushEmitter: {
+          foreach (Transform childTransform in rushEmitter.groupPrefab.transform) {
             var obj = Instantiate(childTransform.gameObject, parentTransform);
-            obj.transform.localPosition += (Vector3)groupEmitter.position;
+            obj.transform.localPosition += (Vector3)rushEmitter.position;
           }
           break;
         }
