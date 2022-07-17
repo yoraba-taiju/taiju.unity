@@ -37,6 +37,7 @@ namespace Enemy.Drone {
 
     protected override void OnForward() {
       var trans = transform;
+      var deltaTime = Time.deltaTime;
       var currentHash = animator_.GetCurrentAnimatorStateInfo(0).shortNameHash;
       var delta = (Vector2)(sora_.transform.position - trans.position);
       var distance = delta.magnitude;
@@ -47,7 +48,7 @@ namespace Enemy.Drone {
 
       if (currentHash == State.Seeking) {
         // Rotate to the target
-        var maxAngleDegree = maxRotateDegreePerSecond * Time.deltaTime;
+        var maxAngleDegree = maxRotateDegreePerSecond * deltaTime;
         var moveAngleDegree = Mathf.Clamp(angleDelta, -maxAngleDegree, maxAngleDegree);
         var rot = currentRot * Quaternion.Euler(0, 0, moveAngleDegree);
         trans.localRotation = rot;
@@ -59,7 +60,7 @@ namespace Enemy.Drone {
         }
       } else if (currentHash == State.Fighting) {
         ref var timeToFire = ref timeToFire_.Mut;
-        timeToFire -= Time.deltaTime;
+        timeToFire -= deltaTime;
         if (timeToFire <= 0.0f) {
           var direction = trans.localRotation * Vector3.left;
           var b = Instantiate(bullet, trans.parent);
@@ -73,7 +74,9 @@ namespace Enemy.Drone {
         var direction = currentRot * Vector3.left;
         rigidbody_.velocity = direction * 15.0f;
       }
-      if (distance >= 10.0f || angleDelta > 3.0f) {
+
+      // Think Next Action!
+      if (distance >= 10.0f || angleDelta >= 3.0f) {
         animator_.SetInteger(Param.NextAction, 0);
       } else if (fireCount_.Ref >= 3) {
         animator_.SetInteger(Param.NextAction, 2);
