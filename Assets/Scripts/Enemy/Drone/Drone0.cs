@@ -17,12 +17,11 @@ namespace Enemy.Drone {
     private GameObject sora_;
     private Animator animator_;
     private Rigidbody2D rigidbody_;
-    [SerializeField] public float initialShield = 1.0f;
-    [SerializeField] public float maxRotateDegreePerSecond = 10.0f;
+    [SerializeField] private float initialShield = 1.0f;
+    [SerializeField] private float maxRotateDegreePerSecond = 10.0f;
     private Sparse<float> shield_;
-    [SerializeField] public GameObject explosionEffect;
-
-
+    [SerializeField] private GameObject explosionEffect;
+    
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       animator_ = GetComponent<Animator>();
