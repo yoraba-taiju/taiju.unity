@@ -19,13 +19,14 @@ namespace Enemy.Drone {
     private Animator animator_;
     private Rigidbody2D rigidbody_;
 
-    [SerializeField] public float initialShield = 10.0f;
-    [SerializeField] public float maxRotateDegreePerSecond = 120.0f;
+    [SerializeField] private float initialShield = 10.0f;
+    [SerializeField] private float maxRotateDegreePerSecond = 150.0f;
+    [SerializeField] private float velocity = 7.0f;
     private Sparse<float> shield_;
     private Sparse<int> fireCount_;
     private Dense<float> timeToFire_;
-    [SerializeField] public GameObject explosionEffect;
-    [SerializeField] public GameObject bullet;
+    [SerializeField] private GameObject explosionEffect;
+    [SerializeField] private GameObject bullet;
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       animator_ = GetComponent<Animator>();
@@ -54,7 +55,7 @@ namespace Enemy.Drone {
         trans.localRotation = rot;
         // Set speed
         if (distance > 10.0f) {
-          rigidbody_.velocity = rot * Vector2.left * 5.0f;
+          rigidbody_.velocity = rot * Vector2.left * velocity;
         } else {
           rigidbody_.velocity = Vector2.zero;
         }

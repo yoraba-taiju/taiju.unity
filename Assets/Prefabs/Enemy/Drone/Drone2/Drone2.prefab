@@ -168,7 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialShield: 10
-  maxRotateDegreePerSecond: 120
+  maxRotateDegreePerSecond: 150
+  velocity: 7
   explosionEffect: {fileID: 3444446105023976292, guid: 57368165dbebb724588a6734e9745984, type: 3}
   bullet: {fileID: 4074047190606247663, guid: 5eb10b2ac69b3e943837b34617a1654d, type: 3}
 --- !u!114 &3610744387610092276
