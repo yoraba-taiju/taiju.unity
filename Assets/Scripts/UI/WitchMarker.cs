@@ -2,6 +2,7 @@
 using UnityEngine;
 
 namespace UI {
+  [ExecuteInEditMode]
   public class WitchMarker: MonoBehaviour {
     [SerializeField] private GameObject witch;
     [SerializeField] private GameObject targetCanvas;
