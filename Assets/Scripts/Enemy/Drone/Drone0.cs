@@ -46,9 +46,7 @@ namespace Enemy.Drone {
         if (delta.magnitude <= 6.0f) {
           animator_.SetTrigger(Trigger.ToWatching);
         } else {
-          var current = rigidbody_.velocity;
-          var angleDelta = VecUtil.DeltaAngle(current, delta, deltaTime * maxRotateDegreePerSecond);
-          rigidbody_.velocity =  VecUtil.Rotate(current, angleDelta).normalized * 7.0f;
+          rigidbody_.velocity =  VecUtil.Follow(rigidbody_.velocity, delta, deltaTime * maxRotateDegreePerSecond);
         }
       } else if (currentHash == State.Watching) {
         var targetPosition = soraPosition + Vector2.right * 5.0f;
