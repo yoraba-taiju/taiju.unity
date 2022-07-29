@@ -15,21 +15,6 @@ MonoBehaviour:
   m_Time: 3.05
   prefab: {fileID: 4572877220966257855, guid: 4c623df59e970474d8d57b78c63720cf, type: 3}
   position: {x: 12, y: 0}
---- !u!114 &-5535306118238720210
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d915514595d74fea90de981cba0eab25, type: 3}
-  m_Name: Group Emitter
-  m_EditorClassIdentifier: 
-  m_Time: 1.8833333333333333
-  rushPrefab: {fileID: 2836385087626572965, guid: cfadc1d170748ed40ab432cf1a812359, type: 3}
-  position: {x: 25, y: 0}
 --- !u!114 &-3782812827892902729
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,8 +141,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips: []
   m_Markers:
-    m_Objects:
-    - {fileID: -5535306118238720210}
+    m_Objects: []
 --- !u!114 &2992676592693697332
 MonoBehaviour:
   m_ObjectHideFlags: 1
