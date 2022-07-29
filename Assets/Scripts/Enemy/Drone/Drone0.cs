@@ -4,6 +4,11 @@ using UnityEngine;
 using Utility;
 
 namespace Enemy.Drone {
+  /**
+   * Drone0:
+   * 目的：監視用ドローン。
+   * 行動：魔女に向かい、魔女を見つけたら情報を収集し、持ち帰る。
+   */
   public class Drone0: EnemyBehaviour {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
