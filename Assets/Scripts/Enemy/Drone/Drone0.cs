@@ -52,7 +52,7 @@ namespace Enemy.Drone {
         var angleDelta = VecUtil.DeltaDegreeToTarget(current, delta, Time.deltaTime * maxRotateDegreePerSecond);
         rigidbody_.velocity =  VecUtil.RotateByAngleDegree(current, angleDelta).normalized * d;
       } else if (currentHash == State.Return) {
-        rigidbody_.velocity = Vector2.right * 3.0f;
+        rigidbody_.velocity = Vector2.right * 7.0f;
       }
     }
 
