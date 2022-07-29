@@ -23,7 +23,7 @@ namespace Enemy.Drone {
     private Animator animator_;
     private Rigidbody2D rigidbody_;
     [SerializeField] private float initialShield = 1.0f;
-    [SerializeField] private float maxRotateDegreePerSecond = 10.0f;
+    [SerializeField] private float maxRotateDegreePerSecond = 30.0f;
     private Sparse<float> shield_;
     [SerializeField] private GameObject explosionEffect;
     
@@ -37,20 +37,25 @@ namespace Enemy.Drone {
 
     protected override void OnForward() {
       var currentHash = animator_.GetCurrentAnimatorStateInfo(1).shortNameHash;
-      var delta = (Vector2)(sora_.transform.position - transform.position);
+      var soraPosition = (Vector2)sora_.transform.position;
+      var currentPosition = (Vector2)transform.position;
+      var delta = soraPosition - currentPosition;
+      var deltaTime = Time.deltaTime;
+
       if (currentHash == State.Seeking) {
         if (delta.magnitude <= 6.0f) {
           animator_.SetTrigger(Trigger.ToWatching);
         } else {
           var current = rigidbody_.velocity;
-          var angleDelta = VecUtil.DeltaDegreeToTarget(current, delta, Time.deltaTime * maxRotateDegreePerSecond);
-          rigidbody_.velocity =  VecUtil.RotateByAngleDegree(current, angleDelta).normalized * 7.0f;
+          var angleDelta = VecUtil.DeltaAngle(current, delta, deltaTime * maxRotateDegreePerSecond);
+          rigidbody_.velocity =  VecUtil.Rotate(current, angleDelta).normalized * 7.0f;
         }
       } else if (currentHash == State.Watching) {
+        var targetPosition = soraPosition + Vector2.right * 5.0f;
         var d = Mathf.Clamp(delta.magnitude - 4.0f, -2.0f, 2.0f);
         var current = rigidbody_.velocity;
-        var angleDelta = VecUtil.DeltaDegreeToTarget(current, delta, Time.deltaTime * maxRotateDegreePerSecond);
-        rigidbody_.velocity =  VecUtil.RotateByAngleDegree(current, angleDelta).normalized * d;
+        var angleDelta = VecUtil.DeltaAngle(current, delta, deltaTime * maxRotateDegreePerSecond);
+        rigidbody_.velocity =  VecUtil.Rotate(current, angleDelta).normalized * d;
       } else if (currentHash == State.Return) {
         rigidbody_.velocity = Vector2.right * 7.0f;
       }

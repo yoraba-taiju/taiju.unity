@@ -2,7 +2,7 @@
 
 namespace Utility {
   public static class VecUtil {
-    public static Vector2 RotateByAngleDegree(Vector2 direction, float angleToRotate) {
+    public static Vector2 Rotate(Vector2 direction, float angleToRotate) {
       var x = direction.x;
       var y = direction.y;
       var c = Mathf.Cos(angleToRotate * Mathf.Deg2Rad);
@@ -11,28 +11,31 @@ namespace Utility {
       //return Quaternion.Euler(0.0f, 0.0f, angleToRotate) * direction;
     }
 
-    public static float DeltaDegreeToTarget(Vector2 from, Vector2 to, float maxAngleDegree) {
-      return Mathf.Clamp(DeltaDegreeToTarget(from, to), -maxAngleDegree, maxAngleDegree);
+    public static float Atan2(float x, float y) {
+      return Mathf.Atan2(y, x) * Mathf.Rad2Deg;
     }
 
-    public static float DeltaDegreeToTarget(float fromDegree, Vector2 to, float maxAngleDegree) {
-      return Mathf.Clamp(DeltaDegreeToTarget(fromDegree, to), -maxAngleDegree, maxAngleDegree);
+    public static float Atan2(Vector2 v) {
+      return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
     }
 
-    public static float DeltaDegreeToTarget(Vector2 from, Vector2 to) {
-      return DeltaDegreeToTarget(AngleDegreeOf(from), to);
-    }
-    public static float DeltaDegreeToTarget(float fromDegree, Vector2 to) {
-      var toDegree = AngleDegreeOf(to);
-      var delta = NormalizeAngleDegree(toDegree - fromDegree);
-      return delta;
+    public static float DeltaAngle(Vector2 from, Vector2 to, float maxAngleDegree) {
+      return Mathf.Clamp(DeltaAngle(from, to), -maxAngleDegree, maxAngleDegree);
     }
 
-    public static float AngleDegreeOf(Vector2 direction) {
-      return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    public static float DeltaAngle(float fromDegree, Vector2 to, float maxAngleDegree) {
+      return Mathf.Clamp(DeltaAngle(fromDegree, to), -maxAngleDegree, maxAngleDegree);
     }
 
-    public static float NormalizeAngleDegree(float deg) {
+    public static float DeltaAngle(Vector2 from, Vector2 to) {
+      return DeltaAngle(Atan2(from), to);
+    }
+
+    public static float DeltaAngle(float fromDegree, Vector2 to) {
+      return Normalize(Atan2(to) - fromDegree);
+    }
+
+    private static float Normalize(float deg) {
       deg %= 360.0f;
       return deg switch {
         < -180.0f => deg + 360.0f,

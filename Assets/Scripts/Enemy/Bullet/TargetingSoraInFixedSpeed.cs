@@ -29,7 +29,7 @@ namespace Enemy.Bullet {
         return;
       }
       direction_ = vec / magnitude * speed;
-      angle_ = VecUtil.AngleDegreeOf(direction_);
+      angle_ = VecUtil.Atan2(direction_);
     }
 
     protected override void OnForward() {
@@ -42,9 +42,9 @@ namespace Enemy.Bullet {
       var vec = (Vector2)(sora_.transform.position - pos);
 
       var maxDeg = Time.deltaTime * maxDegreeDeltaPerSecond;
-      var nextDeg = Mathf.Clamp(VecUtil.AngleDegreeOf(vec) - angle_, -maxDeg, maxDeg);
-      direction_ = VecUtil.RotateByAngleDegree(direction_, nextDeg);
-      angle_ = VecUtil.AngleDegreeOf(direction_);
+      var nextDeg = Mathf.Clamp(VecUtil.Atan2(vec) - angle_, -maxDeg, maxDeg);
+      direction_ = VecUtil.Rotate(direction_, nextDeg);
+      angle_ = VecUtil.Atan2(direction_);
       transform.position += direction_ * Time.deltaTime;
     }
 
