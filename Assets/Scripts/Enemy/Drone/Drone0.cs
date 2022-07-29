@@ -40,7 +40,6 @@ namespace Enemy.Drone {
           var current = rigidbody_.velocity;
           var angleDelta = VecUtil.DeltaDegreeToTarget(current, delta, Time.deltaTime * maxRotateDegreePerSecond);
           rigidbody_.velocity =  VecUtil.RotateByAngleDegree(current, angleDelta).normalized * 7.0f;
-
         }
       } else if (currentHash == State.Watching) {
         var d = Mathf.Clamp(delta.magnitude - 4.0f, -2.0f, 2.0f);
