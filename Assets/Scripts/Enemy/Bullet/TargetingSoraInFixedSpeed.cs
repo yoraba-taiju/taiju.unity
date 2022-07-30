@@ -7,12 +7,12 @@ namespace Enemy.Bullet {
     [SerializeField] public float maxDegreeDeltaPerSecond = 30.0f;
     private GameObject sora_;
     private bool soraMissing_;
-    private Vector3 direction_;
+    private Vector2 direction_;
     private float angle_;
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       if (sora_ == null) {
-        direction_ = Vector3.left * speed;
+        direction_ = Vector2.left * speed;
         angle_ = 180;
         soraMissing_ = true;
         return;
@@ -24,7 +24,7 @@ namespace Enemy.Bullet {
       var vec = (Vector2) (sora_.transform.position - pos);
       var magnitude = vec.magnitude;
       if (magnitude <= Mathf.Epsilon) {
-        direction_ = Vector3.left * speed;
+        direction_ = Vector2.left * speed;
         angle_ = 180;
         return;
       }
@@ -34,18 +34,18 @@ namespace Enemy.Bullet {
 
     protected override void OnForward() {
       if (soraMissing_) {
-        transform.position += direction_ * Time.deltaTime;
+        transform.position += (Vector3)(direction_ * Time.deltaTime);
         return;
       }
       var trans = transform;
-      var pos = trans.position;
-      var vec = (Vector2)(sora_.transform.position - pos);
-
+      var position = trans.position;
+      var targetDiff = (Vector2)(sora_.transform.position - position);
       var maxDeg = Time.deltaTime * maxDegreeDeltaPerSecond;
-      var nextDeg = Mathf.Clamp(VecMath.Atan2(vec) - angle_, -maxDeg, maxDeg);
-      direction_ = VecMath.Rotate(direction_, nextDeg);
+
+      direction_ = Mover.Follow(targetDiff, direction_, maxDeg);
       angle_ = VecMath.Atan2(direction_);
-      transform.position += direction_ * Time.deltaTime;
+      position += (Vector3)(direction_ * Time.deltaTime);
+      transform.position = position;
     }
 
     protected override void OnCollideWithWitch(GameObject other) {
