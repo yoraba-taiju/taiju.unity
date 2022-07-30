@@ -41,7 +41,7 @@ namespace Enemy.Drone {
           obj.transform.localPosition = transform.localPosition + Vector3.left * 2.5f;
 
           var aim = obj.GetComponent<FixedSpeedBullet>();
-          aim.Direction = Vector2.left * 15.0f;
+          aim.Velocity = Vector2.left * 15.0f;
         }
         rigidbody_.velocity *= Mathf.Exp(-Time.deltaTime);
       }

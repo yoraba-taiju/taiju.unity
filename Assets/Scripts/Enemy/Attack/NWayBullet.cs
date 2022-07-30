@@ -42,12 +42,12 @@ namespace Enemy.Attack {
           obj.gameObject.gameObject.name = "EvenBullet";
           var aim = obj.GetComponent<FixedSpeedBullet>();
           if (soraMissing_) {
-            aim.Direction = Vector2.left * speed;
+            aim.Velocity = Vector2.left * speed;
             return;
           }
           var vec = (sora_.transform.localPosition - transform.localPosition).normalized * speed;
           var angleToRotate = (i % 2 == 0) ? angle * (i >> 1) + (angle / 2) : -angle * (i >> 1) - (angle / 2);
-          aim.Direction = Quaternion.AngleAxis(angleToRotate, Vector3.forward) * vec;
+          aim.Velocity = Quaternion.AngleAxis(angleToRotate, Vector3.forward) * vec;
         }
       } else {
         for (var i = 0; i < numBulletForOdd; ++i) {
@@ -56,7 +56,7 @@ namespace Enemy.Attack {
           var aim = obj.GetComponent<FixedSpeedBullet>();
           var vec = (sora_.transform.localPosition - transform.localPosition).normalized * speed;
           var angleToRotate = (i % 2 == 0) ? angle * ((i+1) >> 1) : -angle * ((i+1) >> 1);
-          aim.Direction = Quaternion.AngleAxis(angleToRotate, Vector3.forward) * vec;
+          aim.Velocity = Quaternion.AngleAxis(angleToRotate, Vector3.forward) * vec;
         }
       }
     }
