@@ -39,10 +39,10 @@ namespace Enemy.Bullet {
       }
       var trans = transform;
       var position = trans.position;
-      var targetDiff = (Vector2)(sora_.transform.position - position);
+      var targetDirection = (Vector2)(sora_.transform.position - position);
       var maxDeg = Time.deltaTime * maxDegreeDeltaPerSecond;
 
-      velocity_ = Mover.Follow(targetDiff, velocity_, maxDeg);
+      velocity_ = Mover.Follow(targetDirection, velocity_, maxDeg);
       angle_ = VecMath.Atan2(velocity_);
       position += (Vector3)(velocity_ * Time.deltaTime);
       transform.position = position;
