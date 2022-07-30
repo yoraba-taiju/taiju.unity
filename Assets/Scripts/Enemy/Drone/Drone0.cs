@@ -44,16 +44,16 @@ namespace Enemy.Drone {
       var dt = Time.deltaTime;
 
       if (currentHash == State.Seeking) {
-        var targetDiff = soraPosition - currentPosition;
-        if (targetDiff.magnitude <= 6.0f) {
+        var targetDirection = soraPosition - currentPosition;
+        if (targetDirection.magnitude <= 6.0f) {
           animator_.SetTrigger(Trigger.ToWatching);
           rigidbody_.velocity = rigidbody_.velocity.normalized * 3.0f;
         } else {
-          rigidbody_.velocity =  Mover.Follow(targetDiff, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
+          rigidbody_.velocity =  Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
         }
       } else if (currentHash == State.Watching) {
-        var targetDiff = soraPosition + Vector2.right * 5.0f - currentPosition;
-        rigidbody_.velocity = Mover.Follow(targetDiff, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
+        var targetDirection = soraPosition + Vector2.right * 5.0f - currentPosition;
+        rigidbody_.velocity = Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
       } else if (currentHash == State.Rotate) {
         rigidbody_.velocity *= Mathf.Exp(-dt);
       } else if (currentHash == State.Return) {
