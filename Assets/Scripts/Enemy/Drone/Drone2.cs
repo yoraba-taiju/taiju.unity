@@ -43,12 +43,12 @@ namespace Enemy.Drone {
       var delta = (Vector2)(sora_.transform.position - trans.position);
       var distance = delta.magnitude;
       var currentRot = trans.localRotation;
-      var angleDelta = VecMath.DeltaAngle(currentRot.eulerAngles.z + 180.0f, delta);
+      var deltaAngle = VecMath.DeltaAngle(currentRot.eulerAngles.z + 180.0f, delta);
 
       if (currentHash == State.Seeking) {
         // Rotate to the target
         var maxAngleDegree = maxRotateDegreePerSecond * deltaTime;
-        var moveAngleDegree = Mathf.Clamp(angleDelta, -maxAngleDegree, maxAngleDegree);
+        var moveAngleDegree = Mathf.Clamp(deltaAngle, -maxAngleDegree, maxAngleDegree);
         var rot = currentRot * Quaternion.Euler(0, 0, moveAngleDegree);
         trans.localRotation = rot;
         // Set speed
@@ -75,12 +75,12 @@ namespace Enemy.Drone {
       }
 
       // Think Next Action!
-      if (distance >= 10.0f || angleDelta >= 3.0f) {
+      if (distance >= 10.0f || deltaAngle >= 3.0f) {
         animator_.SetInteger(Param.NextAction, 0);
-      } else if (fireCount_.Ref >= 3) {
-        animator_.SetInteger(Param.NextAction, 2);
-      } else {
+      } else if (fireCount_.Ref < 3) {
         animator_.SetInteger(Param.NextAction, 1);
+      } else {
+        animator_.SetInteger(Param.NextAction, 2);
       }
     }
 
