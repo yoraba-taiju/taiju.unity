@@ -46,14 +46,11 @@ namespace Enemy.Drone {
         if (diff.magnitude <= 6.0f) {
           animator_.SetTrigger(Trigger.ToWatching);
         } else {
-          rigidbody_.velocity =  VecUtil.Follow(rigidbody_.velocity, diff, dt * maxRotateDegreePerSecond);
+          rigidbody_.velocity =  Mover.Follow(diff, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
         }
       } else if (currentHash == State.Watching) {
         var targetPosition = soraPosition + Vector2.right * 5.0f;
-        var d = Mathf.Clamp(diff.magnitude - 4.0f, -2.0f, 2.0f);
-        var current = rigidbody_.velocity;
-        var angleDelta = VecUtil.DeltaAngle(current, diff, dt * maxRotateDegreePerSecond);
-        rigidbody_.velocity =  VecUtil.Rotate(current, angleDelta).normalized * d;
+        rigidbody_.velocity = Mover.Follow(targetPosition, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
       } else if (currentHash == State.Return) {
         rigidbody_.velocity = Vector2.right * 7.0f;
       }

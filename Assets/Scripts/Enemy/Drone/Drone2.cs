@@ -43,9 +43,7 @@ namespace Enemy.Drone {
       var delta = (Vector2)(sora_.transform.position - trans.position);
       var distance = delta.magnitude;
       var currentRot = trans.localRotation;
-      var angleDelta = VecUtil.DeltaAngle(
-        currentRot.eulerAngles.z + 180.0f,
-        delta);
+      var angleDelta = VecMath.DeltaAngle(currentRot.eulerAngles.z + 180.0f, delta);
 
       if (currentHash == State.Seeking) {
         // Rotate to the target

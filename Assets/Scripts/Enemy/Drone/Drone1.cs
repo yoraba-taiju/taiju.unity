@@ -43,7 +43,7 @@ namespace Enemy.Drone {
           var aim = obj.GetComponent<FixedSpeedBullet>();
           aim.Direction = Vector2.left * 15.0f;
         }
-        rigidbody_.velocity = Vector2.zero;
+        rigidbody_.velocity *= Mathf.Exp(-Time.deltaTime);
       }
     }
 
