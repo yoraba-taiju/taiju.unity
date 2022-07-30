@@ -2,6 +2,7 @@
 using Reversible.Value;
 using UnityEngine;
 using Utility;
+using Random = UnityEngine.Random;
 
 namespace Enemy.Drone {
   /**
@@ -13,6 +14,7 @@ namespace Enemy.Drone {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int Watching = Animator.StringToHash("Watching");
+      public static readonly int Rotate = Animator.StringToHash("Rotate");
       public static readonly int Return = Animator.StringToHash("Return");
     }
     private struct Trigger {
@@ -39,18 +41,18 @@ namespace Enemy.Drone {
       var currentHash = animator_.GetCurrentAnimatorStateInfo(1).shortNameHash;
       var soraPosition = (Vector2)sora_.transform.position;
       var currentPosition = (Vector2)transform.position;
-      var targetDiff = soraPosition - currentPosition;
       var dt = Time.deltaTime;
 
       if (currentHash == State.Seeking) {
+        var targetDiff = soraPosition - currentPosition;
         if (targetDiff.magnitude <= 6.0f) {
           animator_.SetTrigger(Trigger.ToWatching);
         } else {
           rigidbody_.velocity =  Mover.Follow(targetDiff, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
         }
-      } else if (currentHash == State.Watching) {
-        var targetPosition = soraPosition + Vector2.right * 5.0f;
-        rigidbody_.velocity = Mover.Follow(targetPosition, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
+      } else if (currentHash == State.Watching || currentHash == State.Rotate) {
+        var targetDiff = soraPosition + Vector2.right * 5.0f - currentPosition;
+        rigidbody_.velocity = Mover.Follow(targetDiff, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
       } else if (currentHash == State.Return) {
         rigidbody_.velocity = Vector2.right * 7.0f;
       }
