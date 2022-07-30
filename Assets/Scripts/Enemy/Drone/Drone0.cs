@@ -14,8 +14,8 @@ namespace Enemy.Drone {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int Watching = Animator.StringToHash("Watching");
-      public static readonly int Rotate = Animator.StringToHash("Rotate");
-      public static readonly int Return = Animator.StringToHash("Return");
+      public static readonly int Rotating = Animator.StringToHash("Rotating");
+      public static readonly int Returning = Animator.StringToHash("Returning");
     }
     private struct Trigger {
       public static readonly int ToWatching = Animator.StringToHash("ToWatching");
@@ -54,9 +54,9 @@ namespace Enemy.Drone {
       } else if (currentHash == State.Watching) {
         var targetDirection = soraPosition + Vector2.right * 5.0f - currentPosition;
         rigidbody_.velocity = Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
-      } else if (currentHash == State.Rotate) {
+      } else if (currentHash == State.Rotating) {
         rigidbody_.velocity *= Mathf.Exp(-dt);
-      } else if (currentHash == State.Return) {
+      } else if (currentHash == State.Returning) {
         rigidbody_.velocity = Vector2.right * 7.0f;
       }
     }
