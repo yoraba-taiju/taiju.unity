@@ -1,7 +1,6 @@
 ﻿using Reversible.Unity;
 using Reversible.Value;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Witch.Paper {
   public class Paper : ReversibleBehaviour {

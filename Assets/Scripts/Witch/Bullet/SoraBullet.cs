@@ -1,11 +1,12 @@
+using Reversible.Unity;
 using UnityEngine;
 
 namespace Witch.Bullet {
-  public class SoraBullet : Reversible.Unity.ReversibleBehaviour {
+  public class SoraBullet : ReversibleBehaviour {
     private int terrainLayer_;
 
     private new void Start() {
-      var self = this as Reversible.Unity.ReversibleBehaviour;
+      var self = this as ReversibleBehaviour;
       self.Start();
       terrainLayer_ = LayerMask.NameToLayer("Terrain");
     }

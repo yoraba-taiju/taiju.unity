@@ -1,6 +1,4 @@
-﻿using Reversible;
-using Reversible.Unity;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Reversible.Unity.Specialized {
   public abstract class SpecializedReversibleComponentBehaviour : MonoBehaviour {

@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Reversible.Unity;
+using UnityEngine;
 
 namespace Enemy {
-  public abstract class EnemyBulletBehaviour: Reversible.Unity.ReversibleBehaviour {
+  public abstract class EnemyBulletBehaviour: ReversibleBehaviour {
     private int witchLayer_;
     private int terrainLayer_;
     private new void Start() {
-      var self = this as Reversible.Unity.ReversibleBehaviour;
+      var self = this as ReversibleBehaviour;
       self.Start();
       witchLayer_ = LayerMask.NameToLayer("Witch");
       terrainLayer_ = LayerMask.NameToLayer("Terrain");

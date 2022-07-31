@@ -1,8 +1,5 @@
-﻿using System;
-using Reversible.Unity;
+﻿using Reversible.Unity;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using Utility;
 
 namespace Enemy {
   public abstract class EnemyBehaviour: ReversibleBehaviour {

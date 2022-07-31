@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Reversible.Unity;
-using Reversible.Value;
+﻿using Reversible.Value;
 using UnityEngine;
 
 namespace Reversible.Unity.Companion {

@@ -1,8 +1,6 @@
-﻿using System;
-using Reversible.Value;
+﻿using Reversible.Value;
 using UnityEngine;
 using Utility;
-using Random = UnityEngine.Random;
 
 namespace Enemy.Drone {
   /**

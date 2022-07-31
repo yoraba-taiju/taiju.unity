@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Reversible.Value {
   public struct Sparse<T>: IValue<T> where T: struct {

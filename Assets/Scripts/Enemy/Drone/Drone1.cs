@@ -1,5 +1,4 @@
-﻿using System;
-using Enemy.Bullet;
+﻿using Enemy.Bullet;
 using Reversible.Value;
 using UnityEngine;
 using Utility;

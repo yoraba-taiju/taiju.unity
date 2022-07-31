@@ -1,12 +1,14 @@
 ﻿
+using UnityEngine;
+
 namespace Reversible.Unity.Specialized {
   public class MakeParticleReversible : SpecializedReversibleComponentBehaviour {
-    private UnityEngine.ParticleSystem particle_;
+    private ParticleSystem particle_;
     private Companion.ParticleSystem companion_;
     protected override void OnStart() {
-      particle_ = GetComponent<UnityEngine.ParticleSystem>();
+      particle_ = GetComponent<ParticleSystem>();
       var main = particle_.main;
-      main.stopAction = UnityEngine.ParticleSystemStopAction.Callback;
+      main.stopAction = ParticleSystemStopAction.Callback;
       companion_ = new Companion.ParticleSystem(clockHolder, particle_);
     }
 

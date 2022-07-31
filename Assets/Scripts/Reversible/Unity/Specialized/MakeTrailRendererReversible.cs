@@ -1,10 +1,12 @@
 ﻿
+using UnityEngine;
+
 namespace Reversible.Unity.Specialized {
   public class MakeTrailRendererReversible : SpecializedReversibleComponentBehaviour {
-    private UnityEngine.TrailRenderer trailRenderer_;
+    private TrailRenderer trailRenderer_;
     private Companion.TrailRenderer companion_;
     protected override void OnStart() {
-      trailRenderer_ = GetComponent<UnityEngine.TrailRenderer>();
+      trailRenderer_ = GetComponent<TrailRenderer>();
       companion_ = new Companion.TrailRenderer(clockHolder, trailRenderer_);
     }
 

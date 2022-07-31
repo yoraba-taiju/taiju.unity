@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using Reversible.Value;
+﻿using Reversible.Value;
+using UnityEngine;
 
 namespace Reversible.Unity.Companion {
   public struct Rigidbody2D : ICompanion {

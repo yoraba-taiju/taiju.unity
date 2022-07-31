@@ -1,5 +1,5 @@
-﻿using Utility;
-using UnityEngine;
+﻿using UnityEngine;
+using Utility;
 
 namespace Enemy.Bullet {
   public sealed class TargetingSoraInFixedSpeed : EnemyBulletBehaviour {

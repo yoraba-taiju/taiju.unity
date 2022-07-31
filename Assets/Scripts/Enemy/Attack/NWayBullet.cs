@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using Enemy.Bullet;
 using Reversible.Unity;
-using Enemy.Bullet;
+using UnityEngine;
 
 namespace Enemy.Attack {
   public class NWayBullet: ReversibleBehaviour {

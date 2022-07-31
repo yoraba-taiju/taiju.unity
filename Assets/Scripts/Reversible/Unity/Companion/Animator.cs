@@ -1,6 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using Reversible.Value;
+using UnityEngine;
 
 namespace Reversible.Unity.Companion {
   public readonly struct Animator: ICompanion {

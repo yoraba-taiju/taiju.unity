@@ -1,6 +1,5 @@
-﻿using UnityEngine.Playables;
-using Reversible.Unity;
-using Reversible.Value;
+﻿using Reversible.Value;
+using UnityEngine.Playables;
 
 namespace Reversible.Unity.Companion {
   public struct PlayableDirector : ICompanion {

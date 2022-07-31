@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using Random = UnityEngine.Random;
+﻿using Reversible.Unity;
 using Reversible.Value;
+using UnityEngine;
 
 namespace Witch.Bullet {
-  public class ArrowOfLight: Reversible.Unity.ReversibleBehaviour {
+  public class ArrowOfLight: ReversibleBehaviour {
     [SerializeField] private GameObject arrow;
     private Dense<Vector2> direction_;
     protected override void OnStart() {

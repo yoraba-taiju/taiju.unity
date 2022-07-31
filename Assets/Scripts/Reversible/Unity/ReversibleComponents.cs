@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Playables;
+using Transform = Reversible.Unity.Companion.Transform;
 
 namespace Reversible.Unity {
   public sealed class ReversibleComponents: MonoBehaviour {
@@ -47,12 +49,12 @@ namespace Reversible.Unity {
         i++;
         companions_[i] = target switch {
           Component.None => throw new InvalidEnumArgumentException("Please set some target"),
-          Component.Transform => new Companion.Transform(holder_, transform),
+          Component.Transform => new Transform(holder_, transform),
           Component.Rigidbody2D => new Companion.Rigidbody2D(holder_, GetComponent<Rigidbody2D>()),
           Component.TrailRenderer => new Companion.TrailRenderer(holder_, GetComponent<TrailRenderer>()),
           Component.ParticleSystem => new Companion.ParticleSystem(holder_, GetComponent<ParticleSystem>()),
           Component.Animator => new Companion.Animator(holder_, GetComponent<Animator>()),
-          Component.PlayableDirector => new Companion.PlayableDirector(holder_, GetComponent<UnityEngine.Playables.PlayableDirector>()),
+          Component.PlayableDirector => new Companion.PlayableDirector(holder_, GetComponent<PlayableDirector>()),
           _ => throw new InvalidEnumArgumentException($"Unknown target: {target}"),
         };
       }
