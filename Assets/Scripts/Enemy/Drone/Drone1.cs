@@ -47,7 +47,7 @@ namespace Enemy.Drone {
       var currentHash = animator_.GetCurrentAnimatorStateInfo(0).shortNameHash;
 
       var targetDirection = (Vector2)(sora_.transform.position - trans.position);
-      var distance = targetDirection.magnitude;
+      var targetDistance = targetDirection.magnitude;
       var currentRot = trans.localRotation;
       var deltaAngle = VecMath.DeltaAngle(currentRot.eulerAngles.z - 180.0f, targetDirection);
 
@@ -58,7 +58,7 @@ namespace Enemy.Drone {
         var rot = currentRot * Quaternion.Euler(0, 0, moveAngleDegree);
         trans.localRotation = rot;
         // Set speed
-        if (distance > 10.0f) {
+        if (targetDistance > 10.0f) {
           rigidbody_.velocity = rot * Vector2.left * velocity;
         } else {
           rigidbody_.velocity = Vector2.zero;
@@ -81,7 +81,7 @@ namespace Enemy.Drone {
       }
 
       // Think Next Action!
-      if (distance >= 10.0f || Mathf.Abs(deltaAngle) >= 1f) {
+      if (targetDistance >= 10.0f || Mathf.Abs(deltaAngle) >= 1f) {
         animator_.SetInteger(Param.NextAction, 0);
       } else if (fireCount_.Ref < 3) {
         animator_.SetInteger(Param.NextAction, 1);
