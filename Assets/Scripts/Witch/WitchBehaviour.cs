@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace Witch {
   public abstract class WitchBehaviour: ReversibleBehaviour {
-    private int damageLayerMask_;
+    private int collisionLayers_;
     private new void Start() {
       var self = this as ReversibleBehaviour;
       self.Start();
-      damageLayerMask_ = LayerMask.GetMask("Enemy", "EnemyBullet");
+      collisionLayers_ = LayerMask.GetMask("Enemy", "EnemyBullet");
     }
 
     private void OnCollisionEnter2D(Collision2D col) {
@@ -30,7 +30,7 @@ namespace Witch {
       if (clockHolder.IsLeaping) {
         return;
       }
-      if (((1 << other.layer) & damageLayerMask_) != 0) {
+      if (((1 << other.layer) & collisionLayers_) != 0) {
         OnCollide(other);
       }
     }
