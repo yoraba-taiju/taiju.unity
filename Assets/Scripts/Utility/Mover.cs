@@ -22,6 +22,8 @@ namespace Utility {
       var limited2 = new Vector2(dx * c - s * dy, dx * s + dy * c);
       return Vector2.Dot(targetDirection, limited1) >= Vector2.Dot(targetDirection, limited2) ? limited1 : limited2;
     }
+    public static Vector2 TrackingForce(Vector2 fromPos, Vector2 fromVel, Vector2 toPos, Vector2 toVel, float leftPeriod) {
+      return 2 * ((toPos - fromPos) + ((toVel - fromVel) * leftPeriod)) / (leftPeriod * leftPeriod);
+    }
   }
 }
-

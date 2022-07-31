@@ -1,6 +1,7 @@
 using System;
 using Reversible;
 using UnityEngine;
+using Witch.Bullet;
 
 namespace Witch {
   public class Sora : WitchBehaviour {
@@ -57,8 +58,8 @@ namespace Witch {
 
       var spell = playerActions_.Spell;
       if (spell.triggered) {
-        Debug.Log($"Fired");
         var s = Instantiate(arrowOfLight, field_.transform);
+        s.GetComponent<ArrowOfLight>().Track(GameObject.Find("Drone2"));
         s.transform.localPosition = transform.localPosition + Vector3.right * 2f;
       }
     }
