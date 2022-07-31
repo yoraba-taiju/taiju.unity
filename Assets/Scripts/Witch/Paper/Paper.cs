@@ -3,7 +3,7 @@ using Reversible.Value;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Witch {
+namespace Witch.Paper {
   public class Paper : ReversibleBehaviour {
     private readonly Mesh[] meshes_ = new Mesh[4];
     private MeshFilter meshFilter_;
