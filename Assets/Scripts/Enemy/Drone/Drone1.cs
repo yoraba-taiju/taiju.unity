@@ -43,16 +43,17 @@ namespace Enemy.Drone {
 
     protected override void OnForward() {
       var trans = transform;
-      var deltaTime = Time.deltaTime;
+      var dt = Time.deltaTime;
       var currentHash = animator_.GetCurrentAnimatorStateInfo(0).shortNameHash;
-      var delta = (Vector2)(sora_.transform.position - trans.position);
-      var distance = delta.magnitude;
+
+      var targetDirection = (Vector2)(sora_.transform.position - trans.position);
+      var distance = targetDirection.magnitude;
       var currentRot = trans.localRotation;
-      var deltaAngle = VecMath.DeltaAngle(currentRot.eulerAngles.z + 180.0f, delta);
+      var deltaAngle = VecMath.DeltaAngle(currentRot.eulerAngles.z + 180.0f, targetDirection);
 
       if (currentHash == State.Seeking) {
         // Rotate to the target
-        var maxAngleDegree = maxRotateDegreePerSecond * deltaTime;
+        var maxAngleDegree = maxRotateDegreePerSecond * dt;
         var moveAngleDegree = Mathf.Clamp(deltaAngle, -maxAngleDegree, maxAngleDegree);
         var rot = currentRot * Quaternion.Euler(0, 0, moveAngleDegree);
         trans.localRotation = rot;
@@ -64,7 +65,7 @@ namespace Enemy.Drone {
         }
       } else if (currentHash == State.Fighting) {
         ref var timeToFire = ref timeToFire_.Mut;
-        timeToFire -= deltaTime;
+        timeToFire -= dt;
         if (timeToFire <= 0.0f) {
           var direction = trans.localRotation * Vector3.left;
           var b = Instantiate(bullet, trans.parent);
@@ -76,11 +77,11 @@ namespace Enemy.Drone {
         rigidbody_.velocity = Vector2.zero;
       } else if (currentHash == State.Escaping) {
         var direction = currentRot * Vector3.left;
-        rigidbody_.velocity = direction * 15.0f;
+        rigidbody_.velocity = direction * velocity;
       }
 
       // Think Next Action!
-      if (distance >= 10.0f || Mathf.Abs(deltaAngle) >= 3.0f) {
+      if (distance >= 10.0f || Mathf.Abs(deltaAngle) >= 1f) {
         animator_.SetInteger(Param.NextAction, 0);
       } else if (fireCount_.Ref < 3) {
         animator_.SetInteger(Param.NextAction, 1);
