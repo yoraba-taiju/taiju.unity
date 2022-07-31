@@ -55,7 +55,7 @@ namespace Enemy.Drone {
         // Rotate to the target
         var maxAngleDegree = maxRotateDegreePerSecond * dt;
         var moveAngleDegree = Mathf.Clamp(deltaAngle, -maxAngleDegree, maxAngleDegree);
-        var rot = currentRot * Quaternion.Euler(0, 0, moveAngleDegree);
+        var rot = Quaternion.Euler(0, 0, moveAngleDegree) * currentRot;
         trans.localRotation = rot;
         // Set speed
         if (targetDistance > 10.0f) {
