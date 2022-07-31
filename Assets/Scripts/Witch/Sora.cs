@@ -10,7 +10,7 @@ namespace Witch {
     private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
     private PlayerInput.PlayerActions playerActions_;
-    private GameObject field_;
+    private Transform field_;
     private Rigidbody2D rigidbody_;
     private float toFire_;
     private bool fired_;
@@ -19,7 +19,7 @@ namespace Witch {
       playerActions_ = playerInput.Player;
       rigidbody_ = GetComponent<Rigidbody2D>();
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
-      field_ = GameObject.FindGameObjectWithTag("Field");
+      field_ = GameObject.FindGameObjectWithTag("Field").transform;
       toFire_ = 0.0f;
       fired_ = false;
     }
@@ -58,7 +58,7 @@ namespace Witch {
 
       var spell = playerActions_.Spell;
       if (spell.triggered) {
-        var s = Instantiate(arrowOfLight, field_.transform);
+        var s = Instantiate(arrowOfLight, field_);
         s.GetComponent<ArrowOfLight>().Track(GameObject.Find("Drone2"));
         s.transform.localPosition = transform.localPosition + Vector3.right * 2f;
       }
