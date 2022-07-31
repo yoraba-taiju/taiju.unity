@@ -1,4 +1,5 @@
-﻿using Enemy.Bullet;
+﻿using System;
+using Enemy.Bullet;
 using Reversible.Value;
 using UnityEngine;
 using Utility;
@@ -30,8 +31,9 @@ namespace Enemy.Drone {
     private Rigidbody2D rigidbody_;
 
     [SerializeField] private float initialShield = 10.0f;
-    [SerializeField] private float maxRotateDegreePerSecond = 150.0f;
-    [SerializeField] private float velocity = 7.0f;
+    [SerializeField] private float maxRotateDegreePerSecond = 180.0f;
+    [SerializeField] private float seekVelocity = 7.0f;
+    [SerializeField] private float escapeVelocity = 15.0f;
     private Sparse<float> shield_;
     private Sparse<int> fireCount_;
     private Dense<float> timeToFire_;
@@ -45,7 +47,7 @@ namespace Enemy.Drone {
       fireCount_ = new Sparse<int>(clock, 0);
       timeToFire_ = new Dense<float>(clock, 0.3f);
     }
-
+    
     protected override void OnForward() {
       var trans = transform;
       var dt = Time.deltaTime;
@@ -56,19 +58,27 @@ namespace Enemy.Drone {
       var currentRot = trans.localRotation;
       var deltaAngle = VecMath.DeltaAngle(currentRot.eulerAngles.z - 180.0f, targetDirection);
 
-      if (currentHash == State.Seeking) {
-        // Rotate to the target
+      void RotateToTarget() {
         var maxAngleDegree = maxRotateDegreePerSecond * dt;
         var moveAngleDegree = Mathf.Clamp(deltaAngle, -maxAngleDegree, maxAngleDegree);
         var rot = Quaternion.Euler(0, 0, moveAngleDegree) * currentRot;
         trans.localRotation = rot;
+        currentRot = rot;
+      }
+
+      if (currentHash == State.Seeking) {
+        // Rotate to the target
+        RotateToTarget();
         // Set speed
         if (targetDistance > 10.0f) {
-          rigidbody_.velocity = rot * Vector2.left * velocity;
+          rigidbody_.velocity = currentRot * Vector2.left * (seekVelocity * Mathf.Exp(Mathf.Clamp(targetDistance - 10.0f, 0.0f, 0.5f)));
         } else {
-          rigidbody_.velocity = Vector2.zero;
+          rigidbody_.velocity = currentRot * Vector2.left * (rigidbody_.velocity.magnitude * Mathf.Exp(-dt)) ;
         }
       } else if (currentHash == State.Fighting) {
+        // Rotate to the target
+        RotateToTarget();
+        // Fire
         ref var timeToFire = ref timeToFire_.Mut;
         timeToFire -= dt;
         if (timeToFire <= 0.0f) {
@@ -79,19 +89,22 @@ namespace Enemy.Drone {
           aim.Velocity = direction * 15.0f;
           timeToFire = 0.3f;
         }
-        rigidbody_.velocity = Vector2.zero;
+        rigidbody_.velocity *= Mathf.Exp(-dt);
       } else if (currentHash == State.Escaping) {
-        var direction = currentRot * Vector3.left;
-        rigidbody_.velocity = direction * velocity;
+        if (rigidbody_.velocity.magnitude < escapeVelocity) {
+          rigidbody_.velocity = currentRot * Vector2.left * escapeVelocity;
+        } else {
+          rigidbody_.velocity *= Mathf.Exp(dt);
+        }
       }
 
       // Think Next Action!
-      if (targetDistance >= 10.0f || Mathf.Abs(deltaAngle) >= 1f) {
-        animator_.SetInteger(Param.NextAction, NextState.Seeking);
-      } else if (fireCount_.Ref < 3) {
-        animator_.SetInteger(Param.NextAction, NextState.Fighting);
-      } else {
+      if (fireCount_.Ref >= 3) {
         animator_.SetInteger(Param.NextAction, NextState.Escaping);
+      } else if (targetDistance >= 10.0f || Mathf.Abs(deltaAngle) >= 1f) {
+        animator_.SetInteger(Param.NextAction, NextState.Seeking);
+      } else {
+        animator_.SetInteger(Param.NextAction, NextState.Fighting);
       }
     }
 
