@@ -15,6 +15,11 @@ namespace Enemy.Drone {
       public static readonly int Fighting = Animator.StringToHash("Fighting");
       public static readonly int Escaping = Animator.StringToHash("Escaping");
     }
+    private struct NextState {
+      public static readonly int Seeking = 0;
+      public static readonly int Fighting = 1;
+      public static readonly int Escaping = 2;
+    }
     
     private struct Param {
       public static readonly int NextAction = Animator.StringToHash("NextAction");
@@ -82,11 +87,11 @@ namespace Enemy.Drone {
 
       // Think Next Action!
       if (targetDistance >= 10.0f || Mathf.Abs(deltaAngle) >= 1f) {
-        animator_.SetInteger(Param.NextAction, 0);
+        animator_.SetInteger(Param.NextAction, NextState.Seeking);
       } else if (fireCount_.Ref < 3) {
-        animator_.SetInteger(Param.NextAction, 1);
+        animator_.SetInteger(Param.NextAction, NextState.Fighting);
       } else {
-        animator_.SetInteger(Param.NextAction, 2);
+        animator_.SetInteger(Param.NextAction, NextState.Escaping);
       }
     }
 
