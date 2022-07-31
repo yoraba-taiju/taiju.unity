@@ -1579,6 +1579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1070434611852245445, guid: 11dc730ca456c164798ac9ab061278ae, type: 3}
+  arrowOfLight: {fileID: 8504349010670632558, guid: b7c769d4cdcba5143ad688ddb80416a1, type: 3}
 --- !u!114 &1121245684
 MonoBehaviour:
   m_ObjectHideFlags: 0

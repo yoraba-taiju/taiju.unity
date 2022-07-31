@@ -30,6 +30,15 @@ namespace Reversible
             ""id"": ""28d8ba19-7970-4a63-8bb6-4aeea7414e24"",
             ""actions"": [
                 {
+                    ""name"": ""BackClock"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbde9c19-f494-4604-be08-3dc432808b2b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""7ee1627e-e2e9-4895-b432-2e30743f74b6"",
@@ -48,9 +57,9 @@ namespace Reversible
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""BackClock"",
+                    ""name"": ""Spell"",
                     ""type"": ""Button"",
-                    ""id"": ""cbde9c19-f494-4604-be08-3dc432808b2b"",
+                    ""id"": ""52098b62-066c-4ff9-9672-8f7fa0bce1a8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -115,12 +124,34 @@ namespace Reversible
                 },
                 {
                     ""name"": """",
+                    ""id"": ""80a2001f-1b4e-44ae-9f41-e12b439f495a"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""103e26dc-d696-4f29-8ccb-3a81c01526b1"",
                     ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""PlayerScheme"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69898c75-f7c6-4a01-a378-40a9af6218f3"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Spell"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -154,9 +185,10 @@ namespace Reversible
 }");
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+            m_Player_BackClock = m_Player.FindAction("BackClock", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-            m_Player_BackClock = m_Player.FindAction("BackClock", throwIfNotFound: true);
+            m_Player_Spell = m_Player.FindAction("Spell", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -216,16 +248,18 @@ namespace Reversible
         // Player
         private readonly InputActionMap m_Player;
         private IPlayerActions m_PlayerActionsCallbackInterface;
+        private readonly InputAction m_Player_BackClock;
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Fire;
-        private readonly InputAction m_Player_BackClock;
+        private readonly InputAction m_Player_Spell;
         public struct PlayerActions
         {
             private @PlayerInput m_Wrapper;
             public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @BackClock => m_Wrapper.m_Player_BackClock;
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
-            public InputAction @BackClock => m_Wrapper.m_Player_BackClock;
+            public InputAction @Spell => m_Wrapper.m_Player_Spell;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -235,28 +269,34 @@ namespace Reversible
             {
                 if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
                 {
+                    @BackClock.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
+                    @BackClock.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
+                    @BackClock.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
                     @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                     @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                     @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
                     @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                     @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                     @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                    @BackClock.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
-                    @BackClock.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
-                    @BackClock.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
+                    @Spell.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpell;
+                    @Spell.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpell;
+                    @Spell.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpell;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
                 {
+                    @BackClock.started += instance.OnBackClock;
+                    @BackClock.performed += instance.OnBackClock;
+                    @BackClock.canceled += instance.OnBackClock;
                     @Move.started += instance.OnMove;
                     @Move.performed += instance.OnMove;
                     @Move.canceled += instance.OnMove;
                     @Fire.started += instance.OnFire;
                     @Fire.performed += instance.OnFire;
                     @Fire.canceled += instance.OnFire;
-                    @BackClock.started += instance.OnBackClock;
-                    @BackClock.performed += instance.OnBackClock;
-                    @BackClock.canceled += instance.OnBackClock;
+                    @Spell.started += instance.OnSpell;
+                    @Spell.performed += instance.OnSpell;
+                    @Spell.canceled += instance.OnSpell;
                 }
             }
         }
@@ -272,9 +312,10 @@ namespace Reversible
         }
         public interface IPlayerActions
         {
+            void OnBackClock(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
-            void OnBackClock(InputAction.CallbackContext context);
+            void OnSpell(InputAction.CallbackContext context);
         }
     }
 }

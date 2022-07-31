@@ -6,6 +6,15 @@
             "id": "28d8ba19-7970-4a63-8bb6-4aeea7414e24",
             "actions": [
                 {
+                    "name": "BackClock",
+                    "type": "Button",
+                    "id": "cbde9c19-f494-4604-be08-3dc432808b2b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "7ee1627e-e2e9-4895-b432-2e30743f74b6",
@@ -24,9 +33,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "BackClock",
+                    "name": "Spell",
                     "type": "Button",
-                    "id": "cbde9c19-f494-4604-be08-3dc432808b2b",
+                    "id": "52098b62-066c-4ff9-9672-8f7fa0bce1a8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -91,12 +100,34 @@
                 },
                 {
                     "name": "",
+                    "id": "80a2001f-1b4e-44ae-9f41-e12b439f495a",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "103e26dc-d696-4f29-8ccb-3a81c01526b1",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "PlayerScheme",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69898c75-f7c6-4a01-a378-40a9af6218f3",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace Witch {
   public class Sora : WitchBehaviour {
-    [SerializeField] public GameObject bullet;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject arrowOfLight;
     private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
     private PlayerInput.PlayerActions playerActions_;
@@ -53,6 +54,13 @@ namespace Witch {
       } else {
         toFire_ -= Time.deltaTime;
       }
+
+      var spell = playerActions_.Spell;
+      if (spell.triggered) {
+        Debug.Log($"Fired");
+        var s = Instantiate(arrowOfLight, field_.transform);
+        s.transform.localPosition = transform.localPosition + Vector3.right * 2f;
+      }
     }
 
     protected override void OnReverse() {
@@ -62,8 +70,7 @@ namespace Witch {
 
     private void Fire1() {
       var b = Instantiate(bullet, field_.transform);
-      var trans = b.transform;
-      trans.localPosition = transform.localPosition + Vector3.right * 2f;
+      b.transform.localPosition = transform.localPosition + Vector3.right * 2f;
       b.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
     }
     
