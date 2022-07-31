@@ -7,18 +7,21 @@ namespace Witch.Bullet {
   public class ArrowOfLight: ReversibleBehaviour {
     private Rigidbody2D rigidbody_;
     private Transform body_;
+    private Transform field_;
     [SerializeField] private float bodyRotationSpeed = 360.0f;
-    [SerializeField] private float period = 3.0f;
+    [SerializeField] private float period = 1.0f;
     private Transform target_;
     private Rigidbody2D targetRigidbody_;
     private Dense<float> bodyRotation_;
     private Dense<float> leftPeriod_;
     protected override void OnStart() {
+      Transform trans = transform;
       bodyRotation_ = new Dense<float>(clock, 0.0f);
       leftPeriod_ = new Dense<float>(clock, period);
       rigidbody_ = GetComponent<Rigidbody2D>();
       rigidbody_.AddForce(Vector2.right * 7.0f, ForceMode2D.Impulse);
-      body_ = transform.Find("Body");
+      body_ = trans.Find("Body");
+      field_ = GameObject.FindGameObjectWithTag("Field").transform;
     }
 
     public void Track(GameObject obj) {
