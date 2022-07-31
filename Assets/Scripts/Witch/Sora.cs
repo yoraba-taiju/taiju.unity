@@ -70,14 +70,14 @@ namespace Witch {
     }
 
     private void Fire1() {
-      var b = Instantiate(bullet, field_.transform);
+      var b = Instantiate(bullet, field_);
       b.transform.localPosition = transform.localPosition + Vector3.right * 2f;
       b.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
     }
     
     private void Fire2() {
-      var b1 = Instantiate(bullet, field_.transform);
-      var b2 = Instantiate(bullet, field_.transform);
+      var b1 = Instantiate(bullet, field_);
+      var b2 = Instantiate(bullet, field_);
       var pos = transform.localPosition;
       b1.transform.localPosition = pos + Vector3.right * 2f + Vector3.up * 0.5f;
       b2.transform.localPosition = pos + Vector3.right * 2f + Vector3.down * 0.5f;
