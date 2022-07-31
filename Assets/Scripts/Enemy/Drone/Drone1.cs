@@ -16,9 +16,9 @@ namespace Enemy.Drone {
       public static readonly int Escaping = Animator.StringToHash("Escaping");
     }
     private struct NextState {
-      public static readonly int Seeking = 0;
-      public static readonly int Fighting = 1;
-      public static readonly int Escaping = 2;
+      public const int Seeking = 0;
+      public const int Fighting = 1;
+      public const int Escaping = 2;
     }
     
     private struct Param {
