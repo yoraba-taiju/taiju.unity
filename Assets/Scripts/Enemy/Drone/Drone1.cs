@@ -80,7 +80,7 @@ namespace Enemy.Drone {
       }
 
       // Think Next Action!
-      if (distance >= 10.0f || deltaAngle >= 3.0f) {
+      if (distance >= 10.0f || Mathf.Abs(deltaAngle) >= 3.0f) {
         animator_.SetInteger(Param.NextAction, 0);
       } else if (fireCount_.Ref < 3) {
         animator_.SetInteger(Param.NextAction, 1);
