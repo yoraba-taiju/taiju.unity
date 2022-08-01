@@ -39,6 +39,11 @@ namespace Witch.Bullet {
       var dt = Time.deltaTime;
       ref var bodyRotation = ref bodyRotation_.Mut;
       ref var leftPeriod = ref leftPeriod_.Mut;
+      leftPeriod -= dt;
+      if (leftPeriod < 0.0f) {
+        Destroy();
+        return;
+      }
       bodyRotation += bodyRotationSpeed * dt;
       var force = Mover.TrackingForce(
         transform.localPosition,
@@ -49,10 +54,6 @@ namespace Witch.Bullet {
       );
       rigidbody_.AddForce(force * (rigidbody_.mass * dt), ForceMode2D.Impulse);
       body_.localRotation = Quaternion.FromToRotation(Vector3.right, rigidbody_.velocity) * Quaternion.Euler(bodyRotation, 0, 0);
-      leftPeriod -= dt;
-      if (leftPeriod < 0.0f) {
-        Destroy();
-      }
     }
     protected override void OnReverse() {
       ref readonly var bodyRotation = ref bodyRotation_.Ref;
