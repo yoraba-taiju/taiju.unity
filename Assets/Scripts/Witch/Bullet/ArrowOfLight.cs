@@ -21,7 +21,7 @@ namespace Witch.Bullet {
     }
 
     protected override void OnStart() {
-      Transform trans = transform;
+      var trans = transform;
       bodyRotation_ = new Dense<float>(clock, 0.0f);
       leftPeriod_ = new Dense<float>(clock, period);
       rigidbody_ = GetComponent<Rigidbody2D>();
