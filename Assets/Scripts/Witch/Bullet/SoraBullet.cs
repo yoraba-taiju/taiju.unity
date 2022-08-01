@@ -18,6 +18,10 @@ namespace Witch.Bullet {
     protected override void OnForward() {
     }
 
+    /****************************************************************
+     * Collision
+     ****************************************************************/
+
     private void OnCollisionEnter2D(Collision2D other) {
       Destroy();
     }

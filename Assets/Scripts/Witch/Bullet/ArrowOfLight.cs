@@ -14,6 +14,12 @@ namespace Witch.Bullet {
     private Rigidbody2D targetRigidbody_;
     private Dense<float> bodyRotation_;
     private Dense<float> leftPeriod_;
+
+    private new void Start() {
+      var self = this as ReversibleBehaviour;
+      self.Start();
+    }
+
     protected override void OnStart() {
       Transform trans = transform;
       bodyRotation_ = new Dense<float>(clock, 0.0f);
@@ -52,5 +58,32 @@ namespace Witch.Bullet {
       ref readonly var bodyRotation = ref bodyRotation_.Ref;
       body_.rotation = Quaternion.Euler(bodyRotation, 0, 0);
     }
+
+    /****************************************************************
+     * Collision
+     ****************************************************************/
+
+    private void OnCollisionEnter2D(Collision2D other) {
+      Destroy();
+    }
+
+    private void OnCollisionStay2D(Collision2D other) {
+      Destroy();
+    }
+    
+    private void OnTriggerEnter2D(Collider2D other) {
+      OnTrigger2D(other);
+    }
+    
+    private void OnTriggerStay2D(Collider2D other) {
+      OnTrigger2D(other);
+    }
+
+    private void OnTrigger2D(Collider2D other) {
+      if (clockHolder.IsLeaping) {
+        return;
+      }
+    }
   }
+  
 }
