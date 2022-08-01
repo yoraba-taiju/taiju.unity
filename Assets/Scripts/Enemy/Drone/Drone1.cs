@@ -6,8 +6,8 @@ using Utility;
 namespace Enemy.Drone {
   /**
    * Drone1:
-   * 目的：監視用ドローン。
-   * 行動：魔女に向かい、魔女を見つけたら情報を収集し、持ち帰る。
+   * 目的：近距離攻撃用小型ドローン。
+   * 行動：魔女に向かい、魔女を見つけたら発砲。何度か撃ち、最後は特攻する。
    */
   public class Drone1: EnemyBehaviour, IAnimatorEventSubscriber {
     private struct State {
