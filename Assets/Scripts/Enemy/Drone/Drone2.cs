@@ -5,11 +5,11 @@ using Utility;
 
 namespace Enemy.Drone {
   /**
-   * Drone1:
+   * Drone2:
    * 目的：近距離攻撃用小型ドローン。
    * 行動：魔女に向かい、魔女を見つけたら発砲。何度か撃ち、最後は特攻する。
    */
-  public class Drone1: EnemyBehaviour, IAnimatorEventSubscriber {
+  public class Drone2: EnemyBehaviour, IAnimatorEventSubscriber {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int Fighting = Animator.StringToHash("Fighting");
