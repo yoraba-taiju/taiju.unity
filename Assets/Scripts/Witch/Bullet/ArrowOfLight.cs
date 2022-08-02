@@ -25,7 +25,6 @@ namespace Witch.Bullet {
       bodyRotation_ = new Dense<float>(clock, 0.0f);
       leftPeriod_ = new Dense<float>(clock, period);
       rigidbody_ = GetComponent<Rigidbody2D>();
-      rigidbody_.AddForce(Vector2.right * 7.0f, ForceMode2D.Impulse);
       body_ = trans.Find("Body");
       field_ = GameObject.FindGameObjectWithTag("Field").transform;
     }
