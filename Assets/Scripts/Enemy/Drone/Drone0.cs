@@ -36,7 +36,8 @@ namespace Enemy.Drone {
     }
 
     protected override void OnForward() {
-      var currentHash = animator_.GetCurrentAnimatorStateInfo(1).shortNameHash;
+      var stateInfo = animator_.GetCurrentAnimatorStateInfo(1);
+      var currentHash = stateInfo.shortNameHash;
       var soraPosition = (Vector2)sora_.transform.localPosition;
       var currentPosition = (Vector2)transform.localPosition;
       var dt = Time.deltaTime;
@@ -49,16 +50,24 @@ namespace Enemy.Drone {
         } else {
           rigidbody_.velocity =  Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
         }
+        transform.localRotation = Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity);
       } else if (currentHash == State.Watching) {
         var targetDirection = soraPosition + Vector2.right * 5.0f - currentPosition;
         rigidbody_.velocity = Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
+        transform.localRotation = Quaternion.FromToRotation(Vector3.left, targetDirection);
       } else if (currentHash == State.Rotating) {
-        rigidbody_.velocity *= Mathf.Exp(-dt);
+        var nextVelocity = rigidbody_.velocity;
+        nextVelocity *= Mathf.Exp(-dt);
+        rigidbody_.velocity = nextVelocity;
+        // FIXME: Animate correctly
+        transform.localRotation = Quaternion.Slerp(
+          transform.localRotation,
+          Quaternion.FromToRotation(nextVelocity, Vector3.right),
+          dt / stateInfo.length);
       } else if (currentHash == State.Returning) {
         rigidbody_.velocity = Vector2.right * 7.0f;
+        transform.localRotation = Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity);
       }
-
-      transform.localRotation = Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity);
     }
 
     protected override void OnCollide(Collision2D collision) {
