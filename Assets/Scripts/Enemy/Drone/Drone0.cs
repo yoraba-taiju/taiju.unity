@@ -57,6 +57,8 @@ namespace Enemy.Drone {
       } else if (currentHash == State.Returning) {
         rigidbody_.velocity = Vector2.right * 7.0f;
       }
+
+      transform.localRotation = Quaternion.FromToRotation(Vector3.zero, rigidbody_.velocity);
     }
 
     protected override void OnCollide(Collision2D collision) {
