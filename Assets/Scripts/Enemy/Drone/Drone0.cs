@@ -1,4 +1,5 @@
-﻿using Reversible.Value;
+﻿using Enemy.StateMachine;
+using Reversible.Value;
 using UnityEngine;
 using Utility;
 
@@ -6,32 +7,31 @@ namespace Enemy.Drone {
   /**
    * Drone0:
    * 目的：監視用ドローン。
-   * 行動：魔女に向かい、魔女を見つけたら情報を収集し、持ち帰る。
+   * 行動：魔女に向かい、魔女を見つけたら逃げる
    */
-  public class Drone0: EnemyBehaviour {
+  public class Drone0: EnemyBehaviour, IAnimatorEventSubscriber {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
-      public static readonly int Watching = Animator.StringToHash("Watching");
-      public static readonly int Rotating = Animator.StringToHash("Rotating");
-      public static readonly int Returning = Animator.StringToHash("Returning");
+      public static readonly int Escaping = Animator.StringToHash("Escaping");
     }
     private struct Trigger {
-      public static readonly int ToWatching = Animator.StringToHash("ToWatching");
+      public static readonly int ToEscaping = Animator.StringToHash("ToEscaping");
     }
 
     private GameObject sora_;
     private Animator animator_;
     private Rigidbody2D rigidbody_;
     [SerializeField] private float initialShield = 1.0f;
-    [SerializeField] private float maxRotateDegreePerSecond = 30.0f;
+    [SerializeField] private float maxRotateDegreePerSecond = 60.0f;
     private Sparse<float> shield_;
+    private Sparse<Quaternion> originalRotation_;
     [SerializeField] private GameObject explosionEffect;
     
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       animator_ = GetComponent<Animator>();
       rigidbody_ = GetComponent<Rigidbody2D>();
-      rigidbody_.velocity = Vector2.left * 7.0f;
+      rigidbody_.velocity = Vector2.left * 10.0f;
       shield_ = new Sparse<float>(clock, initialShield);
     }
 
@@ -41,33 +41,22 @@ namespace Enemy.Drone {
       var soraPosition = (Vector2)sora_.transform.localPosition;
       var currentPosition = (Vector2)transform.localPosition;
       var dt = Time.deltaTime;
+      var maxAngle = dt * maxRotateDegreePerSecond;
 
       if (currentHash == State.Seeking) {
-        var targetDirection = soraPosition - currentPosition;
-        if (targetDirection.magnitude <= 6.0f) {
-          animator_.SetTrigger(Trigger.ToWatching);
-          rigidbody_.velocity = rigidbody_.velocity.normalized * 3.0f;
+        var delta = soraPosition - currentPosition;
+        if (Mathf.Abs(delta.x) > 10.0f) {
+          rigidbody_.velocity =  Mover.Follow(delta, rigidbody_.velocity, maxAngle);
         } else {
-          rigidbody_.velocity =  Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
+          animator_.SetTrigger(Trigger.ToEscaping);
         }
-        transform.localRotation = Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity);
-      } else if (currentHash == State.Watching) {
-        var targetDirection = soraPosition + Vector2.right * 5.0f - currentPosition;
-        rigidbody_.velocity = Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
-        transform.localRotation = Quaternion.FromToRotation(Vector3.left, targetDirection);
-      } else if (currentHash == State.Rotating) {
-        var nextVelocity = rigidbody_.velocity;
-        nextVelocity *= Mathf.Exp(-dt);
-        rigidbody_.velocity = nextVelocity;
-        // FIXME: Animate correctly
-        transform.localRotation = Quaternion.Slerp(
-          transform.localRotation,
-          Quaternion.FromToRotation(nextVelocity, Vector3.right),
-          dt / stateInfo.length);
-      } else if (currentHash == State.Returning) {
-        rigidbody_.velocity = Vector2.right * 7.0f;
-        transform.localRotation = Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity);
+      } else if (currentHash == State.Escaping) {
+        var delta = soraPosition - currentPosition;
+        if (delta.magnitude < 10.0f) {
+          rigidbody_.velocity = VecMath.Rotate(rigidbody_.velocity, Mathf.Sign(delta.y) * maxAngle) * Mathf.Exp(dt/2);
+        }
       }
+      transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), maxAngle);
     }
 
     protected override void OnCollide(Collision2D collision) {
@@ -78,6 +67,13 @@ namespace Enemy.Drone {
         var explosion = Instantiate(explosionEffect, transform.parent);
         explosion.transform.localPosition = transform.localPosition;
       }
+    }
+
+    public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+    }
+
+    public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+      
     }
   }
 }
