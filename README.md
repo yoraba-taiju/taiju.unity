@@ -74,3 +74,7 @@
 ## Armature
 
 - [Blenderのアーマチュア、ボーン、リグを理解する - 3DCGで何をどう作るか考え中](https://www.yamato-tsukasa.com/entry/b3d-armature-bone-rig-diff)
+
+# Game Design
+
+- [ゲーム技術の研究所　テーマ「Narrative（ナラティブ）」](https://www.slideshare.net/KoujiOhno/o-planning-narrative1b)
