@@ -9,7 +9,7 @@ namespace Enemy.Drone {
    * 目的：監視用ドローン。
    * 行動：魔女に向かい、魔女を見つけたら逃げる
    */
-  public class Drone0: EnemyBehaviour, IAnimatorEventSubscriber {
+  public class Drone0: EnemyBehaviour {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int Escaping = Animator.StringToHash("Escaping");
@@ -56,7 +56,7 @@ namespace Enemy.Drone {
           rigidbody_.velocity = VecMath.Rotate(rigidbody_.velocity, Mathf.Sign(delta.y) * maxAngle) * Mathf.Exp(dt/2);
         }
       }
-      transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), maxAngle);
+      transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), maxAngle * 0.75f);
     }
 
     protected override void OnCollide(Collision2D collision) {
@@ -67,13 +67,6 @@ namespace Enemy.Drone {
         var explosion = Instantiate(explosionEffect, transform.parent);
         explosion.transform.localPosition = transform.localPosition;
       }
-    }
-
-    public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    }
-
-    public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-      
     }
   }
 }
