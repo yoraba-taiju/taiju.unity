@@ -78,3 +78,4 @@
 # Game Design
 
 - [ゲーム技術の研究所　テーマ「Narrative（ナラティブ）」](https://www.slideshare.net/KoujiOhno/o-planning-narrative1b)
+- [CEDEC2016 「コントラスト」で考えるゲームデザイン・レベルデザイン](https://www.slideshare.net/KoujiOhno/cedec2016)
