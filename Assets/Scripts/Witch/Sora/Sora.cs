@@ -5,7 +5,6 @@ using UnityEngine;
 namespace Witch.Sora {
   public class Sora : WitchBehaviour {
     [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject arrowOfLight;
     private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
     private PlayerInput.PlayerActions playerActions_;
