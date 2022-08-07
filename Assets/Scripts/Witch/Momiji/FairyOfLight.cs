@@ -3,7 +3,7 @@ using Reversible.Value;
 using UnityEngine;
 
 namespace Witch.Momiji {
-  public class LightFamiliar : ReversibleBehaviour {
+  public class FairyOfLight : ReversibleBehaviour {
     [SerializeField] private Color color = new(1, 1,1, 1);
     [SerializeField] private Vector3 rotationAxis = Vector3.up;
     [SerializeField] private float initialAngle;
