@@ -17,6 +17,7 @@ namespace Witch.Momiji {
     private Dense<float> totalTime_;
     private Transform spirit_;
     private MeshRenderer spiritMeshRenderer_;
+    private Light spiritLight_;
     private TrailRenderer spiritTrailRenderer_;
 
     protected override void OnStart() {
@@ -33,6 +34,10 @@ namespace Witch.Momiji {
         colorKeys[1].color = color;
         colorGradient.colorKeys = colorKeys;
         spiritTrailRenderer_.colorGradient = colorGradient;
+      }
+      {
+        spiritLight_ = spirit_.GetComponent<Light>();
+        spiritLight_.color = color;
       }
 
       totalTime_ = new Dense<float>(clock, 0.0f);
