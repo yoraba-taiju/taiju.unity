@@ -59,7 +59,6 @@ namespace Witch.Momiji {
       ref var totalTime = ref totalTime_.Mut;
       if (totalTime <= bornTime) {
         var progress = totalTime / bornTime;
-        progress *= progress;
         var spiritScale = 0.7f * progress;
         spirit_.localScale = new Vector3(spiritScale, spiritScale, spiritScale);
         trans.localRotation = Quaternion.AngleAxis(initialPoleAngle + totalTime * poleRotationSpeed, poleRotationAxis);
@@ -70,7 +69,6 @@ namespace Witch.Momiji {
       } else if (totalTime <= endTime){
         var spanTime = totalTime - rotateTime;
         var progress = (1 - spanTime / (endTime - rotateTime));
-        progress *= progress;
         var spiritScale = 0.7f * progress;
         spirit_.localScale = new Vector3(spiritScale, spiritScale, spiritScale);
         trans.localRotation = Quaternion.AngleAxis(initialPoleAngle + totalTime * poleRotationSpeed, poleRotationAxis);
