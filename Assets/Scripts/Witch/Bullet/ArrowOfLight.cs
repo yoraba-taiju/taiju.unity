@@ -41,16 +41,16 @@ namespace Witch.Bullet {
       ref var bodyRotation = ref bodyRotation_.Mut;
       ref var velocity = ref velocity_.Mut;
       var trans = transform;
+      ref var leftPeriod = ref leftPeriod_.Mut;
+      leftPeriod -= dt;
       if (target_ != null) {
-        ref var leftPeriod = ref leftPeriod_.Mut;
-        leftPeriod -= dt;
         if (leftPeriod < 0.0f) {
           targetBehaviour_.OnCollide(gameObject);
           Destroy();
           return;
         }
         var force = Mover.TrackingForce(
-          transform.localPosition,
+          trans.localPosition,
           velocity,
           target_.localPosition,
           targetRigidbody_.velocity,
