@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1062582101777521876}
-  - component: {fileID: -1275152019331217189}
+  - component: {fileID: 349427515729788912}
   m_Layer: 7
   m_Name: LightFamiliar
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1275152019331217189
+--- !u!114 &349427515729788912
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,11 +42,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6582577784227367628}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84ea14bc44354037ad3533a037cbfba5, type: 3}
+  m_Script: {fileID: 11500000, guid: dfd700f7f29546d6a91828e21bb32aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyRotationSpeed: 360
-  period: 1
+  color: {r: 1, g: 1, b: 1, a: 1}
+  pole: {x: 0, y: 0, z: 1}
+  poleRotationAxis: {x: 0, y: 1, z: 0}
+  initialAngle: 0
+  bornTime: 1
+  rotateTime: 7
+  endTime: 10
+  poleRotationSpeed: 60
+  selfRotationSpeed: 180
+  selfRadius: 5
 --- !u!1 &7877365677635319759
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Witch.Momiji {
   public class LightFamiliar : ReversibleBehaviour {
     [SerializeField] private Color color = new(1, 1,1, 1);
-    [SerializeField] private Vector3 pole = Vector3.up;
+    [SerializeField] private Vector3 pole = Vector3.forward;
     [SerializeField] private Vector3 poleRotationAxis = Vector3.up;
     [SerializeField] private float initialAngle;
     [SerializeField] private float bornTime = 1.0f;
@@ -42,19 +42,19 @@ namespace Witch.Momiji {
         progress *= progress;
         var spiritScale = 0.7f * progress;
         spirit_.localScale = new Vector3(spiritScale, spiritScale, spiritScale);
-        spirit_.localPosition = (Quaternion.AngleAxis(initialAngle, Vector3.up) * Vector3.right) * (selfRadius * progress);
+        trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, poleRotationAxis) * poleRotation_;
+        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.up) * Vector3.right * (selfRadius * progress);
       } else if (totalTime <= rotateTime) {
-        var spanTime = totalTime - bornTime;
-        trans.localRotation = Quaternion.AngleAxis(spanTime * poleRotationSpeed, poleRotationAxis) * poleRotation_;
-        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + spanTime * selfRotationSpeed, Vector3.up) * Vector3.right * selfRadius;
+        trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, poleRotationAxis) * poleRotation_;
+        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.up) * Vector3.right * selfRadius;
       } else if (totalTime <= endTime){
         var spanTime = totalTime - rotateTime;
         var progress = (1 - spanTime / (endTime - rotateTime));
         progress *= progress;
         var spiritScale = 0.7f * progress;
         spirit_.localScale = new Vector3(spiritScale, spiritScale, spiritScale);
-        trans.localRotation = Quaternion.AngleAxis(spanTime * poleRotationSpeed, poleRotationAxis) * poleRotation_;
-        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + spanTime * selfRotationSpeed, Vector3.up) * Vector3.right * (selfRadius * progress);
+        trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, poleRotationAxis) * poleRotation_;
+        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.up) * Vector3.right * (selfRadius * progress);
       } else if (totalTime <= destroyTime_) {
         spirit_.localScale = Vector3.zero;
       } else {
