@@ -59,7 +59,7 @@ namespace Enemy.Drone {
       transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), maxAngle * 0.75f);
     }
 
-    protected override void OnCollide(Collision2D collision) {
+    public override void OnCollide(GameObject obj) {
       ref var shield = ref shield_.Mut;
       shield -= 1.0f;
       if (shield <= 0) {

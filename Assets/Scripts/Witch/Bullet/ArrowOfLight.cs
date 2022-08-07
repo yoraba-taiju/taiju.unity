@@ -1,19 +1,20 @@
-﻿using Reversible.Unity;
+﻿using Enemy;
+using Reversible.Unity;
 using Reversible.Value;
 using UnityEngine;
 using Utility;
 
 namespace Witch.Bullet {
   public class ArrowOfLight: ReversibleBehaviour {
-    private Rigidbody2D rigidbody_;
     private Transform body_;
-    private Transform field_;
     [SerializeField] private float bodyRotationSpeed = 360.0f;
     [SerializeField] private float period = 1.0f;
     private Transform target_;
     private Rigidbody2D targetRigidbody_;
+    private EnemyBehaviour targetBehaviour_;
     private Dense<float> bodyRotation_;
     private Dense<float> leftPeriod_;
+    private Dense<Vector3> velocity_;
 
     private new void Start() {
       var self = this as ReversibleBehaviour;
@@ -24,35 +25,43 @@ namespace Witch.Bullet {
       var trans = transform;
       bodyRotation_ = new Dense<float>(clock, 0.0f);
       leftPeriod_ = new Dense<float>(clock, period);
-      rigidbody_ = GetComponent<Rigidbody2D>();
+      velocity_ = new Dense<Vector3>(clock, Vector3.zero);
       body_ = trans.Find("Body");
-      field_ = GameObject.FindGameObjectWithTag("Field").transform;
     }
 
-    public void Track(GameObject obj) {
+    private void Track(GameObject obj, Vector3 initialVelocity) {
       target_ = obj.transform;
       targetRigidbody_ = obj.GetComponent<Rigidbody2D>();
+      targetBehaviour_ = obj.GetComponent<EnemyBehaviour>();
+      velocity_.Mut = initialVelocity;
     }
 
     protected override void OnForward() {
       var dt = Time.deltaTime;
       ref var bodyRotation = ref bodyRotation_.Mut;
-      ref var leftPeriod = ref leftPeriod_.Mut;
-      leftPeriod -= dt;
-      if (leftPeriod < 0.0f) {
-        Destroy();
-        return;
+      ref var velocity = ref velocity_.Mut;
+      var trans = transform;
+      if (target_ != null) {
+        ref var leftPeriod = ref leftPeriod_.Mut;
+        leftPeriod -= dt;
+        if (leftPeriod < 0.0f) {
+          targetBehaviour_.OnCollide(gameObject);
+          Destroy();
+          return;
+        }
+        var force = Mover.TrackingForce(
+          transform.localPosition,
+          velocity,
+          target_.localPosition,
+          targetRigidbody_.velocity,
+          leftPeriod
+        );
+        velocity += force * dt;
       }
       bodyRotation += bodyRotationSpeed * dt;
-      var force = Mover.TrackingForce(
-        transform.localPosition,
-        rigidbody_.velocity,
-        target_.localPosition,
-        targetRigidbody_.velocity,
-        leftPeriod
-      );
-      rigidbody_.AddForce(force * (rigidbody_.mass * dt), ForceMode2D.Impulse);
-      body_.localRotation = Quaternion.FromToRotation(Vector3.right, rigidbody_.velocity) * Quaternion.Euler(bodyRotation, 0, 0);
+      trans.localPosition += velocity * dt;
+      trans.localRotation = Quaternion.FromToRotation(Vector3.right, velocity);
+      body_.localRotation = Quaternion.Euler(bodyRotation, 0, 0);
     }
     protected override void OnReverse() {
       ref readonly var bodyRotation = ref bodyRotation_.Ref;

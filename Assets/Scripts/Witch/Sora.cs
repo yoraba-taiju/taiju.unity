@@ -59,7 +59,6 @@ namespace Witch {
       var spell = playerActions_.Spell;
       if (spell.triggered) {
         var s = Instantiate(arrowOfLight, field_);
-        s.GetComponent<ArrowOfLight>().Track(GameObject.Find("Drone0"));
         s.transform.localPosition = transform.localPosition + Vector3.right * 2f;
       }
     }

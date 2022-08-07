@@ -108,7 +108,7 @@ namespace Enemy.Drone {
       }
     }
 
-    protected override void OnCollide(Collision2D collision) {
+    public override void OnCollide(GameObject obj) {
       ref var shield = ref shield_.Mut;
       shield -= 1.0f;
       if (shield <= 0) {

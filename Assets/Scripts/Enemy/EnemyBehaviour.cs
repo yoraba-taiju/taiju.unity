@@ -10,15 +10,15 @@ namespace Enemy {
       collisionLayers_ = LayerMask.GetMask("Witch", "WitchBullet");
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
-      OnCollision2D(other);
+    private void OnCollisionEnter2D(Collision2D collision) {
+      OnCollision2D(collision);
     }
 
-    private void OnCollisionStay2D(Collision2D other) {
-      OnCollision2D(other);
+    private void OnCollisionStay2D(Collision2D collision) {
+      OnCollision2D(collision);
     }
 
-    private void OnCollision2D(Collision2D other) {
+    private void OnCollision2D(Collision2D collision) {
       if (clockHolder.IsLeaping) {
         return;
       }
@@ -26,12 +26,14 @@ namespace Enemy {
       if (Mathf.Abs(pos.x) >= 18.0f || Mathf.Abs(pos.y) >= 10.0f) {
         return;
       }
-      var layer = other.gameObject.layer;
+
+      var obj = collision.gameObject;
+      var layer = obj.layer;
       if (((1 << layer) & collisionLayers_) != 0) {
-        OnCollide(other);
+        OnCollide(obj);
       }
     }
 
-    protected abstract void OnCollide(Collision2D collision);
+    public abstract void OnCollide(GameObject obj);
   }
 }
