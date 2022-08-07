@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1062582101777521876}
-  - component: {fileID: 3560990705255591863}
   - component: {fileID: 3917194842712800677}
+  - component: {fileID: 2946195278332740056}
   m_Layer: 7
   m_Name: LightFamiliar
   m_TagString: Untagged
@@ -34,7 +34,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3560990705255591863
+--- !u!114 &3917194842712800677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582577784227367628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyWhenInvisible: 0
+  targetComponents: 
+--- !u!114 &2946195278332740056
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,20 +69,6 @@ MonoBehaviour:
   poleRotationSpeed: 60
   selfRotationSpeed: 180
   selfRadius: 5
---- !u!114 &3917194842712800677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6582577784227367628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyWhenInvisible: 0
-  targetComponents: 
 --- !u!1 &7877365677635319759
 GameObject:
   m_ObjectHideFlags: 0

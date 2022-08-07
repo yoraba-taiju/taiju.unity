@@ -18,14 +18,24 @@ namespace Witch.Momiji {
     private Transform spirit_;
     private MeshRenderer spiritMeshRenderer_;
     private TrailRenderer spiritTrailRenderer_;
+
     protected override void OnStart() {
       var trans = transform;
-      totalTime_ = new Dense<float>(clock, 0.0f);
       spirit_ = trans.Find("Spirit");
-      spiritMeshRenderer_ = spirit_.GetComponent<MeshRenderer>();
-      spiritTrailRenderer_ = spirit_.GetComponent<TrailRenderer>();
-      spiritMeshRenderer_.material.color = color;
-      spiritTrailRenderer_.colorGradient.colorKeys[1].color = color;
+      {
+        spiritMeshRenderer_ = spirit_.gameObject.GetComponent<MeshRenderer>();
+        spiritMeshRenderer_.material.color = color;
+      }
+      {
+        spiritTrailRenderer_ = spirit_.GetComponent<TrailRenderer>();
+        var colorGradient = spiritTrailRenderer_.colorGradient;
+        var colorKeys = colorGradient.colorKeys;
+        colorKeys[1].color = color;
+        colorGradient.colorKeys = colorKeys;
+        spiritTrailRenderer_.colorGradient = colorGradient;
+      }
+
+      totalTime_ = new Dense<float>(clock, 0.0f);
       destroyTime_ = endTime + spiritTrailRenderer_.time;
     }
 
