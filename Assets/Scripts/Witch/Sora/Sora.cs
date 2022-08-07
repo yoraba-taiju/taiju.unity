@@ -57,8 +57,8 @@ namespace Witch.Sora {
 
       var spell = playerActions_.Spell;
       if (spell.triggered) {
-        var s = Instantiate(arrowOfLight, field_);
-        s.transform.localPosition = transform.localPosition + Vector3.right * 2f;
+        //var s = Instantiate(arrowOfLight, field_);
+        //s.transform.localPosition = transform.localPosition + Vector3.right * 2f;
       }
     }
 
