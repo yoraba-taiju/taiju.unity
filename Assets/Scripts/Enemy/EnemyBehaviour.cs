@@ -34,6 +34,6 @@ namespace Enemy {
       }
     }
 
-    public abstract void OnCollide(GameObject obj);
+    public abstract void OnCollide(GameObject other);
   }
 }

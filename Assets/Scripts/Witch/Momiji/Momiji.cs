@@ -1,7 +1,7 @@
 using Reversible;
 using UnityEngine;
 
-namespace Witch {
+namespace Witch.Momiji {
   public class Momiji : WitchBehaviour {
     [SerializeField] public GameObject bullet;
     private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
