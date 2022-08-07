@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Witch.Momiji {
   public class FairyOfLight : ReversibleBehaviour {
-    [SerializeField] private Color color = new(1, 1,1, 1);
+    [SerializeField] public Color color = new(1, 1,1, 1);
 
     // Rotation
     [SerializeField] private float poleRotationSpeed = 60.0f;
-    [SerializeField] private Vector3 poleRotationAxis = Vector3.up;
+    [SerializeField] public Vector3 poleRotationAxis = Vector3.up;
     [SerializeField] private float selfRotationSpeed = 180.0f;
     [SerializeField] private float selfRadius = 5.0f;
     [SerializeField] private float initialAngle;
@@ -17,7 +17,7 @@ namespace Witch.Momiji {
     [SerializeField] private float bornTime = 1.0f;
     [SerializeField] private float rotateTime = 7.0f;
     [SerializeField] private float endTime = 10.0f;
-    private float destroyTime_;
+    private float duration_;
     private Dense<float> totalTime_;
 
     // Spirit components
@@ -45,9 +45,8 @@ namespace Witch.Momiji {
         spiritLight_ = spirit_.GetComponent<Light>();
         spiritLight_.color = color;
       }
-
+      duration_ = endTime + spiritTrailRenderer_.time;
       totalTime_ = new Dense<float>(clock, 0.0f);
-      destroyTime_ = endTime + spiritTrailRenderer_.time;
     }
 
     protected override void OnForward() {
@@ -72,12 +71,15 @@ namespace Witch.Momiji {
         spirit_.localScale = new Vector3(spiritScale, spiritScale, spiritScale);
         trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, poleRotationAxis);
         spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) * Vector3.right * (selfRadius * progress);
-      } else if (totalTime <= destroyTime_) {
+      } else if (totalTime <= duration_) {
         spirit_.localScale = Vector3.zero;
       } else {
         Destroy();
       }
+
       totalTime += dt;
     }
+
+    public float Duration => duration_;
   }
 }

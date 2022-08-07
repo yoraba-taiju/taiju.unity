@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Witch.Sora {
   public class Sora : WitchBehaviour {
     [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject arrowOfLightField;
+    [SerializeField] private GameObject momijiSpell;
     private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
     private PlayerInput.PlayerActions playerActions_;
@@ -57,7 +57,7 @@ namespace Witch.Sora {
 
       var spell = playerActions_.Spell;
       if (spell.triggered) {
-        var obj = Instantiate(arrowOfLightField, field_);
+        var obj = Instantiate(momijiSpell, field_);
         obj.transform.localPosition = transform.localPosition;
       }
     }

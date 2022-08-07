@@ -1445,7 +1445,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1070434611852245445, guid: 11dc730ca456c164798ac9ab061278ae, type: 3}
-  arrowOfLightField: {fileID: 6582577784227367628, guid: b4e98b3b5f4b321478f1eda3e4755d56, type: 3}
+  momijiSpell: {fileID: 7052692556357060951, guid: f97619dc157ce8444bb1025f56bd1ed0, type: 3}
 --- !u!114 &1121245684
 MonoBehaviour:
   m_ObjectHideFlags: 0
