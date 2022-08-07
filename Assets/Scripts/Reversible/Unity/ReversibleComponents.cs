@@ -43,6 +43,10 @@ namespace Reversible.Unity {
         graveyard_ = clockObj.GetComponent<Graveyard>();
         wasVisible_ = false;
       }
+
+      if (targetComponents.Length <= 0) {
+        return;
+      }
       companions_ = new ICompanion[targetComponents.Length];
       var i = -1;
       foreach (var target in targetComponents) {
@@ -85,6 +89,9 @@ namespace Reversible.Unity {
         }
       }
 
+      if (companions_ == null) {
+        return;
+      }
       if (ticked) {
         if (holder_.Leaped) {
           foreach (var companion in companions_) {
