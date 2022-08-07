@@ -5,16 +5,22 @@ using UnityEngine;
 namespace Witch.Momiji {
   public class FairyOfLight : ReversibleBehaviour {
     [SerializeField] private Color color = new(1, 1,1, 1);
-    [SerializeField] private Vector3 rotationAxis = Vector3.up;
+
+    // Rotation
+    [SerializeField] private float poleRotationSpeed = 60.0f;
+    [SerializeField] private Vector3 poleRotationAxis = Vector3.up;
+    [SerializeField] private float selfRotationSpeed = 180.0f;
+    [SerializeField] private float selfRadius = 5.0f;
     [SerializeField] private float initialAngle;
+
+    // Time management
     [SerializeField] private float bornTime = 1.0f;
     [SerializeField] private float rotateTime = 7.0f;
     [SerializeField] private float endTime = 10.0f;
     private float destroyTime_;
-    [SerializeField] private float poleRotationSpeed = 60.0f;
-    [SerializeField] private float selfRotationSpeed = 180.0f;
-    [SerializeField] private float selfRadius = 5.0f;
     private Dense<float> totalTime_;
+
+    // Spirit components
     private Transform spirit_;
     private MeshRenderer spiritMeshRenderer_;
     private Light spiritLight_;
@@ -53,10 +59,10 @@ namespace Witch.Momiji {
         progress *= progress;
         var spiritScale = 0.7f * progress;
         spirit_.localScale = new Vector3(spiritScale, spiritScale, spiritScale);
-        trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, rotationAxis);
+        trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, poleRotationAxis);
         spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) * Vector3.right * (selfRadius * progress);
       } else if (totalTime <= rotateTime) {
-        trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, rotationAxis);
+        trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, poleRotationAxis);
         spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) * Vector3.right * selfRadius;
       } else if (totalTime <= endTime){
         var spanTime = totalTime - rotateTime;
@@ -64,7 +70,7 @@ namespace Witch.Momiji {
         progress *= progress;
         var spiritScale = 0.7f * progress;
         spirit_.localScale = new Vector3(spiritScale, spiritScale, spiritScale);
-        trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, rotationAxis);
+        trans.localRotation = Quaternion.AngleAxis(totalTime * poleRotationSpeed, poleRotationAxis);
         spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) * Vector3.right * (selfRadius * progress);
       } else if (totalTime <= destroyTime_) {
         spirit_.localScale = Vector3.zero;
