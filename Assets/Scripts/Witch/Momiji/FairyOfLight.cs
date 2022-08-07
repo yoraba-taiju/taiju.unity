@@ -11,7 +11,7 @@ namespace Witch.Momiji {
     [SerializeField] public Vector3 poleRotationAxis = Vector3.up;
     [SerializeField] private float selfRotationSpeed = 180.0f;
     [SerializeField] private float selfRadius = 5.0f;
-    [SerializeField] private float initialAngle;
+    [SerializeField] public float initialAngle;
 
     // Time management
     [SerializeField] private float bornTime = 1.0f;
