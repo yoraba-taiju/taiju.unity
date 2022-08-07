@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyWhenInvisible: 1
+  destroyWhenInvisible: 0
   targetComponents: 
 --- !u!1 &7877365677635319759
 GameObject:
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyWhenInvisible: 1
+  destroyWhenInvisible: 0
   targetComponents: 0100000004000000
 --- !u!96 &8978824697829556817
 TrailRenderer:
