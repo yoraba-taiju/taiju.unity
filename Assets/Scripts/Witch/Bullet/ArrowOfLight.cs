@@ -26,10 +26,13 @@ namespace Witch.Bullet {
       bodyRotation_ = new Dense<float>(clock, 0.0f);
       leftPeriod_ = new Dense<float>(clock, period);
       velocity_ = new Dense<Vector3>(clock, Vector3.zero);
-      body_ = trans.Find("Body");
+      body_ = trans.Find("Body")!;
     }
 
     private void Track(GameObject obj, Vector3 initialVelocity) {
+      if (obj == null) {
+        return;
+      }
       target_ = obj.transform;
       targetRigidbody_ = obj.GetComponent<Rigidbody2D>();
       targetBehaviour_ = obj.GetComponent<EnemyBehaviour>();
