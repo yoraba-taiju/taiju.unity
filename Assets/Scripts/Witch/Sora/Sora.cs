@@ -1,9 +1,8 @@
 using System;
 using Reversible;
 using UnityEngine;
-using Witch.Bullet;
 
-namespace Witch {
+namespace Witch.Sora {
   public class Sora : WitchBehaviour {
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject arrowOfLight;
