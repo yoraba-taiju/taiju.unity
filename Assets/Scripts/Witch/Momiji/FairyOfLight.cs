@@ -26,6 +26,9 @@ namespace Witch.Momiji {
     private MeshRenderer spiritMeshRenderer_;
     private Light spiritLight_;
     private TrailRenderer spiritTrailRenderer_;
+    
+    // Arrow emission
+    [SerializeField] public float arrowLaunchDelay;
 
     protected override void OnStart() {
       var trans = transform;
