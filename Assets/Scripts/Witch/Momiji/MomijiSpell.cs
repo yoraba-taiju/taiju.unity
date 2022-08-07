@@ -31,6 +31,7 @@ namespace Witch.Momiji {
         var rot = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
         fairy.poleRotationAxis = rot * Vector3.left;
         fairy.initialAngle = Random.Range(0.0f, 360.0f);
+        fairy.initialPoleAngle = Random.Range(0.0f, 360.0f);
         duration_ = Mathf.Max(duration_, fairy.Duration);
       }
     }
