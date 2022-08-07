@@ -24,11 +24,11 @@ namespace Witch.Momiji {
       totalTime_ = new Dense<float>(clock, 0.0f);
       field_ = GameObject.FindWithTag("Field").transform;
       for (var i = 0; i < 7; ++i) {
-        var rot = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
         var spirit = Instantiate(spiritPrefab, Vector3.zero, Quaternion.identity, field_);
         spirit.transform.localPosition = transform.localPosition;
         var fairy = spirit.GetComponent<FairyOfLight>();
         fairy.color = Colors[i];
+        var rot = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
         fairy.poleRotationAxis = rot * Vector3.left;
         duration_ = Mathf.Max(duration_, fairy.Duration);
       }
