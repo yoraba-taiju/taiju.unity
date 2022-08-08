@@ -12,7 +12,7 @@ namespace Reversible.Unity {
 
     // Visibility
     [SerializeField] public bool destroyWhenInvisible = true;
-    private Graveyard graveyard_;
+    private World world_;
     private Renderer[] renderers_;
     private bool wasVisible_;
 
@@ -40,7 +40,7 @@ namespace Reversible.Unity {
           Debug.LogWarning("No renderers attached.");
           destroyWhenInvisible = false;
         }
-        graveyard_ = clockObj.GetComponent<Graveyard>();
+        world_ = clockObj.GetComponent<World>();
         wasVisible_ = false;
       }
 
@@ -79,7 +79,7 @@ namespace Reversible.Unity {
           }
           if (wasVisible_) {
             if (!visible) {
-              graveyard_.Destroy(gameObject);
+              world_.Destroy(gameObject);
             }
           } else {
             wasVisible_ = visible;

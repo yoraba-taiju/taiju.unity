@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Reversible.Unity {
-  public class Graveyard : MonoBehaviour {
+  public class World: MonoBehaviour {
     /* Clock */
     private Clock clock_;
     private ClockHolder clockHolder_;
-    private readonly LinkedList<Tuple<uint, GameObject>> objects_ = new();
+    private readonly HashSet<Transform> lives_ = new();
+    private readonly LinkedList<Tuple<uint, GameObject>> graveYard_ = new();
+
+    public HashSet<Transform> Lives => lives_;
 
     private void Start() {
       clockHolder_ = gameObject.GetComponent<ClockHolder>();
@@ -23,21 +26,23 @@ namespace Reversible.Unity {
     }
 
     private void RemoveOutdated(uint currentTick) {
-      while (objects_.Count > 0) {
-        var (destroyedAt, obj) = objects_.First.Value;
+      while (graveYard_.Count > 0) {
+        var (destroyedAt, obj) = graveYard_.First.Value;
         if (destroyedAt + Clock.HISTORY_LENGTH < currentTick) {
-          objects_.RemoveFirst();
+          graveYard_.RemoveFirst();
           MonoBehaviour.Destroy(obj);
         } else {
           break;
         }
       }
     }
+
     private void RestoreOutdated(uint currentTick) {
-      while (objects_.Count > 0) {
-        var (destroyedAt, obj) = objects_.Last.Value;
+      while (graveYard_.Count > 0) {
+        var (destroyedAt, obj) = graveYard_.Last.Value;
         if (destroyedAt >= currentTick) {
-          objects_.RemoveLast();
+          graveYard_.RemoveLast();
+          lives_.Add(obj.transform);
           obj.SetActive(true);
         } else {
           break;
@@ -45,8 +50,13 @@ namespace Reversible.Unity {
       }
     }
 
+    public void Register(GameObject obj) {
+      lives_.Add(obj.transform);
+    }
+
     public void Destroy(GameObject obj) {
-      objects_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
+      lives_.Remove(obj.transform);
+      graveYard_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
       obj.SetActive(false);
     }
   }

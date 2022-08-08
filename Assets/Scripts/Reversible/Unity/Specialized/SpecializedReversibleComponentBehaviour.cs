@@ -3,7 +3,7 @@
 namespace Reversible.Unity.Specialized {
   public abstract class SpecializedReversibleComponentBehaviour : MonoBehaviour {
     protected ClockHolder clockHolder;
-    protected Graveyard graveyard;
+    protected World world;
     protected Clock clock;
     private uint bornAt_;
 
@@ -12,7 +12,7 @@ namespace Reversible.Unity.Specialized {
     public void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
       clockHolder = clockObj.GetComponent<ClockHolder>();
-      graveyard = clockObj.GetComponent<Graveyard>();
+      world = clockObj.GetComponent<World>();
       clock = clockHolder.Clock;
       bornAt_ = clock.CurrentTick;
       OnStart();

@@ -15,7 +15,7 @@ namespace Reversible.Unity.Specialized {
     }
 
     private void OnParticleSystemStopped() {
-      graveyard.Destroy(gameObject);
+      world.Destroy(gameObject);
     }
   }
 }
