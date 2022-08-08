@@ -7,10 +7,10 @@ namespace Reversible.Unity {
     /* Clock */
     private Clock clock_;
     private ClockHolder clockHolder_;
-    private readonly HashSet<Transform> lives_ = new();
+    private readonly HashSet<Transform> livings_ = new();
     private readonly LinkedList<Tuple<uint, GameObject>> graveYard_ = new();
 
-    public HashSet<Transform> Lives => lives_;
+    public HashSet<Transform> Livings => livings_;
 
     private void Start() {
       clockHolder_ = gameObject.GetComponent<ClockHolder>();
@@ -42,7 +42,7 @@ namespace Reversible.Unity {
         var (destroyedAt, obj) = graveYard_.Last.Value;
         if (destroyedAt >= currentTick) {
           graveYard_.RemoveLast();
-          lives_.Add(obj.transform);
+          livings_.Add(obj.transform);
           obj.SetActive(true);
         } else {
           break;
@@ -51,11 +51,11 @@ namespace Reversible.Unity {
     }
 
     public void Register(GameObject obj) {
-      lives_.Add(obj.transform);
+      livings_.Add(obj.transform);
     }
 
     public void Destroy(GameObject obj) {
-      lives_.Remove(obj.transform);
+      livings_.Remove(obj.transform);
       graveYard_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
       obj.SetActive(false);
     }
