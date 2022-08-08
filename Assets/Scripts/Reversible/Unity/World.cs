@@ -8,7 +8,7 @@ namespace Reversible.Unity {
     private Clock clock_;
     private ClockHolder clockHolder_;
     private readonly HashSet<Transform> livingObjects_ = new();
-    private readonly LinkedList<Tuple<uint, GameObject>> deadObjects_ = new();
+    private readonly LinkedList<Tuple<uint, GameObject>> graveYard_ = new();
 
     public HashSet<Transform> LivingObjects => livingObjects_;
 
@@ -26,10 +26,10 @@ namespace Reversible.Unity {
     }
 
     private void RemoveOutdated(uint currentTick) {
-      while (deadObjects_.Count > 0) {
-        var (destroyedAt, obj) = deadObjects_.First.Value;
+      while (graveYard_.Count > 0) {
+        var (destroyedAt, obj) = graveYard_.First.Value;
         if (destroyedAt + Clock.HISTORY_LENGTH < currentTick) {
-          deadObjects_.RemoveFirst();
+          graveYard_.RemoveFirst();
           MonoBehaviour.Destroy(obj);
         } else {
           break;
@@ -38,10 +38,10 @@ namespace Reversible.Unity {
     }
 
     private void RestoreOutdated(uint currentTick) {
-      while (deadObjects_.Count > 0) {
-        var (destroyedAt, obj) = deadObjects_.Last.Value;
+      while (graveYard_.Count > 0) {
+        var (destroyedAt, obj) = graveYard_.Last.Value;
         if (destroyedAt >= currentTick) {
-          deadObjects_.RemoveLast();
+          graveYard_.RemoveLast();
           livingObjects_.Add(obj.transform);
           obj.SetActive(true);
         } else {
@@ -56,7 +56,7 @@ namespace Reversible.Unity {
 
     public void Destroy(GameObject obj) {
       livingObjects_.Remove(obj.transform);
-      deadObjects_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
+      graveYard_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
       obj.SetActive(false);
     }
   }
