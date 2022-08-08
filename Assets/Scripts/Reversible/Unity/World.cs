@@ -7,10 +7,10 @@ namespace Reversible.Unity {
     /* Clock */
     private Clock clock_;
     private ClockHolder clockHolder_;
-    private readonly HashSet<Transform> livings_ = new();
-    private readonly LinkedList<Tuple<uint, GameObject>> graveYard_ = new();
+    private readonly HashSet<Transform> livingObjects_ = new();
+    private readonly LinkedList<Tuple<uint, GameObject>> deadObjects_ = new();
 
-    public HashSet<Transform> Livings => livings_;
+    public HashSet<Transform> LivingObjects => livingObjects_;
 
     private void Start() {
       clockHolder_ = gameObject.GetComponent<ClockHolder>();
@@ -26,10 +26,10 @@ namespace Reversible.Unity {
     }
 
     private void RemoveOutdated(uint currentTick) {
-      while (graveYard_.Count > 0) {
-        var (destroyedAt, obj) = graveYard_.First.Value;
+      while (deadObjects_.Count > 0) {
+        var (destroyedAt, obj) = deadObjects_.First.Value;
         if (destroyedAt + Clock.HISTORY_LENGTH < currentTick) {
-          graveYard_.RemoveFirst();
+          deadObjects_.RemoveFirst();
           MonoBehaviour.Destroy(obj);
         } else {
           break;
@@ -38,11 +38,11 @@ namespace Reversible.Unity {
     }
 
     private void RestoreOutdated(uint currentTick) {
-      while (graveYard_.Count > 0) {
-        var (destroyedAt, obj) = graveYard_.Last.Value;
+      while (deadObjects_.Count > 0) {
+        var (destroyedAt, obj) = deadObjects_.Last.Value;
         if (destroyedAt >= currentTick) {
-          graveYard_.RemoveLast();
-          livings_.Add(obj.transform);
+          deadObjects_.RemoveLast();
+          livingObjects_.Add(obj.transform);
           obj.SetActive(true);
         } else {
           break;
@@ -51,12 +51,12 @@ namespace Reversible.Unity {
     }
 
     public void Register(GameObject obj) {
-      livings_.Add(obj.transform);
+      livingObjects_.Add(obj.transform);
     }
 
     public void Destroy(GameObject obj) {
-      livings_.Remove(obj.transform);
-      graveYard_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
+      livingObjects_.Remove(obj.transform);
+      deadObjects_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
       obj.SetActive(false);
     }
   }
