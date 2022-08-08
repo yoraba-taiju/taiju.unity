@@ -6,15 +6,24 @@ using Utility;
 
 namespace Witch.Bullet {
   public class ArrowOfLight: ReversibleBehaviour {
-    private Transform body_;
+    [SerializeField] private Color color = Color.white;
     [SerializeField] private float bodyRotationSpeed = 360.0f;
     [SerializeField] private float period = 1.0f;
+
+    // Position management
+    private Dense<Vector3> velocity_;
+
+    // Body
+    private Transform body_;
+    private Dense<float> bodyRotation_;
+
+    // target
     private Transform target_;
     private Rigidbody2D targetRigidbody_;
     private EnemyBehaviour targetBehaviour_;
-    private Dense<float> bodyRotation_;
+
+    // Management
     private Dense<float> leftPeriod_;
-    private Dense<Vector3> velocity_;
 
     private new void Start() {
       var self = this as ReversibleBehaviour;
@@ -27,6 +36,18 @@ namespace Witch.Bullet {
       leftPeriod_ = new Dense<float>(clock, period);
       velocity_ = new Dense<Vector3>(clock, Vector3.zero);
       body_ = trans.Find("Body")!;
+      {
+        var material = body_.GetComponent<MeshRenderer>().material;
+        material.color = color;
+      }
+      {
+        var trailRenderer = body_.GetComponent<TrailRenderer>();
+        var colorGradient = trailRenderer.colorGradient;
+        var colorKeys = colorGradient.colorKeys;
+        colorKeys[1].color = color;
+        colorGradient.colorKeys = colorKeys;
+        trailRenderer.colorGradient = colorGradient;
+      }
     }
 
     private void Track(GameObject obj, Vector3 initialVelocity) {

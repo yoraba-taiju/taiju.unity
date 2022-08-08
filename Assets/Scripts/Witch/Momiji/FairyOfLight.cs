@@ -32,7 +32,7 @@ namespace Witch.Momiji {
 
     protected override void OnStart() {
       var trans = transform;
-      spirit_ = trans.Find("Spirit");
+      spirit_ = trans.Find("Spirit")!;
       {
         spiritMeshRenderer_ = spirit_.gameObject.GetComponent<MeshRenderer>();
         spiritMeshRenderer_.material.color = color;
