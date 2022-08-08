@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1062582101777521876}
   - component: {fileID: 3917194842712800677}
   - component: {fileID: 2946195278332740056}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: FairyOfLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8978824697829556817}
   - component: {fileID: 5143012079869735447}
   - component: {fileID: 6975916318378297749}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Spirit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
