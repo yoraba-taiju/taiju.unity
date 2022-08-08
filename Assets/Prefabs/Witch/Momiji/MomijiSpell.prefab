@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7378777806463858780}
   - component: {fileID: 9070693440489742230}
+  - component: {fileID: 8226259547913357817}
   m_Layer: 0
   m_Name: MomijiSpell
   m_TagString: Untagged
@@ -45,3 +46,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spiritPrefab: {fileID: 6582577784227367628, guid: b4e98b3b5f4b321478f1eda3e4755d56, type: 3}
+--- !u!114 &8226259547913357817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7052692556357060951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyWhenInvisible: 0
+  targetComponents: 
