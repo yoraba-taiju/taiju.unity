@@ -15,7 +15,7 @@ namespace Witch.Bullet {
     // Position management
     private Dense<Vector3> velocity_;
     private Sparse<bool> isTracking_;
-    private Sparse<bool> hit_;
+    private Sparse<bool> alreadyHit_;
 
     // Body
     private Transform body_;
@@ -41,6 +41,7 @@ namespace Witch.Bullet {
       totalTime_ = new Dense<float>(clock, 0.0f);
       velocity_ = new Dense<Vector3>(clock, initialVelocity);
       isTracking_ = new Sparse<bool>(clock, true);
+      alreadyHit_ = new Sparse<bool>(clock, false);
       body_ = trans.Find("Body")!;
       {
         var material = body_.GetComponent<MeshRenderer>().material;
@@ -91,9 +92,9 @@ namespace Witch.Bullet {
       } else if (totalTime <= Duration) {
         var scale = (Duration - totalTime) / (Duration - period);
         if (isTracking_.Ref) {
-          if (!hit_.Ref) {
+          if (!alreadyHit_.Ref) {
             targetBehaviour_.OnCollide(gameObject);
-            hit_.Mut = true;
+            alreadyHit_.Mut = true;
           } else {
             trans.localScale = Vector3.zero;
           }
