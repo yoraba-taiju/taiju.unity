@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3757074820620378849}
   - component: {fileID: 5805505881215267591}
   - component: {fileID: 1502507798194752274}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: ArrowOfLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 1
+  m_Time: 0.15
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -118,17 +118,17 @@ TrailRenderer:
         time: 0
         value: 1
         inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        outSlope: -1
+        tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.15
-        inSlope: -0.85
+        value: 0
+        inSlope: 0
         outSlope: 0
-        tangentMode: 5
+        tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
@@ -254,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 00f97d66ee35a15489d562c2163efb67, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00f97d66ee35a15489d562c2163efb67, type: 3}
