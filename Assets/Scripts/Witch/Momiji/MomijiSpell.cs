@@ -28,10 +28,10 @@ namespace Witch.Momiji {
         spirit.transform.localPosition = transform.localPosition;
         var fairy = spirit.GetComponent<FairyOfLight>();
         fairy.color = Colors[i];
-        var rot = Quaternion.Euler(Random.Range(0f, 360f), Random.Range(0f, 360f), Random.Range(0f, 360f));
-        fairy.poleRotationAxis = rot * Vector3.left;
-        fairy.initialAngle = Random.Range(0.0f, 360.0f);
-        fairy.initialPoleAngle = Random.Range(0.0f, 360.0f);
+        var rot = Quaternion.Euler(Random.Range(-180.0f, 180.0f), Random.Range(-180.0f, 180.0f), Random.Range(-180.0f, 180.0f));
+        fairy.poleRotationAxis = rot * Vector3.right;
+        fairy.initialAngle = Random.Range(-180.0f, 180.0f);
+        fairy.initialPoleAngle = Random.Range(-180.0f, 180.0f);
         fairy.arrowLaunchDelay = i / 7.0f * fairy.arrowLaunchInterval + 53f/113f;
         duration_ = Mathf.Max(duration_, fairy.Duration);
       }
