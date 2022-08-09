@@ -108,7 +108,7 @@ namespace Witch.Momiji {
       var diff = spiritPosition - transPosition;
       var obj = Instantiate(arrowPrefab, spiritPosition, Quaternion.LookRotation(diff, Vector3.up), field_);
       var arrow = obj.GetComponent<ArrowOfLight>();
-      arrow.initialVelocity = diff.normalized * 30.0f;
+      arrow.initialVelocity = diff.normalized * 100.0f;
       arrow.color = color;
     }
   }
