@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  bodyRotationSpeed: 360
   period: 1
   initialVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &5805505881215267591
@@ -156,15 +155,15 @@ TrailRenderer:
       ctime7: 0
       atime0: 22937
       atime1: 43947
-      atime2: 65535
-      atime3: 0
+      atime2: 45875
+      atime3: 65535
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 3
+      m_NumAlphaKeys: 4
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0

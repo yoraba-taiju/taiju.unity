@@ -40,7 +40,7 @@ namespace Witch.Bullet {
       {
         var colorGradient = trailRenderer.colorGradient;
         var colorKeys = colorGradient.colorKeys;
-        colorKeys[1].color = color;
+        colorKeys[0].color = color;
         colorGradient.colorKeys = colorKeys;
         trailRenderer.colorGradient = colorGradient;
         GetComponent<Light>().color = color;
