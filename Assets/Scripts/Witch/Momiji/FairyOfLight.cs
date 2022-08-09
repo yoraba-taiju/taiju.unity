@@ -105,10 +105,10 @@ namespace Witch.Momiji {
       var trans = transform;
       var transPosition = trans.localPosition;
       var spiritPosition = field_.InverseTransformPoint(spirit_.position);
-      var diff = spiritPosition - transPosition;
-      var obj = Instantiate(arrowPrefab, spiritPosition, Quaternion.LookRotation(diff, Vector3.up), field_);
+      var direction = spiritPosition - transPosition;
+      var obj = Instantiate(arrowPrefab, spiritPosition, Quaternion.LookRotation(direction, Vector3.up), field_);
       var arrow = obj.GetComponent<ArrowOfLight>();
-      arrow.initialVelocity = diff.normalized * 100.0f;
+      arrow.initialVelocity = direction * 100.0f;
       arrow.color = color;
     }
   }
