@@ -32,7 +32,7 @@ namespace Witch.Momiji {
         fairy.poleRotationAxis = rot * Vector3.left;
         fairy.initialAngle = Random.Range(0.0f, 360.0f);
         fairy.initialPoleAngle = Random.Range(0.0f, 360.0f);
-        fairy.arrowLaunchDelay = i / 7.0f * fairy.arrowLaunchInterval + .4f;
+        fairy.arrowLaunchDelay = i / 7.0f * fairy.arrowLaunchInterval + 53f/113f;
         duration_ = Mathf.Max(duration_, fairy.Duration);
       }
     }
