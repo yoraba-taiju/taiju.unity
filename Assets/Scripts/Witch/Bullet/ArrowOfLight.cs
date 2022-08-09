@@ -8,7 +8,6 @@ using Utility;
 namespace Witch.Bullet {
   public class ArrowOfLight: ReversibleBehaviour {
     [SerializeField] public Color color = Color.white;
-    [SerializeField] private float bodyRotationSpeed = 360.0f;
     [SerializeField] private float period = 1.0f;
     [SerializeField] public Vector3 initialVelocity;
 
@@ -16,10 +15,6 @@ namespace Witch.Bullet {
     private Dense<Vector3> velocity_;
     private Sparse<bool> isTracking_;
     private Sparse<bool> alreadyHit_;
-
-    // Body
-    private Transform body_;
-    private Dense<float> bodyRotation_;
 
     // target
     private Transform target_;
@@ -37,16 +32,10 @@ namespace Witch.Bullet {
 
     protected override void OnStart() {
       var trans = transform;
-      bodyRotation_ = new Dense<float>(clock, 0.0f);
       totalTime_ = new Dense<float>(clock, 0.0f);
       velocity_ = new Dense<Vector3>(clock, initialVelocity);
       isTracking_ = new Sparse<bool>(clock, true);
       alreadyHit_ = new Sparse<bool>(clock, false);
-      body_ = trans.Find("Body")!;
-      {
-        var material = body_.GetComponent<MeshRenderer>().material;
-        material.color = color;
-      }
       var trailRenderer = GetComponent<TrailRenderer>();
       {
         var colorGradient = trailRenderer.colorGradient;
@@ -54,6 +43,7 @@ namespace Witch.Bullet {
         colorKeys[1].color = color;
         colorGradient.colorKeys = colorKeys;
         trailRenderer.colorGradient = colorGradient;
+        GetComponent<Light>().color = color;
       }
       Duration = period + trailRenderer.time;
     }
@@ -66,7 +56,6 @@ namespace Witch.Bullet {
 
     protected override void OnForward() {
       var dt = Time.deltaTime;
-      ref var bodyRotation = ref bodyRotation_.Mut;
       ref var velocity = ref velocity_.Mut;
       var trans = transform;
       ref var totalTime = ref totalTime_.Mut;
@@ -86,21 +75,14 @@ namespace Witch.Bullet {
           );
           velocity += force * dt;
         }
-        bodyRotation += bodyRotationSpeed * dt;
         trans.localPosition += velocity * dt;
-        trans.localRotation = Quaternion.FromToRotation(Vector3.right, velocity) * Quaternion.Euler(bodyRotation, 0, 0);
       } else if (totalTime <= Duration) {
-        var scale = (Duration - totalTime) / (Duration - period);
-        if (isTracking_.Ref) {
-          if (!alreadyHit_.Ref) {
-            targetBehaviour_.OnCollide(gameObject);
-            alreadyHit_.Mut = true;
-          } else {
-            trans.localScale = Vector3.zero;
-          }
-        } else {
-          trans.localScale = new Vector3(scale, scale, scale);
+        if (!isTracking_.Ref || alreadyHit_.Ref) {
+          return;
         }
+        targetBehaviour_.OnCollide(gameObject);
+        alreadyHit_.Mut = true;
+        isTracking_.Mut = false;
       } else {
         Destroy();
       }
@@ -110,15 +92,16 @@ namespace Witch.Bullet {
       var minDistance = float.MaxValue;
       var trans = transform;
       GameObject nextTarget = null;
-      bool found = false;
+      var found = false;
       foreach (var other in world.LivingEnemies) {
         var diff = other.localPosition - trans.localPosition;
         var distance = diff.magnitude;
-        if (distance < minDistance) {
-          minDistance = distance;
-          nextTarget = other.gameObject;
-          found = true;
+        if (distance >= minDistance) {
+          continue;
         }
+        minDistance = distance;
+        nextTarget = other.gameObject;
+        found = true;
       }
       if (found) {
         Track(nextTarget);
@@ -127,11 +110,6 @@ namespace Witch.Bullet {
       }
 
       return found;
-    }
-
-    protected override void OnReverse() {
-      ref readonly var bodyRotation = ref bodyRotation_.Ref;
-      body_.localRotation = Quaternion.Euler(bodyRotation, 0, 0);
     }
 
     /****************************************************************
