@@ -73,7 +73,7 @@ namespace Witch.Bullet {
       totalTime += dt;
       if (totalTime <= period) {
         var isTracking = isTracking_.Ref;
-        if (isTracking && (target_ == null || !target_.gameObject.activeSelf)) {
+        if (isTracking && !world.LivingEnemies.Contains(target_)) {
           isTracking = FindNextTarget();
         }
         if (isTracking) {
