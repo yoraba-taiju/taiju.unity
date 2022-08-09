@@ -4,10 +4,14 @@ using UnityEngine;
 namespace Witch {
   public abstract class WitchBehaviour: ReversibleBehaviour {
     private int collisionLayers_;
+    private static int layerMask_;
     private new void Start() {
       var self = this as ReversibleBehaviour;
       self.Start();
-      collisionLayers_ = LayerMask.GetMask("Enemy", "EnemyBullet");
+      if (layerMask_ == 0) {
+        layerMask_ = LayerMask.GetMask("Enemy", "EnemyBullet");
+      }
+      collisionLayers_ = layerMask_;
     }
 
     private void OnCollisionEnter2D(Collision2D col) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Enemy;
 using UnityEngine;
 
 namespace Reversible.Unity {
@@ -7,10 +8,13 @@ namespace Reversible.Unity {
     /* Clock */
     private Clock clock_;
     private ClockHolder clockHolder_;
-    private readonly HashSet<Transform> livingObjects_ = new();
     private readonly LinkedList<Tuple<uint, GameObject>> graveYard_ = new();
 
-    public HashSet<Transform> LivingObjects => livingObjects_;
+    public HashSet<Transform> LivingEnemies { get; } = new();
+    
+    private struct LayerName {
+      public static readonly int Enemy = LayerMask.NameToLayer("Enemy");
+    }
 
     private void Start() {
       clockHolder_ = gameObject.GetComponent<ClockHolder>();
@@ -42,7 +46,9 @@ namespace Reversible.Unity {
         var (destroyedAt, obj) = graveYard_.Last.Value;
         if (destroyedAt >= currentTick) {
           graveYard_.RemoveLast();
-          livingObjects_.Add(obj.transform);
+          if (obj.layer == LayerName.Enemy) {
+            LivingEnemies.Add(obj.transform);
+          }
           obj.SetActive(true);
         } else {
           break;
@@ -50,12 +56,12 @@ namespace Reversible.Unity {
       }
     }
 
-    public void Register(GameObject obj) {
-      livingObjects_.Add(obj.transform);
+    public void RegisterEnemy(Transform enemyTransform) {
+      LivingEnemies.Add(enemyTransform);
     }
 
     public void Destroy(GameObject obj) {
-      livingObjects_.Remove(obj.transform);
+      LivingEnemies.Remove(obj.transform);
       graveYard_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
       obj.SetActive(false);
     }

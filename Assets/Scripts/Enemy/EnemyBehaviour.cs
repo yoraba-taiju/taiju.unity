@@ -4,12 +4,16 @@ using UnityEngine;
 namespace Enemy {
   public abstract class EnemyBehaviour: ReversibleBehaviour {
     private int collisionLayers_;
+    private static int layerMask_;
     private new void Start() {
       var self = this as ReversibleBehaviour;
       self.Start();
-      collisionLayers_ = LayerMask.GetMask("Witch", "WitchBullet");
+      world.RegisterEnemy(transform);
+      if (layerMask_ == 0) {
+        layerMask_ = LayerMask.GetMask("Enemy", "EnemyBullet");
+      }
+      collisionLayers_ = layerMask_;
     }
-
     private void OnCollisionEnter2D(Collision2D collision) {
       OnCollision2D(collision);
     }

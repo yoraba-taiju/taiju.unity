@@ -110,10 +110,7 @@ namespace Witch.Bullet {
       var trans = transform;
       GameObject nextTarget = null;
       bool found = false;
-      foreach (var other in world.LivingObjects) {
-        if (other.GetComponent<EnemyBehaviour>() == null) {
-          continue;
-        }
+      foreach (var other in world.LivingEnemies) {
         var diff = other.localPosition - trans.localPosition;
         var distance = diff.magnitude;
         if (distance < minDistance) {
@@ -130,6 +127,7 @@ namespace Witch.Bullet {
 
       return found;
     }
+
     protected override void OnReverse() {
       ref readonly var bodyRotation = ref bodyRotation_.Ref;
       body_.localRotation = Quaternion.Euler(bodyRotation, 0, 0);

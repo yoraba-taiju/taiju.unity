@@ -16,7 +16,6 @@ namespace Reversible.Unity {
       world = clockObj.GetComponent<World>();
       playerInput = clockHolder.PlayerInput;
       clock = clockHolder.Clock;
-      world.Register(gameObject);
       OnStart();
     }
 
