@@ -68,9 +68,11 @@ MonoBehaviour:
   initialAngle: 0
   initialPoleAngle: 0
   bornTime: 1
-  rotateTime: 7
-  endTime: 10
+  rotateTime: 4
+  endTime: 6
+  arrowPrefab: {fileID: 8504349010670632558, guid: b7c769d4cdcba5143ad688ddb80416a1, type: 3}
   arrowLaunchDelay: 0
+  arrowLaunchInterval: 0.902439
 --- !u!1 &7877365677635319759
 GameObject:
   m_ObjectHideFlags: 0

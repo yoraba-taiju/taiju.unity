@@ -21,8 +21,8 @@ namespace Witch.Momiji {
     private Dense<float> totalTime_;
     private float duration_;
     protected override void OnStart() {
-      totalTime_ = new Dense<float>(clock, 0.0f);
       field_ = GameObject.FindWithTag("Field").transform;
+      totalTime_ = new Dense<float>(clock, 0.0f);
       for (var i = 0; i < 7; ++i) {
         var spirit = Instantiate(spiritPrefab, Vector3.zero, Quaternion.identity, field_);
         spirit.transform.localPosition = transform.localPosition;
@@ -32,6 +32,7 @@ namespace Witch.Momiji {
         fairy.poleRotationAxis = rot * Vector3.left;
         fairy.initialAngle = Random.Range(0.0f, 360.0f);
         fairy.initialPoleAngle = Random.Range(0.0f, 360.0f);
+        fairy.arrowLaunchDelay = i * 37f / (7.0f*41.0f) + .4f;
         duration_ = Mathf.Max(duration_, fairy.Duration);
       }
     }

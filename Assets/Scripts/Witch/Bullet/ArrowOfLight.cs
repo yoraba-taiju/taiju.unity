@@ -6,12 +6,14 @@ using Utility;
 
 namespace Witch.Bullet {
   public class ArrowOfLight: ReversibleBehaviour {
-    [SerializeField] private Color color = Color.white;
+    [SerializeField] public Color color = Color.white;
     [SerializeField] private float bodyRotationSpeed = 360.0f;
     [SerializeField] private float period = 1.0f;
+    [SerializeField] public Vector3 initialVelocity;
 
     // Position management
     private Dense<Vector3> velocity_;
+    private Sparse<bool> isTracking_;
 
     // Body
     private Transform body_;
@@ -23,7 +25,7 @@ namespace Witch.Bullet {
     private EnemyBehaviour targetBehaviour_;
 
     // Management
-    private Dense<float> leftPeriod_;
+    private Dense<float> totalTime_;
 
     private new void Start() {
       var self = this as ReversibleBehaviour;
@@ -33,15 +35,16 @@ namespace Witch.Bullet {
     protected override void OnStart() {
       var trans = transform;
       bodyRotation_ = new Dense<float>(clock, 0.0f);
-      leftPeriod_ = new Dense<float>(clock, period);
-      velocity_ = new Dense<Vector3>(clock, Vector3.zero);
+      totalTime_ = new Dense<float>(clock, 0.0f);
+      velocity_ = new Dense<Vector3>(clock, initialVelocity);
+      isTracking_ = new Sparse<bool>(clock, true);
       body_ = trans.Find("Body")!;
       {
         var material = body_.GetComponent<MeshRenderer>().material;
         material.color = color;
       }
       {
-        var trailRenderer = body_.GetComponent<TrailRenderer>();
+        var trailRenderer = GetComponent<TrailRenderer>();
         var colorGradient = trailRenderer.colorGradient;
         var colorKeys = colorGradient.colorKeys;
         colorKeys[1].color = color;
@@ -50,14 +53,10 @@ namespace Witch.Bullet {
       }
     }
 
-    private void Track(GameObject obj, Vector3 initialVelocity) {
-      if (obj == null) {
-        return;
-      }
+    private void Track(GameObject obj) {
       target_ = obj.transform;
       targetRigidbody_ = obj.GetComponent<Rigidbody2D>();
       targetBehaviour_ = obj.GetComponent<EnemyBehaviour>();
-      velocity_.Mut = initialVelocity;
     }
 
     protected override void OnForward() {
@@ -65,10 +64,38 @@ namespace Witch.Bullet {
       ref var bodyRotation = ref bodyRotation_.Mut;
       ref var velocity = ref velocity_.Mut;
       var trans = transform;
-      ref var leftPeriod = ref leftPeriod_.Mut;
-      leftPeriod -= dt;
-      if (target_ != null) {
-        if (leftPeriod < 0.0f) {
+      ref var totalTime = ref totalTime_.Mut;
+      totalTime += dt;
+      if (!isTracking_.Ref) {
+        // Do not track anything. Just destroy.
+        if (totalTime < 0.0f) {
+          Destroy();
+          return;
+        }
+      }else if (target_ == null || !target_.gameObject.activeSelf) {
+        var minDistance = float.MaxValue;
+        GameObject nextTarget = null;
+        bool found = false;
+        foreach (var other in world.LivingObjects) {
+          if (other.GetComponent<EnemyBehaviour>() == null) {
+            continue;
+          }
+          var diff = other.localPosition - trans.localPosition;
+          var distance = diff.magnitude;
+          if (distance < minDistance) {
+            minDistance = distance;
+            nextTarget = other.gameObject;
+            found = true;
+          }
+        }
+
+        if (found) {
+          Track(nextTarget);
+        } else {
+          isTracking_.Mut = false;
+        }
+      } else {
+        if (totalTime >= period) {
           targetBehaviour_.OnCollide(gameObject);
           Destroy();
           return;
@@ -78,18 +105,17 @@ namespace Witch.Bullet {
           velocity,
           target_.localPosition,
           targetRigidbody_.velocity,
-          leftPeriod
+          period - totalTime
         );
         velocity += force * dt;
       }
       bodyRotation += bodyRotationSpeed * dt;
       trans.localPosition += velocity * dt;
-      trans.localRotation = Quaternion.FromToRotation(Vector3.right, velocity);
-      body_.localRotation = Quaternion.Euler(bodyRotation, 0, 0);
+      trans.localRotation = Quaternion.FromToRotation(Vector3.right, velocity) * Quaternion.Euler(bodyRotation, 0, 0);
     }
     protected override void OnReverse() {
       ref readonly var bodyRotation = ref bodyRotation_.Ref;
-      body_.rotation = Quaternion.Euler(bodyRotation, 0, 0);
+      body_.localRotation = Quaternion.Euler(bodyRotation, 0, 0);
     }
 
     /****************************************************************
