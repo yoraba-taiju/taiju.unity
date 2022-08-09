@@ -14,7 +14,7 @@ namespace Witch.Momiji {
     [SerializeField] private float poleRotationSpeed = 60.0f;
     [SerializeField] public Vector3 poleRotationAxis = Vector3.up;
     [SerializeField] private float selfRotationSpeed = 180.0f;
-    [SerializeField] private float selfRadius = 5.0f;
+    [SerializeField] private float selfRadius = 4.0f;
     [SerializeField] public float initialAngle;
     [SerializeField] public float initialPoleAngle;
 
