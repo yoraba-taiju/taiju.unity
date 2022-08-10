@@ -37,14 +37,8 @@ namespace Witch.Bullet {
       isTracking_ = new Sparse<bool>(clock, true);
       alreadyHit_ = new Sparse<bool>(clock, false);
       var trailRenderer = GetComponent<TrailRenderer>();
-      {
-        var colorGradient = trailRenderer.colorGradient;
-        var colorKeys = colorGradient.colorKeys;
-        colorKeys[0].color = color;
-        colorGradient.colorKeys = colorKeys;
-        trailRenderer.colorGradient = colorGradient;
-        GetComponent<Light>().color = color;
-      }
+      trailRenderer.startColor = color;
+      GetComponent<Light>().color = color;
       Duration = period + trailRenderer.time;
     }
 
