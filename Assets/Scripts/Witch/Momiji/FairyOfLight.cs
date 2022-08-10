@@ -28,9 +28,6 @@ namespace Witch.Momiji {
 
     // Spirit components
     private Transform spirit_;
-    private MeshRenderer spiritMeshRenderer_;
-    private Light spiritLight_;
-    private TrailRenderer spiritTrailRenderer_;
     
     // Arrow emission
     [SerializeField] private GameObject arrowPrefab;
@@ -43,23 +40,11 @@ namespace Witch.Momiji {
 
       var trans = transform;
       spirit_ = trans.Find("Spirit")!;
-      {
-        spiritMeshRenderer_ = spirit_.gameObject.GetComponent<MeshRenderer>();
-        spiritMeshRenderer_.material.color = color;
-      }
-      {
-        spiritTrailRenderer_ = spirit_.GetComponent<TrailRenderer>();
-        var colorGradient = spiritTrailRenderer_.colorGradient;
-        var colorKeys = colorGradient.colorKeys;
-        colorKeys[1].color = color;
-        colorGradient.colorKeys = colorKeys;
-        spiritTrailRenderer_.colorGradient = colorGradient;
-      }
-      {
-        spiritLight_ = spirit_.GetComponent<Light>();
-        spiritLight_.color = color;
-      }
-      Duration = endTime + spiritTrailRenderer_.time;
+      spirit_.gameObject.GetComponent<MeshRenderer>().material.color = color;
+      var spiritTrailRenderer = spirit_.GetComponent<TrailRenderer>();
+      spiritTrailRenderer.endColor = color;
+      spirit_.GetComponent<Light>().color = color;
+      Duration = endTime + spiritTrailRenderer.time;
       totalTime_ = new Dense<float>(clock, 0.0f);
       nextArrowLaunch_ = new Dense<float>(clock, arrowLaunchDelay);
     }
