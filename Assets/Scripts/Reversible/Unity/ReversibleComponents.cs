@@ -71,6 +71,7 @@ namespace Reversible.Unity {
       }
       var ticked = holder_.Ticked;
       var backed = holder_.Backed;
+      var leaped = holder_.Leaped;
       if (destroyWhenInvisible) {
         if (ticked) {
           var visible = false;
@@ -93,17 +94,16 @@ namespace Reversible.Unity {
         return;
       }
       if (ticked) {
-        if (holder_.Leaped) {
-          foreach (var companion in companions_) {
-            companion.OnLeap();
-          }
-        }
         foreach (var companion in companions_) {
           companion.OnTick();
         }
       }else if (backed) {
         foreach (var companion in companions_) {
           companion.OnBack();
+        }
+      } else if (leaped) {
+        foreach (var companion in companions_) {
+          companion.OnLeap();
         }
       }
     }

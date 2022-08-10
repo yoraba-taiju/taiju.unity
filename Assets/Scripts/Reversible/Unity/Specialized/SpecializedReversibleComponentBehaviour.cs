@@ -27,12 +27,11 @@ namespace Reversible.Unity.Specialized {
 
     protected void UpdateCompanion<T>(ref T companion) where T:struct, ICompanion {
       if (clockHolder.Ticked) {
-        if (clockHolder.Leaped) {
-          companion.OnLeap();
-        }
         companion.OnTick();
       } else if (clockHolder.Backed) {
         companion.OnBack();
+      } else if (clockHolder.Leaped) {
+        companion.OnLeap();
       }
     }
   }
