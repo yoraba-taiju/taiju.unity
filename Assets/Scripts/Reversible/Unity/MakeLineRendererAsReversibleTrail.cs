@@ -16,46 +16,78 @@ namespace Reversible.Unity {
     protected override void OnStart() {
       current_ = new Dense<float>(clock, 0.0f);
       lineRenderer_ = gameObject.GetComponent<LineRenderer>();
+      lineRenderer_.useWorldSpace = true;
     }
 
-    private void SetPoint() {
-      ref readonly var current = ref current_.Ref;
+    private void SetPoint(float current, bool setHead) {
       var limit = current - lifeTime;
       var node = points_.Last;
-      var idx = pointBuffer_.Length;
-      while (node != null && idx > 0) {
+      if (setHead) {
+        pointBuffer_[0] = transform.position;
+      }
+      var idx = setHead ? 1 : 0;
+      while (node != null && idx < pointBuffer_.Length) {
         var (time, pt) = node.Value;
-        if (limit < time) {
+        if (time < limit) {
           break;
         }
-        idx--;
         pointBuffer_[idx] = pt;
         node = node.Previous;
+        idx++;
       }
-      lineRenderer_.SetPositions(pointBuffer_[idx..]);
+
+      var nextPoints = pointBuffer_[..idx];
+      lineRenderer_.positionCount = idx;
+      lineRenderer_.SetPositions(nextPoints);
     }
 
-    protected override void OnTick() {
-      var trans = transform;
-      var dt = Time.deltaTime;
+
+    public new void Update() {
+      if (clockHolder.IsLeaping) {
+        OnReverse();
+      } else {
+        OnForward();
+      }
+    }
+
+    private void OnForward() {
       ref var current = ref current_.Mut;
-      current += dt;
-      points_.AddLast((lifeTime, trans.localPosition));
+      current += Time.deltaTime;
+
+      var trans = transform;
+      var pos = trans.position;
+      var last = points_.Last;
+      if (last != null) {
+        var (lastTime, lastPoint) = last.Value;
+        if ((current - lastTime) < 0.01f || (pos - lastPoint).magnitude < 0.05) {
+          SetPoint(current, true);
+          return;
+        }
+      }
+      points_.AddLast((current, pos));
       var limitTime = current - TimeLimit - lifeTime;
-      while (points_.First.Value.Item1 <= limitTime) {
-        points_.RemoveFirst();
+      var node = points_.First;
+      while (node != null && node.Value.Item1 <= limitTime) {
+        var toRemove = node;
+        node = node.Next;
+        points_.Remove(toRemove);
       }
-      SetPoint();
+      SetPoint(current, false);
     }
 
-    protected override void OnBack() {
-      ref readonly var current = ref current_.Ref;
-      while (points_.Last.Value.Item1 < current) {
-        points_.RemoveLast();
+    private void OnReverse() {
+      var current = current_.Ref;
+      var node = points_.Last;
+      while (node != null && node.Value.Item1 >= current) {
+        var toRemove = node;
+        node = node.Previous;
+        points_.Remove(toRemove);
       }
-      SetPoint();
+      SetPoint(current, true);
     }
 
+    protected override void OnTick() {}
+    protected override void OnBack() {}
     protected override void OnLeap() {}
   }
 }
