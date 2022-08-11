@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Reversible.Unity {
   public sealed class MakeLineRendererAsReversibleTrail : RawReversibleBehaviour {
-    private float startAt_;
     private readonly LinkedList<(float, Vector3)> points_ = new();
     private readonly Vector3[] pointBuffer_ = new Vector3[128];
     private uint bornAt_;
@@ -16,16 +15,16 @@ namespace Reversible.Unity {
     protected override void OnStart() {
       lineRenderer_ = gameObject.GetComponent<LineRenderer>();
       lineRenderer_.useWorldSpace = true;
-      startAt_ = CurrentTime;
     }
 
     private void SetPoint(float current, bool setHead) {
-      var limit = CurrentTime - lifeTime;
+      var limit = current - lifeTime;
       var node = points_.Last;
+      var idx = 0;
       if (setHead) {
         pointBuffer_[0] = transform.position;
+        idx++;
       }
-      var idx = setHead ? 1 : 0;
       while (node != null && idx < pointBuffer_.Length) {
         var (time, pt) = node.Value;
         if (time < limit) {
@@ -45,8 +44,6 @@ namespace Reversible.Unity {
     public new void Update() {
       if (clockController.IsForwarding) {
         OnForward();
-      } else {
-        OnReverse();
       }
     }
 
@@ -73,7 +70,9 @@ namespace Reversible.Unity {
       SetPoint(current, false);
     }
 
-    private void OnReverse() {
+    protected override void OnTick() {}
+
+    protected override void OnBack() {
       var current = CurrentTime;
       var node = points_.Last;
       while (node != null && node.Value.Item1 >= current) {
@@ -83,9 +82,6 @@ namespace Reversible.Unity {
       }
       SetPoint(current, true);
     }
-
-    protected override void OnTick() {}
-    protected override void OnBack() {}
     protected override void OnLeap() {}
   }
 }
