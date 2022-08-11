@@ -11,7 +11,7 @@ namespace Reversible.Unity.Specialized {
       main.stopAction = ParticleSystemStopAction.Callback;
       companion_ = new Companion.ParticleSystem(clockController, particle_);
     }
-    
+
     protected override void OnTick() {
       companion_.OnTick();
     }

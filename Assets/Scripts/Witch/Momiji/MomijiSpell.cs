@@ -23,7 +23,7 @@ namespace Witch.Momiji {
     protected override void OnStart() {
       field_ = GameObject.FindWithTag("Field").transform;
       totalTime_ = new Dense<float>(clock, 0.0f);
-      for (var i = 0; i < 7; ++i) {
+      for (var i = 0; i < Colors.Length; ++i) {
         var spirit = Instantiate(spiritPrefab, Vector3.zero, Quaternion.identity, field_);
         spirit.transform.localPosition = transform.localPosition;
         var fairy = spirit.GetComponent<FairyOfLight>();

@@ -41,13 +41,7 @@ namespace Reversible.Unity {
     }
 
 
-    public new void Update() {
-      if (clockController.IsForwarding) {
-        OnForward();
-      }
-    }
-
-    private void OnForward() {
+    protected override void OnForward() {
       var current = CurrentTime;
       var trans = transform;
       var pos = trans.position;
@@ -70,9 +64,10 @@ namespace Reversible.Unity {
       SetPoint(current, false);
     }
 
-    protected override void OnTick() {}
-
-    protected override void OnBack() {
+    protected override void OnReverse() {
+      if (!clockController.Backed) {
+        return;
+      }
       var current = CurrentTime;
       var node = points_.Last;
       while (node != null && node.Value.Item1 >= current) {
@@ -80,8 +75,8 @@ namespace Reversible.Unity {
         node = node.Previous;
         points_.Remove(toRemove);
       }
-      SetPoint(current, true);
+      SetPoint(current, false);
     }
-    protected override void OnLeap() {}
+
   }
 }

@@ -22,19 +22,14 @@ namespace Reversible.Unity {
     }
 
     public void Update() {
-      if (clockController.Ticked) {
-        OnTick();
-      } else if (clockController.Backed) {
-        OnBack();
-      } else if (clockController.Leaped) {
-        OnLeap();
+      if (clockController.IsForwarding) {
+        OnForward();
+      } else {
+        OnReverse();
       }
     }
 
-    protected abstract void OnTick();
-
-    protected abstract void OnBack();
-
-    protected abstract void OnLeap();
+    protected abstract void OnForward();
+    protected abstract void OnReverse();
   }
 }
