@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Reversible {
   public class Clock {
     public const uint HISTORY_LENGTH = 512;
-
+    
     /* current leaps */
     public uint CurrentLeap { get; private set; }
     public uint CurrentTick { get; private set; }

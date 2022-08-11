@@ -63,7 +63,6 @@ namespace Reversible.Unity {
         Time.timeScale = 1.0f;
         Clock.Leap();
         Clock.Tick();
-        IsLeaping = false;
         return;
       }
       Ticked = CountDownToTick();

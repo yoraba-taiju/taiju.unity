@@ -20,7 +20,12 @@ namespace Reversible.Unity {
     }
 
     protected virtual void OnReverse() {}
+    protected virtual void OnLeap() {}
     public void Update() {
+      if (clockHolder.Leaped) {
+        OnLeap();
+        return;
+      }
       if (clockHolder.IsLeaping) {
         OnReverse();
       } else {

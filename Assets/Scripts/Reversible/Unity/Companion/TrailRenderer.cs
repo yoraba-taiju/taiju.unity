@@ -40,7 +40,7 @@ namespace Reversible.Unity.Companion {
       ref var record = ref record_.Mut;
       var count = trailRenderer_.positionCount;
       numMaxPositions_ = Math.Max(numMaxPositions_, count);
-      if (count < record.positions.Length) {
+      if (count <= record.positions.Length) {
         record.count = trailRenderer_.GetPositions(record.positions);
       } else {
         record.positions = new Vector3[numMaxPositions_];
