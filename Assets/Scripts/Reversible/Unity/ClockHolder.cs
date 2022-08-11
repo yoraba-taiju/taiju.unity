@@ -12,7 +12,7 @@ namespace Reversible.Unity {
 
     /* Ticking */
     private float timeToTick_;
-    private const float SecondPerFrame = 1.0f / 30.0f;
+    public const float SecondPerFrame = 1.0f / 30.0f;
 
     private void Start() {
       PlayerInput = new PlayerInput();

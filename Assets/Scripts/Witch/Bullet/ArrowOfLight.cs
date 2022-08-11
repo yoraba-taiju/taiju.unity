@@ -36,10 +36,10 @@ namespace Witch.Bullet {
       velocity_ = new Dense<Vector3>(clock, initialVelocity);
       isTracking_ = new Sparse<bool>(clock, true);
       alreadyHit_ = new Sparse<bool>(clock, false);
-      var trailRenderer = GetComponent<TrailRenderer>();
-      trailRenderer.startColor = color;
+      var lineRenderer = GetComponent<LineRenderer>();
+      lineRenderer.startColor = color;
       GetComponent<Light>().color = color;
-      Duration = period + trailRenderer.time;
+      Duration = period + GetComponent<ReversibleTrailRenderer>().lifeTime;
     }
 
     private void Track(GameObject obj) {

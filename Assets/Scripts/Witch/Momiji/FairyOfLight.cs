@@ -41,10 +41,10 @@ namespace Witch.Momiji {
       var trans = transform;
       spirit_ = trans.Find("Spirit")!;
       spirit_.gameObject.GetComponent<MeshRenderer>().material.color = color;
-      var spiritTrailRenderer = spirit_.GetComponent<TrailRenderer>();
-      spiritTrailRenderer.endColor = color;
+      var spiritLineRenderer = spirit_.GetComponent<LineRenderer>();
+      spiritLineRenderer.endColor = color;
       spirit_.GetComponent<Light>().color = color;
-      Duration = endTime + spiritTrailRenderer.time;
+      Duration = endTime + spirit_.GetComponent<ReversibleTrailRenderer>().lifeTime;
       totalTime_ = new Dense<float>(clock, 0.0f);
       nextArrowLaunch_ = new Dense<float>(clock, arrowLaunchDelay);
     }

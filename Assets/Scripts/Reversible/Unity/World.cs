@@ -4,7 +4,7 @@ using Enemy;
 using UnityEngine;
 
 namespace Reversible.Unity {
-  public class World: MonoBehaviour {
+  public sealed class World: MonoBehaviour {
     /* Clock */
     private Clock clock_;
     private ClockHolder clockHolder_;
