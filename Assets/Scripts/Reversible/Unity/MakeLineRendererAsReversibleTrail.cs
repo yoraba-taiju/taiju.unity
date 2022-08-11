@@ -3,7 +3,7 @@ using Reversible.Value;
 using UnityEngine;
 
 namespace Reversible.Unity {
-  public sealed class ReversibleTrailRenderer : RawReversibleBehaviour {
+  public sealed class MakeLineRendererAsReversibleTrail : RawReversibleBehaviour {
     private Dense<float> current_;
     private readonly LinkedList<(float, Vector3)> points_ = new();
     private readonly Vector3[] pointBuffer_ = new Vector3[128];

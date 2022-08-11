@@ -39,7 +39,7 @@ namespace Witch.Bullet {
       var lineRenderer = GetComponent<LineRenderer>();
       lineRenderer.startColor = color;
       GetComponent<Light>().color = color;
-      Duration = period + GetComponent<ReversibleTrailRenderer>().lifeTime;
+      Duration = period + GetComponent<MakeLineRendererAsReversibleTrail>().lifeTime;
     }
 
     private void Track(GameObject obj) {

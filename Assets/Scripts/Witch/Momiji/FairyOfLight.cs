@@ -44,7 +44,7 @@ namespace Witch.Momiji {
       var spiritLineRenderer = spirit_.GetComponent<LineRenderer>();
       spiritLineRenderer.endColor = color;
       spirit_.GetComponent<Light>().color = color;
-      Duration = endTime + spirit_.GetComponent<ReversibleTrailRenderer>().lifeTime;
+      Duration = endTime + spirit_.GetComponent<MakeLineRendererAsReversibleTrail>().lifeTime;
       totalTime_ = new Dense<float>(clock, 0.0f);
       nextArrowLaunch_ = new Dense<float>(clock, arrowLaunchDelay);
     }
