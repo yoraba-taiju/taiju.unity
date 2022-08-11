@@ -74,7 +74,6 @@ namespace Reversible.Unity {
         Clock.Tick();
         return;
       }
-
       IsForwarding = true;
       currentTime_.Mut += Time.deltaTime;
       Ticked = CountDownToTick();

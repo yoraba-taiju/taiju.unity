@@ -18,7 +18,7 @@ namespace Reversible.Unity {
     }
 
     private void SetPoint(float current, bool setHead) {
-      var limit = current - lifeTime;
+      var after = current - lifeTime;
       var node = points_.Last;
       var idx = 0;
       if (setHead) {
@@ -27,7 +27,7 @@ namespace Reversible.Unity {
       }
       while (node != null && idx < pointBuffer_.Length) {
         var (time, pt) = node.Value;
-        if (time < limit) {
+        if (time < after) {
           break;
         }
         pointBuffer_[idx] = pt;
@@ -39,8 +39,7 @@ namespace Reversible.Unity {
       lineRenderer_.positionCount = idx;
       lineRenderer_.SetPositions(nextPoints);
     }
-
-
+    
     protected override void OnForward() {
       var current = CurrentTime;
       var trans = transform;
