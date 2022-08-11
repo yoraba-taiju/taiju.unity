@@ -48,10 +48,11 @@ namespace Reversible.Unity {
     }
 
     private void Update() {
+      IsForwarding = false;
+
       Ticked = false;
       Backed = false;
       Leaped = false;
-      IsForwarding = false;
 
       var backPressed = PlayerInput.Player.BackClock;
       if (backPressed.WasPressedThisFrame()) {
