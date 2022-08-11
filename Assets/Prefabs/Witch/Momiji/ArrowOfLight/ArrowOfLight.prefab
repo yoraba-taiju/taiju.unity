@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyWhenInvisible: 0
-  targetComponents: 0100000004000000
+  targetComponents: 01000000
 --- !u!96 &1502507798194752274
 TrailRenderer:
   serializedVersion: 2

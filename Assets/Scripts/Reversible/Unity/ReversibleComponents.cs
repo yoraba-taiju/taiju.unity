@@ -22,7 +22,6 @@ namespace Reversible.Unity {
       Transform,
       Rigidbody2D,
       ParticleSystem,
-      TrailRenderer,
       Animator,
       PlayableDirector,
     }
@@ -55,7 +54,6 @@ namespace Reversible.Unity {
           Component.None => throw new InvalidEnumArgumentException("Please set some target"),
           Component.Transform => new Transform(holder_, transform),
           Component.Rigidbody2D => new Companion.Rigidbody2D(holder_, GetComponent<Rigidbody2D>()),
-          Component.TrailRenderer => new Companion.TrailRenderer(holder_, GetComponent<TrailRenderer>()),
           Component.ParticleSystem => new Companion.ParticleSystem(holder_, GetComponent<ParticleSystem>()),
           Component.Animator => new Companion.Animator(holder_, GetComponent<Animator>()),
           Component.PlayableDirector => new Companion.PlayableDirector(holder_, GetComponent<PlayableDirector>()),

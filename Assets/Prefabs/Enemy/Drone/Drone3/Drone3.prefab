@@ -77,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 25c3bf62ed14c4c439f01036d6779572, type: 3}
       propertyPath: m_Name
-      value: Drone1
+      value: Drone3
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 25c3bf62ed14c4c439f01036d6779572, type: 3}
       propertyPath: m_Layer
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyWhenInvisible: 1
-  targetComponents: 010000000200000005000000
+  targetComponents: 010000000200000004000000
 --- !u!114 &1960468947
 MonoBehaviour:
   m_ObjectHideFlags: 0

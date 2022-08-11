@@ -238,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyWhenInvisible: 1
-  targetComponents: 0100000005000000
+  targetComponents: 0100000004000000
 --- !u!61 &5371516944444880739
 BoxCollider2D:
   m_ObjectHideFlags: 0
