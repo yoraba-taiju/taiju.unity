@@ -23,7 +23,7 @@ namespace Enemy {
     }
 
     private void OnCollision2D(Collision2D collision) {
-      if (clockHolder.IsLeaping) {
+      if (!clockController.IsForwarding) {
         return;
       }
       var pos = transform.localPosition;

@@ -12,9 +12,10 @@ namespace Reversible.Unity.Companion {
     }
     private Dense<Record> record_;
 
-    public Transform(ClockHolder holder, UnityEngine.Transform transform) {
+    public Transform(ClockController clockController, UnityEngine.Transform transform) {
+      var clock = clockController.Clock;
       transform_ = transform;
-      record_ = new Dense<Record>(holder.Clock, new Record() {
+      record_ = new Dense<Record>(clock, new Record() {
         position = transform_.localPosition,
         scale = transform_.localScale,
         rot = transform_.localRotation,

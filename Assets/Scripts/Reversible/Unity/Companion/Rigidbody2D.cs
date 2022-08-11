@@ -13,9 +13,10 @@ namespace Reversible.Unity.Companion {
     }
     private Dense<Record> record_;
 
-    public Rigidbody2D(ClockHolder holder, UnityEngine.Rigidbody2D body) {
+    public Rigidbody2D(ClockController clockController, UnityEngine.Rigidbody2D body) {
+      var clock = clockController.Clock;
       body_ = body;
-      record_ = new Dense<Record>(holder.Clock, new Record {
+      record_ = new Dense<Record>(clock, new Record {
         position = body_.position,
         velocity = body_.velocity,
         rotation = body_.rotation,

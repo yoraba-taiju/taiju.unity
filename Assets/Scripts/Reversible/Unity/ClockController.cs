@@ -1,14 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Reversible.Unity {
-  public sealed class ClockHolder: MonoBehaviour {
+  public sealed class ClockController: MonoBehaviour {
     // getter
     public PlayerInput PlayerInput { get; private set; }
     public Clock Clock { get; } = new();
     public bool Ticked { get; private set; }
     public bool Backed { get; private set; }
     public bool Leaped { get; private set; }
-    public bool IsLeaping { get; private set; }
+    public bool IsForwarding { get; private set; }
+    public float CurrentTime { get; private set; }
 
     /* Ticking */
     private float timeToTick_;
@@ -20,13 +22,14 @@ namespace Reversible.Unity {
       timeToTick_ = SecondPerFrame;
       Ticked = false;
       Leaped = false;
+      CurrentTime = 0.0f;
     }
 
     private bool CountDownToTick() {
-      if (IsLeaping) {
-        timeToTick_ -= Time.unscaledDeltaTime;
-      } else {
+      if (IsForwarding) {
         timeToTick_ -= Time.deltaTime;
+      } else {
+        timeToTick_ -= Time.unscaledDeltaTime;
       }
       if (timeToTick_ > 0.0f) {
         return false;
@@ -41,10 +44,10 @@ namespace Reversible.Unity {
       Ticked = false;
       Backed = false;
       Leaped = false;
+      IsForwarding = false;
 
       var backPressed = PlayerInput.Player.BackClock;
       if (backPressed.WasPressedThisFrame()) {
-        IsLeaping = true;
         Time.timeScale = 0.0f;
         timeToTick_ = SecondPerFrame;
         return;
@@ -58,16 +61,22 @@ namespace Reversible.Unity {
       }
       if (backPressed.WasReleasedThisFrame()) {
         Leaped = true;
-        IsLeaping = false;
         timeToTick_ = SecondPerFrame;
-        Time.timeScale = 1.0f;
         Clock.Leap();
         Clock.Tick();
         return;
       }
+
+      IsForwarding = true;
       Ticked = CountDownToTick();
       if (Ticked) {
         Clock.Tick();
+      }
+    }
+
+    private void LateUpdate() {
+      if (Leaped) {
+        Time.timeScale = 1.0f;
       }
     }
   }

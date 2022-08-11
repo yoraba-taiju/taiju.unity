@@ -27,14 +27,16 @@ namespace Reversible.Unity.Companion {
     // Triggers
     private readonly int[] triggers_;
 
-    public Animator(ClockHolder holder, UnityEngine.Animator animator) {
+    public Animator(ClockController clockController, UnityEngine.Animator animator) {
+      var clock = clockController.Clock;
+
       animator_ = animator;
       {
         var layerCount = animator_.layerCount;
         layers_ = new Dense<LayerState>[layerCount];
         for (var i = 0; i < layerCount; i++) {
           var info = animator_.GetCurrentAnimatorStateInfo(i);
-          layers_[i] = new Dense<LayerState>(holder.Clock, new LayerState {
+          layers_[i] = new Dense<LayerState>(clock, new LayerState {
             hash = info.shortNameHash,
             time = info.normalizedTime,
           });
@@ -102,7 +104,7 @@ namespace Reversible.Unity.Companion {
               break;
           }
         }
-        params_ = new Dense<ParameterState>(holder.Clock, CloneParamState, initial);
+        params_ = new Dense<ParameterState>(clockController.Clock, CloneParamState, initial);
       } else {
         parameters_ = null;
         parameterIdx_ = null;

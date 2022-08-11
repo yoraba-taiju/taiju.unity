@@ -11,9 +11,10 @@ namespace Reversible.Unity.Companion {
     }
     private Dense<State> states_;
 
-    public PlayableDirector(ClockHolder holder, UnityEngine.Playables.PlayableDirector playableDirector) {
+    public PlayableDirector(ClockController clockController, UnityEngine.Playables.PlayableDirector playableDirector) {
+      var clock = clockController.Clock;
       playableDirector_ = playableDirector;
-      states_ = new Dense<State>(holder.Clock, new State {
+      states_ = new Dense<State>(clock, new State {
         time = playableDirector_.time,
         isPlaying = playableDirector_.state == PlayState.Playing,
       });

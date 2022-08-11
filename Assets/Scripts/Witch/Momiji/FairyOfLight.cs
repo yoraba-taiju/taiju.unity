@@ -68,7 +68,7 @@ namespace Witch.Momiji {
         spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) * Vector3.right * selfRadius;
         { // Launching Arrow
           if (nextArrowLaunch < 0.0f) {
-            LaunchArrow();
+            //LaunchArrow();
             nextArrowLaunch += arrowLaunchInterval;
           }
           nextArrowLaunch -= dt;

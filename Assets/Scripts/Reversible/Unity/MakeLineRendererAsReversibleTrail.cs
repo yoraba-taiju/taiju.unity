@@ -4,23 +4,23 @@ using UnityEngine;
 
 namespace Reversible.Unity {
   public sealed class MakeLineRendererAsReversibleTrail : RawReversibleBehaviour {
-    private Dense<float> current_;
+    private float startAt_;
     private readonly LinkedList<(float, Vector3)> points_ = new();
     private readonly Vector3[] pointBuffer_ = new Vector3[128];
     private uint bornAt_;
 
     private LineRenderer lineRenderer_;
     [SerializeField] public float lifeTime = 1f;
-    private const float TimeLimit = Clock.HISTORY_LENGTH * ClockHolder.SecondPerFrame;
+    private const float TimeLimit = Clock.HISTORY_LENGTH * ClockController.SecondPerFrame;
 
     protected override void OnStart() {
-      current_ = new Dense<float>(clock, 0.0f);
       lineRenderer_ = gameObject.GetComponent<LineRenderer>();
       lineRenderer_.useWorldSpace = true;
+      startAt_ = CurrentTime;
     }
 
     private void SetPoint(float current, bool setHead) {
-      var limit = current - lifeTime;
+      var limit = CurrentTime - lifeTime;
       var node = points_.Last;
       if (setHead) {
         pointBuffer_[0] = transform.position;
@@ -43,23 +43,21 @@ namespace Reversible.Unity {
 
 
     public new void Update() {
-      if (clockHolder.IsLeaping) {
-        OnReverse();
-      } else {
+      if (clockController.IsForwarding) {
         OnForward();
+      } else {
+        OnReverse();
       }
     }
 
     private void OnForward() {
-      ref var current = ref current_.Mut;
-      current += Time.deltaTime;
-
+      var current = CurrentTime;
       var trans = transform;
       var pos = trans.position;
       var last = points_.Last;
       if (last != null) {
         var (lastTime, lastPoint) = last.Value;
-        if ((current - lastTime) < 0.01f || (pos - lastPoint).magnitude < 0.05) {
+        if (current - lastTime < 0.01f || (pos - lastPoint).magnitude < 0.05) {
           SetPoint(current, true);
           return;
         }
@@ -76,7 +74,7 @@ namespace Reversible.Unity {
     }
 
     private void OnReverse() {
-      var current = current_.Ref;
+      var current = CurrentTime;
       var node = points_.Last;
       while (node != null && node.Value.Item1 >= current) {
         var toRemove = node;

@@ -23,12 +23,14 @@ namespace Reversible.Unity.Companion {
       Array.Copy(src.particles, dst.particles, src.count);
     }
 
-    public ParticleSystem(ClockHolder holder, UnityEngine.ParticleSystem particleSystem) {
+    public ParticleSystem(ClockController controller, UnityEngine.ParticleSystem particleSystem) {
+      var clock = controller.Clock;
+
       particleSystem_ = particleSystem;
       var particles = new UnityEngine.ParticleSystem.Particle[particleSystem.main.maxParticles];
       var count = particleSystem_.GetParticles(particles);
 
-      record_ = new Dense<Record>(holder.Clock, CloneRecord, new Record {
+      record_ = new Dense<Record>(clock, CloneRecord, new Record {
         time = particleSystem.time,
         count = count,
         particles = particles,

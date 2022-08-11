@@ -6,7 +6,7 @@ using Transform = Reversible.Unity.Companion.Transform;
 namespace Reversible.Unity {
   public sealed class ReversibleComponents: MonoBehaviour {
     // Clock
-    private ClockHolder holder_;
+    private ClockController controller_;
     private Clock clock_;
     private uint bornAt_;
 
@@ -30,8 +30,8 @@ namespace Reversible.Unity {
 
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      holder_ = clockObj.GetComponent<ClockHolder>();
-      clock_ = holder_.Clock;
+      controller_ = clockObj.GetComponent<ClockController>();
+      clock_ = controller_.Clock;
       bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {
         renderers_ = GetComponentsInChildren<Renderer>();
@@ -52,11 +52,11 @@ namespace Reversible.Unity {
         i++;
         companions_[i] = target switch {
           Component.None => throw new InvalidEnumArgumentException("Please set some target"),
-          Component.Transform => new Transform(holder_, transform),
-          Component.Rigidbody2D => new Companion.Rigidbody2D(holder_, GetComponent<Rigidbody2D>()),
-          Component.ParticleSystem => new Companion.ParticleSystem(holder_, GetComponent<ParticleSystem>()),
-          Component.Animator => new Companion.Animator(holder_, GetComponent<Animator>()),
-          Component.PlayableDirector => new Companion.PlayableDirector(holder_, GetComponent<PlayableDirector>()),
+          Component.Transform => new Transform(controller_, transform),
+          Component.Rigidbody2D => new Companion.Rigidbody2D(controller_, GetComponent<Rigidbody2D>()),
+          Component.ParticleSystem => new Companion.ParticleSystem(controller_, GetComponent<ParticleSystem>()),
+          Component.Animator => new Companion.Animator(controller_, GetComponent<Animator>()),
+          Component.PlayableDirector => new Companion.PlayableDirector(controller_, GetComponent<PlayableDirector>()),
           _ => throw new InvalidEnumArgumentException($"Unknown target: {target}"),
         };
       }
@@ -67,9 +67,9 @@ namespace Reversible.Unity {
         Destroy(gameObject);
         return;
       }
-      var ticked = holder_.Ticked;
-      var backed = holder_.Backed;
-      var leaped = holder_.Leaped;
+      var ticked = controller_.Ticked;
+      var backed = controller_.Backed;
+      var leaped = controller_.Leaped;
       if (destroyWhenInvisible) {
         if (ticked) {
           var visible = false;

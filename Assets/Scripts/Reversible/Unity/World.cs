@@ -7,24 +7,25 @@ namespace Reversible.Unity {
   public sealed class World: MonoBehaviour {
     /* Clock */
     private Clock clock_;
-    private ClockHolder clockHolder_;
+    private ClockController clockController_;
+
+    /* GameObject Management */
+    public HashSet<Transform> LivingEnemies { get; } = new();
     private readonly LinkedList<Tuple<uint, GameObject>> graveYard_ = new();
 
-    public HashSet<Transform> LivingEnemies { get; } = new();
-    
     private struct LayerName {
       public static readonly int Enemy = LayerMask.NameToLayer("Enemy");
     }
 
     private void Start() {
-      clockHolder_ = gameObject.GetComponent<ClockHolder>();
-      clock_ = clockHolder_.Clock;
+      clockController_ = gameObject.GetComponent<ClockController>();
+      clock_ = clockController_.Clock;
     }
 
     private void Update() {
-      if (clockHolder_.Ticked) {
+      if (clockController_.Ticked) {
         RemoveOutdated(clock_.CurrentTick);
-      } else if(clockHolder_.Backed) {
+      } else if(clockController_.Backed) {
         RestoreOutdated(clock_.CurrentTick);
       }
     }

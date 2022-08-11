@@ -127,7 +127,7 @@ namespace Witch.Bullet {
     }
 
     private void OnTrigger2D(Collider2D other) {
-      if (clockHolder.IsLeaping) {
+      if (!clockController.IsForwarding) {
         return;
       }
     }

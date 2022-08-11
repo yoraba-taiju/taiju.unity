@@ -1,35 +1,40 @@
-﻿using UnityEngine;
+﻿using System.Runtime.CompilerServices;
+using UnityEngine;
 
 namespace Reversible.Unity {
   public abstract class ReversibleBehaviour: MonoBehaviour {
-    protected ClockHolder clockHolder;
+    protected ClockController clockController;
     protected World world;
     protected Clock clock;
     protected PlayerInput playerInput;
+    protected float CurrentTime {
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      get => clockController.CurrentTime;
+    }
 
     protected abstract void OnStart();
     protected abstract void OnForward();
 
     public void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      clockHolder = clockObj.GetComponent<ClockHolder>();
+      clockController = clockObj.GetComponent<ClockController>();
       world = clockObj.GetComponent<World>();
-      playerInput = clockHolder.PlayerInput;
-      clock = clockHolder.Clock;
+      playerInput = clockController.PlayerInput;
+      clock = clockController.Clock;
       OnStart();
     }
 
     protected virtual void OnReverse() {}
     protected virtual void OnLeap() {}
     public void Update() {
-      if (clockHolder.Leaped) {
+      if (clockController.Leaped) {
         OnLeap();
         return;
       }
-      if (clockHolder.IsLeaping) {
-        OnReverse();
-      } else {
+      if (clockController.IsForwarding) {
         OnForward();
+      } else {
+        OnReverse();
       }
     }
 

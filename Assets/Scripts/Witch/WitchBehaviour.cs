@@ -31,7 +31,7 @@ namespace Witch {
     }
 
     private void OnCollision2D(GameObject other) {
-      if (clockHolder.IsLeaping) {
+      if (!clockController.IsForwarding) {
         return;
       }
       if (((1 << other.layer) & collisionLayers_) != 0) {
