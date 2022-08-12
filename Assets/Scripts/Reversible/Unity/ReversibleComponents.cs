@@ -4,7 +4,7 @@ using UnityEngine.Playables;
 using Transform = Reversible.Unity.Companion.Transform;
 
 namespace Reversible.Unity {
-  public sealed class ReversibleComponents: MonoBehaviour {
+  public sealed class ReversibleComponents : MonoBehaviour {
     // Clock
     private ClockController controller_;
     private Clock clock_;
@@ -25,6 +25,7 @@ namespace Reversible.Unity {
       Animator,
       PlayableDirector,
     }
+
     [SerializeField] public Component[] targetComponents = {Component.Transform};
     private ICompanion[] companions_;
 
@@ -39,6 +40,7 @@ namespace Reversible.Unity {
           Debug.LogWarning("No renderers attached.");
           destroyWhenInvisible = false;
         }
+
         world_ = clockObj.GetComponent<World>();
         wasVisible_ = false;
       }
@@ -46,6 +48,7 @@ namespace Reversible.Unity {
       if (targetComponents.Length <= 0) {
         return;
       }
+
       companions_ = new ICompanion[targetComponents.Length];
       var i = -1;
       foreach (var target in targetComponents) {
@@ -67,6 +70,7 @@ namespace Reversible.Unity {
         Destroy(gameObject);
         return;
       }
+
       var ticked = controller_.Ticked;
       var backed = controller_.Backed;
       var leaped = controller_.Leaped;
@@ -76,6 +80,7 @@ namespace Reversible.Unity {
           foreach (var r in renderers_) {
             visible |= r.isVisible;
           }
+
           if (wasVisible_) {
             if (!visible) {
               world_.Destroy(gameObject);
@@ -91,11 +96,12 @@ namespace Reversible.Unity {
       if (companions_ == null) {
         return;
       }
+
       if (ticked) {
         foreach (var companion in companions_) {
           companion.OnTick();
         }
-      }else if (backed) {
+      } else if (backed) {
         foreach (var companion in companions_) {
           companion.OnBack();
         }

@@ -2,9 +2,10 @@
 using UnityEngine;
 
 namespace Enemy {
-  public abstract class EnemyBehaviour: ReversibleBehaviour {
+  public abstract class EnemyBehaviour : ReversibleBehaviour {
     private int collisionLayers_;
     private static int layerMask_;
+
     private new void Start() {
       var self = this as ReversibleBehaviour;
       self.Start();
@@ -12,8 +13,10 @@ namespace Enemy {
       if (layerMask_ == 0) {
         layerMask_ = LayerMask.GetMask("Enemy", "EnemyBullet");
       }
+
       collisionLayers_ = layerMask_;
     }
+
     private void OnCollisionEnter2D(Collision2D collision) {
       OnCollision2D(collision);
     }
@@ -26,6 +29,7 @@ namespace Enemy {
       if (!clockController.IsForwarding) {
         return;
       }
+
       var pos = transform.localPosition;
       if (Mathf.Abs(pos.x) >= 18.0f || Mathf.Abs(pos.y) >= 10.0f) {
         return;

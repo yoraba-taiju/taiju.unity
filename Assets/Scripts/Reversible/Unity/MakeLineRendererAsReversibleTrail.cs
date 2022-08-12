@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Reversible.Value;
 using UnityEngine;
 
 namespace Reversible.Unity {
@@ -25,11 +24,13 @@ namespace Reversible.Unity {
         pointBuffer_[0] = transform.position;
         idx++;
       }
+
       while (node != null && idx < pointBuffer_.Length) {
         var (time, pt) = node.Value;
         if (time < after) {
           break;
         }
+
         pointBuffer_[idx] = pt;
         node = node.Previous;
         idx++;
@@ -39,7 +40,7 @@ namespace Reversible.Unity {
       lineRenderer_.positionCount = idx;
       lineRenderer_.SetPositions(nextPoints);
     }
-    
+
     protected override void OnForward() {
       var current = CurrentTime;
       var trans = transform;
@@ -52,6 +53,7 @@ namespace Reversible.Unity {
           return;
         }
       }
+
       points_.AddLast((current, pos));
       var limitTime = current - TimeLimit - lifeTime;
       var node = points_.First;
@@ -60,6 +62,7 @@ namespace Reversible.Unity {
         node = node.Next;
         points_.Remove(toRemove);
       }
+
       SetPoint(current, false);
     }
 
@@ -67,6 +70,7 @@ namespace Reversible.Unity {
       if (!clockController.Backed) {
         return;
       }
+
       var current = CurrentTime;
       var node = points_.Last;
       while (node != null && node.Value.Item1 >= current) {
@@ -74,6 +78,7 @@ namespace Reversible.Unity {
         node = node.Previous;
         points_.Remove(toRemove);
       }
+
       SetPoint(current, true);
       //SetPoint(current, false);
     }

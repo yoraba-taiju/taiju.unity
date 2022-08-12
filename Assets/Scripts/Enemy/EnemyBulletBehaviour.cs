@@ -2,9 +2,10 @@
 using UnityEngine;
 
 namespace Enemy {
-  public abstract class EnemyBulletBehaviour: ReversibleBehaviour {
+  public abstract class EnemyBulletBehaviour : ReversibleBehaviour {
     private int witchLayer_;
     private int terrainLayer_;
+
     private new void Start() {
       var self = this as ReversibleBehaviour;
       self.Start();
@@ -32,17 +33,18 @@ namespace Enemy {
       if (!clockController.IsForwarding) {
         return;
       }
+
       var layer = other.gameObject.layer;
       if (layer == terrainLayer_) {
         Destroy();
         return;
       }
+
       if (layer == witchLayer_) {
         OnCollideWithWitch(other);
       }
     }
 
     protected abstract void OnCollideWithWitch(GameObject other);
-
   }
 }

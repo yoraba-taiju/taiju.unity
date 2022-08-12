@@ -9,6 +9,7 @@ namespace Reversible.Unity.Companion {
       public double time;
       public bool isPlaying;
     }
+
     private Dense<State> states_;
 
     public PlayableDirector(ClockController clockController, UnityEngine.Playables.PlayableDirector playableDirector) {

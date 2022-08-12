@@ -1,11 +1,7 @@
 ﻿namespace Reversible {
-  public interface IValue<T> where T: struct {
-    public ref readonly T Ref {
-      get;
-    }
+  public interface IValue<T> where T : struct {
+    public ref readonly T Ref { get; }
 
-    public ref T Mut {
-      get;
-    }
+    public ref T Mut { get; }
   }
 }

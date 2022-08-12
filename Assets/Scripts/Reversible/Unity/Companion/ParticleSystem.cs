@@ -2,7 +2,7 @@
 using Reversible.Value;
 
 namespace Reversible.Unity.Companion {
-  public struct ParticleSystem: ICompanion {
+  public struct ParticleSystem : ICompanion {
     private readonly UnityEngine.ParticleSystem particleSystem_;
 
     private struct Record {
@@ -10,6 +10,7 @@ namespace Reversible.Unity.Companion {
       public int count;
       public UnityEngine.ParticleSystem.Particle[] particles;
     }
+
     private Dense<Record> record_;
 
     private static void CloneRecord(ref Record dst, in Record src) {
@@ -20,6 +21,7 @@ namespace Reversible.Unity.Companion {
       } else if (dst.particles.Length < src.particles.Length) {
         dst.particles = new UnityEngine.ParticleSystem.Particle[src.particles.Length];
       }
+
       Array.Copy(src.particles, dst.particles, src.count);
     }
 
@@ -36,7 +38,7 @@ namespace Reversible.Unity.Companion {
         particles = particles,
       });
     }
-    
+
     public void OnTick() {
       ref var record = ref record_.Mut;
       record.time = particleSystem_.time;
@@ -45,6 +47,7 @@ namespace Reversible.Unity.Companion {
         particleSystem_.Play();
       }
     }
+
     public void OnBack() {
       ref readonly var record = ref record_.Ref;
       particleSystem_.time = record.time;
@@ -53,6 +56,7 @@ namespace Reversible.Unity.Companion {
         particleSystem_.Pause();
       }
     }
+
     public void OnLeap() {
     }
   }

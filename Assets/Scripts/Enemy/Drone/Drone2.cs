@@ -10,22 +10,23 @@ namespace Enemy.Drone {
    * 目的：近距離攻撃用小型ドローン。
    * 行動：魔女に向かい、魔女を見つけたら発砲。何度か撃ち、最後は特攻する。
    */
-  public class Drone2: EnemyBehaviour, IAnimatorEventSubscriber {
+  public class Drone2 : EnemyBehaviour, IAnimatorEventSubscriber {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int Fighting = Animator.StringToHash("Fighting");
       public static readonly int Escaping = Animator.StringToHash("Escaping");
     }
+
     private struct NextState {
       public const int Seeking = 0;
       public const int Fighting = 1;
       public const int Escaping = 2;
     }
-    
+
     private struct Param {
       public static readonly int NextAction = Animator.StringToHash("NextAction");
     }
-    
+
     private GameObject sora_;
     private Animator animator_;
     private Rigidbody2D rigidbody_;
@@ -39,6 +40,7 @@ namespace Enemy.Drone {
     private Dense<float> timeToFire_;
     [SerializeField] private GameObject explosionEffect;
     [SerializeField] private GameObject bullet;
+
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       animator_ = GetComponent<Animator>();
@@ -47,13 +49,13 @@ namespace Enemy.Drone {
       fireCount_ = new Sparse<int>(clock, 0);
       timeToFire_ = new Dense<float>(clock, 0.3f);
     }
-    
+
     protected override void OnForward() {
       var trans = transform;
       var dt = Time.deltaTime;
       var currentHash = animator_.GetCurrentAnimatorStateInfo(0).shortNameHash;
 
-      var targetDirection = (Vector2)(sora_.transform.localPosition - trans.localPosition);
+      var targetDirection = (Vector2) (sora_.transform.localPosition - trans.localPosition);
       var targetDistance = targetDirection.magnitude;
       var currentRot = trans.localRotation;
       var deltaAngle = VecMath.DeltaAngle(currentRot.eulerAngles.z - 180.0f, targetDirection);
@@ -71,9 +73,10 @@ namespace Enemy.Drone {
         RotateToTarget();
         // Set speed
         if (targetDistance > 10.0f) {
-          rigidbody_.velocity = currentRot * Vector2.left * (seekVelocity * Mathf.Exp(Mathf.Clamp(targetDistance - 10.0f, 0.0f, 0.5f)));
+          rigidbody_.velocity = currentRot * Vector2.left *
+                                (seekVelocity * Mathf.Exp(Mathf.Clamp(targetDistance - 10.0f, 0.0f, 0.5f)));
         } else {
-          rigidbody_.velocity = currentRot * Vector2.left * (rigidbody_.velocity.magnitude * Mathf.Exp(-dt)) ;
+          rigidbody_.velocity = currentRot * Vector2.left * (rigidbody_.velocity.magnitude * Mathf.Exp(-dt));
         }
       } else if (currentHash == State.Fighting) {
         // Rotate to the target
@@ -89,6 +92,7 @@ namespace Enemy.Drone {
           aim.Velocity = direction * 15.0f;
           timeToFire = 0.3f;
         }
+
         rigidbody_.velocity *= Mathf.Exp(-dt);
       } else if (currentHash == State.Escaping) {
         if (rigidbody_.velocity.magnitude < escapeVelocity) {

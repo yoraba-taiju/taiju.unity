@@ -4,7 +4,7 @@ using Reversible.Value;
 using UnityEngine;
 
 namespace Reversible.Unity {
-  public sealed class ClockController: MonoBehaviour {
+  public sealed class ClockController : MonoBehaviour {
     // getter
     public PlayerInput PlayerInput { get; private set; }
     public Clock Clock { get; } = new();
@@ -38,12 +38,15 @@ namespace Reversible.Unity {
       } else {
         timeToTick_ -= Time.unscaledDeltaTime;
       }
+
       if (timeToTick_ > 0.0f) {
         return false;
       }
+
       while (timeToTick_ < 0) {
         timeToTick_ += SecondPerFrame;
       }
+
       return true;
     }
 
@@ -60,13 +63,16 @@ namespace Reversible.Unity {
         timeToTick_ = SecondPerFrame;
         return;
       }
+
       if (backPressed.IsPressed()) {
         Backed = CountDownToTick();
         if (Backed) {
           Clock.Back();
         }
+
         return;
       }
+
       if (backPressed.WasReleasedThisFrame()) {
         Leaped = true;
         timeToTick_ = SecondPerFrame;
@@ -74,6 +80,7 @@ namespace Reversible.Unity {
         Clock.Tick();
         return;
       }
+
       IsForwarding = true;
       currentTime_.Mut += Time.deltaTime;
       Ticked = CountDownToTick();

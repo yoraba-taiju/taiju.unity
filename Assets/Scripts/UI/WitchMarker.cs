@@ -2,7 +2,7 @@
 
 namespace UI {
   [ExecuteInEditMode]
-  public class WitchMarker: MonoBehaviour {
+  public class WitchMarker : MonoBehaviour {
     [SerializeField] private GameObject witch;
     [SerializeField] private GameObject targetCanvas;
     [SerializeField] private GameObject targetCamera;

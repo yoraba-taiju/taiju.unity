@@ -3,8 +3,8 @@ using UnityEngine.Playables;
 
 namespace Level {
   public class EmitterReceiver : MonoBehaviour, INotificationReceiver {
-    [SerializeField]
-    public GameObject parent;
+    [SerializeField] public GameObject parent;
+
     public void OnNotify(Playable origin, INotification notification, object context) {
       var parentTransform = parent.transform;
       switch (notification) {
@@ -16,8 +16,9 @@ namespace Level {
         case RushEmitter rushEmitter: {
           foreach (Transform childTransform in rushEmitter.rushPrefab.transform) {
             var obj = Instantiate(childTransform.gameObject, parentTransform);
-            obj.transform.localPosition += (Vector3)rushEmitter.position;
+            obj.transform.localPosition += (Vector3) rushEmitter.position;
           }
+
           break;
         }
         default:

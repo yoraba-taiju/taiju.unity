@@ -36,6 +36,7 @@ namespace Witch.Momiji {
             Fire2();
             toFire_ += 50.0f / 1000.0f;
           }
+
           fired_ = true;
         } else {
           fired_ = false;
@@ -56,7 +57,7 @@ namespace Witch.Momiji {
       trans.localPosition = transform.localPosition + Vector3.right * 2f;
       b.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
     }
-    
+
     private void Fire2() {
       var b1 = Instantiate(bullet, field_.transform);
       var b2 = Instantiate(bullet, field_.transform);

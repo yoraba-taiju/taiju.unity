@@ -2,15 +2,17 @@
 using UnityEngine;
 
 namespace Witch {
-  public abstract class WitchBehaviour: ReversibleBehaviour {
+  public abstract class WitchBehaviour : ReversibleBehaviour {
     private int collisionLayers_;
     private static int layerMask_;
+
     private new void Start() {
       var self = this as ReversibleBehaviour;
       self.Start();
       if (layerMask_ == 0) {
         layerMask_ = LayerMask.GetMask("Enemy", "EnemyBullet");
       }
+
       collisionLayers_ = layerMask_;
     }
 
@@ -34,6 +36,7 @@ namespace Witch {
       if (!clockController.IsForwarding) {
         return;
       }
+
       if (((1 << other.layer) & collisionLayers_) != 0) {
         OnCollide(other);
       }

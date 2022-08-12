@@ -3,7 +3,7 @@ using Reversible.Value;
 using UnityEngine;
 
 namespace Reversible.Unity.Companion {
-  public readonly struct Animator: ICompanion {
+  public readonly struct Animator : ICompanion {
     // Clock
     private readonly UnityEngine.Animator animator_;
 
@@ -12,6 +12,7 @@ namespace Reversible.Unity.Companion {
       public int hash;
       public float time;
     }
+
     private readonly Dense<LayerState>[] layers_;
 
     // Parameters
@@ -20,6 +21,7 @@ namespace Reversible.Unity.Companion {
       public int[] intStates;
       public bool[] boolStates;
     }
+
     private readonly AnimatorControllerParameter[] parameters_;
     private readonly int[] parameterIdx_;
     private readonly Dense<ParameterState>? params_;
@@ -53,6 +55,7 @@ namespace Reversible.Unity.Companion {
           numValueParams++;
         }
       }
+
       if (numValueParams > 0) {
         parameters_ = new AnimatorControllerParameter[parameters.Length];
         parameterIdx_ = new int[parameters.Length];
@@ -104,12 +107,14 @@ namespace Reversible.Unity.Companion {
               break;
           }
         }
+
         params_ = new Dense<ParameterState>(clockController.Clock, CloneParamState, initial);
       } else {
         parameters_ = null;
         parameterIdx_ = null;
         params_ = null;
       }
+
       if (numTriggers > 0) {
         triggers_ = new int[numTriggers];
         var triggerIdx = 0;
@@ -129,10 +134,12 @@ namespace Reversible.Unity.Companion {
         dst.floatStates ??= new float[src.floatStates.Length];
         Array.Copy(src.floatStates, dst.floatStates, src.floatStates.Length);
       }
+
       if (src.intStates != null) {
         dst.intStates ??= new int[src.intStates.Length];
         Array.Copy(src.intStates, dst.intStates, src.intStates.Length);
       }
+
       if (src.boolStates != null) {
         dst.boolStates = new bool[src.boolStates.Length];
         Array.Copy(src.boolStates, dst.boolStates, src.boolStates.Length);
@@ -147,6 +154,7 @@ namespace Reversible.Unity.Companion {
         layer.hash = info.shortNameHash;
         layer.time = info.normalizedTime;
       }
+
       if (params_ != null) {
         for (var i = 0; i < parameters_.Length; i++) {
           var p = parameters_[i];
@@ -175,6 +183,7 @@ namespace Reversible.Unity.Companion {
         ref readonly var layer = ref layers_[i].Ref;
         animator_.Play(layer.hash, i, layer.time);
       }
+
       if (params_ != null) {
         for (var i = 0; i < parameters_.Length; i++) {
           var p = parameters_[i];
@@ -196,12 +205,13 @@ namespace Reversible.Unity.Companion {
         }
       }
     }
-    
+
     public void OnLeap() {
       if (triggers_ == null) {
         return;
       }
-      foreach(var t in triggers_) {
+
+      foreach (var t in triggers_) {
         animator_.ResetTrigger(t);
       }
     }

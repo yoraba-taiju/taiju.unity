@@ -1,17 +1,18 @@
 ﻿using System;
 
 namespace Reversible.Value {
-  public struct Dense<T> : IValue<T> where T: struct {
+  public struct Dense<T> : IValue<T> where T : struct {
     private readonly Clock clock_;
     private readonly T[] entries_;
     private uint historyBegin_;
     private uint lastTouchedLeap_;
     private uint lastTouchedTick_;
+
     public delegate void ClonerFn(ref T dst, in T src);
+
     private readonly ClonerFn clonerFn_;
 
-    public Dense(Clock clock, T initial): this(clock, null, initial)
-    {
+    public Dense(Clock clock, T initial) : this(clock, null, initial) {
     }
 
     public Dense(Clock clock, ClonerFn clonerFn, T initial) {
@@ -23,12 +24,13 @@ namespace Reversible.Value {
       lastTouchedTick_ = clock.CurrentTick;
       clonerFn_ = clonerFn;
     }
-    
+
     public void Debug() {
       var vs = "[";
       for (var i = historyBegin_; i <= lastTouchedTick_; i++) {
         vs += $"[{i}]{entries_[i % Clock.HISTORY_LENGTH]}, ";
       }
+
       vs += "]";
       UnityEngine.Debug.Log($"Beg: {historyBegin_}, last: ({lastTouchedLeap_}, {lastTouchedTick_}), rec: {vs}");
     }
@@ -49,6 +51,7 @@ namespace Reversible.Value {
         if (currentTick != lastTouchedTick_) {
           lastTouchedTick_ = Math.Min(currentTick, lastTouchedTick_);
         }
+
         return ref entries_[lastTouchedTick_ % Clock.HISTORY_LENGTH];
       }
     }
@@ -59,6 +62,7 @@ namespace Reversible.Value {
         if (currentTick < historyBegin_) {
           throw new InvalidOperationException("Can't access before value born.");
         }
+
         if (clock_.CurrentLeap != lastTouchedLeap_) {
           var branch = clock_.BranchTickOfLeap(lastTouchedLeap_);
           var v = entries_[branch % Clock.HISTORY_LENGTH];
@@ -69,9 +73,11 @@ namespace Reversible.Value {
               clonerFn_(ref entries_[i % Clock.HISTORY_LENGTH], in v);
             }
           }
+
           lastTouchedLeap_ = clock_.CurrentLeap;
           lastTouchedTick_ = currentTick;
-          historyBegin_ = Math.Max(historyBegin_, (currentTick >= Clock.HISTORY_LENGTH) ? currentTick - Clock.HISTORY_LENGTH + 1 : 0);
+          historyBegin_ = Math.Max(historyBegin_,
+            (currentTick >= Clock.HISTORY_LENGTH) ? currentTick - Clock.HISTORY_LENGTH + 1 : 0);
         } else if (lastTouchedTick_ != currentTick) {
           var v = entries_[lastTouchedTick_ % Clock.HISTORY_LENGTH];
           for (var i = lastTouchedTick_; i <= currentTick; i++) {
@@ -81,9 +87,12 @@ namespace Reversible.Value {
               clonerFn_(ref entries_[i % Clock.HISTORY_LENGTH], in v);
             }
           }
+
           lastTouchedTick_ = currentTick;
-          historyBegin_ = Math.Max(historyBegin_, (currentTick >= Clock.HISTORY_LENGTH) ? currentTick - Clock.HISTORY_LENGTH + 1 : 0);
+          historyBegin_ = Math.Max(historyBegin_,
+            (currentTick >= Clock.HISTORY_LENGTH) ? currentTick - Clock.HISTORY_LENGTH + 1 : 0);
         }
+
         return ref entries_[currentTick % Clock.HISTORY_LENGTH];
       }
     }

@@ -8,7 +8,7 @@ namespace Witch.Momiji {
     private Transform field_;
 
     // Color of this fairy
-    [SerializeField] public Color color = new(1, 1,1, 1);
+    [SerializeField] public Color color = new(1, 1, 1, 1);
 
     // Rotation
     [SerializeField] private float poleRotationSpeed = 60.0f;
@@ -29,11 +29,11 @@ namespace Witch.Momiji {
     // Spirit components
     private Transform spirit_;
     private Transform trail_;
-    
+
     // Arrow emission
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] public float arrowLaunchDelay;
-    [SerializeField] public float arrowLaunchInterval = 37f/41f;
+    [SerializeField] public float arrowLaunchInterval = 37f / 41f;
     private Dense<float> nextArrowLaunch_;
 
     protected override void OnStart() {
@@ -62,24 +62,29 @@ namespace Witch.Momiji {
         var spiritScale = 0.7f * progress;
         spirit_.localScale = new Vector3(spiritScale, spiritScale, spiritScale);
         trans.localRotation = Quaternion.AngleAxis(initialPoleAngle + totalTime * poleRotationSpeed, poleRotationAxis);
-        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) * Vector3.right * (selfRadius * progress);
+        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) *
+                                Vector3.right * (selfRadius * progress);
       } else if (totalTime <= rotateTime) {
         trans.localRotation = Quaternion.AngleAxis(initialPoleAngle + totalTime * poleRotationSpeed, poleRotationAxis);
-        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) * Vector3.right * selfRadius;
-        { // Launching Arrow
+        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) *
+                                Vector3.right * selfRadius;
+        {
+          // Launching Arrow
           if (nextArrowLaunch < 0.0f) {
             //LaunchArrow();
             nextArrowLaunch += arrowLaunchInterval;
           }
+
           nextArrowLaunch -= dt;
         }
-      } else if (totalTime <= endTime){
+      } else if (totalTime <= endTime) {
         var spanTime = totalTime - rotateTime;
         var progress = (1 - spanTime / (endTime - rotateTime));
         var spiritScale = 0.7f * progress;
         spirit_.localScale = new Vector3(spiritScale, spiritScale, spiritScale);
         trans.localRotation = Quaternion.AngleAxis(initialPoleAngle + totalTime * poleRotationSpeed, poleRotationAxis);
-        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) * Vector3.right * (selfRadius * progress);
+        spirit_.localPosition = Quaternion.AngleAxis(initialAngle + totalTime * selfRotationSpeed, Vector3.forward) *
+                                Vector3.right * (selfRadius * progress);
       } else if (totalTime <= Duration) {
         spirit_.localScale = Vector3.zero;
       } else {

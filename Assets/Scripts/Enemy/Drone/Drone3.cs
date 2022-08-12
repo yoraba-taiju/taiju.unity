@@ -3,7 +3,7 @@ using Reversible.Value;
 using UnityEngine;
 
 namespace Enemy.Drone {
-  public class Drone3: EnemyBehaviour {
+  public class Drone3 : EnemyBehaviour {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int GivingUp = Animator.StringToHash("GivingUp");
@@ -18,6 +18,7 @@ namespace Enemy.Drone {
     private Dense<float> timeToFire_;
     [SerializeField] public GameObject explosionEffect;
     [SerializeField] public GameObject bullet;
+
     protected override void OnStart() {
       animator_ = GetComponent<Animator>();
       rigidbody_ = GetComponent<Rigidbody2D>();
@@ -41,6 +42,7 @@ namespace Enemy.Drone {
           var aim = obj.GetComponent<FixedSpeedBullet>();
           aim.Velocity = Vector2.left * 15.0f;
         }
+
         rigidbody_.velocity *= Mathf.Exp(-Time.deltaTime);
       }
     }

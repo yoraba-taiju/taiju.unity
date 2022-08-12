@@ -18,7 +18,7 @@ namespace Enemy.Bullet {
     }
 
     protected override void OnForward() {
-      transform.position += (Vector3)(Velocity * Time.deltaTime);
+      transform.position += (Vector3) (Velocity * Time.deltaTime);
     }
 
     protected override void OnCollideWithWitch(GameObject other) {

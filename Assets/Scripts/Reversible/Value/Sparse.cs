@@ -1,11 +1,12 @@
 ﻿using System;
 
 namespace Reversible.Value {
-  public struct Sparse<T>: IValue<T> where T: struct {
+  public struct Sparse<T> : IValue<T> where T : struct {
     private struct Entry {
       public uint tick;
       public T value;
     }
+
     private readonly Clock clock_;
     private uint lastTouchedLeap_;
     private uint lastTouchedTick_;
@@ -15,9 +16,10 @@ namespace Reversible.Value {
     private uint entriesLen_;
 
     public delegate void Cloner(ref T dst, in T src);
+
     private readonly Cloner cloner_;
 
-    public Sparse(Clock clock, T initial): this(clock, null, initial) {
+    public Sparse(Clock clock, T initial) : this(clock, null, initial) {
     }
 
     public Sparse(Clock clock, Cloner clonerImpl, T initial) {
@@ -33,16 +35,17 @@ namespace Reversible.Value {
       entriesLen_ = 1;
       cloner_ = clonerImpl;
     }
-    
+
     private string DebugString() {
       var vs = "[";
       for (var i = 0; i < entriesLen_; i++) {
-        ref readonly var e = ref entries_[(i+entriesBeg_) % Clock.HISTORY_LENGTH];
+        ref readonly var e = ref entries_[(i + entriesBeg_) % Clock.HISTORY_LENGTH];
         vs += $"[{i}]({e.tick}, {e.value})";
         if (i < entriesLen_ - 1) {
           vs += ", ";
         }
       }
+
       vs += "]";
       return vs;
     }
@@ -55,12 +58,15 @@ namespace Reversible.Value {
         if (tick == midTick) {
           return midIdx;
         }
+
         if (midTick < tick) {
           beg = midIdx + 1;
-        } else { // tick < midTick
+        } else {
+          // tick < midTick
           end = midIdx;
         }
       }
+
       return beg;
     }
 
@@ -71,16 +77,20 @@ namespace Reversible.Value {
         if (beg == midIdx) {
           return beg;
         }
+
         var midTick = entries_[midIdx % Clock.HISTORY_LENGTH].tick;
         if (tick == midTick) {
           return midIdx;
         }
+
         if (midTick < tick) {
           beg = midIdx;
-        } else { // tick < midTick
+        } else {
+          // tick < midTick
           end = midIdx - 1;
         }
       }
+
       return end;
     }
 
@@ -91,6 +101,7 @@ namespace Reversible.Value {
         if (currentLeap == lastTouchedLeap_ && lastTouchedTick_ <= currentTick) {
           return ref entries_[(entriesBeg_ + entriesLen_ - 1) % Clock.HISTORY_LENGTH].value;
         }
+
         var tick = clock_.AdjustTick(lastTouchedLeap_, currentTick);
         var rawIdx = UpperBound(
           entriesBeg_,
@@ -104,6 +115,7 @@ namespace Reversible.Value {
             $"State: {DebugString()}"
           );
         }
+
         var currentLen = rawIdx - entriesBeg_ + 1;
         ref var e = ref entries_[idx];
         entriesLen_ = Math.Min(currentLen, entriesLen_);
@@ -120,6 +132,7 @@ namespace Reversible.Value {
         if (currentLeap == lastTouchedLeap_ && currentTick == lastTouchedTick_) {
           return ref entries_[(entriesBeg_ + entriesLen_ - 1) % Clock.HISTORY_LENGTH].value;
         }
+
         var tick = clock_.AdjustTick(lastTouchedLeap_, currentTick);
         var rawIdx = LowerBound(
           entriesBeg_,
@@ -139,11 +152,13 @@ namespace Reversible.Value {
                 $"State: {DebugString()}"
               );
             }
+
             entriesLen_ = (rawIdx - entriesBeg_) + 1;
           }
         } else {
           entriesLen_ = (rawIdx - entriesBeg_) + 1;
         }
+
         entries_[idx].tick = currentTick;
         if (oldEntriesLen < entriesLen_) {
           if (cloner_ == null) {
@@ -152,9 +167,10 @@ namespace Reversible.Value {
             cloner_(
               ref entries_[idx].value,
               in entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value
-              );
+            );
           }
         }
+
         lastTouchedLeap_ = currentLeap;
         lastTouchedTick_ = currentTick;
         return ref entries_[idx].value;

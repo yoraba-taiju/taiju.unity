@@ -9,6 +9,7 @@ namespace Enemy.Bullet {
     private bool soraMissing_;
     private Vector2 velocity_;
     private float angle_;
+
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       if (sora_ == null) {
@@ -28,23 +29,25 @@ namespace Enemy.Bullet {
         angle_ = 180;
         return;
       }
+
       velocity_ = vec / magnitude * speed;
       angle_ = VecMath.Atan2(velocity_);
     }
 
     protected override void OnForward() {
       if (soraMissing_) {
-        transform.position += (Vector3)(velocity_ * Time.deltaTime);
+        transform.position += (Vector3) (velocity_ * Time.deltaTime);
         return;
       }
+
       var trans = transform;
       var position = trans.position;
-      var targetDirection = (Vector2)(sora_.transform.position - position);
+      var targetDirection = (Vector2) (sora_.transform.position - position);
       var maxDeg = Time.deltaTime * maxDegreeDeltaPerSecond;
 
       velocity_ = Mover.Follow(targetDirection, velocity_, maxDeg);
       angle_ = VecMath.Atan2(velocity_);
-      position += (Vector3)(velocity_ * Time.deltaTime);
+      position += (Vector3) (velocity_ * Time.deltaTime);
       transform.position = position;
     }
 

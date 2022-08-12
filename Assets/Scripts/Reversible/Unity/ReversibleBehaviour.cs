@@ -2,11 +2,12 @@
 using UnityEngine;
 
 namespace Reversible.Unity {
-  public abstract class ReversibleBehaviour: MonoBehaviour {
+  public abstract class ReversibleBehaviour : MonoBehaviour {
     protected ClockController clockController;
     protected World world;
     protected Clock clock;
     protected PlayerInput playerInput;
+
     protected float CurrentTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
       get => clockController.CurrentTime;
@@ -24,13 +25,18 @@ namespace Reversible.Unity {
       OnStart();
     }
 
-    protected virtual void OnReverse() {}
-    protected virtual void OnLeap() {}
+    protected virtual void OnReverse() {
+    }
+
+    protected virtual void OnLeap() {
+    }
+
     public void Update() {
       if (clockController.Leaped) {
         OnLeap();
         return;
       }
+
       if (clockController.IsForwarding) {
         OnForward();
       } else {

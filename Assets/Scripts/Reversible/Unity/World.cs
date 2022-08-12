@@ -4,7 +4,7 @@ using Enemy;
 using UnityEngine;
 
 namespace Reversible.Unity {
-  public sealed class World: MonoBehaviour {
+  public sealed class World : MonoBehaviour {
     /* Clock */
     private Clock clock_;
     private ClockController clockController_;
@@ -25,7 +25,7 @@ namespace Reversible.Unity {
     private void Update() {
       if (clockController_.Ticked) {
         RemoveOutdated(clock_.CurrentTick);
-      } else if(clockController_.Backed) {
+      } else if (clockController_.Backed) {
         RestoreOutdated(clock_.CurrentTick);
       }
     }
@@ -50,6 +50,7 @@ namespace Reversible.Unity {
           if (obj.layer == LayerName.Enemy) {
             LivingEnemies.Add(obj.transform);
           }
+
           obj.SetActive(true);
         } else {
           break;

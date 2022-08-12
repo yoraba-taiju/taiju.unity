@@ -38,9 +38,9 @@ namespace Witch.Paper {
         }
 
         for (var j = 0; j < numTriangle; ++j) {
-          triangles[(j*3) + 0] = (j + 1) % numVertex;
-          triangles[(j*3) + 1] = (j + 0) % numVertex;
-          triangles[(j*3) + 2] = lastIdx;
+          triangles[(j * 3) + 0] = (j + 1) % numVertex;
+          triangles[(j * 3) + 1] = (j + 0) % numVertex;
+          triangles[(j * 3) + 2] = lastIdx;
         }
 
         mesh.vertices = vertices;
@@ -51,6 +51,7 @@ namespace Witch.Paper {
         mesh.Optimize();
         meshes_[i] = mesh;
       }
+
       meshFilter_.mesh = meshes_[0];
     }
 
@@ -60,6 +61,7 @@ namespace Witch.Paper {
       if (timeToChange > 0) {
         return;
       }
+
       timeToChange += 0.2f;
       ref var meshIdx = ref meshIdx_.Mut;
       meshIdx++;

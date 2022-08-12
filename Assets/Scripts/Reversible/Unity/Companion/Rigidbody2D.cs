@@ -11,6 +11,7 @@ namespace Reversible.Unity.Companion {
       public float rotation;
       public float angularVelocity;
     }
+
     private Dense<Record> record_;
 
     public Rigidbody2D(ClockController clockController, UnityEngine.Rigidbody2D body) {

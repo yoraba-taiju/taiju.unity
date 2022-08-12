@@ -12,7 +12,6 @@ namespace Witch.Bullet {
     }
 
     protected override void OnStart() {
-      
     }
 
     protected override void OnForward() {
@@ -29,11 +28,11 @@ namespace Witch.Bullet {
     private void OnCollisionStay2D(Collision2D other) {
       Destroy();
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other) {
       OnTrigger2D(other);
     }
-    
+
     private void OnTriggerStay2D(Collider2D other) {
       OnTrigger2D(other);
     }
@@ -42,6 +41,7 @@ namespace Witch.Bullet {
       if (!clockController.IsForwarding) {
         return;
       }
+
       if (other.gameObject.layer == terrainLayer_) {
         Destroy();
       }

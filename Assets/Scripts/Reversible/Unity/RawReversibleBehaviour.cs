@@ -6,6 +6,7 @@ namespace Reversible.Unity {
     protected ClockController clockController;
     protected World world;
     protected Clock clock;
+
     protected float CurrentTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
       get => clockController.CurrentTime;

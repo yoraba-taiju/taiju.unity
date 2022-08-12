@@ -9,13 +9,14 @@ namespace Enemy.Drone {
    * 目的：調査用ドローン
    * 行動：魔女に向かい、魔女を見つけたら情報を収集し、持ち帰る。
    */
-  public class Drone1: EnemyBehaviour, IAnimatorEventSubscriber {
+  public class Drone1 : EnemyBehaviour, IAnimatorEventSubscriber {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int Watching = Animator.StringToHash("Watching");
       public static readonly int Rotating = Animator.StringToHash("Rotating");
       public static readonly int Returning = Animator.StringToHash("Returning");
     }
+
     private struct Trigger {
       public static readonly int ToWatching = Animator.StringToHash("ToWatching");
     }
@@ -28,7 +29,7 @@ namespace Enemy.Drone {
     private Sparse<float> shield_;
     private Sparse<Quaternion> originalRotation_;
     [SerializeField] private GameObject explosionEffect;
-    
+
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       animator_ = GetComponent<Animator>();
@@ -40,8 +41,8 @@ namespace Enemy.Drone {
     protected override void OnForward() {
       var stateInfo = animator_.GetCurrentAnimatorStateInfo(1);
       var currentHash = stateInfo.shortNameHash;
-      var soraPosition = (Vector2)sora_.transform.localPosition;
-      var currentPosition = (Vector2)transform.localPosition;
+      var soraPosition = (Vector2) sora_.transform.localPosition;
+      var currentPosition = (Vector2) transform.localPosition;
       var dt = Time.deltaTime;
 
       if (currentHash == State.Seeking) {
@@ -50,7 +51,7 @@ namespace Enemy.Drone {
           animator_.SetTrigger(Trigger.ToWatching);
           rigidbody_.velocity = rigidbody_.velocity.normalized * 3.0f;
         } else {
-          rigidbody_.velocity =  Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
+          rigidbody_.velocity = Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
         }
       } else if (currentHash == State.Watching) {
         var targetDirection = soraPosition + Vector2.right * 5.0f - currentPosition;
@@ -63,7 +64,9 @@ namespace Enemy.Drone {
           //rigidbody_.velocity =  Mover.Follow(Vector2.right, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
         }
       }
-      transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), 30.0f * dt);
+
+      transform.localRotation = Quaternion.RotateTowards(transform.localRotation,
+        Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), 30.0f * dt);
     }
 
     public override void OnCollide(GameObject other) {
@@ -77,11 +80,9 @@ namespace Enemy.Drone {
     }
 
     public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-      
     }
 
     public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-      
     }
   }
 }

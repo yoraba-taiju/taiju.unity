@@ -6,7 +6,7 @@ using UnityEngine;
 using Utility;
 
 namespace Witch.Bullet {
-  public class ArrowOfLight: ReversibleBehaviour {
+  public class ArrowOfLight : ReversibleBehaviour {
     [SerializeField] public Color color = Color.white;
     [SerializeField] private float period = 1.0f;
     [SerializeField] public Vector3 initialVelocity;
@@ -59,6 +59,7 @@ namespace Witch.Bullet {
         if (isTracking && !world.LivingEnemies.Contains(target_)) {
           isTracking = FindNextTarget();
         }
+
         if (isTracking) {
           var force = Mover.TrackingForce(
             trans.localPosition,
@@ -69,11 +70,13 @@ namespace Witch.Bullet {
           );
           velocity += force * dt;
         }
+
         trans.localPosition += velocity * dt;
       } else if (totalTime <= Duration) {
         if (!isTracking_.Ref || alreadyHit_.Ref) {
           return;
         }
+
         targetBehaviour_.OnCollide(gameObject);
         alreadyHit_.Mut = true;
         isTracking_.Mut = false;
@@ -93,10 +96,12 @@ namespace Witch.Bullet {
         if (distance >= minDistance) {
           continue;
         }
+
         minDistance = distance;
         nextTarget = other.gameObject;
         found = true;
       }
+
       if (found) {
         Track(nextTarget);
       } else {
@@ -117,11 +122,11 @@ namespace Witch.Bullet {
     private void OnCollisionStay2D(Collision2D other) {
       Destroy();
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other) {
       OnTrigger2D(other);
     }
-    
+
     private void OnTriggerStay2D(Collider2D other) {
       OnTrigger2D(other);
     }
@@ -132,5 +137,4 @@ namespace Witch.Bullet {
       }
     }
   }
-  
 }

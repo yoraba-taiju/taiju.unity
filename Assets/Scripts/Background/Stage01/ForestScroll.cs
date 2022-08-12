@@ -6,6 +6,7 @@ namespace Background.Stage01 {
   public class ForestScroll : ReversibleBehaviour {
     private Dense<Vector2> offset_;
     private Renderer renderer_;
+
     protected override void OnStart() {
       renderer_ = GetComponent<Renderer>();
       offset_ = new Dense<Vector2>(clock, renderer_.material.mainTextureOffset);

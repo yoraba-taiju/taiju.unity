@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Reversible {
   public class Clock {
     public const uint HISTORY_LENGTH = 512;
-    
+
     /* current leaps */
     public uint CurrentLeap { get; private set; }
     public uint CurrentTick { get; private set; }
@@ -45,12 +45,14 @@ namespace Reversible {
       for (var i = (CurrentLeap >= HISTORY_LENGTH) ? (CurrentLeap - HISTORY_LENGTH) : 0; i <= CurrentLeap; ++i) {
         branches += $"(i={historyBranches_[i % HISTORY_LENGTH]}), ";
       }
+
       Debug.Log($"Leaping {CurrentLeap} at {CurrentTick}. branches: [{branches}]");
     }
 
     public uint AdjustTick(uint lastTouchLeap, uint tick) {
       return Math.Min(historyBranches_[lastTouchLeap % HISTORY_LENGTH], tick);
     }
+
     public uint BranchTickOfLeap(uint leap) {
       return historyBranches_[leap % HISTORY_LENGTH];
     }

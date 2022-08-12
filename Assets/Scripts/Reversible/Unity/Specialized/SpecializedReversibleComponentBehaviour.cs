@@ -2,11 +2,12 @@
 using UnityEngine;
 
 namespace Reversible.Unity.Specialized {
-  public abstract class SpecializedReversibleComponentBehaviour: MonoBehaviour {
+  public abstract class SpecializedReversibleComponentBehaviour : MonoBehaviour {
     private uint bornAt_;
     protected ClockController clockController;
     protected World world;
     protected Clock clock;
+
     protected float CurrentTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
       get => clockController.CurrentTime;
@@ -30,6 +31,7 @@ namespace Reversible.Unity.Specialized {
         OnLeap();
       }
     }
+
     protected abstract void OnStart();
 
     protected abstract void OnTick();
@@ -37,6 +39,5 @@ namespace Reversible.Unity.Specialized {
     protected abstract void OnBack();
 
     protected abstract void OnLeap();
-
   }
 }

@@ -18,11 +18,14 @@ namespace Utility {
       if (Vector2.Dot(desiredVelocity, direct) >= Vector2.Dot(desiredVelocity, limited1)) {
         return direct;
       }
+
       s = -s;
       var limited2 = new Vector2(dx * c - s * dy, dx * s + dy * c);
       return Vector2.Dot(targetDirection, limited1) >= Vector2.Dot(targetDirection, limited2) ? limited1 : limited2;
     }
-    public static Vector3 TrackingForce(Vector3 fromPos, Vector3 fromVel, Vector3 toPos, Vector3 toVel, float leftPeriod) {
+
+    public static Vector3 TrackingForce(Vector3 fromPos, Vector3 fromVel, Vector3 toPos, Vector3 toVel,
+      float leftPeriod) {
       return 2 * ((toPos - fromPos) + ((toVel - fromVel) * leftPeriod)) / (leftPeriod * leftPeriod);
     }
   }

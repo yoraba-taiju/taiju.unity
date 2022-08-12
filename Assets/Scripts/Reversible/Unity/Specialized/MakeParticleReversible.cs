@@ -1,10 +1,10 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Reversible.Unity.Specialized {
   public sealed class MakeParticleReversible : SpecializedReversibleComponentBehaviour {
     private ParticleSystem particle_;
     private Companion.ParticleSystem companion_;
+
     protected override void OnStart() {
       particle_ = GetComponent<ParticleSystem>();
       var main = particle_.main;
@@ -15,7 +15,7 @@ namespace Reversible.Unity.Specialized {
     protected override void OnTick() {
       companion_.OnTick();
     }
-    
+
     protected override void OnBack() {
       companion_.OnBack();
     }

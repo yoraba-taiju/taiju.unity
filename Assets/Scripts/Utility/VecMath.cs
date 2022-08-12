@@ -10,10 +10,11 @@ namespace Utility {
       return new Vector2(x * c - s * y, x * s + y * c);
       //return Quaternion.Euler(0.0f, 0.0f, angleToRotate) * direction;
     }
-    
+
     public static float Atan2(float x, float y) {
       return Mathf.Atan2(y, x) * Mathf.Rad2Deg;
     }
+
     public static float Atan2(Vector2 v) {
       return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
     }

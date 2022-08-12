@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Reversible.Unity.Companion {
-  public struct Transform: ICompanion {
+  public struct Transform : ICompanion {
     private readonly UnityEngine.Transform transform_;
 
     private struct Record {
@@ -10,6 +10,7 @@ namespace Reversible.Unity.Companion {
       public Vector3 scale;
       public Quaternion rot;
     }
+
     private Dense<Record> record_;
 
     public Transform(ClockController clockController, UnityEngine.Transform transform) {
@@ -24,6 +25,7 @@ namespace Reversible.Unity.Companion {
 
     public void OnLeap() {
     }
+
     public void OnTick() {
       var trans = transform_;
       ref var record = ref record_.Mut;

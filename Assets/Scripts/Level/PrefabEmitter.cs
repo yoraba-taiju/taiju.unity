@@ -6,11 +6,9 @@ using UnityEngine.Timeline;
 namespace Level {
   [Serializable]
   public class PrefabEmitter : Marker, INotification {
-    [SerializeField]
-    public GameObject prefab;
+    [SerializeField] public GameObject prefab;
 
-    [SerializeField]
-    public Vector2 position;
+    [SerializeField] public Vector2 position;
 
     public PropertyName id => new("Prefab Spawn");
   }
