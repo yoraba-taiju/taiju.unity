@@ -17,12 +17,12 @@ namespace Witch.Momiji {
     };
 
     private Transform field_;
-    private Dense<float> totalTime_;
+    private float bornTime_;
     private float duration_;
 
     protected override void OnStart() {
       field_ = GameObject.FindWithTag("Field").transform;
-      totalTime_ = new Dense<float>(clock, 0.0f);
+      bornTime_ = CurrentTime;
       for (var i = 0; i < Colors.Length; ++i) {
         var spirit = Instantiate(spiritPrefab, Vector3.zero, Quaternion.identity, field_);
         spirit.transform.localPosition = transform.localPosition;
@@ -39,9 +39,8 @@ namespace Witch.Momiji {
     }
 
     protected override void OnForward() {
-      ref var totalTime = ref totalTime_.Mut;
+      var totalTime = CurrentTime - bornTime_;
       if (totalTime < duration_) {
-        totalTime += Time.deltaTime;
         return;
       }
 
