@@ -1,5 +1,6 @@
 ﻿using Enemy;
 using Reversible.Unity;
+using Reversible.Unity.Components;
 using Reversible.Value;
 using UnityEngine;
 using Utility;
@@ -38,7 +39,7 @@ namespace Witch.Bullet {
       var lineRenderer = GetComponent<LineRenderer>();
       lineRenderer.startColor = color;
       GetComponent<Light>().color = color;
-      Duration = period + GetComponent<MakeLineRendererAsReversibleTrail>().lifeTime;
+      Duration = period + GetComponent<ReversibleTrail>().lifeTime;
     }
 
     private void Track(GameObject obj) {

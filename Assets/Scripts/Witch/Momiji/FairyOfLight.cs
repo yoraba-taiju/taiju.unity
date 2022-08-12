@@ -1,4 +1,5 @@
 ﻿using Reversible.Unity;
+using Reversible.Unity.Components;
 using Reversible.Value;
 using UnityEngine;
 using Witch.Bullet;
@@ -47,7 +48,7 @@ namespace Witch.Momiji {
 
       var lineRenderer = trail_.GetComponent<LineRenderer>();
       lineRenderer.endColor = color;
-      Duration = endTime + trail_.GetComponent<MakeLineRendererAsReversibleTrail>().lifeTime;
+      Duration = endTime + trail_.GetComponent<ReversibleTrail>().lifeTime;
       startAt_ = CurrentTime;
       nextArrowLaunch_ = new Dense<float>(clock, arrowLaunchDelay);
     }
@@ -71,7 +72,7 @@ namespace Witch.Momiji {
         {
           // Launching Arrow
           if (nextArrowLaunch < 0.0f) {
-            //LaunchArrow();
+            LaunchArrow();
             nextArrowLaunch += arrowLaunchInterval;
           }
 

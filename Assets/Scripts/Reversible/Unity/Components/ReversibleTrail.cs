@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Reversible.Unity {
-  public sealed class MakeLineRendererAsReversibleTrail : RawReversibleBehaviour {
+namespace Reversible.Unity.Components {
+  public sealed class ReversibleTrail : RawReversibleBehaviour {
     private readonly LinkedList<(float, Vector3)> points_ = new();
     private readonly Vector3[] pointBuffer_ = new Vector3[128];
     private uint bornAt_;
+    private float bornTime_;
 
     private LineRenderer lineRenderer_;
     [SerializeField] public float lifeTime = 1f;
@@ -14,6 +15,7 @@ namespace Reversible.Unity {
     protected override void OnStart() {
       lineRenderer_ = gameObject.GetComponent<LineRenderer>();
       lineRenderer_.useWorldSpace = true;
+      bornTime_ = CurrentTime;
     }
 
     private void SetPoint(float current, bool setHead) {
@@ -42,45 +44,47 @@ namespace Reversible.Unity {
     }
 
     protected override void OnForward() {
-      var current = CurrentTime;
       var trans = transform;
-      var pos = trans.position;
-      var last = points_.Last;
-      if (last != null) {
-        var (lastTime, lastPoint) = last.Value;
-        if (current - lastTime < 0.01f || (pos - lastPoint).magnitude < 0.05) {
-          SetPoint(current, true);
-          return;
+      var currentTime = CurrentTime - bornTime_;
+      var currentPosition = trans.position;
+      {
+        var node = points_.Last;
+        if (node != null) {
+          var (lastTime, lastPoint) = node.Value;
+          if (currentTime - lastTime < 0.01f || (currentPosition - lastPoint).magnitude < 0.05) {
+            SetPoint(currentTime, true);
+            return;
+          }
+        }
+      }
+      points_.AddLast((currentTime, currentPosition));
+      {
+        var limitTime = currentTime - TimeLimit - lifeTime;
+        var node = points_.First;
+        while (node != null && node.Value.Item1 <= limitTime) {
+          var toRemove = node;
+          node = node.Next;
+          points_.Remove(toRemove);
         }
       }
 
-      points_.AddLast((current, pos));
-      var limitTime = current - TimeLimit - lifeTime;
-      var node = points_.First;
-      while (node != null && node.Value.Item1 <= limitTime) {
-        var toRemove = node;
-        node = node.Next;
-        points_.Remove(toRemove);
-      }
-
-      SetPoint(current, false);
+      SetPoint(currentTime, false);
     }
 
     protected override void OnReverse() {
       if (!clockController.Backed) {
         return;
       }
-
-      var current = CurrentTime;
+      var currentTime = CurrentTime - bornTime_;
       var node = points_.Last;
-      while (node != null && node.Value.Item1 >= current) {
+      while (node != null && node.Value.Item1 >= currentTime) {
         var toRemove = node;
         node = node.Previous;
         points_.Remove(toRemove);
       }
 
-      SetPoint(current, true);
-      //SetPoint(current, false);
+      //SetPoint(current, true);
+      SetPoint(currentTime, false);
     }
   }
 }
