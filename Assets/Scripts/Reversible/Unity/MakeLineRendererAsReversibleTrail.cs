@@ -76,6 +76,5 @@ namespace Reversible.Unity {
       }
       SetPoint(current, false);
     }
-
   }
 }
