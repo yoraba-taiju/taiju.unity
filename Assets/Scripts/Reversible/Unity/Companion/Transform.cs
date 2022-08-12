@@ -6,9 +6,9 @@ namespace Reversible.Unity.Companion {
     private readonly UnityEngine.Transform transform_;
 
     private struct Record {
-      public Vector3 position;
-      public Vector3 scale;
-      public Quaternion rot;
+      public Vector3 localPosition;
+      public Vector3 localScale;
+      public Quaternion localRotation;
     }
 
     private Dense<Record> record_;
@@ -17,9 +17,9 @@ namespace Reversible.Unity.Companion {
       var clock = clockController.Clock;
       transform_ = transform;
       record_ = new Dense<Record>(clock, new Record() {
-        position = transform_.localPosition,
-        scale = transform_.localScale,
-        rot = transform_.localRotation,
+        localPosition = transform_.localPosition,
+        localScale = transform_.localScale,
+        localRotation = transform_.localRotation,
       });
     }
 
@@ -29,17 +29,17 @@ namespace Reversible.Unity.Companion {
     public void OnTick() {
       var trans = transform_;
       ref var record = ref record_.Mut;
-      record.position = trans.localPosition;
-      record.scale = trans.localScale;
-      record.rot = trans.localRotation;
+      record.localPosition = trans.localPosition;
+      record.localScale = trans.localScale;
+      record.localRotation = trans.localRotation;
     }
 
     public void OnBack() {
       var trans = transform_;
       ref readonly var record = ref record_.Ref;
-      trans.localPosition = record.position;
-      trans.localScale = record.scale;
-      trans.localRotation = record.rot;
+      trans.localPosition = record.localPosition;
+      trans.localScale = record.localScale;
+      trans.localRotation = record.localRotation;
     }
   }
 }
