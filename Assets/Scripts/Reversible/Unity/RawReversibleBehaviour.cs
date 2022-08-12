@@ -6,6 +6,7 @@ namespace Reversible.Unity {
     protected ClockController clockController;
     protected World world;
     protected Clock clock;
+    private uint bornAt_;
 
     protected float CurrentTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -19,10 +20,16 @@ namespace Reversible.Unity {
       clockController = clockObj.GetComponent<ClockController>();
       world = clockObj.GetComponent<World>();
       clock = clockController.Clock;
+      bornAt_ = clock.CurrentTick;
       OnStart();
     }
 
     public void Update() {
+      if (bornAt_ > clock.CurrentTick) {
+        Destroy(gameObject);
+        return;
+      }
+
       if (clockController.IsForwarding) {
         OnForward();
       } else {
