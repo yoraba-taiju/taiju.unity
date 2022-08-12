@@ -52,7 +52,7 @@ namespace Reversible.Unity.Components {
         var node = points_.Last;
         if (node != null) {
           var (lastTime, lastPoint) = node.Value;
-          if (currentTime - lastTime <= 0.01f || (currentPosition - lastPoint).magnitude < 0.05) {
+          if (currentTime - lastTime <= 0.01f || (currentPosition - lastPoint).magnitude <= 0.05) {
             SetPoint(currentTime, true);
             return;
           }
