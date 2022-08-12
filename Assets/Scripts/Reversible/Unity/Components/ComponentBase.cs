@@ -1,8 +1,8 @@
 ﻿using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace Reversible.Unity {
-  public abstract class RawReversibleBehaviour : MonoBehaviour {
+namespace Reversible.Unity.Components {
+  public abstract class ComponentBase : MonoBehaviour {
     protected ClockController clockController;
     protected World world;
     protected Clock clock;
