@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyWhenInvisible: 0
-  targetComponents: 
+  targetComponents: 01000000
 --- !u!114 &2946195278332740056
 MonoBehaviour:
   m_ObjectHideFlags: 0
