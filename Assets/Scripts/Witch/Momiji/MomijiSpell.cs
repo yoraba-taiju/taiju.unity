@@ -1,8 +1,6 @@
-﻿using System;
-using Reversible.Unity;
+﻿using Reversible.Unity;
 using Reversible.Value;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Witch.Momiji {
   public class MomijiSpell : ReversibleBehaviour {

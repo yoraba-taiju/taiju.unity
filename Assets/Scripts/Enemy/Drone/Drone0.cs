@@ -1,5 +1,4 @@
-﻿using Enemy.StateMachine;
-using Reversible.Value;
+﻿using Reversible.Value;
 using UnityEngine;
 using Utility;
 
