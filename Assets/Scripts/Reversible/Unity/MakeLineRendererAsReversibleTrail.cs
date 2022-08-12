@@ -74,7 +74,8 @@ namespace Reversible.Unity {
         node = node.Previous;
         points_.Remove(toRemove);
       }
-      SetPoint(current, false);
+      SetPoint(current, true);
+      //SetPoint(current, false);
     }
   }
 }
