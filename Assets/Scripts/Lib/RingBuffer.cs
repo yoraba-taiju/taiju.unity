@@ -2,9 +2,9 @@
 
 namespace Lib {
   public struct RingBuffer<T> {
-    private T[] buff_;
+    private readonly T[] buff_;
     private int beg_;
-    private int mask_;
+    private readonly int mask_;
     public int Count { get; private set; }
     public int Capacity { get; }
     public readonly bool IsEmpty => Count == 0;
