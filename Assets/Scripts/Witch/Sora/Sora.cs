@@ -28,16 +28,18 @@ namespace Witch.Sora {
       rigidbody_.velocity = playerActions_.Move.ReadValue<Vector2>() * 15.0f;
     }
 
+    private void ClampPosition() {
+      var trans = transform;
+      var pos = trans.localPosition;
+      trans.localPosition = new Vector3(
+        Math.Clamp(pos.x, -17.5f, 17.5f),
+        Math.Clamp(pos.y, -9.5f, 9.5f),
+        0.0f
+      );
+    }
+
     protected override void OnForward() {
-      {
-        var trans = transform;
-        var pos = trans.localPosition;
-        trans.localPosition = new Vector3(
-          Math.Clamp(pos.x, -17.5f, 17.5f),
-          Math.Clamp(pos.y, -9.5f, 9.5f),
-          0.0f
-        );
-      }
+      ClampPosition();
       var fire = playerActions_.Fire;
       if (toFire_ <= 0.0f) {
         if (fire.IsPressed()) {
@@ -65,6 +67,10 @@ namespace Witch.Sora {
     }
 
     protected override void OnReverse() {
+      if (!clockController.Backed) {
+        return;
+      }
+      ClampPosition();
       toFire_ = 0.0f;
       fired_ = false;
     }
