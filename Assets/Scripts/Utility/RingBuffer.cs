@@ -7,7 +7,9 @@ namespace Utility {
     private int mask_;
     public int Count { get; private set; }
     public int Capacity { get; }
-    public readonly bool IsEmpty => Capacity == 0;
+    public readonly bool IsEmpty => Count == 0;
+    public readonly bool IsFull => Count >= Capacity;
+
     public RingBuffer(int capacity) {
       capacity = Pow2(capacity);
       buff_ = new T[capacity];
@@ -25,8 +27,8 @@ namespace Utility {
       return r;
     }
     
-    public void Add(ref T item) {
-      if (Count >= Capacity) {
+    public void Add(T item) {
+      if (IsFull) {
         throw new InvalidOperationException("Full");
       }
       buff_[(beg_ + Count) & mask_] = item;
@@ -35,6 +37,7 @@ namespace Utility {
     public T RemoveFirst() {
       var v = First;
       beg_ = (beg_ + 1) & mask_;
+      Count--;
       return v;
     }
     public T RemoveLast() {
