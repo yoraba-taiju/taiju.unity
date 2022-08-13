@@ -31,7 +31,6 @@ namespace Witch.Bullet {
     }
 
     protected override void OnStart() {
-      var trans = transform;
       totalTime_ = new Dense<float>(clock, 0.0f);
       velocity_ = new Dense<Vector3>(clock, initialVelocity);
       isTracking_ = new Sparse<bool>(clock, true);
