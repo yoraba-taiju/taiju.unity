@@ -15,6 +15,7 @@ namespace Enemy.Drone {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int Fighting = Animator.StringToHash("Fighting");
+      public static readonly int Sleeping = Animator.StringToHash("Sleeping");
       public static readonly int Escaping = Animator.StringToHash("Escaping");
     }
 
@@ -95,6 +96,8 @@ namespace Enemy.Drone {
         }
 
         rigidbody_.velocity *= Mathf.Exp(-dt);
+      } else if (currentHash == State.Sleeping) {
+        // Just sleep.
       } else if (currentHash == State.Escaping) {
         if (rigidbody_.velocity.magnitude < escapeVelocity) {
           rigidbody_.velocity = currentRot * Vector2.left * escapeVelocity;
@@ -104,7 +107,7 @@ namespace Enemy.Drone {
       }
 
       // Think Next Action!
-      if (fireCount_.Ref >= 3) {
+      if (fireCount_.Ref >= 5) {
         animator_.SetInteger(Param.NextAction, NextState.Escaping);
       } else if (targetDistance >= 10.0f || Mathf.Abs(deltaAngle) >= 1f) {
         animator_.SetInteger(Param.NextAction, NextState.Seeking);
