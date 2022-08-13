@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6413188552317400815}
   - component: {fileID: 2618672499506973401}
   - component: {fileID: 5974809754680244615}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: CurcleBullet_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6413188553842928463}
   - component: {fileID: 6413188553842928460}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6413188554239388775}
   - component: {fileID: 6413188554239388772}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

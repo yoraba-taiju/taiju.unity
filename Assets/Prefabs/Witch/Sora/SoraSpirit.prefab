@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 784940791519573936}
   - component: {fileID: 3242693111493428090}
   - component: {fileID: 4233886770635950100}
-  m_Layer: 13
+  m_Layer: 15
   m_Name: SoraSpirit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

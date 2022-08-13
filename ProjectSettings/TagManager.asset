@@ -14,15 +14,15 @@ TagManager:
   - Water
   - UI
   - Terrain
-  - Object
+  - 
   - 
   - Witch
   - WitchBullet
+  - WitchRigidBody
   - Enemy
   - EnemyBullet
+  - EnemyRigidBody
   - HUD
-  - 
-  - 
   - 
   - 
   - 

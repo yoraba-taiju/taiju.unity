@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1500311786711357217}
   - component: {fileID: 8433034886030184877}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7265134331583611251}
   - component: {fileID: 7265134331583611250}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 6521430203132749473}
   - component: {fileID: 5371516944444880739}
   - component: {fileID: -5043513356367703788}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: MetalBullet_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
