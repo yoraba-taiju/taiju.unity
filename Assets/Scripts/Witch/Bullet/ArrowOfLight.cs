@@ -76,7 +76,7 @@ namespace Witch.Bullet {
           return;
         }
 
-        targetBehaviour_.OnCollide(gameObject);
+        targetBehaviour_.OnCollision2D(gameObject);
         alreadyHit_.Mut = true;
         isTracking_.Mut = false;
       } else {

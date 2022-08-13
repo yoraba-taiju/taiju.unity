@@ -1,17 +1,15 @@
-﻿using System;
-using Reversible.Unity;
+﻿using Reversible.Unity;
 using UnityEngine;
 
-namespace Enemy {
-  public abstract class EnemyBehaviour : ReversibleBehaviour {
+namespace Witch.Bullet {
+  public abstract class WitchBullet: ReversibleBehaviour {
     private static int layerMask_;
 
     private new void Start() {
       var self = this as ReversibleBehaviour;
       self.Start();
-      world.RegisterEnemy(transform);
       if (layerMask_ == 0) {
-        layerMask_ = LayerMask.GetMask("WitchBullet");
+        layerMask_ = LayerMask.GetMask("Terrain", "Enemy");
       }
     }
 

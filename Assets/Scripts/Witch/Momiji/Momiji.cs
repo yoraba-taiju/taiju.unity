@@ -68,7 +68,7 @@ namespace Witch.Momiji {
       b2.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
     }
 
-    protected override void OnCollide(GameObject other) {
+    protected override void OnCollision2D(GameObject other) {
       // TODO(ledyba): take some action
       Debug.Log("Sora: damaged");
     }

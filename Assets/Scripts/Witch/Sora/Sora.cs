@@ -85,7 +85,7 @@ namespace Witch.Sora {
       b2.GetComponent<SoraBullet>().velocity = BulletSpeed;
     }
 
-    protected override void OnCollide(GameObject other) {
+    protected override void OnCollision2D(GameObject other) {
       // TODO(ledyba): take some action
       Debug.Log("Sora: damaged");
     }

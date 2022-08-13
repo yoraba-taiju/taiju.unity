@@ -17,31 +17,31 @@ namespace Witch {
     }
 
     private void OnCollisionEnter2D(Collision2D col) {
-      OnCollision2D(col.gameObject);
+      OnCollisionAll2D(col.gameObject);
     }
 
     private void OnCollisionStay2D(Collision2D col) {
-      OnCollision2D(col.gameObject);
+      OnCollisionAll2D(col.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
-      OnCollision2D(col.gameObject);
+      OnCollisionAll2D(col.gameObject);
     }
 
     private void OnTriggerStay2D(Collider2D col) {
-      OnCollision2D(col.gameObject);
+      OnCollisionAll2D(col.gameObject);
     }
 
-    private void OnCollision2D(GameObject other) {
+    private void OnCollisionAll2D(GameObject other) {
       if (!clockController.IsForwarding) {
         return;
       }
 
       if (((1 << other.layer) & collisionLayers_) != 0) {
-        OnCollide(other);
+        OnCollision2D(other);
       }
     }
 
-    protected abstract void OnCollide(GameObject other);
+    protected abstract void OnCollision2D(GameObject other);
   }
 }
