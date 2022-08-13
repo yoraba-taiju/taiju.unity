@@ -43,13 +43,13 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Witch
+  - name: 
     uniqueID: 1194577849
     locked: 0
   - name: WitchBullet
     uniqueID: 3641488679
     locked: 0
-  - name: Enemy
+  - name: 
     uniqueID: 348215675
     locked: 0
   - name: EnemyBullet
