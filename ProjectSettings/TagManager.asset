@@ -43,3 +43,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Witch
+    uniqueID: 116033485
+    locked: 0
+  - name: Enemy
+    uniqueID: 3354766983
+    locked: 0
+  - name: UI
+    uniqueID: 2615227187
+    locked: 0
