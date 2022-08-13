@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7216326116003141121}
   - component: {fileID: -5145059600816870905}
   - component: {fileID: 4171545882787016917}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: ArrowOfLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

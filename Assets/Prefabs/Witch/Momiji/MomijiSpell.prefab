@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7378777806463858780}
   - component: {fileID: 9070693440489742230}
   - component: {fileID: 8226259547913357817}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MomijiSpell
   m_TagString: Untagged
   m_Icon: {fileID: 0}

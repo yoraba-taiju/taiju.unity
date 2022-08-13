@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5371883051519710839}
   - component: {fileID: 1859186759821643781}
   - component: {fileID: 5350956492173292545}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: SoraBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 7848049336891920728}
   - component: {fileID: 6046066599508196515}
   - component: {fileID: 4855047667126886944}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Weight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
