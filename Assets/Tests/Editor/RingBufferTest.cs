@@ -1,7 +1,6 @@
 ﻿using System;
 using Lib;
 using NUnit.Framework;
-using Utility;
 
 namespace Tests.Editor {
   [TestFixture]
