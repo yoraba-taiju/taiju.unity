@@ -1,5 +1,6 @@
 ﻿using Enemy.Bullet;
 using Enemy.StateMachine;
+using Lib;
 using Reversible.Value;
 using UnityEngine;
 using Utility;

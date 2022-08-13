@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utility {
+namespace Lib {
   public struct RingBuffer<T> {
     private T[] buff_;
     private int beg_;

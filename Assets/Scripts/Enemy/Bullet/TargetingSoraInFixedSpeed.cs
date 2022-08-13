@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Lib;
+using UnityEngine;
 using Utility;
 
 namespace Enemy.Bullet {
