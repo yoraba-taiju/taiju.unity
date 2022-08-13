@@ -45,7 +45,13 @@ namespace Lib {
       Count--;
       return v;
     }
-    
+    public readonly ref T this[int index] {
+      get {
+        if (index < 0 || index > Count)
+          throw new ArgumentOutOfRangeException(nameof(index), $"{nameof(index)}={index}");
+        return ref buff_[(beg_ + index) & mask_];
+      }
+    }
     public readonly ref T Last {
       get {
         if (IsEmpty) {

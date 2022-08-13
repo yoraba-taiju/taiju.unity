@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using Lib;
 using Reversible.Value;
 using UnityEngine;
 
 namespace Reversible.Unity.Components {
   public sealed class ReversibleTrail : ComponentBase {
-    private readonly LinkedList<(float, Vector3)> points_ = new();
     private readonly Vector3[] pointBuffer_ = new Vector3[128];
     private Dense<float> currentTime_;
+    private RingBuffer<float> times_ = new(16384);
+    private RingBuffer<Vector3> points_ = new(16384);
 
     private LineRenderer lineRenderer_;
     [SerializeField] public float lifeTime = 1f;
@@ -20,26 +22,25 @@ namespace Reversible.Unity.Components {
 
     private void SetPoint(float current, bool setHead) {
       var after = current - lifeTime;
-      var node = points_.Last;
-      var idx = 0;
+      var idx = times_.Count - 1;
+      var buffIdx = 0;
       if (setHead) {
         pointBuffer_[0] = transform.position;
-        idx++;
+        buffIdx++;
       }
 
-      while (node != null && idx < pointBuffer_.Length) {
-        var (time, pt) = node.Value;
+      while (idx >= 0 && buffIdx < pointBuffer_.Length) {
+        var time = times_[idx];
         if (time < after) {
           break;
         }
-
-        pointBuffer_[idx] = pt;
-        node = node.Previous;
-        idx++;
+        pointBuffer_[buffIdx] = points_[idx];
+        buffIdx++;
+        idx--;
       }
 
-      var nextPoints = pointBuffer_[..idx];
-      lineRenderer_.positionCount = idx;
+      var nextPoints = pointBuffer_[..buffIdx];
+      lineRenderer_.positionCount = buffIdx;
       lineRenderer_.SetPositions(nextPoints);
     }
 
@@ -49,23 +50,26 @@ namespace Reversible.Unity.Components {
       var trans = transform;
       var currentPosition = trans.position;
       {
-        var node = points_.Last;
-        if (node != null) {
-          var (lastTime, lastPoint) = node.Value;
+        if (!times_.IsEmpty) {
+          var lastPoint = points_.Last;
+          var lastTime = times_.Last;
           if (currentTime - lastTime <= 0.01f || (currentPosition - lastPoint).magnitude <= 0.05) {
             SetPoint(currentTime, true);
             return;
           }
         }
       }
-      points_.AddLast((currentTime, currentPosition));
+      points_.Add(currentPosition);
+      times_.Add(currentTime);
       {
         var limitTime = currentTime - TimeLimit - lifeTime;
-        var node = points_.First;
-        while (node != null && node.Value.Item1 <= limitTime) {
-          var toRemove = node;
-          node = node.Next;
-          points_.Remove(toRemove);
+        while (times_.IsEmpty) {
+          var pointTime = times_.First;
+          if (pointTime > limitTime) {
+            break;
+          }
+          times_.RemoveFirst();
+          points_.RemoveFirst();
         }
       }
 
@@ -77,11 +81,14 @@ namespace Reversible.Unity.Components {
         return;
       }
       var currentTime = currentTime_.Ref;
-      var node = points_.Last;
-      while (node != null && node.Value.Item1 >= currentTime) {
-        var toRemove = node;
-        node = node.Previous;
-        points_.Remove(toRemove);
+      while (!times_.IsEmpty) {
+        var pointTime = times_.Last;
+        if (pointTime <= currentTime) {
+          break;
+        }
+
+        times_.RemoveLast();
+        points_.RemoveLast();
       }
       SetPoint(currentTime, false);
     }
