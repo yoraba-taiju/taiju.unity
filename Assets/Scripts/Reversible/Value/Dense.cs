@@ -25,10 +25,13 @@ namespace Reversible.Value {
       clonerFn_ = clonerFn;
     }
 
-    public void Debug() {
+    private void Debug() {
       var vs = "[";
       for (var i = historyBegin_; i <= lastTouchedTick_; i++) {
-        vs += $"[{i}]{entries_[i % Clock.HISTORY_LENGTH]}, ";
+        vs += $"{i}: {entries_[i % Clock.HISTORY_LENGTH]}";
+        if (i != lastTouchedTick_) {
+          vs += ", ";
+        }
       }
 
       vs += "]";
@@ -39,6 +42,7 @@ namespace Reversible.Value {
       get {
         var currentTick = clock_.CurrentTick;
         if (currentTick < historyBegin_) {
+          Debug();
           throw new InvalidOperationException("Can't access before value born.");
         }
 
@@ -60,6 +64,7 @@ namespace Reversible.Value {
       get {
         var currentTick = clock_.CurrentTick;
         if (currentTick < historyBegin_) {
+          Debug();
           throw new InvalidOperationException("Can't access before value born.");
         }
 

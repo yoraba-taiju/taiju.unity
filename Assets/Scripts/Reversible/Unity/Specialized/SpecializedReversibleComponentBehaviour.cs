@@ -23,6 +23,10 @@ namespace Reversible.Unity.Specialized {
     }
 
     public void Update() {
+      if (bornAt_ > clock.CurrentTick) {
+        Destroy(gameObject);
+        return;
+      }
       if (clockController.Ticked) {
         OnTick();
       } else if (clockController.Backed) {
