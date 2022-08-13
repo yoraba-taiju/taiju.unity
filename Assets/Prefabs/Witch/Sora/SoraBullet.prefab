@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5371883051519710839}
   - component: {fileID: 1859186759821643781}
   - component: {fileID: 5350956492173292545}
+  - component: {fileID: -8918379618241012277}
   m_Layer: 10
   m_Name: SoraBullet
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 116033485
-  m_SortingLayer: 1
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 11e7aefafb8d47b4c8b1613e398336a4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -141,6 +142,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.5962412, y: 1.2492858}
   m_EdgeRadius: 0
+--- !u!210 &-8918379618241012277
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070434611852245445}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -10
 --- !u!1 &5513648337708551180
 GameObject:
   m_ObjectHideFlags: 0
