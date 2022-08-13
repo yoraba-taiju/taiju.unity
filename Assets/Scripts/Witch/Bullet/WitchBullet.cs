@@ -34,11 +34,6 @@ namespace Witch.Bullet {
         return;
       }
 
-      var pos = transform.localPosition;
-      if (Mathf.Abs(pos.x) >= 18.0f || Mathf.Abs(pos.y) >= 10.0f) {
-        return;
-      }
-
       var obj = other.gameObject;
       var layer = obj.layer;
       if (((1 << layer) & layerMask_) != 0) {
