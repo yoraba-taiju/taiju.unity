@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6413188552317400815}
   - component: {fileID: 2618672499506973401}
   - component: {fileID: 5974809754680244615}
+  - component: {fileID: 4800230730630581203}
   m_Layer: 13
   m_Name: CurcleBullet_Red
   m_TagString: Untagged
@@ -99,6 +100,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227cbdf9c6f9440b8bc37a7b06f3d002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &4800230730630581203
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6413188552317400800}
+  m_Enabled: 1
+  m_SortingLayerID: 760743773
+  m_SortingLayer: 4
+  m_SortingOrder: 0
 --- !u!1 &6413188553842928462
 GameObject:
   m_ObjectHideFlags: 0

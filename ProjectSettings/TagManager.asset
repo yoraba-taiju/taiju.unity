@@ -43,6 +43,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: HUD
+  - name: Witch
     uniqueID: 1194577849
+    locked: 0
+  - name: WitchBullet
+    uniqueID: 3641488679
+    locked: 0
+  - name: Enemy
+    uniqueID: 348215675
+    locked: 0
+  - name: EnemyBullet
+    uniqueID: 760743773
     locked: 0

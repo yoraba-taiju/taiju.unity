@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 6521430203132749473}
   - component: {fileID: 5371516944444880739}
   - component: {fileID: -5043513356367703788}
+  - component: {fileID: 430574356265306753}
   m_Layer: 13
   m_Name: MetalBullet_Blue
   m_TagString: Untagged
@@ -277,3 +278,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227cbdf9c6f9440b8bc37a7b06f3d002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &430574356265306753
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7265134332449134891}
+  m_Enabled: 1
+  m_SortingLayerID: 760743773
+  m_SortingLayer: 4
+  m_SortingOrder: 0
