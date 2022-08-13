@@ -27,11 +27,19 @@ namespace Lib {
       return r;
     }
     
-    public void Add(T item) {
+    public void AddLast(T item) {
       if (IsFull) {
         throw new InvalidOperationException("Full");
       }
       buff_[(beg_ + Count) & mask_] = item;
+      Count++;
+    }
+    public void AddFirst(T item) {
+      if (IsFull) {
+        throw new InvalidOperationException("Full");
+      }
+      beg_ = (beg_ + Capacity - 1) & mask_;
+      buff_[beg_] = item;
       Count++;
     }
     public T RemoveFirst() {

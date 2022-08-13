@@ -59,8 +59,8 @@ namespace Reversible.Unity.Components {
           }
         }
       }
-      points_.Add(currentPosition);
-      times_.Add(currentTime);
+      points_.AddLast(currentPosition);
+      times_.AddLast(currentTime);
       {
         var limitTime = currentTime - TimeLimit - lifeTime;
         while (times_.IsEmpty) {
