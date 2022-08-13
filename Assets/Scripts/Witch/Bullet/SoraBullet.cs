@@ -22,27 +22,27 @@ namespace Witch.Bullet {
      ****************************************************************/
 
     private void OnCollisionEnter2D(Collision2D other) {
-      Destroy();
+      OnTrigger2D(other.gameObject);
     }
 
     private void OnCollisionStay2D(Collision2D other) {
-      Destroy();
+      OnTrigger2D(other.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-      OnTrigger2D(other);
+      OnTrigger2D(other.gameObject);
     }
 
     private void OnTriggerStay2D(Collider2D other) {
-      OnTrigger2D(other);
+      OnTrigger2D(other.gameObject);
     }
 
-    private void OnTrigger2D(Collider2D other) {
+    private void OnTrigger2D(GameObject other) {
       if (!clockController.IsForwarding) {
         return;
       }
 
-      if (other.gameObject.layer == terrainLayer_) {
+      if (other.layer == terrainLayer_) {
         Destroy();
       }
     }
