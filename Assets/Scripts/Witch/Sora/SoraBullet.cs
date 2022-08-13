@@ -1,8 +1,6 @@
-using Enemy;
-using Reversible.Unity;
 using UnityEngine;
 
-namespace Witch.Bullet {
+namespace Witch.Sora {
   public class SoraBullet : WitchBullet {
     public Vector2 velocity;
 

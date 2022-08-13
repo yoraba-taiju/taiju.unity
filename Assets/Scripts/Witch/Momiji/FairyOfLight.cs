@@ -2,7 +2,6 @@
 using Reversible.Unity.Components;
 using Reversible.Value;
 using UnityEngine;
-using Witch.Bullet;
 
 namespace Witch.Momiji {
   public class FairyOfLight : ReversibleBehaviour {

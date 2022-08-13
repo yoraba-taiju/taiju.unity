@@ -1,7 +1,6 @@
 using System;
 using Reversible;
 using UnityEngine;
-using Witch.Bullet;
 
 namespace Witch.Sora {
   public class Sora : WitchBehaviour {

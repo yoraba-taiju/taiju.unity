@@ -5,7 +5,7 @@ using Reversible.Value;
 using UnityEngine;
 using Utility;
 
-namespace Witch.Bullet {
+namespace Witch.Momiji {
   public class ArrowOfLight : ReversibleBehaviour {
     [SerializeField] public Color color = Color.white;
     [SerializeField] private float period = 1.0f;

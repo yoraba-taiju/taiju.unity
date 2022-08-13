@@ -1,7 +1,7 @@
 ﻿using Reversible.Unity;
 using UnityEngine;
 
-namespace Witch.Bullet {
+namespace Witch {
   public abstract class WitchBullet: ReversibleBehaviour {
     private static int layerMask_;
 
