@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Enemy {
   public abstract class EnemyBehaviour : ReversibleBehaviour {
-    private int collisionLayers_;
     private static int layerMask_;
 
     private new void Start() {
@@ -11,10 +10,8 @@ namespace Enemy {
       self.Start();
       world.RegisterEnemy(transform);
       if (layerMask_ == 0) {
-        layerMask_ = LayerMask.GetMask("Enemy", "EnemyBullet");
+        layerMask_ = LayerMask.GetMask("WitchBullet");
       }
-
-      collisionLayers_ = layerMask_;
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -37,7 +34,7 @@ namespace Enemy {
 
       var obj = collision.gameObject;
       var layer = obj.layer;
-      if (((1 << layer) & collisionLayers_) != 0) {
+      if (((1 << layer) & layerMask_) != 0) {
         OnCollide(obj);
       }
     }
