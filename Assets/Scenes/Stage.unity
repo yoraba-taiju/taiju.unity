@@ -6173,7 +6173,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 100
+  far clip plane: 50
   field of view: 45
   orthographic: 0
   orthographic size: 5
@@ -6567,15 +6567,15 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 1597559830}
-  m_PlaneDistance: 30
+  m_PlaneDistance: 25
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingLayerID: -1734669455
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &1819088915
 RectTransform:

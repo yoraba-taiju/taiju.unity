@@ -55,3 +55,6 @@ TagManager:
   - name: EnemyBullet
     uniqueID: 760743773
     locked: 0
+  - name: HUD
+    uniqueID: 2560297841
+    locked: 0
