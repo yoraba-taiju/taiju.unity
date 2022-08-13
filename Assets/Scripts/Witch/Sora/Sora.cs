@@ -1,6 +1,7 @@
 using System;
 using Reversible;
 using UnityEngine;
+using Witch.Bullet;
 
 namespace Witch.Sora {
   public class Sora : WitchBehaviour {
@@ -71,7 +72,7 @@ namespace Witch.Sora {
     private void Fire1() {
       var b = Instantiate(bullet, field_);
       b.transform.localPosition = transform.localPosition + Vector3.right * 2f;
-      b.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
+      b.GetComponent<SoraBullet>().velocity = BulletSpeed;
     }
 
     private void Fire2() {
@@ -80,8 +81,8 @@ namespace Witch.Sora {
       var pos = transform.localPosition;
       b1.transform.localPosition = pos + Vector3.right * 2f + Vector3.up * 0.5f;
       b2.transform.localPosition = pos + Vector3.right * 2f + Vector3.down * 0.5f;
-      b1.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
-      b2.GetComponent<Rigidbody2D>().velocity = BulletSpeed;
+      b1.GetComponent<SoraBullet>().velocity = BulletSpeed;
+      b2.GetComponent<SoraBullet>().velocity = BulletSpeed;
     }
 
     protected override void OnCollide(GameObject other) {

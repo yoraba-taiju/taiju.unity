@@ -3,18 +3,27 @@ using UnityEngine;
 
 namespace Witch.Bullet {
   public class SoraBullet : ReversibleBehaviour {
-    private int terrainLayer_;
+    private static int terrainLayer_;
+    public Vector2 velocity;
 
     private new void Start() {
       var self = this as ReversibleBehaviour;
       self.Start();
-      terrainLayer_ = LayerMask.NameToLayer("Terrain");
+      if (terrainLayer_ == 0) {
+        terrainLayer_ = LayerMask.NameToLayer("Terrain");
+      }
     }
 
     protected override void OnStart() {
     }
 
     protected override void OnForward() {
+      var trans = transform;
+      var localPosition = trans.localPosition;
+      var delta = velocity * Time.deltaTime;
+      localPosition.x += delta.x;
+      localPosition.y += delta.y;
+      trans.localPosition = localPosition;
     }
 
     /****************************************************************
