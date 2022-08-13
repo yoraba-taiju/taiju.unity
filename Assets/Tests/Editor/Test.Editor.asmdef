@@ -1,10 +1,10 @@
 {
-    "name": "Editor",
+    "name": "Test.Editor",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Scripts"
+        "Taiju.Scripts"
     ],
     "includePlatforms": [
         "Editor"
