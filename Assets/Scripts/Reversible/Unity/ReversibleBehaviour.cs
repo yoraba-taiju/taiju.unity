@@ -8,9 +8,9 @@ namespace Reversible.Unity {
     protected Clock clock;
     protected PlayerInput playerInput;
 
-    protected float CurrentTime {
+    protected float IntegrationTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      get => clockController.CurrentTime;
+      get => clockController.IntegrationTime;
     }
 
     protected abstract void OnStart();
@@ -46,6 +46,9 @@ namespace Reversible.Unity {
 
     protected void Destroy() {
       world.Destroy(gameObject);
+    }
+    protected void Destroy(GameObject obj) {
+      world.Destroy(obj);
     }
   }
 }

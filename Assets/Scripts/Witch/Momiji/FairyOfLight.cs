@@ -22,7 +22,8 @@ namespace Witch.Momiji {
     [SerializeField] private float bornTime = 1.0f;
     [SerializeField] private float rotateTime = 4.0f;
     [SerializeField] private float endTime = 6.0f;
-    public float Duration { get; private set; }
+    [SerializeField] private float trailLifeTime = 0.15f;
+    public float Duration => endTime + trailLifeTime;
 
     private float startAt_;
 
@@ -47,15 +48,15 @@ namespace Witch.Momiji {
 
       var lineRenderer = trail_.GetComponent<LineRenderer>();
       lineRenderer.endColor = color;
-      Duration = endTime + trail_.GetComponent<ReversibleTrail>().lifeTime;
-      startAt_ = CurrentTime;
+      trail_.GetComponent<ReversibleTrail>().lifeTime = trailLifeTime;
+      startAt_ = IntegrationTime;
       nextArrowLaunch_ = new Dense<float>(clock, arrowLaunchDelay);
     }
 
     protected override void OnForward() {
       var trans = transform;
       var dt = Time.deltaTime;
-      var totalTime = CurrentTime - startAt_;
+      var totalTime = IntegrationTime - startAt_;
       ref var nextArrowLaunch = ref nextArrowLaunch_.Mut;
       if (totalTime <= bornTime) {
         var progress = totalTime / bornTime;

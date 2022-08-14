@@ -10,7 +10,7 @@ namespace Reversible.Unity.Specialized {
 
     protected float CurrentTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      get => clockController.CurrentTime;
+      get => clockController.IntegrationTime;
     }
 
     public void Start() {

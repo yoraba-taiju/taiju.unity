@@ -13,7 +13,7 @@ namespace Reversible.Unity {
     public bool IsForwarding { get; private set; }
     private Dense<float> currentTime_;
 
-    public float CurrentTime {
+    public float IntegrationTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
       get => currentTime_.Ref;
     }
