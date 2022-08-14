@@ -22,7 +22,7 @@ namespace Witch.Momiji {
         var t = 6.5f - startFrom;
         scale = Mathf.Min(Mathf.Pow(t ,2.0f) * 3.0f, 6.0f);
       }
-      trans.localScale  = new Vector3(scale, scale, 1.0f);
+      trans.localScale  = new Vector3(scale, scale, 2.0f);
       trans.localRotation = Quaternion.AngleAxis(startFrom * poleAngularVelocity, pole_) *
                             Quaternion.AngleAxis(startFrom * angularVelocity, Vector3.up);
     }
