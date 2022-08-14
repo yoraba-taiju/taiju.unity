@@ -15,7 +15,13 @@ namespace Witch.Momiji {
     protected override void OnForward() {
       var startFrom = IntegrationTime - startAt_;
       var trans = transform;
-      var scale = Mathf.Min(Mathf.Pow(startFrom ,2.0f) * 3.0f, 6.0f);
+      float scale;
+      if (startFrom <= 4.0) {
+        scale = Mathf.Min(Mathf.Pow(startFrom ,2.0f) * 3.0f, 6.0f);
+      } else {
+        var t = 6.5f - startFrom;
+        scale = Mathf.Min(Mathf.Pow(t ,2.0f) * 3.0f, 6.0f);
+      }
       trans.localScale  = new Vector3(scale, scale, 1.0f);
       trans.localRotation = Quaternion.AngleAxis(startFrom * poleAngularVelocity, pole_) *
                             Quaternion.AngleAxis(startFrom * angularVelocity, Vector3.up);
