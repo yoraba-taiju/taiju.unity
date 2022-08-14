@@ -13,12 +13,12 @@ namespace Witch.Momiji {
     }
 
     protected override void OnForward() {
-      var totalTime = IntegrationTime - startAt_;
+      var startFrom = IntegrationTime - startAt_;
       var trans = transform;
-      var scale = Mathf.Min(Mathf.Pow(totalTime ,2.0f) * 3.0f, 6.0f);
+      var scale = Mathf.Min(Mathf.Pow(startFrom ,2.0f) * 3.0f, 6.0f);
       trans.localScale  = new Vector3(scale, scale, 1.0f);
-      trans.localRotation = Quaternion.AngleAxis(totalTime * poleAngularVelocity, pole_) *
-                            Quaternion.AngleAxis(totalTime * angularVelocity, Vector3.up);
+      trans.localRotation = Quaternion.AngleAxis(startFrom * poleAngularVelocity, pole_) *
+                            Quaternion.AngleAxis(startFrom * angularVelocity, Vector3.up);
     }
   }
 }

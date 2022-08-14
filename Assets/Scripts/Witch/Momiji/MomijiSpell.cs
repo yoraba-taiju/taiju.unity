@@ -43,8 +43,8 @@ namespace Witch.Momiji {
     }
 
     protected override void OnForward() {
-      var totalTime = IntegrationTime - startAt_;
-      if (totalTime < duration) {
+      var startFrom = IntegrationTime - startAt_;
+      if (startFrom < duration) {
         return;
       }
 
