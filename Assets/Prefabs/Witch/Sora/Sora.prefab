@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 6197629301242083409}
   - component: {fileID: 6197629301242083411}
   m_Layer: 9
-  m_Name: Particle System
+  m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
