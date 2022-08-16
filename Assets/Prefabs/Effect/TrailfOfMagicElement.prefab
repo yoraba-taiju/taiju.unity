@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9030802944973006816}
   - component: {fileID: 9030802944973006818}
   m_Layer: 3
-  m_Name: "\u9B54\u7D20\u306E\u5149"
+  m_Name: TrailfOfMagicElement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
