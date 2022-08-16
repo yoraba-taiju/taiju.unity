@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Witch.Momiji {
-  public class MomijiRingSpell: ReversibleBehaviour {
+  public class MomijiSpellRing: ReversibleBehaviour {
     private float startAt_;
     private Vector3 pole_;
     [SerializeField] private float angularVelocity = 230f;
