@@ -6,14 +6,14 @@ namespace Witch.Momiji {
     [SerializeField] public GameObject bullet;
     private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
-    private PlayerInput.PlayerActions playerActions_;
+    private PlayerInput.PlayingActions actions_;
     private GameObject field_;
     private Rigidbody2D rigidbody_;
     private float toFire_;
     private bool fired_;
 
     protected override void OnStart() {
-      playerActions_ = playerInput.Player;
+      actions_ = playerInput.Playing;
       rigidbody_ = GetComponent<Rigidbody2D>();
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field");
@@ -22,11 +22,11 @@ namespace Witch.Momiji {
     }
 
     private void FixedUpdate() {
-      rigidbody_.velocity = playerActions_.Move.ReadValue<Vector2>() * 15.0f;
+      rigidbody_.velocity = actions_.Move.ReadValue<Vector2>() * 15.0f;
     }
 
     protected override void OnForward() {
-      var fire = playerActions_.Fire;
+      var fire = actions_.Fire;
       if (toFire_ <= 0.0f) {
         if (fire.IsPressed()) {
           if (!fired_) {
