@@ -28,6 +28,7 @@
 
 ### InputSystem
 
+- [Input System | Input System | 1.4.1](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.4/manual/index.html)
 - [【Input System】ゲーム内キーコンフィグをリバインディングで簡単に実装【Unity】](https://gamedev65535.com/entry/unity_inputsystem_rebinding/)
 
 ### StateMachineBehaviour
@@ -65,6 +66,11 @@
 - [【Blender】複数のアニメーションを作成してUnityで使う方法 | yamagablog](https://ymgsapo.com/2021/01/27/blender-make-several-animation/)
 - [【Unity】アニメーション中、指定の位置に到達するように位置を補正する - テラシュールブログ](https://tsubakit1.hateblo.jp/entry/2017/01/30/233000)
 - [【Unity】Animatorと和解を試みる｜パルディ博士の助手｜pixivFANBOX](https://pallab.fanbox.cc/posts/895519)
+
+## Scene handling
+
+- [Work with multiple scenes in Unity - Unity マニュアル](https://docs.unity3d.com/ja/current/Manual/MultiSceneEditing.html)
+- [Unityでの複数シーンを使ったゲームの実装方法とメモリリークについて | Unity用ビジュアルノベルツール「宴」](https://madnesslabo.net/utage/?page_id=11109)
 
 # Blender References
 
