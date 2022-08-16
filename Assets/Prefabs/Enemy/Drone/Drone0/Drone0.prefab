@@ -203,4 +203,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialShield: 1
   maxRotateDegreePerSecond: 60
-  explosionEffect: {fileID: 3444446105023976292, guid: 57368165dbebb724588a6734e9745984, type: 3}
+  explosionEffect: {fileID: 3444446105023976292, guid: e2472bcce531e214699b1c3322f44744, type: 3}
