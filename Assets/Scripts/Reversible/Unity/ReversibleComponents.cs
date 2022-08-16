@@ -6,7 +6,7 @@ using Transform = Reversible.Unity.Companion.Transform;
 namespace Reversible.Unity {
   public sealed class ReversibleComponents : MonoBehaviour {
     // Clock
-    private Player controller_;
+    private Player player_;
     private Clock clock_;
     private uint bornAt_;
 
@@ -30,9 +30,9 @@ namespace Reversible.Unity {
     private ICompanion[] companions_;
 
     private void Start() {
-      var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      controller_ = clockObj.GetComponent<Player>();
-      clock_ = controller_.Clock;
+      var stageOwner = GameObject.FindGameObjectWithTag("StageOwner");
+      player_ = stageOwner.GetComponent<Player>();
+      clock_ = player_.Clock;
       bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {
         renderers_ = GetComponentsInChildren<Renderer>();
@@ -41,7 +41,7 @@ namespace Reversible.Unity {
           destroyWhenInvisible = false;
         }
 
-        world_ = clockObj.GetComponent<World>();
+        world_ = stageOwner.GetComponent<World>();
         wasVisible_ = false;
       }
 
@@ -55,11 +55,11 @@ namespace Reversible.Unity {
         i++;
         companions_[i] = target switch {
           Component.None => throw new InvalidEnumArgumentException("Please set some target"),
-          Component.Transform => new Transform(controller_, transform),
-          Component.Rigidbody2D => new Companion.Rigidbody2D(controller_, GetComponent<Rigidbody2D>()),
-          Component.ParticleSystem => new Companion.ParticleSystem(controller_, GetComponent<ParticleSystem>()),
-          Component.Animator => new Companion.Animator(controller_, GetComponent<Animator>()),
-          Component.PlayableDirector => new Companion.PlayableDirector(controller_, GetComponent<PlayableDirector>()),
+          Component.Transform => new Transform(player_, transform),
+          Component.Rigidbody2D => new Companion.Rigidbody2D(player_, GetComponent<Rigidbody2D>()),
+          Component.ParticleSystem => new Companion.ParticleSystem(player_, GetComponent<ParticleSystem>()),
+          Component.Animator => new Companion.Animator(player_, GetComponent<Animator>()),
+          Component.PlayableDirector => new Companion.PlayableDirector(player_, GetComponent<PlayableDirector>()),
           _ => throw new InvalidEnumArgumentException($"Unknown target: {target}"),
         };
       }
@@ -71,9 +71,9 @@ namespace Reversible.Unity {
         return;
       }
 
-      var ticked = controller_.Ticked;
-      var backed = controller_.Backed;
-      var leaped = controller_.Leaped;
+      var ticked = player_.Ticked;
+      var backed = player_.Backed;
+      var leaped = player_.Leaped;
       if (destroyWhenInvisible) {
         if (ticked) {
           var visible = false;

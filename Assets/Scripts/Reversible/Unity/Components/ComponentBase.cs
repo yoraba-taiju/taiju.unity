@@ -16,9 +16,9 @@ namespace Reversible.Unity.Components {
     protected abstract void OnStart();
 
     public void Start() {
-      var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      player = clockObj.GetComponent<Player>();
-      world = clockObj.GetComponent<World>();
+      var stageOwner = GameObject.FindGameObjectWithTag("StageOwner");
+      player = stageOwner.GetComponent<Player>();
+      world = stageOwner.GetComponent<World>();
       clock = player.Clock;
       bornAt_ = clock.CurrentTick;
       OnStart();
