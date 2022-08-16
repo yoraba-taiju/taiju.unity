@@ -72,6 +72,8 @@
 
 - [Work with multiple scenes in Unity - Unity マニュアル](https://docs.unity3d.com/ja/current/Manual/MultiSceneEditing.html)
 - [Unityでの複数シーンを使ったゲームの実装方法とメモリリークについて | Unity用ビジュアルノベルツール「宴」](https://madnesslabo.net/utage/?page_id=11109)
+- [ScriptableObject を使ってシーンワークフローを改善しよう | Unity Blog](https://blog.unity.com/ja/technology/achieve-better-scene-workflow-with-scriptableobjects)
+- [UnityのScene間でのデータの受け渡し方法について比較する - Qiita](https://qiita.com/Kosei-Yoshida/items/d7dc37bcde3a52cb5265)
 
 # Blender References
 
