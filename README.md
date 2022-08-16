@@ -23,6 +23,7 @@
 
 ### Execution Order
 
+- [【短縮版】Input System再入門 - YouTube](https://www.youtube.com/watch?v=OL96yoeFNuA&list=LL&index=1)
 - [Unity - Manual: Order of execution for event functions](https://docs.unity3d.com/Manual/ExecutionOrder.html)
 - [【Unity】狙った順に処理したい時はスクリプトの実行順を指定する │ エクスプラボ](https://ekulabo.com/execution-order)
 
