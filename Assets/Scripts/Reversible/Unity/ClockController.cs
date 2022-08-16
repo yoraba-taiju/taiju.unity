@@ -11,11 +11,11 @@ namespace Reversible.Unity {
     public bool Backed { get; private set; }
     public bool Leaped { get; private set; }
     public bool IsForwarding { get; private set; }
-    private Dense<float> currentTime_;
+    private Dense<float> integrationTime_;
 
     public float IntegrationTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      get => currentTime_.Ref;
+      get => integrationTime_.Ref;
     }
 
     /* Ticking */
@@ -25,7 +25,7 @@ namespace Reversible.Unity {
     private void Start() {
       PlayerInput = new PlayerInput();
       PlayerInput.Enable();
-      currentTime_ = new Dense<float>(Clock, 0.0f);
+      integrationTime_ = new Dense<float>(Clock, 0.0f);
       timeToTick_ = SecondPerFrame;
       Ticked = false;
       Leaped = false;
@@ -81,7 +81,7 @@ namespace Reversible.Unity {
       }
 
       IsForwarding = true;
-      currentTime_.Mut += Time.deltaTime;
+      integrationTime_.Mut += Time.deltaTime;
       Ticked = CountDownToTick();
       if (Ticked) {
         Clock.Tick();
