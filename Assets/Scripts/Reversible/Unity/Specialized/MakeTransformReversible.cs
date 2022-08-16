@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 
 namespace Reversible.Unity.Specialized {
-  public sealed class MakeAnimatorReversible : SpecializedReversibleComponentBehaviour {
-    private Animator animator_;
-    private Companion.Animator companion_;
+  public sealed class MakeTransformReversible : SpecializedReversibleComponentBehaviour {
+    private Companion.Transform companion_;
 
     protected override void OnStart() {
-      animator_ = GetComponent<Animator>();
-      companion_ = new Companion.Animator(player, animator_);
+      companion_ = new Companion.Transform(player, transform);
     }
 
     protected override void OnTick() {
@@ -21,6 +19,6 @@ namespace Reversible.Unity.Specialized {
     protected override void OnLeap() {
       companion_.OnLeap();
     }
-    
+
   }
 }

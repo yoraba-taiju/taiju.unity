@@ -1,9 +1,9 @@
-﻿using Enemy.Bullet;
+﻿using Effect;
+using Enemy.Bullet;
 using Enemy.StateMachine;
 using Lib;
 using Reversible.Value;
 using UnityEngine;
-using Utility;
 
 namespace Enemy.Drone {
   /**
@@ -40,8 +40,9 @@ namespace Enemy.Drone {
     private Sparse<float> shield_;
     private Sparse<int> fireCount_;
     private Dense<float> timeToFire_;
-    [SerializeField] private GameObject explosionEffect;
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject explosionEffectPrefab;
+    [SerializeField] private GameObject magicElementEmitterPrefab;
+    [SerializeField] private GameObject bulletPrefab;
 
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
@@ -88,7 +89,7 @@ namespace Enemy.Drone {
         timeToFire -= dt;
         if (timeToFire <= 0.0f) {
           var direction = trans.localRotation * Vector3.left;
-          var b = Instantiate(bullet, trans.parent);
+          var b = Instantiate(bulletPrefab, trans.parent);
           b.transform.localPosition = trans.localPosition + direction * 1.3f;
           var aim = b.GetComponent<FixedSpeedBullet>();
           aim.Velocity = direction * 15.0f;
@@ -119,10 +120,17 @@ namespace Enemy.Drone {
     public override void OnCollision2D(GameObject other) {
       ref var shield = ref shield_.Mut;
       shield -= 1.0f;
-      if (shield <= 0) {
+      if (!float.IsNaN(shield) && shield <= 0) {
+        shield = float.NaN;
         Destroy();
-        var explosion = Instantiate(explosionEffect, transform.parent);
-        explosion.transform.localPosition = transform.localPosition;
+
+        var trans = transform;
+        var parent = trans.parent;
+        var localPosition = trans.localPosition;
+        
+        Instantiate(explosionEffectPrefab, localPosition, Quaternion.identity, parent);
+        var emitter = Instantiate(magicElementEmitterPrefab, localPosition, Quaternion.identity, parent).GetComponent<MagicElementEmitter>();
+        emitter.numMagicElements = System.Math.Max(1, Mathf.RoundToInt( initialShield / 3f));
       }
     }
 

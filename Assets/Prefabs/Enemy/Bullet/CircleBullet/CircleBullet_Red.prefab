@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5974809754680244615}
   - component: {fileID: 4800230730630581203}
   m_Layer: 13
-  m_Name: CurcleBullet_Red
+  m_Name: CircleBullet_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

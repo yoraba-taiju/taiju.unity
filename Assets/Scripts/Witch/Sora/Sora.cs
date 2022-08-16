@@ -94,5 +94,9 @@ namespace Witch.Sora {
       // TODO(ledyba): take some action
       Debug.Log("Sora: damaged");
     }
+
+    public void OnMagicElementCollected() {
+      Debug.Log("Sora: collected");
+    }
   }
 }

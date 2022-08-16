@@ -111,8 +111,9 @@ MonoBehaviour:
   maxRotateDegreePerSecond: 180
   seekVelocity: 7
   escapeVelocity: 15
-  explosionEffect: {fileID: 3444446105023976292, guid: e2472bcce531e214699b1c3322f44744, type: 3}
-  bullet: {fileID: 4074047190606247663, guid: 5eb10b2ac69b3e943837b34617a1654d, type: 3}
+  explosionEffectPrefab: {fileID: 3444446105023976292, guid: e2472bcce531e214699b1c3322f44744, type: 3}
+  magicElementEmitterPrefab: {fileID: 5386241739217608685, guid: 86023b15c59a7124b990ec96d87cb797, type: 3}
+  bulletPrefab: {fileID: 4074047190606247663, guid: 5eb10b2ac69b3e943837b34617a1654d, type: 3}
 --- !u!114 &4080494055063654248
 MonoBehaviour:
   m_ObjectHideFlags: 0

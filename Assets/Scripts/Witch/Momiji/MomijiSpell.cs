@@ -1,4 +1,5 @@
-﻿using Reversible.Unity;
+﻿using Effect;
+using Reversible.Unity;
 using Reversible.Value;
 using UnityEngine;
 
@@ -8,16 +9,6 @@ namespace Witch.Momiji {
     [SerializeField] private GameObject ringPrefab;
     private GameObject[] rings_ = new GameObject[2];
 
-    private static readonly Color[] Colors = {
-      Color.HSVToRGB(1.0f / 7.0f, 0.3f, 1.0f),
-      Color.HSVToRGB(2.0f / 7.0f, 0.3f, 1.0f),
-      Color.HSVToRGB(3.0f / 7.0f, 0.3f, 1.0f),
-      Color.HSVToRGB(4.0f / 7.0f, 0.3f, 1.0f),
-      Color.HSVToRGB(5.0f / 7.0f, 0.3f, 1.0f),
-      Color.HSVToRGB(6.0f / 7.0f, 0.3f, 1.0f),
-      Color.HSVToRGB(7.0f / 7.0f, 0.3f, 1.0f),
-    };
-
     private Transform field_;
     private float startAt_;
     [SerializeField] private float duration = 6.5f;
@@ -25,10 +16,10 @@ namespace Witch.Momiji {
     protected override void OnStart() {
       field_ = GameObject.FindWithTag("Field").transform;
       startAt_ = IntegrationTime;
-      for (var i = 0; i < Colors.Length; ++i) {
+      for (var i = 0; i < MagicElement.Colors.Length; ++i) {
         var spirit = Instantiate(spiritPrefab, transform.localPosition, Quaternion.identity, field_);
         var fairy = spirit.GetComponent<FairyOfLight>();
-        fairy.color = Colors[i];
+        fairy.color = MagicElement.Colors[i];
         var rot = Quaternion.Euler(Random.Range(-180.0f, 180.0f), Random.Range(-180.0f, 180.0f),
           Random.Range(-180.0f, 180.0f));
         fairy.poleRotationAxis = rot * Vector3.right;
