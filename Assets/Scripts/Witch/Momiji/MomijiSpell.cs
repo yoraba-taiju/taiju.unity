@@ -39,6 +39,7 @@ namespace Witch.Momiji {
 
       for (var i = 0; i < rings_.Length; ++i) {
         rings_[i] = Instantiate(ringPrefab, transform.localPosition, Quaternion.identity, field_);
+        rings_[i].GetComponent<MomijiSpellRing>().duration = duration;
       }
     }
 
