@@ -8,14 +8,14 @@ namespace Witch.Sora {
     [SerializeField] private GameObject momijiSpell;
     private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
-    private PlayerInput.PlayerActions playerActions_;
+    private PlayerInput.PlayingActions actions_;
     private Transform field_;
     private Rigidbody2D rigidbody_;
     private float toFire_;
     private bool fired_;
 
     protected override void OnStart() {
-      playerActions_ = playerInput.Player;
+      actions_ = playerInput.Playing;
       rigidbody_ = GetComponent<Rigidbody2D>();
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field").transform;
@@ -24,7 +24,7 @@ namespace Witch.Sora {
     }
 
     private void FixedUpdate() {
-      rigidbody_.velocity = playerActions_.Move.ReadValue<Vector2>() * 15.0f;
+      rigidbody_.velocity = actions_.Move.ReadValue<Vector2>() * 15.0f;
     }
 
     private void ClampPosition() {
@@ -39,7 +39,7 @@ namespace Witch.Sora {
 
     protected override void OnForward() {
       ClampPosition();
-      var fire = playerActions_.Fire;
+      var fire = actions_.Fire;
       if (toFire_ <= 0.0f) {
         if (fire.IsPressed()) {
           if (!fired_) {
@@ -58,7 +58,7 @@ namespace Witch.Sora {
         toFire_ -= Time.deltaTime;
       }
 
-      var spell = playerActions_.Spell;
+      var spell = actions_.Spell;
       if (spell.triggered) {
         var obj = Instantiate(momijiSpell, field_);
         obj.transform.localPosition = transform.localPosition;

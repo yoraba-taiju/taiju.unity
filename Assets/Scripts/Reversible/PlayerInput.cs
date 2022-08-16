@@ -26,7 +26,7 @@ namespace Reversible
     ""name"": ""PlayerInput"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""Playing"",
             ""id"": ""28d8ba19-7970-4a63-8bb6-4aeea7414e24"",
             ""actions"": [
                 {
@@ -183,12 +183,12 @@ namespace Reversible
         }
     ]
 }");
-            // Player
-            m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-            m_Player_BackClock = m_Player.FindAction("BackClock", throwIfNotFound: true);
-            m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
-            m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-            m_Player_Spell = m_Player.FindAction("Spell", throwIfNotFound: true);
+            // Playing
+            m_Playing = asset.FindActionMap("Playing", throwIfNotFound: true);
+            m_Playing_BackClock = m_Playing.FindAction("BackClock", throwIfNotFound: true);
+            m_Playing_Move = m_Playing.FindAction("Move", throwIfNotFound: true);
+            m_Playing_Fire = m_Playing.FindAction("Fire", throwIfNotFound: true);
+            m_Playing_Spell = m_Playing.FindAction("Spell", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -245,44 +245,44 @@ namespace Reversible
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // Player
-        private readonly InputActionMap m_Player;
-        private IPlayerActions m_PlayerActionsCallbackInterface;
-        private readonly InputAction m_Player_BackClock;
-        private readonly InputAction m_Player_Move;
-        private readonly InputAction m_Player_Fire;
-        private readonly InputAction m_Player_Spell;
-        public struct PlayerActions
+        // Playing
+        private readonly InputActionMap m_Playing;
+        private IPlayingActions m_PlayingActionsCallbackInterface;
+        private readonly InputAction m_Playing_BackClock;
+        private readonly InputAction m_Playing_Move;
+        private readonly InputAction m_Playing_Fire;
+        private readonly InputAction m_Playing_Spell;
+        public struct PlayingActions
         {
             private @PlayerInput m_Wrapper;
-            public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-            public InputAction @BackClock => m_Wrapper.m_Player_BackClock;
-            public InputAction @Move => m_Wrapper.m_Player_Move;
-            public InputAction @Fire => m_Wrapper.m_Player_Fire;
-            public InputAction @Spell => m_Wrapper.m_Player_Spell;
-            public InputActionMap Get() { return m_Wrapper.m_Player; }
+            public PlayingActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @BackClock => m_Wrapper.m_Playing_BackClock;
+            public InputAction @Move => m_Wrapper.m_Playing_Move;
+            public InputAction @Fire => m_Wrapper.m_Playing_Fire;
+            public InputAction @Spell => m_Wrapper.m_Playing_Spell;
+            public InputActionMap Get() { return m_Wrapper.m_Playing; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-            public void SetCallbacks(IPlayerActions instance)
+            public static implicit operator InputActionMap(PlayingActions set) { return set.Get(); }
+            public void SetCallbacks(IPlayingActions instance)
             {
-                if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+                if (m_Wrapper.m_PlayingActionsCallbackInterface != null)
                 {
-                    @BackClock.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
-                    @BackClock.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
-                    @BackClock.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBackClock;
-                    @Move.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                    @Move.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                    @Move.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMove;
-                    @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                    @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                    @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
-                    @Spell.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpell;
-                    @Spell.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpell;
-                    @Spell.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSpell;
+                    @BackClock.started -= m_Wrapper.m_PlayingActionsCallbackInterface.OnBackClock;
+                    @BackClock.performed -= m_Wrapper.m_PlayingActionsCallbackInterface.OnBackClock;
+                    @BackClock.canceled -= m_Wrapper.m_PlayingActionsCallbackInterface.OnBackClock;
+                    @Move.started -= m_Wrapper.m_PlayingActionsCallbackInterface.OnMove;
+                    @Move.performed -= m_Wrapper.m_PlayingActionsCallbackInterface.OnMove;
+                    @Move.canceled -= m_Wrapper.m_PlayingActionsCallbackInterface.OnMove;
+                    @Fire.started -= m_Wrapper.m_PlayingActionsCallbackInterface.OnFire;
+                    @Fire.performed -= m_Wrapper.m_PlayingActionsCallbackInterface.OnFire;
+                    @Fire.canceled -= m_Wrapper.m_PlayingActionsCallbackInterface.OnFire;
+                    @Spell.started -= m_Wrapper.m_PlayingActionsCallbackInterface.OnSpell;
+                    @Spell.performed -= m_Wrapper.m_PlayingActionsCallbackInterface.OnSpell;
+                    @Spell.canceled -= m_Wrapper.m_PlayingActionsCallbackInterface.OnSpell;
                 }
-                m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+                m_Wrapper.m_PlayingActionsCallbackInterface = instance;
                 if (instance != null)
                 {
                     @BackClock.started += instance.OnBackClock;
@@ -300,7 +300,7 @@ namespace Reversible
                 }
             }
         }
-        public PlayerActions @Player => new PlayerActions(this);
+        public PlayingActions @Playing => new PlayingActions(this);
         private int m_GamepadSchemeIndex = -1;
         public InputControlScheme GamepadScheme
         {
@@ -310,7 +310,7 @@ namespace Reversible
                 return asset.controlSchemes[m_GamepadSchemeIndex];
             }
         }
-        public interface IPlayerActions
+        public interface IPlayingActions
         {
             void OnBackClock(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
