@@ -34,7 +34,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Base
+  m_Name: Motion
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -5554357171354932498}
@@ -147,7 +147,7 @@ AnimatorController:
   m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
-    m_Name: Base
+    m_Name: Motion
     m_StateMachine: {fileID: -5330835126777154865}
     m_Mask: {fileID: 0}
     m_Motions: []
@@ -159,7 +159,7 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: Motion
+    m_Name: State
     m_StateMachine: {fileID: 7865403561371368529}
     m_Mask: {fileID: 0}
     m_Motions: []
@@ -226,7 +226,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Motion
+  m_Name: State
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 8297255719178290550}
