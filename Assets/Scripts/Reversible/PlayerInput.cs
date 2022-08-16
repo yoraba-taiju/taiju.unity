@@ -135,17 +135,6 @@ namespace Reversible
                 },
                 {
                     ""name"": """",
-                    ""id"": ""103e26dc-d696-4f29-8ccb-3a81c01526b1"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PlayerScheme"",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""69898c75-f7c6-4a01-a378-40a9af6218f3"",
                     ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
@@ -157,12 +146,23 @@ namespace Reversible
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9ba02c71-6090-4e6a-a768-641d4dbc0d49"",
+                    ""id"": ""ff542776-10c9-43b8-ab48-07e16bd0f772"",
                     ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""PlayerScheme"",
+                    ""groups"": """",
                     ""action"": ""BackClock"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""accdba43-6560-4be5-92fc-a8df729e4043"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -171,8 +171,8 @@ namespace Reversible
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""PlayerScheme"",
-            ""bindingGroup"": ""PlayerScheme"",
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Gamepad>"",
@@ -301,13 +301,13 @@ namespace Reversible
             }
         }
         public PlayerActions @Player => new PlayerActions(this);
-        private int m_PlayerSchemeSchemeIndex = -1;
-        public InputControlScheme PlayerSchemeScheme
+        private int m_GamepadSchemeIndex = -1;
+        public InputControlScheme GamepadScheme
         {
             get
             {
-                if (m_PlayerSchemeSchemeIndex == -1) m_PlayerSchemeSchemeIndex = asset.FindControlSchemeIndex("PlayerScheme");
-                return asset.controlSchemes[m_PlayerSchemeSchemeIndex];
+                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+                return asset.controlSchemes[m_GamepadSchemeIndex];
             }
         }
         public interface IPlayerActions
