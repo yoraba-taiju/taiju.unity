@@ -30,8 +30,8 @@ namespace Reversible.Unity {
     private ICompanion[] companions_;
 
     private void Start() {
-      var stageOwner = GameObject.FindGameObjectWithTag("StageOwner");
-      player_ = stageOwner.GetComponent<Player>();
+      var backstage = GameObject.FindGameObjectWithTag("Backstage");
+      player_ = backstage.GetComponent<Player>();
       clock_ = player_.Clock;
       bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {
@@ -41,7 +41,7 @@ namespace Reversible.Unity {
           destroyWhenInvisible = false;
         }
 
-        world_ = stageOwner.GetComponent<World>();
+        world_ = backstage.GetComponent<World>();
         wasVisible_ = false;
       }
 

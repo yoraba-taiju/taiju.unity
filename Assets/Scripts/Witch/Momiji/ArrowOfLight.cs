@@ -1,6 +1,6 @@
 ﻿using Enemy;
 using Reversible.Unity;
-using Reversible.Unity.Components;
+using Reversible.Unity.ReversibleGameObject;
 using Reversible.Value;
 using UnityEngine;
 using Utility;

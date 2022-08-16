@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Lib;
+﻿using Lib;
 using Reversible.Value;
 using UnityEngine;
 
-namespace Reversible.Unity.Components {
+namespace Reversible.Unity.ReversibleGameObject {
   public sealed class ReversibleTrail : ComponentBase {
     private readonly Vector3[] pointBuffer_ = new Vector3[128];
     private Dense<float> currentTime_;

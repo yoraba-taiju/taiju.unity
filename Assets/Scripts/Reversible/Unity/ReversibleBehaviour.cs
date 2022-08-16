@@ -20,9 +20,9 @@ namespace Reversible.Unity {
     protected abstract void OnForward();
 
     public void Start() {
-      var stageOwner = GameObject.FindGameObjectWithTag("StageOwner");
-      player = stageOwner.GetComponent<Player>();
-      world = stageOwner.GetComponent<World>();
+      var backstage = GameObject.FindGameObjectWithTag("Backstage");
+      player = backstage.GetComponent<Player>();
+      world = backstage.GetComponent<World>();
       clock = player.Clock;
       OnStart();
     }
