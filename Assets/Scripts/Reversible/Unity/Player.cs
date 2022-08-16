@@ -26,6 +26,8 @@ namespace Reversible.Unity {
     private void OnEnable() {
       Input = new PlayerInput();
       Input.Enable();
+      Input.Pause.Disable();
+      Input.Playing.Enable();
     }
 
     private void OnDisable() {
