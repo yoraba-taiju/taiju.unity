@@ -66,7 +66,7 @@ namespace Reversible.Unity {
       Backed = false;
       Leaped = false;
 
-      var backPressed = PlayerInput.Player.BackClock;
+      var backPressed = PlayerInput.Playing.BackClock;
       if (backPressed.WasPressedThisFrame()) {
         Time.timeScale = 0.0f;
         timeToTick_ = SecondPerFrame;
