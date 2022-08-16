@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9030802944973006831, guid: 6503dedcdaa5c4e438a8d6df584267e6, type: 3}
       propertyPath: m_Name
-      value: "\u9B54\u7D20\u306E\u5149"
+      value: Trail
       objectReference: {fileID: 0}
     - target: {fileID: 9030802944973006831, guid: 6503dedcdaa5c4e438a8d6df584267e6, type: 3}
       propertyPath: m_Layer
