@@ -75,6 +75,10 @@
 - [ScriptableObject を使ってシーンワークフローを改善しよう | Unity Blog](https://blog.unity.com/ja/technology/achieve-better-scene-workflow-with-scriptableobjects)
 - [UnityのScene間でのデータの受け渡し方法について比較する - Qiita](https://qiita.com/Kosei-Yoshida/items/d7dc37bcde3a52cb5265)
 
+## Asset Management
+
+- [【Unity】僕はそろそろResourcesフォルダを卒業しようと思う - LIGHT11](https://light11.hatenadiary.com/entry/2020/07/29/202755)
+
 # Blender References
 
 ## HDRI
