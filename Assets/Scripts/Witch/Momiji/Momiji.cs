@@ -13,7 +13,7 @@ namespace Witch.Momiji {
     private bool fired_;
 
     protected override void OnStart() {
-      actions_ = playerInput.Playing;
+      actions_ = Input.Playing;
       rigidbody_ = GetComponent<Rigidbody2D>();
       //playerInput_.Player.Move.performed += context => Debug.Log($"{context.ReadValue<Vector2>()}");
       field_ = GameObject.FindGameObjectWithTag("Field");

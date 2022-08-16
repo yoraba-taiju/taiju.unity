@@ -12,7 +12,7 @@ namespace Reversible.Unity.Components {
 
     private LineRenderer lineRenderer_;
     [SerializeField] public float lifeTime = 1f;
-    private const float TimeLimit = Clock.HISTORY_LENGTH * ClockController.SecondPerFrame;
+    private const float TimeLimit = Clock.HISTORY_LENGTH * Player.SecondPerFrame;
 
     protected override void OnStart() {
       lineRenderer_ = gameObject.GetComponent<LineRenderer>();
@@ -77,7 +77,7 @@ namespace Reversible.Unity.Components {
     }
 
     protected override void OnReverse() {
-      if (!clockController.Backed) {
+      if (!player.Backed) {
         return;
       }
       var currentTime = currentTime_.Ref;

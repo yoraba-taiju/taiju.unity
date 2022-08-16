@@ -4,20 +4,20 @@ using UnityEngine;
 namespace Reversible.Unity.Specialized {
   public abstract class SpecializedReversibleComponentBehaviour : MonoBehaviour {
     private uint bornAt_;
-    protected ClockController clockController;
+    protected Player player;
     protected World world;
     protected Clock clock;
 
     protected float CurrentTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      get => clockController.IntegrationTime;
+      get => player.IntegrationTime;
     }
 
     public void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      clockController = clockObj.GetComponent<ClockController>();
+      player = clockObj.GetComponent<Player>();
       world = clockObj.GetComponent<World>();
-      clock = clockController.Clock;
+      clock = player.Clock;
       bornAt_ = clock.CurrentTick;
       OnStart();
     }
@@ -27,11 +27,11 @@ namespace Reversible.Unity.Specialized {
         Destroy(gameObject);
         return;
       }
-      if (clockController.Ticked) {
+      if (player.Ticked) {
         OnTick();
-      } else if (clockController.Backed) {
+      } else if (player.Backed) {
         OnBack();
-      } else if (clockController.Leaped) {
+      } else if (player.Leaped) {
         OnLeap();
       }
     }

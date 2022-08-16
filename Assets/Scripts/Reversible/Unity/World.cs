@@ -6,7 +6,7 @@ namespace Reversible.Unity {
   public sealed class World : MonoBehaviour {
     /* Clock */
     private Clock clock_;
-    private ClockController clockController_;
+    private Player player_;
 
     /* GameObject Management */
     public HashSet<Transform> LivingEnemies { get; } = new();
@@ -17,14 +17,14 @@ namespace Reversible.Unity {
     }
 
     private void Start() {
-      clockController_ = gameObject.GetComponent<ClockController>();
-      clock_ = clockController_.Clock;
+      player_ = gameObject.GetComponent<Player>();
+      clock_ = player_.Clock;
     }
 
     private void Update() {
-      if (clockController_.Ticked) {
+      if (player_.Ticked) {
         RemoveOutdated(clock_.CurrentTick);
-      } else if (clockController_.Backed) {
+      } else if (player_.Backed) {
         RestoreOutdated(clock_.CurrentTick);
       }
     }

@@ -35,7 +35,7 @@ namespace Enemy {
     }
 
     private void OnCollision2D(GameObject other) {
-      if (!clockController.IsForwarding) {
+      if (!player.IsForwarding) {
         return;
       }
 

@@ -3,14 +3,17 @@ using UnityEngine;
 
 namespace Reversible.Unity {
   public abstract class ReversibleBehaviour : MonoBehaviour {
-    protected ClockController clockController;
+    protected Player player;
     protected World world;
     protected Clock clock;
-    protected PlayerInput playerInput;
 
     protected float IntegrationTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      get => clockController.IntegrationTime;
+      get => player.IntegrationTime;
+    }
+    protected PlayerInput Input {
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      get => player.Input;
     }
 
     protected abstract void OnStart();
@@ -18,10 +21,9 @@ namespace Reversible.Unity {
 
     public void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      clockController = clockObj.GetComponent<ClockController>();
+      player = clockObj.GetComponent<Player>();
       world = clockObj.GetComponent<World>();
-      playerInput = clockController.PlayerInput;
-      clock = clockController.Clock;
+      clock = player.Clock;
       OnStart();
     }
 
@@ -32,12 +34,12 @@ namespace Reversible.Unity {
     }
 
     public void Update() {
-      if (clockController.Leaped) {
+      if (player.Leaped) {
         OnLeap();
         return;
       }
 
-      if (clockController.IsForwarding) {
+      if (player.IsForwarding) {
         OnForward();
       } else {
         OnReverse();

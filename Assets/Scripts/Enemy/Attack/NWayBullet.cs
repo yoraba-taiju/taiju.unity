@@ -24,7 +24,7 @@ namespace Enemy.Attack {
     }
 
     protected override void OnForward() {
-      if (!clockController.Ticked) {
+      if (!player.Ticked) {
         return;
       }
 

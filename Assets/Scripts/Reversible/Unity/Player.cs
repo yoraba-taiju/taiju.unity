@@ -4,9 +4,9 @@ using Reversible.Value;
 using UnityEngine;
 
 namespace Reversible.Unity {
-  public sealed class ClockController : MonoBehaviour {
+  public sealed class Player : MonoBehaviour {
     // getter
-    public PlayerInput PlayerInput { get; private set; }
+    public PlayerInput Input { get; private set; }
     public Clock Clock { get; } = new();
     public bool Ticked { get; private set; }
     public bool Backed { get; private set; }
@@ -24,14 +24,14 @@ namespace Reversible.Unity {
     public const float SecondPerFrame = 1.0f / 30.0f;
 
     private void OnEnable() {
-      PlayerInput = new PlayerInput();
-      PlayerInput.Enable();
+      Input = new PlayerInput();
+      Input.Enable();
     }
 
     private void OnDisable() {
-      PlayerInput.Disable();
-      PlayerInput.Dispose();
-      PlayerInput = null;
+      Input.Disable();
+      Input.Dispose();
+      Input = null;
     }
 
     private void Start() {
@@ -66,7 +66,7 @@ namespace Reversible.Unity {
       Backed = false;
       Leaped = false;
 
-      var backPressed = PlayerInput.Playing.BackClock;
+      var backPressed = Input.Playing.BackClock;
       if (backPressed.WasPressedThisFrame()) {
         Time.timeScale = 0.0f;
         timeToTick_ = SecondPerFrame;

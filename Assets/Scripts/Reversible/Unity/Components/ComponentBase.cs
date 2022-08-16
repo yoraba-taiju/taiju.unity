@@ -3,23 +3,23 @@ using UnityEngine;
 
 namespace Reversible.Unity.Components {
   public abstract class ComponentBase : MonoBehaviour {
-    protected ClockController clockController;
+    protected Player player;
     protected World world;
     protected Clock clock;
     private uint bornAt_;
 
     protected float CurrentTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      get => clockController.IntegrationTime;
+      get => player.IntegrationTime;
     }
 
     protected abstract void OnStart();
 
     public void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      clockController = clockObj.GetComponent<ClockController>();
+      player = clockObj.GetComponent<Player>();
       world = clockObj.GetComponent<World>();
-      clock = clockController.Clock;
+      clock = player.Clock;
       bornAt_ = clock.CurrentTick;
       OnStart();
     }
@@ -30,7 +30,7 @@ namespace Reversible.Unity.Components {
         return;
       }
 
-      if (clockController.IsForwarding) {
+      if (player.IsForwarding) {
         OnForward();
       } else {
         OnReverse();

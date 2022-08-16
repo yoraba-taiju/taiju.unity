@@ -33,7 +33,7 @@ namespace Witch {
     }
 
     private void OnCollisionAll2D(GameObject other) {
-      if (!clockController.IsForwarding) {
+      if (!player.IsForwarding) {
         return;
       }
 

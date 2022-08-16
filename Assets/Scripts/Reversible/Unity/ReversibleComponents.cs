@@ -6,7 +6,7 @@ using Transform = Reversible.Unity.Companion.Transform;
 namespace Reversible.Unity {
   public sealed class ReversibleComponents : MonoBehaviour {
     // Clock
-    private ClockController controller_;
+    private Player controller_;
     private Clock clock_;
     private uint bornAt_;
 
@@ -31,7 +31,7 @@ namespace Reversible.Unity {
 
     private void Start() {
       var clockObj = GameObject.FindGameObjectWithTag("Clock");
-      controller_ = clockObj.GetComponent<ClockController>();
+      controller_ = clockObj.GetComponent<Player>();
       clock_ = controller_.Clock;
       bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {

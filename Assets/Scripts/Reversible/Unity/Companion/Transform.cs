@@ -13,8 +13,8 @@ namespace Reversible.Unity.Companion {
 
     private Dense<Record> record_;
 
-    public Transform(ClockController clockController, UnityEngine.Transform transform) {
-      var clock = clockController.Clock;
+    public Transform(Player player, UnityEngine.Transform transform) {
+      var clock = player.Clock;
       transform_ = transform;
       record_ = new Dense<Record>(clock, new Record() {
         localPosition = transform_.localPosition,

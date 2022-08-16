@@ -25,7 +25,7 @@ namespace Reversible.Unity.Companion {
       Array.Copy(src.particles, dst.particles, src.count);
     }
 
-    public ParticleSystem(ClockController controller, UnityEngine.ParticleSystem particleSystem) {
+    public ParticleSystem(Player controller, UnityEngine.ParticleSystem particleSystem) {
       var clock = controller.Clock;
 
       particleSystem_ = particleSystem;

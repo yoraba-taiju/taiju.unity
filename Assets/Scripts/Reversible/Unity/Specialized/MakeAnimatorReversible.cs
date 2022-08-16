@@ -7,7 +7,7 @@ namespace Reversible.Unity.Specialized {
 
     protected override void OnStart() {
       animator_ = GetComponent<Animator>();
-      companion_ = new Companion.Animator(clockController, animator_);
+      companion_ = new Companion.Animator(player, animator_);
     }
 
     protected override void OnTick() {

@@ -131,7 +131,7 @@ namespace Witch.Momiji {
     }
 
     private void OnTrigger2D(Collider2D other) {
-      if (!clockController.IsForwarding) {
+      if (!player.IsForwarding) {
         return;
       }
     }

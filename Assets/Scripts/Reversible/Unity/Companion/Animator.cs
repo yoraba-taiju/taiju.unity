@@ -29,8 +29,8 @@ namespace Reversible.Unity.Companion {
     // Triggers
     private readonly int[] triggers_;
 
-    public Animator(ClockController clockController, UnityEngine.Animator animator) {
-      var clock = clockController.Clock;
+    public Animator(Player player, UnityEngine.Animator animator) {
+      var clock = player.Clock;
 
       animator_ = animator;
       {
@@ -108,7 +108,7 @@ namespace Reversible.Unity.Companion {
           }
         }
 
-        params_ = new Dense<ParameterState>(clockController.Clock, CloneParamState, initial);
+        params_ = new Dense<ParameterState>(player.Clock, CloneParamState, initial);
       } else {
         parameters_ = null;
         parameterIdx_ = null;

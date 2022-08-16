@@ -9,7 +9,7 @@ namespace Reversible.Unity.Specialized {
       particle_ = GetComponent<ParticleSystem>();
       var main = particle_.main;
       main.stopAction = ParticleSystemStopAction.Callback;
-      companion_ = new Companion.ParticleSystem(clockController, particle_);
+      companion_ = new Companion.ParticleSystem(player, particle_);
     }
 
     protected override void OnTick() {
