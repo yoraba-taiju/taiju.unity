@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using Reversible.Value;
 using UnityEngine;
 
@@ -22,9 +23,18 @@ namespace Reversible.Unity {
     private float timeToTick_;
     public const float SecondPerFrame = 1.0f / 30.0f;
 
-    private void Start() {
+    private void OnEnable() {
       PlayerInput = new PlayerInput();
       PlayerInput.Enable();
+    }
+
+    private void OnDisable() {
+      PlayerInput.Disable();
+      PlayerInput.Dispose();
+      PlayerInput = null;
+    }
+
+    private void Start() {
       integrationTime_ = new Dense<float>(Clock, 0.0f);
       timeToTick_ = SecondPerFrame;
       Ticked = false;
