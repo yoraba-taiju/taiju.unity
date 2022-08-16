@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UI {
+namespace HUD {
   [ExecuteInEditMode]
   public class WitchMarker : MonoBehaviour {
     [SerializeField] private GameObject witch;
