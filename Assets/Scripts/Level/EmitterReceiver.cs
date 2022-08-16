@@ -18,7 +18,6 @@ namespace Level {
             var obj = Instantiate(childTransform.gameObject, parentTransform);
             obj.transform.localPosition += (Vector3) rushEmitter.position;
           }
-
           break;
         }
         default:
