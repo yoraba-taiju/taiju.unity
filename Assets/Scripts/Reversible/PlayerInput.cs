@@ -167,6 +167,54 @@ namespace Reversible
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Pause"",
+            ""id"": ""84bf1fa3-f976-4778-baa1-5cc502a1703c"",
+            ""actions"": [
+                {
+                    ""name"": ""Yes"",
+                    ""type"": ""Button"",
+                    ""id"": ""eafdf54a-aa06-4720-bbad-33bee6011939"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""No"",
+                    ""type"": ""Button"",
+                    ""id"": ""807f5e0e-78a9-4f57-8c66-13f5392f75b7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""37df2d15-9853-44b2-b558-3618e91a222f"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Yes"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df251135-15e7-4e0e-a3cb-89eb58147a4f"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""No"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -189,6 +237,10 @@ namespace Reversible
             m_Playing_Move = m_Playing.FindAction("Move", throwIfNotFound: true);
             m_Playing_Fire = m_Playing.FindAction("Fire", throwIfNotFound: true);
             m_Playing_Spell = m_Playing.FindAction("Spell", throwIfNotFound: true);
+            // Pause
+            m_Pause = asset.FindActionMap("Pause", throwIfNotFound: true);
+            m_Pause_Yes = m_Pause.FindAction("Yes", throwIfNotFound: true);
+            m_Pause_No = m_Pause.FindAction("No", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -301,6 +353,47 @@ namespace Reversible
             }
         }
         public PlayingActions @Playing => new PlayingActions(this);
+
+        // Pause
+        private readonly InputActionMap m_Pause;
+        private IPauseActions m_PauseActionsCallbackInterface;
+        private readonly InputAction m_Pause_Yes;
+        private readonly InputAction m_Pause_No;
+        public struct PauseActions
+        {
+            private @PlayerInput m_Wrapper;
+            public PauseActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Yes => m_Wrapper.m_Pause_Yes;
+            public InputAction @No => m_Wrapper.m_Pause_No;
+            public InputActionMap Get() { return m_Wrapper.m_Pause; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PauseActions set) { return set.Get(); }
+            public void SetCallbacks(IPauseActions instance)
+            {
+                if (m_Wrapper.m_PauseActionsCallbackInterface != null)
+                {
+                    @Yes.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnYes;
+                    @Yes.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnYes;
+                    @Yes.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnYes;
+                    @No.started -= m_Wrapper.m_PauseActionsCallbackInterface.OnNo;
+                    @No.performed -= m_Wrapper.m_PauseActionsCallbackInterface.OnNo;
+                    @No.canceled -= m_Wrapper.m_PauseActionsCallbackInterface.OnNo;
+                }
+                m_Wrapper.m_PauseActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Yes.started += instance.OnYes;
+                    @Yes.performed += instance.OnYes;
+                    @Yes.canceled += instance.OnYes;
+                    @No.started += instance.OnNo;
+                    @No.performed += instance.OnNo;
+                    @No.canceled += instance.OnNo;
+                }
+            }
+        }
+        public PauseActions @Pause => new PauseActions(this);
         private int m_GamepadSchemeIndex = -1;
         public InputControlScheme GamepadScheme
         {
@@ -316,6 +409,11 @@ namespace Reversible
             void OnMove(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnSpell(InputAction.CallbackContext context);
+        }
+        public interface IPauseActions
+        {
+            void OnYes(InputAction.CallbackContext context);
+            void OnNo(InputAction.CallbackContext context);
         }
     }
 }
