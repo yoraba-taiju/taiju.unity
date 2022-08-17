@@ -120,8 +120,7 @@ namespace Enemy.Drone {
     public override void OnCollision2D(GameObject other) {
       ref var shield = ref shield_.Mut;
       shield -= 1.0f;
-      if (!float.IsNaN(shield) && shield <= 0) {
-        shield = float.NaN;
+      if (gameObject.activeSelf && shield <= 0) {
         Destroy();
 
         var trans = transform;
