@@ -26,7 +26,9 @@ namespace Reversible.Unity {
       PlayableDirector,
     }
 
-    [SerializeField] public Component[] targetComponents = {Component.Transform};
+    [SerializeField] public Component[] targetComponents = {
+       Component.Transform,
+    };
     private ICompanion[] companions_;
 
     private void Start() {
@@ -35,14 +37,15 @@ namespace Reversible.Unity {
       clock_ = player_.Clock;
       bornAt_ = clock_.CurrentTick;
       if (destroyWhenInvisible) {
-        renderers_ = GetComponentsInChildren<Renderer>();
-        if (renderers_.Length == 0) {
+        var renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length > 0) {
+          renderers_ = renderers;
+          world_ = backstage.GetComponent<World>();
+          wasVisible_ = false;
+        } else {
           Debug.LogWarning("No renderers attached.");
           destroyWhenInvisible = false;
         }
-
-        world_ = backstage.GetComponent<World>();
-        wasVisible_ = false;
       }
 
       if (targetComponents.Length <= 0) {
@@ -79,6 +82,9 @@ namespace Reversible.Unity {
           var visible = false;
           foreach (var r in renderers_) {
             visible |= r.isVisible;
+            if (visible) {
+              break;
+            }
           }
 
           if (wasVisible_) {
