@@ -35,7 +35,7 @@ namespace Reversible.Unity {
         var (destroyedAt, obj) = graveYard_.First.Value;
         if (destroyedAt + Clock.HISTORY_LENGTH < currentTick) {
           graveYard_.RemoveFirst();
-          MonoBehaviour.Destroy(obj);
+          GameObject.Destroy(obj);
         } else {
           break;
         }
@@ -50,7 +50,6 @@ namespace Reversible.Unity {
           if (obj.layer == LayerName.Enemy) {
             LivingEnemies.Add(obj.transform.GetComponent<EnemyBehaviour>());
           }
-
           obj.SetActive(true);
         } else {
           break;
@@ -62,11 +61,14 @@ namespace Reversible.Unity {
       LivingEnemies.Add(enemy);
     }
     public void Destroy(GameObject obj) {
+      if (!obj.activeSelf) {
+        return;
+      }
+      obj.SetActive(false);
       if (obj.layer == LayerName.Enemy) {
         LivingEnemies.Remove(obj.GetComponent<EnemyBehaviour>());
       }
       graveYard_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
-      obj.SetActive(false);
     }
   }
 }
