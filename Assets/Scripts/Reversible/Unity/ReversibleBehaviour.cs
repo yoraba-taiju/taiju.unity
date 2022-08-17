@@ -49,8 +49,8 @@ namespace Reversible.Unity {
     protected void Destroy() {
       world.Destroy(gameObject);
     }
-    protected void Destroy(GameObject obj) {
-      world.Destroy(obj);
+    protected void Destroy(GameObject gameObject) {
+      world.Destroy(gameObject);
     }
   }
 }
