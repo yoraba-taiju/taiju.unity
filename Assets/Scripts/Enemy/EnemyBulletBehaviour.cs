@@ -7,8 +7,7 @@ namespace Enemy {
     private static int terrainLayer_;
 
     private new void Start() {
-      var self = this as ReversibleBehaviour;
-      self.Start();
+      base.Start();
       if (witchLayer_ == 0) {
         witchLayer_ = LayerMask.NameToLayer("Witch");
       }

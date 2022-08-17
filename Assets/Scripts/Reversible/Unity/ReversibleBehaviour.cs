@@ -19,7 +19,7 @@ namespace Reversible.Unity {
     protected abstract void OnStart();
     protected abstract void OnForward();
 
-    public void Start() {
+    protected void Start() {
       var backstage = GameObject.FindGameObjectWithTag("Backstage");
       player = backstage.GetComponent<Player>();
       world = backstage.GetComponent<World>();
@@ -49,8 +49,8 @@ namespace Reversible.Unity {
     protected void Destroy() {
       world.Destroy(gameObject);
     }
-    protected void Destroy(GameObject gameObject) {
-      world.Destroy(gameObject);
+    protected void Destroy(GameObject obj) {
+      world.Destroy(obj);
     }
   }
 }

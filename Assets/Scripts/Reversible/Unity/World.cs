@@ -60,7 +60,6 @@ namespace Reversible.Unity {
     public void RegisterEnemy(Transform enemyTransform) {
       LivingEnemies.Add(enemyTransform);
     }
-
     public void Destroy(GameObject obj) {
       LivingEnemies.Remove(obj.transform);
       graveYard_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));

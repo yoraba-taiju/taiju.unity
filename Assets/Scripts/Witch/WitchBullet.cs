@@ -6,8 +6,7 @@ namespace Witch {
     private static int layerMask_;
 
     private new void Start() {
-      var self = this as ReversibleBehaviour;
-      self.Start();
+      base.Start();
       if (layerMask_ == 0) {
         layerMask_ = LayerMask.GetMask("Terrain", "Enemy");
       }

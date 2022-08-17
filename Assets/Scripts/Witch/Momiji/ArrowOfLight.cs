@@ -26,8 +26,7 @@ namespace Witch.Momiji {
     private float Duration { get; set; }
 
     private new void Start() {
-      var self = this as ReversibleBehaviour;
-      self.Start();
+      base.Start();
     }
 
     protected override void OnStart() {
