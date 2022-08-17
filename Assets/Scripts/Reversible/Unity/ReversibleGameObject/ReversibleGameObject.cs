@@ -2,7 +2,7 @@
 using UnityEngine;
 
 namespace Reversible.Unity.ReversibleGameObject {
-  public abstract class ComponentBase : MonoBehaviour {
+  public abstract class ReversibleGameObject : MonoBehaviour {
     protected Player player;
     protected World world;
     protected Clock clock;

@@ -3,7 +3,7 @@ using Reversible.Value;
 using UnityEngine;
 
 namespace Reversible.Unity.ReversibleGameObject {
-  public sealed class ReversibleTrail : ComponentBase {
+  public sealed class ReversibleTrail : ReversibleGameObject {
     private readonly Vector3[] pointBuffer_ = new Vector3[128];
     private Dense<float> currentTime_;
     private RingBuffer<float> times_ = new(16384);
