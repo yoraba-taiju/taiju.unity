@@ -53,9 +53,8 @@ namespace Reversible.Unity {
       }
 
       companions_ = new ICompanion[targetComponents.Length];
-      var i = -1;
+      var i = 0;
       foreach (var target in targetComponents) {
-        i++;
         companions_[i] = target switch {
           Component.None => throw new InvalidEnumArgumentException("Please set some target"),
           Component.Transform => new Transform(player_, transform),
@@ -65,6 +64,7 @@ namespace Reversible.Unity {
           Component.PlayableDirector => new Companion.PlayableDirector(player_, GetComponent<PlayableDirector>()),
           _ => throw new InvalidEnumArgumentException($"Unknown target: {target}"),
         };
+        ++i;
       }
     }
 
