@@ -17,9 +17,8 @@ namespace Witch.Momiji {
     private Sparse<bool> alreadyHit_;
 
     // target
-    private Transform target_;
+    private EnemyBehaviour target_;
     private Rigidbody2D targetRigidbody_;
-    private EnemyBehaviour targetBehaviour_;
 
     // Management
     private Dense<float> totalTime_;
@@ -40,10 +39,9 @@ namespace Witch.Momiji {
       Duration = period + GetComponent<ReversibleTrail>().lifeTime;
     }
 
-    private void Track(GameObject obj) {
-      target_ = obj.transform;
+    private void Track(EnemyBehaviour obj) {
+      target_ = obj;
       targetRigidbody_ = obj.GetComponent<Rigidbody2D>();
-      targetBehaviour_ = obj.GetComponent<EnemyBehaviour>();
     }
 
     protected override void OnForward() {
@@ -62,7 +60,7 @@ namespace Witch.Momiji {
           var force = Mover.TrackingForce(
             trans.localPosition,
             velocity,
-            target_.localPosition,
+            target_.transform.localPosition,
             targetRigidbody_.velocity,
             period - totalTime
           );
@@ -75,7 +73,7 @@ namespace Witch.Momiji {
           return;
         }
 
-        targetBehaviour_.OnCollision2D(gameObject);
+        target_.OnCollision2D(gameObject);
         alreadyHit_.Mut = true;
         isTracking_.Mut = false;
       } else {
@@ -86,17 +84,20 @@ namespace Witch.Momiji {
     private bool FindNextTarget() {
       var minDistance = float.MaxValue;
       var trans = transform;
-      GameObject nextTarget = null;
+      EnemyBehaviour nextTarget = null;
       var found = false;
       foreach (var other in world.LivingEnemies) {
-        var diff = other.localPosition - trans.localPosition;
+        if (!other.CanCollide()) {
+          continue;
+        }
+        var diff = other.transform.localPosition - trans.localPosition;
         var distance = diff.magnitude;
         if (distance >= minDistance) {
           continue;
         }
 
         minDistance = distance;
-        nextTarget = other.gameObject;
+        nextTarget = other;
         found = true;
       }
 

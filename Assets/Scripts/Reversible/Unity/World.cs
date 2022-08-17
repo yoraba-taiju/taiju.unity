@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Enemy;
 using UnityEngine;
 
 namespace Reversible.Unity {
@@ -9,7 +10,7 @@ namespace Reversible.Unity {
     private Player player_;
 
     /* GameObject Management */
-    public HashSet<Transform> LivingEnemies { get; } = new();
+    public HashSet<EnemyBehaviour> LivingEnemies { get; } = new();
     private readonly LinkedList<Tuple<uint, GameObject>> graveYard_ = new();
 
     private struct LayerName {
@@ -47,7 +48,7 @@ namespace Reversible.Unity {
         if (destroyedAt >= currentTick) {
           graveYard_.RemoveLast();
           if (obj.layer == LayerName.Enemy) {
-            LivingEnemies.Add(obj.transform);
+            LivingEnemies.Add(obj.transform.GetComponent<EnemyBehaviour>());
           }
 
           obj.SetActive(true);
@@ -57,11 +58,13 @@ namespace Reversible.Unity {
       }
     }
 
-    public void RegisterEnemy(Transform enemyTransform) {
-      LivingEnemies.Add(enemyTransform);
+    public void RegisterEnemy(EnemyBehaviour enemy) {
+      LivingEnemies.Add(enemy);
     }
     public void Destroy(GameObject obj) {
-      LivingEnemies.Remove(obj.transform);
+      if (obj.layer == LayerName.Enemy) {
+        LivingEnemies.Remove(obj.GetComponent<EnemyBehaviour>());
+      }
       graveYard_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
       obj.SetActive(false);
     }

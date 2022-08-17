@@ -1,6 +1,7 @@
 ﻿using System;
 using Reversible.Unity;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Enemy {
   public abstract class EnemyBehaviour : ReversibleBehaviour {
@@ -8,7 +9,7 @@ namespace Enemy {
 
     private new void Start() {
       base.Start();
-      world.RegisterEnemy(transform);
+      world.RegisterEnemy(this);
       if (layerMask_ == 0) {
         layerMask_ = LayerMask.GetMask("WitchBullet");
       }
@@ -30,13 +31,13 @@ namespace Enemy {
       OnCollisionAll2D(other.gameObject);
     }
 
-    private void OnCollisionAll2D(GameObject other) {
-      if (!player.IsForwarding) {
-        return;
-      }
-
+    public bool CanCollide() {
       var pos = transform.localPosition;
-      if (Mathf.Abs(pos.x) >= 18.0f || Mathf.Abs(pos.y) >= 10.0f) {
+      return Mathf.Abs(pos.x) <= 18.0f && Mathf.Abs(pos.y) <= 10.0f;
+    }
+
+    private void OnCollisionAll2D(GameObject other) {
+      if (!player.IsForwarding || !CanCollide()) {
         return;
       }
 
