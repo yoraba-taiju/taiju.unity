@@ -35,6 +35,11 @@ namespace Enemy {
       var pos = transform.localPosition;
       return Mathf.Abs(pos.x) <= 18.0f && Mathf.Abs(pos.y) <= 10.0f;
     }
+    
+    public bool CanTrack() {
+      var pos = transform.localPosition;
+      return Mathf.Abs(pos.x) <= 20.0f && Mathf.Abs(pos.y) <= 12.0f;
+    }
 
     private void OnCollisionAll2D(GameObject other) {
       if (!player.IsForwarding || !CanCollide()) {

@@ -87,7 +87,7 @@ namespace Witch.Momiji {
       EnemyBehaviour nextTarget = null;
       var found = false;
       foreach (var other in world.LivingEnemies) {
-        if (!other.CanCollide()) {
+        if (!other.CanTrack()) {
           continue;
         }
         var diff = other.transform.localPosition - trans.localPosition;
