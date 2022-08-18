@@ -9,8 +9,7 @@ namespace Reversible.Unity {
       OnStart();
     }
 
-    public new void Update() {
-      base.Update();
+    protected override void OnUpdate() {
       if (player.Leaped) {
         OnLeap();
         return;

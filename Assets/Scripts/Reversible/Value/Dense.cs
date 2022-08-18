@@ -35,7 +35,8 @@ namespace Reversible.Value {
       }
 
       vs += "]";
-      UnityEngine.Debug.Log($"Beg: {historyBegin_}, last: ({lastTouchedLeap_}, {lastTouchedTick_}), rec: {vs}");
+      UnityEngine.Debug.LogError($"Current: {clock_.CurrentTick} / Beg: {historyBegin_}, lastTouched: ({lastTouchedLeap_}, {lastTouchedTick_})\n");
+      UnityEngine.Debug.LogError($"Record: {vs}");
     }
 
     public ref readonly T Ref {

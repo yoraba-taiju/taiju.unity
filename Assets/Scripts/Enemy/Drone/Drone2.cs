@@ -118,19 +118,24 @@ namespace Enemy.Drone {
     }
 
     public override void OnCollision2D(GameObject other) {
+      if (!gameObject.activeSelf) {
+        return;
+      }
       ref var shield = ref shield_.Mut;
       shield -= 1.0f;
-      if (gameObject.activeSelf && shield <= 0) {
-        Deactivate();
-
-        var trans = transform;
-        var parent = trans.parent;
-        var localPosition = trans.localPosition;
-        
-        Instantiate(explosionEffectPrefab, localPosition, Quaternion.identity, parent);
-        var emitter = Instantiate(magicElementEmitterPrefab, localPosition, Quaternion.identity, parent).GetComponent<MagicElementEmitter>();
-        emitter.numMagicElements = System.Math.Max(1, Mathf.RoundToInt( initialShield / 3f));
+      if (shield > 0.0f) {
+        return;
       }
+
+      var trans = transform;
+      var parent = trans.parent;
+      var localPosition = trans.localPosition;
+        
+      Instantiate(explosionEffectPrefab, localPosition, Quaternion.identity, parent);
+      var emitter = Instantiate(magicElementEmitterPrefab, localPosition, Quaternion.identity, parent).GetComponent<MagicElementEmitter>();
+      emitter.numMagicElements = System.Math.Max(1, Mathf.RoundToInt( initialShield / 3f));
+
+      Deactivate();
     }
 
     public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {

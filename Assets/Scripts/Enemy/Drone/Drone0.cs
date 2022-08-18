@@ -63,13 +63,17 @@ namespace Enemy.Drone {
     }
 
     public override void OnCollision2D(GameObject other) {
+      if (!gameObject.activeSelf) {
+        return;
+      }
       ref var shield = ref shield_.Mut;
       shield -= 1.0f;
-      if (shield <= 0) {
-        Deactivate();
-        var explosion = Instantiate(explosionEffect, transform.parent);
-        explosion.transform.localPosition = transform.localPosition;
+      if (shield > 0.0f) {
+        return;
       }
+      var explosion = Instantiate(explosionEffect, transform.parent);
+      explosion.transform.localPosition = transform.localPosition;
+      Deactivate();
     }
   }
 }

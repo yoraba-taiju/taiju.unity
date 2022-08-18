@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1062582101777521876}
-  - component: {fileID: 3917194842712800677}
   - component: {fileID: 2946195278332740056}
+  - component: {fileID: -548798552259963496}
   m_Layer: 9
   m_Name: FairyOfLight
   m_TagString: Untagged
@@ -34,20 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3917194842712800677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6582577784227367628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyWhenInvisible: 0
-  targetComponents: 01000000
 --- !u!114 &2946195278332740056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,9 +56,22 @@ MonoBehaviour:
   bornTime: 1
   rotateTime: 4
   endTime: 6
+  trailLifeTime: 0.15
   arrowPrefab: {fileID: 8504349010670632558, guid: b7c769d4cdcba5143ad688ddb80416a1, type: 3}
   arrowLaunchDelay: 0
   arrowLaunchInterval: 0.902439
+--- !u!114 &-548798552259963496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582577784227367628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64666b7c2d4946dcbca58ab24de3451a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7157616853061136481
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,9 +244,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3963343557448405385}
+  - component: {fileID: 3194315064844564037}
   - component: {fileID: 9013443445927583661}
   - component: {fileID: 4529150969279221572}
-  - component: {fileID: 8671279496305569749}
   - component: {fileID: 5143012079869735447}
   - component: {fileID: 6975916318378297749}
   m_Layer: 9
@@ -273,6 +272,18 @@ Transform:
   m_Father: {fileID: 1062582101777521876}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3194315064844564037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7877365677635319759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64666b7c2d4946dcbca58ab24de3451a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &9013443445927583661
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -323,20 +334,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8671279496305569749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7877365677635319759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyWhenInvisible: 0
-  targetComponents: 01000000
 --- !u!108 &5143012079869735447
 Light:
   m_ObjectHideFlags: 0

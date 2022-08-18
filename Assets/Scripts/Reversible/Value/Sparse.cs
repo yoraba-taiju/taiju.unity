@@ -36,7 +36,7 @@ namespace Reversible.Value {
       cloner_ = clonerImpl;
     }
 
-    private string DebugString() {
+    private void Debug() {
       var vs = "[";
       for (var i = 0; i < entriesLen_; i++) {
         ref readonly var e = ref entries_[(i + entriesBeg_) % Clock.HISTORY_LENGTH];
@@ -47,7 +47,8 @@ namespace Reversible.Value {
       }
 
       vs += "]";
-      return vs;
+      UnityEngine.Debug.LogError($"Current: {clock_.CurrentTick} / lastTouched: ({lastTouchedLeap_}, {lastTouchedTick_})");
+      UnityEngine.Debug.LogError($"Record: {vs}");
     }
 
     private readonly uint LowerBound(uint beg, uint end, uint tick) {
@@ -110,10 +111,8 @@ namespace Reversible.Value {
         );
         var idx = rawIdx % Clock.HISTORY_LENGTH;
         if (currentTick < entries_[idx].tick) {
-          throw new InvalidOperationException(
-            $"Can't access before value born: ({currentTick} => {tick}) < (idx={idx} tick={entries_[idx].tick})\n" +
-            $"State: {DebugString()}"
-          );
+          Debug();
+          throw new InvalidOperationException("Can't access before value born.");
         }
 
         var currentLen = rawIdx - entriesBeg_ + 1;
@@ -147,10 +146,8 @@ namespace Reversible.Value {
             entriesBeg_ = (entriesBeg_ + 1) % Clock.HISTORY_LENGTH;
           } else {
             if (currentTick < entries_[idx].tick) {
-              throw new InvalidOperationException(
-                $"Can't access before value born: ({currentTick} => {tick}) < (idx={idx} tick={entries_[idx].tick})\n" +
-                $"State: {DebugString()}"
-              );
+              Debug();
+              throw new InvalidOperationException("Can't access before value born.");
             }
 
             entriesLen_ = (rawIdx - entriesBeg_) + 1;

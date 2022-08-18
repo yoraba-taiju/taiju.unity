@@ -45,12 +45,14 @@ namespace Reversible.Unity {
     private void RestoreDeactivated(uint currentTick) {
       while (deactivated_.Count > 0) {
         var (destroyedAt, rev) = deactivated_.Last.Value;
-        if (destroyedAt < currentTick) {
+        if (destroyedAt >= currentTick) {
+          //Debug.Log($"Current: {currentTick} Restored: {destroyedAt}");
+          deactivated_.RemoveLast();
+          rev.gameObject.SetActive(true);
+          rev.OnReactivated();
+        } else {
           break;
         }
-        deactivated_.RemoveLast();
-        rev.gameObject.SetActive(true);
-        rev.OnReactivated();
       }
     }
 

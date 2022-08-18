@@ -108,6 +108,7 @@ namespace Witch.Momiji {
       }
 
       if (found) {
+        isTracking_.Mut = true;
         Track(nextTarget);
       } else {
         isTracking_.Mut = false;

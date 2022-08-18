@@ -29,10 +29,12 @@ namespace Reversible.Unity {
       bornAt_ = clock.CurrentTick;
     }
 
-    public void Update() {
+    private void Update() {
       if (bornAt_ > clock.CurrentTick) {
-        Deactivate();
+        Destroy(gameObject);
+        return;
       }
+      OnUpdate();
     }
 
     public void Deactivate() {
@@ -40,6 +42,7 @@ namespace Reversible.Unity {
     }
 
     // functions
+    protected abstract void OnUpdate();
     public abstract void OnDeactivated();
     public abstract void OnReactivated();
   }

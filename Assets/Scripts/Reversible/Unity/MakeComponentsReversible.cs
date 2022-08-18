@@ -58,9 +58,7 @@ namespace Reversible.Unity {
       }
     }
 
-    private new void Update() {
-      base.Update();
-
+    protected override void OnUpdate() {
       var ticked = player.Ticked;
       var backed = player.Backed;
       var leaped = player.Leaped;

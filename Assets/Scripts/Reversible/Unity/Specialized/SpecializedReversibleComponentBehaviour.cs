@@ -7,8 +7,7 @@ namespace Reversible.Unity.Specialized {
       base.Start();
       OnStart();
     }
-    public new void Update() {
-      base.Update();
+    protected override void OnUpdate() {
       if (player.Ticked) {
         OnTick();
       } else if (player.Backed) {

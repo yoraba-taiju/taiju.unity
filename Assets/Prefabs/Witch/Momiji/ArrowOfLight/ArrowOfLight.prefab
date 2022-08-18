@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 903386093998125323}
+  - component: {fileID: 787457909026393781}
   - component: {fileID: 3757074820620378849}
-  - component: {fileID: 5805505881215267591}
   - component: {fileID: 4926585438251693555}
   - component: {fileID: 7216326116003141121}
   - component: {fileID: -5145059600816870905}
@@ -37,6 +37,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &787457909026393781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8504349010670632558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64666b7c2d4946dcbca58ab24de3451a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3757074820620378849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,20 +64,6 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 1, a: 1}
   period: 1
   initialVelocity: {x: 0, y: 0, z: 0}
---- !u!114 &5805505881215267591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8504349010670632558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyWhenInvisible: 0
-  targetComponents: 01000000
 --- !u!108 &4926585438251693555
 Light:
   m_ObjectHideFlags: 0
