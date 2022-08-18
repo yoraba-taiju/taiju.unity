@@ -1,4 +1,5 @@
-﻿using Effect;
+﻿using System;
+using Effect;
 using Enemy.Bullet;
 using Enemy.StateMachine;
 using Lib;
@@ -133,7 +134,7 @@ namespace Enemy.Drone {
         
       Instantiate(explosionEffectPrefab, localPosition, Quaternion.identity, parent);
       var emitter = Instantiate(magicElementEmitterPrefab, localPosition, Quaternion.identity, parent).GetComponent<MagicElementEmitter>();
-      emitter.numMagicElements = System.Math.Max(1, Mathf.RoundToInt( initialShield / 3f));
+      emitter.numMagicElements = Math.Max(1, Mathf.RoundToInt( initialShield / 3f));
 
       Deactivate();
     }

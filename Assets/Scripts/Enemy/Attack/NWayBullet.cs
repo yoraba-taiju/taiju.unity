@@ -3,7 +3,7 @@ using Reversible.Unity;
 using UnityEngine;
 
 namespace Enemy.Attack {
-  public class NWayBullet : Reversible.Unity.ReversibleBehaviour {
+  public class NWayBullet : ReversibleBehaviour {
     [SerializeField] public float speed = 10.0f;
     [SerializeField] public float angle = 5.0f;
     [SerializeField] public uint clockInterval = 10;

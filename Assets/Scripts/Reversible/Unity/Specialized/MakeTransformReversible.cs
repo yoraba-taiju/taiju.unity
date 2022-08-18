@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using Reversible.Unity.Companion;
 
 namespace Reversible.Unity.Specialized {
   public sealed class MakeTransformReversible : SpecializedReversibleComponentBehaviour {
-    private Companion.Transform companion_;
+    private Transform companion_;
 
     protected override void OnStart() {
-      companion_ = new Companion.Transform(player, transform);
+      companion_ = new Transform(player, transform);
     }
 
     protected override void OnTick() {

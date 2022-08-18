@@ -1,7 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using UnityEngine;
-
-namespace Reversible.Unity.Specialized {
+﻿namespace Reversible.Unity.Specialized {
   public abstract class SpecializedReversibleComponentBehaviour : ReversibleBase {
     public new void Start() {
       base.Start();

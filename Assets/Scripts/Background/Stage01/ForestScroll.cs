@@ -3,7 +3,7 @@ using Reversible.Value;
 using UnityEngine;
 
 namespace Background.Stage01 {
-  public class ForestScroll : Reversible.Unity.ReversibleBehaviour {
+  public class ForestScroll : ReversibleBehaviour {
     private Dense<Vector2> offset_;
     private Renderer renderer_;
 

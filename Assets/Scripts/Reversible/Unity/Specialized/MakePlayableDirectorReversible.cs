@@ -1,4 +1,4 @@
-﻿using PlayableDirector = UnityEngine.Playables.PlayableDirector;
+﻿using UnityEngine.Playables;
 
 namespace Reversible.Unity.Specialized {
   public sealed class MakePlayableDirectorReversible : SpecializedReversibleComponentBehaviour {

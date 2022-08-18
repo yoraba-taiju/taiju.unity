@@ -1,7 +1,5 @@
-﻿using System;
-using Reversible.Unity;
+﻿using Reversible.Unity;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace Enemy {
   public abstract class EnemyBehaviour : ReversibleBehaviour {

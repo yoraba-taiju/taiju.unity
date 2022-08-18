@@ -1,6 +1,5 @@
 ﻿using Lib;
 using UnityEngine;
-using Utility;
 
 namespace Enemy.Bullet {
   public sealed class FixedSpeedBullet : EnemyBulletBehaviour {

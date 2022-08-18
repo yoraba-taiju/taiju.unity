@@ -1,8 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using UnityEngine;
-
-namespace Reversible.Unity {
+﻿namespace Reversible.Unity {
   public abstract class ReversibleBehaviour : ReversibleBase {
     protected new void Start() {
       base.Start();
