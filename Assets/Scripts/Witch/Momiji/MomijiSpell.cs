@@ -1,13 +1,12 @@
 ﻿using Effect;
 using Reversible.Unity;
-using Reversible.Value;
 using UnityEngine;
 
 namespace Witch.Momiji {
   public class MomijiSpell : ReversibleBehaviour {
     [SerializeField] private GameObject spiritPrefab;
-    [SerializeField] private GameObject ringPrefab;
-    private GameObject[] rings_ = new GameObject[2];
+    [SerializeField] private MomijiSpellRing ringPrefab;
+    private readonly MomijiSpellRing[] rings_ = new MomijiSpellRing[2];
 
     private Transform field_;
     private float startAt_;
@@ -30,7 +29,7 @@ namespace Witch.Momiji {
 
       for (var i = 0; i < rings_.Length; ++i) {
         rings_[i] = Instantiate(ringPrefab, transform.localPosition, Quaternion.identity, field_);
-        rings_[i].GetComponent<MomijiSpellRing>().duration = duration;
+        rings_[i].duration = duration;
       }
     }
 
@@ -41,9 +40,15 @@ namespace Witch.Momiji {
       }
 
       foreach (var ring in rings_) {
-        Destroy(ring);
+        ring.Deactivate();
       }
-      Destroy();
+      Deactivate();
+    }
+
+    protected override void OnReverse() {
+    }
+
+    protected override void OnLeap() {
     }
   }
 }

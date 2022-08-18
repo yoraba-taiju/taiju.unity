@@ -6,11 +6,16 @@ namespace Witch {
     private static int layerMask_;
 
     private new void Start() {
-      base.Start();
       if (layerMask_ == 0) {
         layerMask_ = LayerMask.GetMask("Terrain", "Enemy");
       }
+      base.Start();
     }
+    
+    protected override void OnLeap() {
+    }
+
+    #region Collision
 
     private void OnCollisionEnter2D(Collision2D other) {
       OnCollisionAll2D(other.gameObject);
@@ -40,6 +45,8 @@ namespace Witch {
       }
     }
 
-    public abstract void OnCollision2D(GameObject other);
+    protected abstract void OnCollision2D(GameObject other);
+
+    #endregion
   }
 }

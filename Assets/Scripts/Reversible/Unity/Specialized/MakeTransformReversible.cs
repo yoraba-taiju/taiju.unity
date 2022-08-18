@@ -19,6 +19,5 @@ namespace Reversible.Unity.Specialized {
     protected override void OnLeap() {
       companion_.OnLeap();
     }
-
   }
 }

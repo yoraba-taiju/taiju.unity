@@ -89,8 +89,14 @@ namespace Witch.Momiji {
       } else if (startFrom <= Duration) {
         spirit_.localScale = Vector3.zero;
       } else {
-        Destroy();
+        Deactivate();
       }
+    }
+
+    protected override void OnReverse() {
+    }
+
+    protected override void OnLeap() {
     }
 
     private void LaunchArrow() {

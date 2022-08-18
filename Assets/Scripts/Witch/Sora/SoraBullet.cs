@@ -16,8 +16,14 @@ namespace Witch.Sora {
       trans.localPosition = localPosition;
     }
 
-    public override void OnCollision2D(GameObject other) {
-      Destroy();
+    protected override void OnReverse() {
+    }
+
+    protected override void OnLeap() {
+    }
+
+    protected override void OnCollision2D(GameObject other) {
+      Deactivate();
     }
   }
 }

@@ -1,56 +1,41 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Reversible.Unity {
-  public abstract class ReversibleBehaviour : MonoBehaviour {
-    protected Player player;
-    protected World world;
-    protected Clock clock;
-
-    protected float IntegrationTime {
-      [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      get => player.IntegrationTime;
-    }
-    protected PlayerInput Input {
-      [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      get => player.Input;
-    }
-
-    protected abstract void OnStart();
-    protected abstract void OnForward();
-
-    protected void Start() {
-      var backstage = GameObject.FindGameObjectWithTag("Backstage");
-      player = backstage.GetComponent<Player>();
-      world = backstage.GetComponent<World>();
-      clock = player.Clock;
+  public abstract class ReversibleBehaviour : ReversibleBase {
+    protected new void Start() {
+      base.Start();
       OnStart();
     }
 
-    protected virtual void OnReverse() {
-    }
-
-    protected virtual void OnLeap() {
-    }
-
-    public void Update() {
+    public new void Update() {
+      base.Update();
       if (player.Leaped) {
         OnLeap();
         return;
       }
-
       if (player.IsForwarding) {
         OnForward();
       } else {
         OnReverse();
       }
     }
+    
+    protected abstract void OnStart();
 
-    protected void Destroy() {
-      world.Destroy(gameObject);
+    protected abstract void OnForward();
+
+    protected virtual void OnReverse() {
     }
-    protected void Destroy(GameObject obj) {
-      world.Destroy(obj);
+
+    protected virtual void OnLeap() {
+    }
+    
+    public override void OnDeactivated() {
+    }
+
+    public override void OnReactivated() {
     }
   }
 }

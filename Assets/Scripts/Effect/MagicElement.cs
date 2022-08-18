@@ -36,7 +36,7 @@ namespace Effect {
       var leftPeriod = period - (IntegrationTime - startFrom_);
       if (leftPeriod < 0) {
         sora_.GetComponent<Sora>().OnMagicElementCollected();
-        Destroy();
+        Deactivate();
       }
 
       var trans = transform;

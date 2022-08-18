@@ -8,12 +8,22 @@ namespace Enemy {
     private static int layerMask_;
 
     private new void Start() {
-      base.Start();
-      world.RegisterEnemy(this);
       if (layerMask_ == 0) {
         layerMask_ = LayerMask.GetMask("WitchBullet");
       }
+      base.Start();
+      world.RegisterEnemy(this);
     }
+
+    public override void OnDeactivated() {
+      world.UnregisterEnemy(this);
+    }
+
+    public override void OnReactivated() {
+      world.RegisterEnemy(this);
+    }
+
+    #region Collision
 
     private void OnCollisionEnter2D(Collision2D other) {
       OnCollisionAll2D(other.gameObject);
@@ -31,11 +41,11 @@ namespace Enemy {
       OnCollisionAll2D(other.gameObject);
     }
 
-    public bool CanCollide() {
+    private bool CanCollide() {
       var pos = transform.localPosition;
       return Mathf.Abs(pos.x) <= 18.0f && Mathf.Abs(pos.y) <= 10.0f;
     }
-    
+
     public bool CanTrack() {
       var pos = transform.localPosition;
       return Mathf.Abs(pos.x) <= 20.0f && Mathf.Abs(pos.y) <= 12.0f;
@@ -54,5 +64,7 @@ namespace Enemy {
     }
 
     public abstract void OnCollision2D(GameObject other);
+
+    #endregion
   }
 }

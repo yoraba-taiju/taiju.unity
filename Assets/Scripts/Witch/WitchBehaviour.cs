@@ -7,13 +7,14 @@ namespace Witch {
     private static int layerMask_;
 
     private new void Start() {
-      base.Start();
       if (layerMask_ == 0) {
         layerMask_ = LayerMask.GetMask("Enemy", "EnemyBullet");
       }
-
       collisionLayers_ = layerMask_;
+      base.Start();
     }
+
+    #region Collision
 
     private void OnCollisionEnter2D(Collision2D col) {
       OnCollisionAll2D(col.gameObject);
@@ -42,5 +43,7 @@ namespace Witch {
     }
 
     protected abstract void OnCollision2D(GameObject other);
+    
+    #endregion
   }
 }

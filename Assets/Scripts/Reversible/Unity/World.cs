@@ -11,7 +11,7 @@ namespace Reversible.Unity {
 
     /* GameObject Management */
     public HashSet<EnemyBehaviour> LivingEnemies { get; } = new();
-    private readonly LinkedList<Tuple<uint, GameObject>> graveYard_ = new();
+    private readonly LinkedList<(uint, ReversibleBase)> deactivated_ = new();
 
     private struct LayerName {
       public static readonly int Enemy = LayerMask.NameToLayer("Enemy");
@@ -24,51 +24,50 @@ namespace Reversible.Unity {
 
     private void Update() {
       if (player_.Ticked) {
-        RemoveOutdated(clock_.CurrentTick);
+        DestroyDeactivated(clock_.CurrentTick);
       } else if (player_.Backed) {
-        RestoreOutdated(clock_.CurrentTick);
+        RestoreDeactivated(clock_.CurrentTick);
       }
     }
 
-    private void RemoveOutdated(uint currentTick) {
-      while (graveYard_.Count > 0) {
-        var (destroyedAt, obj) = graveYard_.First.Value;
+    private void DestroyDeactivated(uint currentTick) {
+      while (deactivated_.Count > 0) {
+        var (destroyedAt, obj) = deactivated_.First.Value;
         if (destroyedAt + Clock.HISTORY_LENGTH < currentTick) {
-          graveYard_.RemoveFirst();
-          GameObject.Destroy(obj);
+          deactivated_.RemoveFirst();
+          Destroy(obj);
         } else {
           break;
         }
       }
     }
 
-    private void RestoreOutdated(uint currentTick) {
-      while (graveYard_.Count > 0) {
-        var (destroyedAt, obj) = graveYard_.Last.Value;
-        if (destroyedAt >= currentTick) {
-          graveYard_.RemoveLast();
-          if (obj.layer == LayerName.Enemy) {
-            LivingEnemies.Add(obj.transform.GetComponent<EnemyBehaviour>());
-          }
-          obj.SetActive(true);
-        } else {
+    private void RestoreDeactivated(uint currentTick) {
+      while (deactivated_.Count > 0) {
+        var (destroyedAt, rev) = deactivated_.Last.Value;
+        if (destroyedAt < currentTick) {
           break;
         }
+        deactivated_.RemoveLast();
+        rev.gameObject.SetActive(true);
+        rev.OnReactivated();
       }
     }
 
     public void RegisterEnemy(EnemyBehaviour enemy) {
       LivingEnemies.Add(enemy);
     }
-    public void Destroy(GameObject obj) {
+    public void UnregisterEnemy(EnemyBehaviour enemy) {
+      LivingEnemies.Remove(enemy);
+    }
+    public void Deactivate(ReversibleBase rev) {
+      var obj = rev.gameObject;
       if (!obj.activeSelf) {
         return;
       }
+      rev.OnDeactivated();
       obj.SetActive(false);
-      if (obj.layer == LayerName.Enemy) {
-        LivingEnemies.Remove(obj.GetComponent<EnemyBehaviour>());
-      }
-      graveYard_.AddLast(new Tuple<uint, GameObject>(clock_.CurrentTick, obj));
+      deactivated_.AddLast((clock_.CurrentTick, rev));
     }
   }
 }

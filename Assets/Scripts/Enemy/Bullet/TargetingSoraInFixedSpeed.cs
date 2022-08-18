@@ -53,7 +53,7 @@ namespace Enemy.Bullet {
     }
 
     protected override void OnCollideWithWitch(GameObject other) {
-      Destroy();
+      Deactivate();
     }
   }
 }

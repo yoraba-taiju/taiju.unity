@@ -77,8 +77,14 @@ namespace Witch.Momiji {
         alreadyHit_.Mut = true;
         isTracking_.Mut = false;
       } else {
-        Destroy();
+        Deactivate();
       }
+    }
+
+    protected override void OnReverse() {
+    }
+
+    protected override void OnLeap() {
     }
 
     private bool FindNextTarget() {
@@ -108,32 +114,6 @@ namespace Witch.Momiji {
       }
 
       return found;
-    }
-
-    /****************************************************************
-     * Collision
-     ****************************************************************/
-
-    private void OnCollisionEnter2D(Collision2D other) {
-      Destroy();
-    }
-
-    private void OnCollisionStay2D(Collision2D other) {
-      Destroy();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other) {
-      OnTrigger2D(other);
-    }
-
-    private void OnTriggerStay2D(Collider2D other) {
-      OnTrigger2D(other);
-    }
-
-    private void OnTrigger2D(Collider2D other) {
-      if (!player.IsForwarding) {
-        return;
-      }
     }
   }
 }

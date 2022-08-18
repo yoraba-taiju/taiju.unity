@@ -74,6 +74,10 @@ namespace Witch.Sora {
       fired_ = false;
     }
 
+    protected override void OnLeap() {
+      // TODO: Do something?
+    }
+
     private void Fire1() {
       var b = Instantiate(bullet, field_);
       b.transform.localPosition = transform.localPosition + Vector3.right * 2f;

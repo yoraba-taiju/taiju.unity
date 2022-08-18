@@ -16,6 +16,8 @@ namespace Enemy {
         terrainLayer_ = LayerMask.NameToLayer("Terrain");
       }
     }
+    
+    #region Collision
 
     private void OnCollisionEnter2D(Collision2D other) {
       OnCollision2D(other.gameObject);
@@ -40,7 +42,7 @@ namespace Enemy {
 
       var layer = other.layer;
       if (layer == terrainLayer_) {
-        Destroy();
+        Deactivate();
         return;
       }
 
@@ -50,5 +52,7 @@ namespace Enemy {
     }
 
     protected abstract void OnCollideWithWitch(GameObject other);
+
+    #endregion
   }
 }

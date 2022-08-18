@@ -51,7 +51,7 @@ namespace Enemy.Drone {
       ref var shield = ref shield_.Mut;
       shield -= 1.0f;
       if (shield <= 0) {
-        Destroy();
+        Deactivate();
         var explosion = Instantiate(explosionEffect, transform.parent);
         explosion.transform.localPosition = transform.localPosition;
       }

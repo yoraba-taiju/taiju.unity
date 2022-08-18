@@ -2,31 +2,13 @@
 using UnityEngine;
 
 namespace Reversible.Unity.Specialized {
-  public abstract class SpecializedReversibleComponentBehaviour : MonoBehaviour {
-    private uint bornAt_;
-    protected Player player;
-    protected World world;
-    protected Clock clock;
-
-    protected float CurrentTime {
-      [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      get => player.IntegrationTime;
-    }
-
-    public void Start() {
-      var backstage = GameObject.FindGameObjectWithTag("Backstage");
-      player = backstage.GetComponent<Player>();
-      world = backstage.GetComponent<World>();
-      clock = player.Clock;
-      bornAt_ = clock.CurrentTick;
+  public abstract class SpecializedReversibleComponentBehaviour : ReversibleBase {
+    public new void Start() {
+      base.Start();
       OnStart();
     }
-
-    public void Update() {
-      if (bornAt_ > clock.CurrentTick) {
-        Destroy(gameObject);
-        return;
-      }
+    public new void Update() {
+      base.Update();
       if (player.Ticked) {
         OnTick();
       } else if (player.Backed) {
@@ -43,5 +25,11 @@ namespace Reversible.Unity.Specialized {
     protected abstract void OnBack();
 
     protected abstract void OnLeap();
+    
+    public override void OnDeactivated() {
+    }
+
+    public override void OnReactivated() {
+    }
   }
 }

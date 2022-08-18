@@ -3,7 +3,7 @@ using Reversible.Value;
 using UnityEngine;
 
 namespace Witch.Paper {
-  public class Paper : ReversibleBehaviour {
+  public class Paper : Reversible.Unity.ReversibleBehaviour {
     private readonly Mesh[] meshes_ = new Mesh[4];
     private MeshFilter meshFilter_;
     private MeshRenderer meshRenderer_;
@@ -71,6 +71,15 @@ namespace Witch.Paper {
     protected override void OnReverse() {
       ref var meshIdx = ref meshIdx_.Mut;
       meshFilter_.mesh = meshes_[meshIdx % meshes_.Length];
+    }
+
+    protected override void OnLeap() {
+    }
+
+    public override void OnDeactivated() {
+    }
+
+    public override void OnReactivated() {
     }
   }
 }

@@ -27,5 +27,11 @@ namespace Witch.Momiji {
       trans.localRotation = Quaternion.AngleAxis(startFrom * poleAngularVelocity, pole_) *
                             Quaternion.AngleAxis(startFrom * angularVelocity, Vector3.up);
     }
+
+    protected override void OnReverse() {
+    }
+
+    protected override void OnLeap() {
+    }
   }
 }

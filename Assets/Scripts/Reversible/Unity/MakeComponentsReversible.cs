@@ -4,15 +4,9 @@ using UnityEngine.Playables;
 using Transform = Reversible.Unity.Companion.Transform;
 
 namespace Reversible.Unity {
-  public sealed class ReversibleComponents : MonoBehaviour {
-    // Clock
-    private Player player_;
-    private Clock clock_;
-    private uint bornAt_;
-
+  public sealed class MakeComponentsReversible : ReversibleBase {
     // Visibility
-    [SerializeField] public bool destroyWhenInvisible = true;
-    private World world_;
+    [SerializeField] public bool deactivateWhenInvisible = true;
     private Renderer[] renderers_;
     private bool wasVisible_;
 
@@ -31,20 +25,16 @@ namespace Reversible.Unity {
     };
     private ICompanion[] companions_;
 
-    private void Start() {
-      var backstage = GameObject.FindGameObjectWithTag("Backstage");
-      player_ = backstage.GetComponent<Player>();
-      clock_ = player_.Clock;
-      bornAt_ = clock_.CurrentTick;
-      if (destroyWhenInvisible) {
+    private new void Start() {
+      base.Start();
+      if (deactivateWhenInvisible) {
         var renderers = GetComponentsInChildren<Renderer>();
         if (renderers.Length > 0) {
           renderers_ = renderers;
-          world_ = backstage.GetComponent<World>();
           wasVisible_ = false;
         } else {
           Debug.LogWarning("No renderers attached.");
-          destroyWhenInvisible = false;
+          deactivateWhenInvisible = false;
         }
       }
 
@@ -57,27 +47,24 @@ namespace Reversible.Unity {
       foreach (var target in targetComponents) {
         companions_[i] = target switch {
           Component.None => throw new InvalidEnumArgumentException("Please set some target"),
-          Component.Transform => new Transform(player_, transform),
-          Component.Rigidbody2D => new Companion.Rigidbody2D(player_, GetComponent<Rigidbody2D>()),
-          Component.ParticleSystem => new Companion.ParticleSystem(player_, GetComponent<ParticleSystem>()),
-          Component.Animator => new Companion.Animator(player_, GetComponent<Animator>()),
-          Component.PlayableDirector => new Companion.PlayableDirector(player_, GetComponent<PlayableDirector>()),
+          Component.Transform => new Transform(player, transform),
+          Component.Rigidbody2D => new Companion.Rigidbody2D(player, GetComponent<Rigidbody2D>()),
+          Component.ParticleSystem => new Companion.ParticleSystem(player, GetComponent<ParticleSystem>()),
+          Component.Animator => new Companion.Animator(player, GetComponent<Animator>()),
+          Component.PlayableDirector => new Companion.PlayableDirector(player, GetComponent<PlayableDirector>()),
           _ => throw new InvalidEnumArgumentException($"Unknown target: {target}"),
         };
         ++i;
       }
     }
 
-    private void Update() {
-      if (bornAt_ > clock_.CurrentTick) {
-        Destroy(gameObject);
-        return;
-      }
+    private new void Update() {
+      base.Update();
 
-      var ticked = player_.Ticked;
-      var backed = player_.Backed;
-      var leaped = player_.Leaped;
-      if (destroyWhenInvisible) {
+      var ticked = player.Ticked;
+      var backed = player.Backed;
+      var leaped = player.Leaped;
+      if (deactivateWhenInvisible) {
         if (ticked) {
           var visible = false;
           foreach (var r in renderers_) {
@@ -89,7 +76,7 @@ namespace Reversible.Unity {
 
           if (wasVisible_) {
             if (!visible) {
-              world_.Destroy(gameObject);
+              Deactivate();
             }
           } else {
             wasVisible_ = visible;
@@ -116,6 +103,12 @@ namespace Reversible.Unity {
           companion.OnLeap();
         }
       }
+    }
+
+    public override void OnDeactivated() {
+    }
+
+    public override void OnReactivated() {
     }
   }
 }
