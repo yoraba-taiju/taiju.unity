@@ -33,14 +33,14 @@ namespace Reversible.Unity.ReversibleGameObject {
         if (time < after) {
           break;
         }
+
         pointBuffer_[buffIdx] = points_[idx];
         buffIdx++;
         idx--;
       }
 
-      var nextPoints = pointBuffer_[..buffIdx];
       lineRenderer_.positionCount = buffIdx;
-      lineRenderer_.SetPositions(nextPoints);
+      lineRenderer_.SetPositions(pointBuffer_);
     }
 
     protected override void OnForward() {
@@ -71,7 +71,6 @@ namespace Reversible.Unity.ReversibleGameObject {
           points_.RemoveFirst();
         }
       }
-
       SetPoint(currentTime, false);
     }
 
