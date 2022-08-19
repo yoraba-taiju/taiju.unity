@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9030802944973006816}
   - component: {fileID: 9030802944973006818}
   m_Layer: 3
-  m_Name: TrailfOfMagicElement
+  m_Name: TrailfOfWitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -868,7 +868,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 12
       minScalar: 10
       maxCurve:
         serializedVersion: 2

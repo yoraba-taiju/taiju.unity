@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyWhenInvisible: 1
+  deactivateWhenInvisible: 1
   targetComponents: 010000000200000004000000
 --- !u!1001 &2820810398155339636
 PrefabInstance:

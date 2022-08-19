@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyWhenInvisible: 1
+  deactivateWhenInvisible: 1
   targetComponents: 010000000200000004000000
 --- !u!114 &8000394833309829283
 MonoBehaviour:
@@ -542,6 +542,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2950363038118622693}
     m_Modifications:
+    - target: {fileID: 9030802944973006819, guid: 6503dedcdaa5c4e438a8d6df584267e6, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9030802944973006830, guid: 6503dedcdaa5c4e438a8d6df584267e6, type: 3}
       propertyPath: m_RootOrder
       value: 1
