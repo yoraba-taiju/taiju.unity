@@ -1,14 +1,23 @@
-﻿using Reversible.Unity;
+﻿using System;
+using Effect;
+using Reversible.Unity;
+using Reversible.Value;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Enemy {
   public abstract class EnemyBehaviour : ReversibleBehaviour {
     private static int layerMask_;
+    [SerializeField] private GameObject explosionEffectPrefab;
+    [SerializeField] private MagicElementEmitter magicElementEmitterPrefab;
+    [SerializeField] private float initialShield;
+    private Sparse<float> shield_;
 
     private new void Start() {
       if (layerMask_ == 0) {
         layerMask_ = LayerMask.GetMask("WitchBullet");
       }
+      shield_ = new Sparse<float>(clock, initialShield);
       base.Start();
       world.RegisterEnemy(this);
     }
@@ -60,8 +69,26 @@ namespace Enemy {
         OnCollision2D(obj);
       }
     }
+    
+    public virtual void OnCollision2D(GameObject other) {
+      if (!gameObject.activeSelf) {
+        return;
+      }
+      ref var shield = ref shield_.Mut;
+      shield -= 1.0f;
+      if (shield > 0.0f) {
+        return;
+      }
+      var trans = transform;
+      var parent = trans.parent;
+      var localPosition = trans.localPosition;
+        
+      Instantiate(explosionEffectPrefab, localPosition, Quaternion.identity, parent);
+      var emitter = Instantiate(magicElementEmitterPrefab, localPosition, Quaternion.identity, parent);
+      emitter.numMagicElements = Math.Max(1, Mathf.RoundToInt( initialShield / 3f));
 
-    public abstract void OnCollision2D(GameObject other);
+      Deactivate();
+    }
 
     #endregion
   }

@@ -34,22 +34,17 @@ namespace Enemy.Drone {
     private Animator animator_;
     private Rigidbody2D rigidbody_;
 
-    [SerializeField] private float initialShield = 10.0f;
     [SerializeField] private float maxRotateDegreePerSecond = 180.0f;
     [SerializeField] private float seekVelocity = 7.0f;
     [SerializeField] private float escapeVelocity = 15.0f;
-    private Sparse<float> shield_;
     private Sparse<int> fireCount_;
     private Dense<float> timeToFire_;
-    [SerializeField] private GameObject explosionEffectPrefab;
-    [SerializeField] private GameObject magicElementEmitterPrefab;
     [SerializeField] private GameObject bulletPrefab;
 
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       animator_ = GetComponent<Animator>();
       rigidbody_ = GetComponent<Rigidbody2D>();
-      shield_ = new Sparse<float>(clock, initialShield);
       fireCount_ = new Sparse<int>(clock, 0);
       timeToFire_ = new Dense<float>(clock, 0.3f);
     }
@@ -116,27 +111,6 @@ namespace Enemy.Drone {
       } else {
         animator_.SetInteger(Param.NextAction, NextState.Fighting);
       }
-    }
-
-    public override void OnCollision2D(GameObject other) {
-      if (!gameObject.activeSelf) {
-        return;
-      }
-      ref var shield = ref shield_.Mut;
-      shield -= 1.0f;
-      if (shield > 0.0f) {
-        return;
-      }
-
-      var trans = transform;
-      var parent = trans.parent;
-      var localPosition = trans.localPosition;
-        
-      Instantiate(explosionEffectPrefab, localPosition, Quaternion.identity, parent);
-      var emitter = Instantiate(magicElementEmitterPrefab, localPosition, Quaternion.identity, parent).GetComponent<MagicElementEmitter>();
-      emitter.numMagicElements = Math.Max(1, Mathf.RoundToInt( initialShield / 3f));
-
-      Deactivate();
     }
 
     public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {

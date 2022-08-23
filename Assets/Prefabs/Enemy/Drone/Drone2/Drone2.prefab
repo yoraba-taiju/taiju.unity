@@ -107,6 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00add0185a8b40d5a2caee1034f316fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionEffectPrefab: {fileID: 3444446105023976292, guid: e2472bcce531e214699b1c3322f44744, type: 3}
+  magicElementEmitterPrefab: {fileID: 211657844552023560, guid: 86023b15c59a7124b990ec96d87cb797, type: 3}
+  initialShield: 10
   initialShield: 10
   maxRotateDegreePerSecond: 180
   seekVelocity: 7

@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyWhenInvisible: 1
+  deactivateWhenInvisible: 1
   targetComponents: 010000000200000004000000
 --- !u!114 &129887756809586754
 MonoBehaviour:
@@ -120,9 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc2707c910e4467b656483167decdae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionEffectPrefab: {fileID: 3444446105023976292, guid: e2472bcce531e214699b1c3322f44744, type: 3}
+  magicElementEmitterPrefab: {fileID: 211657844552023560, guid: 86023b15c59a7124b990ec96d87cb797, type: 3}
   initialShield: 40
-  explosionEffect: {fileID: 3444446105023976292, guid: e2472bcce531e214699b1c3322f44744, type: 3}
-  bullet: {fileID: 7265134332449134891, guid: 51f0f21083ba4474b965875b3347e326, type: 3}
+  bulletPrefab: {fileID: 7265134332449134891, guid: 51f0f21083ba4474b965875b3347e326, type: 3}
 --- !u!1001 &3066237760526195785
 PrefabInstance:
   m_ObjectHideFlags: 0

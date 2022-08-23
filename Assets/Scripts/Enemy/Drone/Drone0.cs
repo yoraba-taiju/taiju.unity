@@ -22,18 +22,14 @@ namespace Enemy.Drone {
     private GameObject sora_;
     private Animator animator_;
     private Rigidbody2D rigidbody_;
-    [SerializeField] private float initialShield = 1.0f;
     [SerializeField] private float maxRotateDegreePerSecond = 60.0f;
-    private Sparse<float> shield_;
     private Sparse<Quaternion> originalRotation_;
-    [SerializeField] private GameObject explosionEffect;
 
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       animator_ = GetComponent<Animator>();
       rigidbody_ = GetComponent<Rigidbody2D>();
       rigidbody_.velocity = Vector2.left * 10.0f;
-      shield_ = new Sparse<float>(clock, initialShield);
     }
 
     protected override void OnForward() {
@@ -61,19 +57,6 @@ namespace Enemy.Drone {
       transform.localRotation = Quaternion.RotateTowards(transform.localRotation,
         Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), maxAngle * 0.75f);
     }
-
-    public override void OnCollision2D(GameObject other) {
-      if (!gameObject.activeSelf) {
-        return;
-      }
-      ref var shield = ref shield_.Mut;
-      shield -= 1.0f;
-      if (shield > 0.0f) {
-        return;
-      }
-      var explosion = Instantiate(explosionEffect, transform.parent);
-      explosion.transform.localPosition = transform.localPosition;
-      Deactivate();
-    }
+    
   }
 }
