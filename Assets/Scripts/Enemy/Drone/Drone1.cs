@@ -1,4 +1,5 @@
 ﻿using Enemy.StateMachine;
+using Lib;
 using Reversible.Value;
 using UnityEngine;
 using Utility;
@@ -13,7 +14,6 @@ namespace Enemy.Drone {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
       public static readonly int Watching = Animator.StringToHash("Watching");
-      public static readonly int Rotating = Animator.StringToHash("Rotating");
       public static readonly int Returning = Animator.StringToHash("Returning");
     }
 
@@ -24,7 +24,7 @@ namespace Enemy.Drone {
     private GameObject sora_;
     private Animator animator_;
     private Rigidbody2D rigidbody_;
-    [SerializeField] private float initialShield = 1.0f;
+    [SerializeField] private float initialShield = 10.0f;
     [SerializeField] private float maxRotateDegreePerSecond = 30.0f;
     private Sparse<float> shield_;
     private Sparse<Quaternion> originalRotation_;
@@ -39,34 +39,39 @@ namespace Enemy.Drone {
     }
 
     protected override void OnForward() {
+      var trans = transform;
       var stateInfo = animator_.GetCurrentAnimatorStateInfo(1);
       var currentHash = stateInfo.shortNameHash;
       var soraPosition = (Vector2) sora_.transform.localPosition;
-      var currentPosition = (Vector2) transform.localPosition;
+      var currentPosition = (Vector2) trans.localPosition;
+      var targetDirection = soraPosition - currentPosition;
+      var targetDistance = targetDirection.magnitude;
+      var currentRot = trans.localRotation;
       var dt = Time.deltaTime;
 
+      var deltaAngle = VecMath.DeltaAngle(currentRot.eulerAngles.z - 180.0f, targetDirection);
+
+      void RotateToTarget() {
+        var maxAngleDegree = maxRotateDegreePerSecond * dt;
+        var moveAngleDegree = Mathf.Clamp(deltaAngle, -maxAngleDegree, maxAngleDegree);
+        var rot = Quaternion.Euler(0, 0, moveAngleDegree) * currentRot;
+        trans.localRotation = rot;
+        currentRot = rot;
+      }
+
       if (currentHash == State.Seeking) {
-        var targetDirection = soraPosition - currentPosition;
-        if (targetDirection.magnitude <= 6.0f) {
-          animator_.SetTrigger(Trigger.ToWatching);
-          rigidbody_.velocity = rigidbody_.velocity.normalized * 3.0f;
+        RotateToTarget();
+        if (targetDistance > 10.0f) {
+          rigidbody_.velocity = currentRot * Vector2.left *
+                                (7.0f * Mathf.Exp(Mathf.Clamp(targetDistance - 10.0f, 0.0f, 0.5f)));
         } else {
-          rigidbody_.velocity = Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
-        }
-      } else if (currentHash == State.Watching) {
-        var targetDirection = soraPosition + Vector2.right * 5.0f - currentPosition;
-        rigidbody_.velocity = Mover.Follow(targetDirection, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
-      } else if (currentHash == State.Returning) {
-        var vel = rigidbody_.velocity;
-        if (vel.magnitude < 6.0f) {
-          rigidbody_.velocity = transform.localRotation * Vector3.left * 7.0f;
-        } else {
-          //rigidbody_.velocity =  Mover.Follow(Vector2.right, rigidbody_.velocity, dt * maxRotateDegreePerSecond);
+          rigidbody_.velocity = currentRot * Vector2.left * (rigidbody_.velocity.magnitude * Mathf.Exp(-dt));
         }
       }
 
-      transform.localRotation = Quaternion.RotateTowards(transform.localRotation,
-        Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), 30.0f * dt);
+      trans.localRotation =
+        Quaternion.RotateTowards(currentRot, 
+          Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), 30.0f * dt);
     }
 
     public override void OnCollision2D(GameObject other) {
