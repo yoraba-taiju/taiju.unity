@@ -25,7 +25,7 @@ namespace Enemy.Drone {
     private Animator animator_;
     private Rigidbody2D rigidbody_;
     [SerializeField] private float initialShield = 10.0f;
-    [SerializeField] private float maxRotateDegreePerSecond = 30.0f;
+    [SerializeField] private float maxRotateDegreePerSecond = 180.0f;
     private Sparse<float> shield_;
     private Sparse<Quaternion> originalRotation_;
     [SerializeField] private GameObject explosionEffect;
