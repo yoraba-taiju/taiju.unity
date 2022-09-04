@@ -1,7 +1,7 @@
 ﻿using Lib;
+using Lib.Unity;
 using Reversible.Value;
 using UnityEngine;
-using Utility;
 
 namespace Enemy.Drone {
   /**
@@ -50,7 +50,7 @@ namespace Enemy.Drone {
       } else if (currentHash == State.Escaping) {
         var delta = soraPosition - currentPosition;
         if (delta.magnitude < 10.0f) {
-          rigidbody_.velocity = VecMath.Rotate(rigidbody_.velocity, Mathf.Sign(delta.y) * maxAngle) * Mathf.Exp(dt / 2);
+          rigidbody_.velocity = MathVec.Rotate(rigidbody_.velocity, Mathf.Sign(delta.y) * maxAngle) * Mathf.Exp(dt / 2);
         }
       }
 

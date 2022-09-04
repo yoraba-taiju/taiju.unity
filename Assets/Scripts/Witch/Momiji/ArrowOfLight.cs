@@ -1,9 +1,9 @@
 ﻿using Enemy;
+using Lib.Unity;
 using Reversible.Unity;
 using Reversible.Unity.ReversibleGameObject;
 using Reversible.Value;
 using UnityEngine;
-using Utility;
 
 namespace Witch.Momiji {
   public class ArrowOfLight : ReversibleBehaviour {

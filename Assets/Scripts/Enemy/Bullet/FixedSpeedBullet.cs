@@ -8,7 +8,7 @@ namespace Enemy.Bullet {
     public Vector2 Velocity {
       get => velocity_;
       set {
-        var angle = VecMath.Atan2(value);
+        var angle = MathVec.Atan2(value);
         transform.localRotation = Quaternion.Euler(0, 0, angle);
         velocity_ = value;
       }

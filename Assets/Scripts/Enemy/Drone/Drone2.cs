@@ -57,7 +57,7 @@ namespace Enemy.Drone {
       var targetDirection = (Vector2) (sora_.transform.localPosition - trans.localPosition);
       var targetDistance = targetDirection.magnitude;
       var currentRot = trans.localRotation;
-      var deltaAngle = VecMath.DeltaAngle(currentRot.eulerAngles.z - 180.0f, targetDirection);
+      var deltaAngle = MathVec.DeltaAngle(currentRot.eulerAngles.z - 180.0f, targetDirection);
 
       void RotateToTarget() {
         var maxAngleDegree = maxRotateDegreePerSecond * dt;

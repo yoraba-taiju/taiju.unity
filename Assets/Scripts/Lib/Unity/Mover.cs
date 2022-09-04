@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utility {
+namespace Lib.Unity {
   public static class Mover {
     public static Vector2 Follow(Vector2 targetDirection, Vector2 desiredVelocity) {
       return targetDirection.normalized * desiredVelocity.magnitude;

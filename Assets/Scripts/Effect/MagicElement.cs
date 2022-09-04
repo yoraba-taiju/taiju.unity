@@ -1,6 +1,6 @@
-﻿using Reversible.Unity;
+﻿using Lib.Unity;
+using Reversible.Unity;
 using UnityEngine;
-using Utility;
 using Witch.Sora;
 
 namespace Effect {
