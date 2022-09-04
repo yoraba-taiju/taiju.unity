@@ -20,10 +20,10 @@ namespace Reversible.Value {
 
     private readonly ClonerFn? clonerFn_;
 
-    public Sparse(Clock clock, T initial) : this(clock, null, initial) {
+    public Sparse(Clock clock, in T initial) : this(clock, null, initial) {
     }
 
-    public Sparse(Clock clock, ClonerFn? clonerImpl, T initial) {
+    public Sparse(Clock clock, ClonerFn? clonerImpl, in T initial) {
       clock_ = clock;
       entries_ = new Entry[Clock.HISTORY_LENGTH];
       entries_[0] = new Entry {

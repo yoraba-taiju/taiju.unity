@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿#nullable enable
+using UnityEngine;
 
 namespace Lib {
   public static class MathVec {
-    public static Vector2 Rotate(Vector2 direction, float angleToRotate) {
+    public static Vector2 Rotate(in Vector2 direction, float angleToRotate) {
       var x = direction.x;
       var y = direction.y;
       var c = Mathf.Cos(angleToRotate * Mathf.Deg2Rad);
@@ -15,11 +16,11 @@ namespace Lib {
       return Mathf.Atan2(y, x) * Mathf.Rad2Deg;
     }
 
-    public static float Atan2(Vector2 v) {
+    public static float Atan2(in Vector2 v) {
       return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
     }
 
-    public static float DeltaAngle(Vector2 from, Vector2 to) {
+    public static float DeltaAngle(in Vector2 from, in Vector2 to) {
       return DeltaAngle(Atan2(from), to);
     }
 

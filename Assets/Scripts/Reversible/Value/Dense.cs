@@ -13,10 +13,10 @@ namespace Reversible.Value {
 
     private readonly ClonerFn? clonerFn_;
 
-    public Dense(Clock clock, T initial) : this(clock, null, initial) {
+    public Dense(Clock clock, in T initial) : this(clock, null, initial) {
     }
 
-    public Dense(Clock clock, ClonerFn? clonerFn, T initial) {
+    public Dense(Clock clock, ClonerFn? clonerFn, in T initial) {
       clock_ = clock;
       entries_ = new T[Clock.HISTORY_LENGTH];
       historyBegin_ = clock.CurrentTick;
