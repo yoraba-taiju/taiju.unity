@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 
 namespace Reversible.Value {
   public struct Sparse<T> : IValue<T> where T : struct {
@@ -15,14 +16,14 @@ namespace Reversible.Value {
     private uint entriesBeg_;
     private uint entriesLen_;
 
-    public delegate void Cloner(ref T dst, in T src);
+    public delegate void ClonerFn(ref T dst, in T src);
 
-    private readonly Cloner cloner_;
+    private readonly ClonerFn? clonerFn_;
 
     public Sparse(Clock clock, T initial) : this(clock, null, initial) {
     }
 
-    public Sparse(Clock clock, Cloner clonerImpl, T initial) {
+    public Sparse(Clock clock, ClonerFn? clonerImpl, T initial) {
       clock_ = clock;
       entries_ = new Entry[Clock.HISTORY_LENGTH];
       entries_[0] = new Entry {
@@ -33,7 +34,7 @@ namespace Reversible.Value {
       lastTouchedTick_ = clock.CurrentTick;
       entriesBeg_ = 0;
       entriesLen_ = 1;
-      cloner_ = clonerImpl;
+      clonerFn_ = clonerImpl;
     }
 
     private void Debug() {
@@ -158,10 +159,10 @@ namespace Reversible.Value {
 
         entries_[idx].tick = currentTick;
         if (oldEntriesLen < entriesLen_) {
-          if (cloner_ == null) {
+          if (clonerFn_ == null) {
             entries_[idx].value = entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value;
           } else {
-            cloner_(
+            clonerFn_(
               ref entries_[idx].value,
               in entries_[(idx + Clock.HISTORY_LENGTH - 1) % Clock.HISTORY_LENGTH].value
             );

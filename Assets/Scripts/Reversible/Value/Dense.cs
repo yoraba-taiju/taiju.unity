@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 
 namespace Reversible.Value {
   public struct Dense<T> : IValue<T> where T : struct {
@@ -10,12 +11,12 @@ namespace Reversible.Value {
 
     public delegate void ClonerFn(ref T dst, in T src);
 
-    private readonly ClonerFn clonerFn_;
+    private readonly ClonerFn? clonerFn_;
 
     public Dense(Clock clock, T initial) : this(clock, null, initial) {
     }
 
-    public Dense(Clock clock, ClonerFn clonerFn, T initial) {
+    public Dense(Clock clock, ClonerFn? clonerFn, T initial) {
       clock_ = clock;
       entries_ = new T[Clock.HISTORY_LENGTH];
       historyBegin_ = clock.CurrentTick;
