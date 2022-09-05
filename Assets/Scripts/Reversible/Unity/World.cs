@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Enemy;
+using Lib;
 using UnityEngine;
 
 namespace Reversible.Unity {
@@ -10,7 +12,7 @@ namespace Reversible.Unity {
 
     /* GameObject Management */
     public HashSet<EnemyBehaviour> LivingEnemies { get; } = new();
-    private readonly LinkedList<(uint, ReversibleBase)> deactivated_ = new();
+    private RingBuffer<(uint, ReversibleBase)> deactivated_ = new (16384);
 
     private struct LayerName {
       public static readonly int Enemy = LayerMask.NameToLayer("Enemy");
@@ -31,10 +33,10 @@ namespace Reversible.Unity {
 
     private void DestroyDeactivated(uint currentTick) {
       while (deactivated_.Count > 0) {
-        var (destroyedAt, obj) = deactivated_.First.Value;
+        var (destroyedAt, rev) = deactivated_.First;
         if (destroyedAt + Clock.HISTORY_LENGTH < currentTick) {
           deactivated_.RemoveFirst();
-          Destroy(obj);
+          Destroy(rev.gameObject);
         } else {
           break;
         }
@@ -43,7 +45,7 @@ namespace Reversible.Unity {
 
     private void RestoreDeactivated(uint currentTick) {
       while (deactivated_.Count > 0) {
-        var (destroyedAt, rev) = deactivated_.Last.Value;
+        var (destroyedAt, rev) = deactivated_.Last;
         if (destroyedAt >= currentTick) {
           //Debug.Log($"Current: {currentTick} Restored: {destroyedAt}");
           deactivated_.RemoveLast();
