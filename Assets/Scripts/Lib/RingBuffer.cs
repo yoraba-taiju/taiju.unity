@@ -2,7 +2,9 @@
 using System;
 
 namespace Lib {
-  public struct RingBuffer<T> {
+  public struct RingBuffer<T> 
+    where T: struct
+  {
     private readonly T[] buff_;
     private int beg_;
     private readonly int mask_;
