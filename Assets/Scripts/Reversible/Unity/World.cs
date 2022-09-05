@@ -35,6 +35,7 @@ namespace Reversible.Unity {
       while (deactivated_.Count > 0) {
         var (destroyedAt, rev) = deactivated_.First;
         if (destroyedAt + Clock.HISTORY_LENGTH < currentTick) {
+          deactivated_.First = (0, null);
           deactivated_.RemoveFirst();
           Destroy(rev.gameObject);
         } else {
