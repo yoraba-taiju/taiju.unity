@@ -141,7 +141,7 @@ namespace Reversible.Unity.Companion {
       }
 
       if (src.boolStates != null) {
-        dst.boolStates = new bool[src.boolStates.Length];
+        dst.boolStates ??= new bool[src.boolStates.Length];
         Array.Copy(src.boolStates, dst.boolStates, src.boolStates.Length);
       }
     }
