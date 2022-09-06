@@ -45,7 +45,7 @@ namespace Enemy.Drone {
       var currentRot = trans.localRotation;
       var dt = Time.deltaTime;
 
-      var deltaAngle = VecMath.DeltaAngle(currentRot.eulerAngles.z - 180.0f, targetDirection);
+      var deltaAngle = MathVec.DeltaAngle(currentRot.eulerAngles.z - 180.0f, targetDirection);
 
       void RotateToTarget() {
         var maxAngleDegree = maxRotateDegreePerSecond * dt;
