@@ -2,7 +2,6 @@
 using Lib;
 using Reversible.Value;
 using UnityEngine;
-using Utility;
 
 namespace Enemy.Drone {
   /**
