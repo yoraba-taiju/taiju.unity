@@ -93,6 +93,11 @@
 
 - [【Substance Designer】ノードチートシート - LIGHT11](https://light11.hatenadiary.com/entry/2019/12/04/234541#%E5%8B%BE%E9%85%8D%E3%81%8C%E3%81%82%E3%82%8B%E9%83%A8%E5%88%86%E3%82%92%E3%81%BC%E3%81%8B%E3%81%99---Slope-Blur--Slope-Blur-Grayscale)
 
+# Houdini References
+
+- [Houdiniのキホンのキ【超のつく初心者向け】 - HoudiniBBAの台所](https://houdini-kitchen.hateblo.jp/entry/2018/09/28/225854)
+- [Houdiniおすすめの勉強方法【超のつく初心者向け】 - HoudiniBBAの台所](https://houdini-kitchen.hateblo.jp/entry/2018/10/02/215733)
+
 # Game Design
 
 - [ゲーム技術の研究所　テーマ「Narrative（ナラティブ）」](https://www.slideshare.net/KoujiOhno/o-planning-narrative1b)
