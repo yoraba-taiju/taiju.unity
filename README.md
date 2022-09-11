@@ -89,6 +89,10 @@
 
 - [Blenderのアーマチュア、ボーン、リグを理解する - 3DCGで何をどう作るか考え中](https://www.yamato-tsukasa.com/entry/b3d-armature-bone-rig-diff)
 
+# Substance Designer References
+
+- [【Substance Designer】ノードチートシート - LIGHT11](https://light11.hatenadiary.com/entry/2019/12/04/234541#%E5%8B%BE%E9%85%8D%E3%81%8C%E3%81%82%E3%82%8B%E9%83%A8%E5%88%86%E3%82%92%E3%81%BC%E3%81%8B%E3%81%99---Slope-Blur--Slope-Blur-Grayscale)
+
 # Game Design
 
 - [ゲーム技術の研究所　テーマ「Narrative（ナラティブ）」](https://www.slideshare.net/KoujiOhno/o-planning-narrative1b)
