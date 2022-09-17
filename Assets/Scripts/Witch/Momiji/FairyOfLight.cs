@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace Witch.Momiji {
   public class FairyOfLight : ReversibleBehaviour {
+    private struct MaterialParams {
+      public static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+      public static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
+    }
     private Transform field_;
 
     // Color of this fairy
@@ -43,8 +47,10 @@ namespace Witch.Momiji {
       var trans = transform;
       spirit_ = trans.Find("Spirit")!;
       trail_ = spirit_.Find("Trail")!;
-      spirit_.gameObject.GetComponent<MeshRenderer>().material.color = color;
-      spirit_.GetComponent<Light>().color = color;
+      var meshRenderer = spirit_.gameObject.GetComponent<MeshRenderer>();
+      var material = meshRenderer.material;
+      material.SetColor(MaterialParams.BaseColor, color);
+      material.SetColor(MaterialParams.EmissionColor, color);
 
       var lineRenderer = trail_.GetComponent<LineRenderer>();
       lineRenderer.endColor = color;
