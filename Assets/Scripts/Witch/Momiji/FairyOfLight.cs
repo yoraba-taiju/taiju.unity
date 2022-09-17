@@ -47,10 +47,10 @@ namespace Witch.Momiji {
       var trans = transform;
       spirit_ = trans.Find("Spirit")!;
       trail_ = spirit_.Find("Trail")!;
-      var meshRenderer = spirit_.gameObject.GetComponent<MeshRenderer>();
-      var material = meshRenderer.material;
+      var material = spirit_.gameObject.GetComponent<MeshRenderer>().material;
       material.SetColor(MaterialParams.BaseColor, color);
       material.SetColor(MaterialParams.EmissionColor, color);
+      spirit_.gameObject.GetComponent<Light>().color = color;
 
       var lineRenderer = trail_.GetComponent<LineRenderer>();
       lineRenderer.endColor = color;
