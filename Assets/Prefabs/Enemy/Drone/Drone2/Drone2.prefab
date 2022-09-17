@@ -52,7 +52,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -110,12 +110,9 @@ MonoBehaviour:
   explosionEffectPrefab: {fileID: 3444446105023976292, guid: e2472bcce531e214699b1c3322f44744, type: 3}
   magicElementEmitterPrefab: {fileID: 211657844552023560, guid: 86023b15c59a7124b990ec96d87cb797, type: 3}
   initialShield: 10
-  initialShield: 10
   maxRotateDegreePerSecond: 180
   seekVelocity: 7
   escapeVelocity: 15
-  explosionEffectPrefab: {fileID: 3444446105023976292, guid: e2472bcce531e214699b1c3322f44744, type: 3}
-  magicElementEmitterPrefab: {fileID: 5386241739217608685, guid: 86023b15c59a7124b990ec96d87cb797, type: 3}
   bulletPrefab: {fileID: 4074047190606247663, guid: 5eb10b2ac69b3e943837b34617a1654d, type: 3}
 --- !u!114 &4080494055063654248
 MonoBehaviour:
