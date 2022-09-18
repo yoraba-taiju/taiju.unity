@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deactivateWhenInvisible: 1
+  deactivateWhenInvisible: 0
   targetComponents: 0100000002000000
 --- !u!58 &6197629300939752455
 CircleCollider2D:
