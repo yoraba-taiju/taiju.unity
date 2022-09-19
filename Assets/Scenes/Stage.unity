@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1622876539}
-  m_IndirectSpecularColor: {r: 0.44170985, g: 0.49061435, b: 0.5705998, a: 1}
+  m_IndirectSpecularColor: {r: 0.44171542, g: 0.49062067, b: 0.57060546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -567,7 +567,6 @@ GameObject:
   - component: {fileID: 666670102}
   - component: {fileID: 666670103}
   - component: {fileID: 666670104}
-  - component: {fileID: 666670105}
   m_Layer: 0
   m_Name: BaseCamera
   m_TagString: MainCamera
@@ -675,23 +674,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &666670105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 666670099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: ee77790959a46694b9019793c2be5621, type: 2}
 --- !u!1 &874663878
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,6 +1083,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1434509622}
   - component: {fileID: 1434509623}
+  - component: {fileID: 1434509624}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1142,6 +1125,23 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 109dc4053f68ca742b148f06ca77015d, type: 2}
+--- !u!114 &1434509624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434509621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: ee77790959a46694b9019793c2be5621, type: 2}
 --- !u!1 &1597559829
 GameObject:
   m_ObjectHideFlags: 0
