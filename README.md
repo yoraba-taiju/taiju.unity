@@ -7,6 +7,7 @@
 # Unity References
 
 - [Unity Manual](https://docs.unity3d.com/ja/)
+- [Unity Learning Materials](https://learning.unity3d.jp/)
 
 ## Scripts
 
@@ -102,6 +103,7 @@
 
 - [ゲーム技術の研究所　テーマ「Narrative（ナラティブ）」](https://www.slideshare.net/KoujiOhno/o-planning-narrative1b)
 - [CEDEC2016 「コントラスト」で考えるゲームデザイン・レベルデザイン](https://www.slideshare.net/KoujiOhno/cedec2016)
+- [ゲームデザイン | Unity Learning Materials](https://learning.unity3d.jp/tag/game-design/)
 
 # References: Others
 
