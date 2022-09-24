@@ -13,13 +13,14 @@ namespace Witch.Sora {
 
     public void SetCount(uint count) {
       var offset = material_.mainTextureOffset;
-      offset.x = 0.5f * count / 10.0f;
-      material_.mainTextureOffset = offset;
       if (count == 10) {
         material_.SetColor(EmissionColorKey, EmissionColor);
+        offset.x = 0.5001f;
       } else {
+        offset.x = 0.5f * count / 10.0f;
         material_.SetColor(EmissionColorKey, Color.black);
       }
+      material_.mainTextureOffset = offset;
     }
   }
 }
