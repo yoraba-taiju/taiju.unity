@@ -6,6 +6,7 @@ namespace Witch.Sora {
   public class Sora : WitchBehaviour {
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject momijiSpell;
+    [SerializeField] private SpellGauge spellGauge;
     private static readonly Vector2 BulletSpeed = Vector2.right * 60.0f;
 
     private PlayerInput.PlayingActions actions_;
@@ -60,8 +61,10 @@ namespace Witch.Sora {
 
       var spell = actions_.Spell;
       if (spell.triggered) {
-        var obj = Instantiate(momijiSpell, field_);
-        obj.transform.localPosition = transform.localPosition;
+        if (spellGauge.Fetch(10)) {
+          var obj = Instantiate(momijiSpell, field_);
+          obj.transform.localPosition = transform.localPosition;
+        }
       }
     }
 
@@ -100,7 +103,7 @@ namespace Witch.Sora {
     }
 
     public void OnMagicElementCollected() {
-      Debug.Log("Sora: collected");
+      spellGauge.CollectMagicElement();
     }
   }
 }
