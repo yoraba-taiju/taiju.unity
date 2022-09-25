@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using Reversible.Value;
 using UnityEngine;
+using Witch.Sora;
 
 namespace Reversible.Unity {
   public sealed class Player : MonoBehaviour {
@@ -12,6 +13,8 @@ namespace Reversible.Unity {
     public bool Leaped { get; private set; }
     public bool IsForwarding { get; private set; }
     private Dense<float> integrationTime_;
+    // Gauge
+    [SerializeField] private SpellGauge spellGauge;
 
     public float IntegrationTime {
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
