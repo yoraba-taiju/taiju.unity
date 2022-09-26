@@ -1768,6 +1768,22 @@ PrefabInstance:
       propertyPath: spellGauge
       value: 
       objectReference: {fileID: 6354105874960136464}
+    - target: {fileID: 8240083200327346626, guid: 4569ff1ffa5ed4a40ac1d4ad1e7e02bf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240083200327346626, guid: 4569ff1ffa5ed4a40ac1d4ad1e7e02bf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8240083200327346626, guid: 4569ff1ffa5ed4a40ac1d4ad1e7e02bf, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723886649724679032, guid: 4569ff1ffa5ed4a40ac1d4ad1e7e02bf, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4569ff1ffa5ed4a40ac1d4ad1e7e02bf, type: 3}
 --- !u!1001 &6354105874960136463
