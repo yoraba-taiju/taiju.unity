@@ -14,7 +14,7 @@ namespace Background.Stage01 {
 
     protected override void OnForward() {
       ref var offset = ref offset_.Mut;
-      offset -= Vector2.one * (Time.deltaTime * 0.1f);
+      offset += Vector2.right * (Time.deltaTime * 0.1f);
       renderer_.material.mainTextureOffset = offset;
     }
 
