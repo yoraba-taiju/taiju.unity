@@ -25,7 +25,7 @@ namespace Enemy.Drone {
     protected override void OnFixedForward() {
       transform.localRotation = Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity);
     }
-    
+
     protected override void OnForward() {
       var currentHash = animator_.GetCurrentAnimatorStateInfo(1).shortNameHash;
       if (currentHash == State.Seeking || currentHash == State.GivingUp) {
