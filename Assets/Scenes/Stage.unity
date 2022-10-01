@@ -1226,10 +1226,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3161499769427229356, guid: 83339809cc2fb284ba0cea97a3492ebe, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 1defbe238b40e2d4188f7f2b8af81136, type: 2}
     - target: {fileID: 7630377852867372029, guid: 83339809cc2fb284ba0cea97a3492ebe, type: 3}
       propertyPath: m_Name
       value: SoraFace

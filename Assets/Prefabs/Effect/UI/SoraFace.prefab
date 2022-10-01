@@ -86,7 +86,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ab04bb94f7dc1cf448a7bc120b5b0c85, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: fc8f6371a0848b741ad5c55fb8859eb6, type: 2}
+      objectReference: {fileID: 2100000, guid: 1defbe238b40e2d4188f7f2b8af81136, type: 2}
     - target: {fileID: 919132149155446097, guid: ab04bb94f7dc1cf448a7bc120b5b0c85, type: 3}
       propertyPath: m_Name
       value: FaceHUD
