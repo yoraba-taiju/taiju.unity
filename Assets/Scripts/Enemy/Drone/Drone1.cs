@@ -62,6 +62,9 @@ namespace Enemy.Drone {
         } else {
           rigidbody_.velocity = currentRot * Vector2.left * (rigidbody_.velocity.magnitude * Mathf.Exp(-dt));
         }
+      } else if (currentHash == State.Watching) {
+        RotateToTarget();
+        
       }
 
       trans.localRotation =
