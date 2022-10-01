@@ -32,6 +32,9 @@ namespace Enemy.Drone {
       rigidbody_ = GetComponent<Rigidbody2D>();
       rigidbody_.velocity = Vector2.left * 7.0f;
     }
+    protected override void OnFixedForward() {
+      transform.localRotation = Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity);
+    }
 
     protected override void OnForward() {
       var trans = transform;
@@ -66,10 +69,6 @@ namespace Enemy.Drone {
         RotateToTarget();
         
       }
-
-      trans.localRotation =
-        Quaternion.RotateTowards(currentRot, 
-          Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), 30.0f * dt);
     }
 
     public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {

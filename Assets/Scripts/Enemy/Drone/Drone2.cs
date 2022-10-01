@@ -40,7 +40,7 @@ namespace Enemy.Drone {
     private Sparse<int> fireCount_;
     private Dense<float> timeToFire_;
     [SerializeField] private GameObject bulletPrefab;
-
+    
     protected override void OnStart() {
       sora_ = GameObject.FindWithTag("Player");
       animator_ = GetComponent<Animator>();

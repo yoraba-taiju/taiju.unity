@@ -32,6 +32,10 @@ namespace Enemy.Drone {
       rigidbody_.velocity = Vector2.left * 10.0f;
     }
 
+    protected override void OnFixedForward() {
+      transform.localRotation = Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity);
+    }
+
     protected override void OnForward() {
       var stateInfo = animator_.GetCurrentAnimatorStateInfo(1);
       var currentHash = stateInfo.shortNameHash;
@@ -53,9 +57,6 @@ namespace Enemy.Drone {
           rigidbody_.velocity = MathVec.Rotate(rigidbody_.velocity, Mathf.Sign(delta.y) * maxAngle) * Mathf.Exp(dt / 2);
         }
       }
-
-      transform.localRotation = Quaternion.RotateTowards(transform.localRotation,
-        Quaternion.FromToRotation(Vector3.left, rigidbody_.velocity), maxAngle * 0.75f);
     }
     
   }

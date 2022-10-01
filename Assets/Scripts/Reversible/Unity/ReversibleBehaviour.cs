@@ -5,6 +5,11 @@
       OnStart();
     }
 
+    protected override void OnFixedUpdate() {
+      if (player.IsForwarding) {
+        OnFixedForward();
+      }
+    }
     protected override void OnUpdate() {
       if (player.Leaped) {
         OnLeap();
@@ -19,6 +24,9 @@
     
     protected abstract void OnStart();
 
+    protected virtual void OnFixedForward() {
+      
+    }
     protected abstract void OnForward();
 
     protected virtual void OnReverse() {

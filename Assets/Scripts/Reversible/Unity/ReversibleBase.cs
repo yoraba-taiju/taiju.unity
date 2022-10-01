@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Reversible.Unity {
@@ -28,6 +29,14 @@ namespace Reversible.Unity {
       bornAt_ = clock.CurrentTick;
     }
 
+    private void FixedUpdate() {
+      if (bornAt_ > clock.CurrentTick) {
+        Destroy(gameObject);
+        return;
+      }
+      OnFixedUpdate();
+    }
+
     private void Update() {
       if (bornAt_ > clock.CurrentTick) {
         Destroy(gameObject);
@@ -41,6 +50,9 @@ namespace Reversible.Unity {
     }
 
     // functions
+    protected virtual void OnFixedUpdate() {
+      
+    }
     protected abstract void OnUpdate();
     public abstract void OnDeactivated();
     public abstract void OnReactivated();
