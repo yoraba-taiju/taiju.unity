@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Background.Stage01 {
   public class ForestScroll : ReversibleBehaviour {
+    [SerializeField] private float speed = 0.1f;
     private Dense<Vector2> offset_;
     private Renderer renderer_;
 
@@ -14,7 +15,7 @@ namespace Background.Stage01 {
 
     protected override void OnForward() {
       ref var offset = ref offset_.Mut;
-      offset += Vector2.left * (Time.deltaTime * 0.1f);
+      offset += Vector2.left * (Time.deltaTime * speed);
       renderer_.material.mainTextureOffset = offset;
     }
 
