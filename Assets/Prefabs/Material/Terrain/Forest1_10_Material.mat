@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Forest1_08_Material
+  m_Name: Forest1_10_Material
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ValidKeywords:
   - _METALLICSPECGLOSSMAP
@@ -41,7 +41,7 @@ Material:
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 2c731da323e28d24eb32de0b70176833, type: 3}
         m_Scale: {x: 3, y: 0.75}
-        m_Offset: {x: -3.04, y: 0.47}
+        m_Offset: {x: -3.06, y: 0.33}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: bd2c33fa9f9462a429304b3795292aad, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -65,7 +65,7 @@ Material:
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 2c731da323e28d24eb32de0b70176833, type: 3}
         m_Scale: {x: 3, y: 0.75}
-        m_Offset: {x: -3.04, y: 0.47}
+        m_Offset: {x: -3.06, y: 0.33}
     - _MetallicGlossMap:
         m_Texture: {fileID: 2800000, guid: fd5273c9f9cb6aa42b2c2f3a9cc3a555, type: 3}
         m_Scale: {x: 1, y: 1}
