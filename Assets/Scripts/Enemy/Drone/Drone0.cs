@@ -58,6 +58,5 @@ namespace Enemy.Drone {
         }
       }
     }
-    
   }
 }
