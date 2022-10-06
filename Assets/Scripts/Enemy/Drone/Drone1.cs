@@ -1,5 +1,6 @@
 ﻿using Enemy.StateMachine;
 using Lib;
+using Lib.Unity;
 using Reversible.Value;
 using UnityEngine;
 
@@ -12,12 +13,11 @@ namespace Enemy.Drone {
   public class Drone1 : EnemyBehaviour, IAnimatorEventSubscriber {
     private struct State {
       public static readonly int Seeking = Animator.StringToHash("Seeking");
-      public static readonly int Watching = Animator.StringToHash("Watching");
       public static readonly int Returning = Animator.StringToHash("Returning");
     }
 
-    private struct Trigger {
-      public static readonly int ToWatching = Animator.StringToHash("ToWatching");
+    private struct Params {
+      public static readonly int SeekCount = Animator.StringToHash("SeekCount");
     }
 
     private GameObject sora_;
@@ -65,16 +65,15 @@ namespace Enemy.Drone {
         } else {
           rigidbody_.velocity = currentRot * Vector2.left * (rigidbody_.velocity.magnitude * Mathf.Exp(-dt));
         }
-      } else if (currentHash == State.Watching) {
-        RotateToTarget();
-        
+      } else if (currentHash == State.Returning) {
+        rigidbody_.velocity = Mover.Follow(Vector2.right, 7.0f * Vector2.right);
       }
     }
 
     public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    }
-
-    public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+      if (stateInfo.shortNameHash == State.Seeking) {
+        animator.SetInteger(Params.SeekCount, animator.GetInteger(Params.SeekCount) + 1);
+      }
     }
   }
 }
