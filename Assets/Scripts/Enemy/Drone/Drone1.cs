@@ -66,11 +66,11 @@ namespace Enemy.Drone {
           rigidbody_.velocity = currentRot * Vector2.left * (rigidbody_.velocity.magnitude * Mathf.Exp(-dt));
         }
       } else if (currentHash == State.Returning) {
-        rigidbody_.velocity = Mover.Follow(Vector2.right, 7.0f * Vector2.right);
+        rigidbody_.velocity = Mover.Follow(Vector2.right, 7.0f * Vector2.right, 30.0f * dt);
       }
     }
 
-    public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+    public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
       if (stateInfo.shortNameHash == State.Seeking) {
         animator.SetInteger(Params.SeekCount, animator.GetInteger(Params.SeekCount) + 1);
       }
