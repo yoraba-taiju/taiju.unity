@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angularVelocity: 230
   poleAngularVelocity: 230
+  duration: 0
 --- !u!114 &5570356696664358802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,5 +112,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5376366442b43eead1a9c03cc1fdef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyWhenInvisible: 0
+  deactivateWhenInvisible: 1
   targetComponents: 01000000
