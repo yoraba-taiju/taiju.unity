@@ -32,8 +32,8 @@ namespace Witch.Sora {
       var trans = transform;
       var pos = trans.localPosition;
       trans.localPosition = new Vector3(
-        Math.Clamp(pos.x, -17.5f, 17.5f),
-        Math.Clamp(pos.y, -9.5f, 9.5f),
+        Math.Clamp(pos.x, -19.5f, 19.5f),
+        Math.Clamp(pos.y, -11.0f, 11.0f),
         0.0f
       );
     }
