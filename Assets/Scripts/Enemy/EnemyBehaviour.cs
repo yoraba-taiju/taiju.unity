@@ -3,7 +3,6 @@ using Effect;
 using Reversible.Unity;
 using Reversible.Value;
 using UnityEngine;
-using UnityEngine.Assertions;
 
 namespace Enemy {
   public abstract class EnemyBehaviour : ReversibleBehaviour {
