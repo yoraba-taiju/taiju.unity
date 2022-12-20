@@ -37,11 +37,12 @@ namespace Enemy.Drone {
     }
 
     protected override void OnForward() {
+      var dt = Time.deltaTime;
+
       var stateInfo = animator_.GetCurrentAnimatorStateInfo(1);
       var currentHash = stateInfo.shortNameHash;
-      var soraPosition = (Vector2) sora_.transform.localPosition;
       var currentPosition = (Vector2) transform.localPosition;
-      var dt = Time.deltaTime;
+      var soraPosition = (Vector2) sora_.transform.localPosition;
       var maxAngle = dt * maxRotateDegreePerSecond;
 
       if (currentHash == State.Seeking) {
