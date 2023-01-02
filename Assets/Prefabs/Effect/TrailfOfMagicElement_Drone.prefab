@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9030802944973006816}
   - component: {fileID: 9030802944973006818}
   m_Layer: 3
-  m_Name: TrailfOfMagicElement
+  m_Name: TrailfOfMagicElement_Drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 0.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
