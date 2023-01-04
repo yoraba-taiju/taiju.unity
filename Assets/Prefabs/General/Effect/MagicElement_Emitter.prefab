@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5177119033365291633}
   - component: {fileID: 211657844552023560}
   m_Layer: 9
-  m_Name: MagicElementEmitter
+  m_Name: MagicElement_Emitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05afee515abc48b59464f92402b0d44f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magicElementPrefab: {fileID: 6514670038079986011, guid: d1f2105761da4804ca4fba364dc41801, type: 3}
+  magicElementPrefab: {fileID: 2270498033937284102, guid: d1f2105761da4804ca4fba364dc41801, type: 3}
   explosionVelocity: 50
   numMagicElements: 10
   defaultPeriod: 0.5
