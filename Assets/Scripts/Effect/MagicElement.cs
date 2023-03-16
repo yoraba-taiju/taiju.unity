@@ -51,5 +51,8 @@ namespace Effect {
       velocity += force * dt;
       trans.localPosition = localPosition + velocity * dt;
     }
+    protected override void OnReverse() {
+      velocity = Vector3.zero;
+    }
   }
 }
