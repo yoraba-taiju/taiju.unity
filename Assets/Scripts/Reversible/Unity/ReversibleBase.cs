@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Reversible.Unity {
@@ -51,7 +50,6 @@ namespace Reversible.Unity {
 
     // functions
     protected virtual void OnFixedUpdate() {
-      
     }
     protected abstract void OnUpdate();
     public abstract void OnDeactivated();

@@ -1,6 +1,8 @@
 ﻿using Lib.Unity;
 using Reversible.Unity;
+using Reversible.Value;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Witch.Sora;
 
 namespace Effect {
@@ -16,12 +18,15 @@ namespace Effect {
     };
     
     [SerializeField] public Color color = Color.white;
-    [SerializeField] public Vector3 velocity;
     [SerializeField] public float period = 0.5f;
+    [SerializeField] public Vector3 initialVelocity = Vector3.zero;
+    private Dense<Vector3> position_;
+    private Dense<Vector3> velocity_;
     private Transform sora_;
     private Rigidbody2D soraRigidBody_;
     private Transform sprite_;
     private float startFrom_;
+
     protected override void OnStart() {
       var trans = transform;
       sora_ = GameObject.FindGameObjectWithTag("Player").transform;
@@ -30,6 +35,8 @@ namespace Effect {
       var spriteRenderer = sprite_.GetComponent<SpriteRenderer>();
       spriteRenderer.color = color;
       startFrom_ = IntegrationTime;
+      position_ = new Dense<Vector3>(clock, transform.localPosition);
+      velocity_ = new Dense<Vector3>(clock, initialVelocity);
     }
 
     protected override void OnForward() {
@@ -40,7 +47,8 @@ namespace Effect {
       }
 
       var trans = transform;
-      var localPosition = trans.localPosition;
+      ref var localPosition = ref position_.Mut;
+      ref var velocity = ref velocity_.Mut;
       var force = Mover.TrackingForce(
         localPosition, 
         velocity, 
@@ -49,10 +57,8 @@ namespace Effect {
         leftPeriod);
       var dt = Time.deltaTime;
       velocity += force * dt;
-      trans.localPosition = localPosition + velocity * dt;
-    }
-    protected override void OnReverse() {
-      velocity = Vector3.zero;
+      localPosition += velocity * dt;
+      trans.localPosition = localPosition;
     }
   }
 }

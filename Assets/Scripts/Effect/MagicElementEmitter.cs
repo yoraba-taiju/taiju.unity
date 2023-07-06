@@ -16,7 +16,7 @@ namespace Effect {
         var magicElement = Instantiate(magicElementPrefab, trans.localPosition, Quaternion.identity, field);
         magicElement.color = color;
         magicElement.period = Random.Range(-periodRandom, periodRandom) + defaultPeriod;
-        magicElement.velocity = velocity;
+        magicElement.initialVelocity = velocity;
       }
       Destroy(gameObject);
     }
