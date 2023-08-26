@@ -59,7 +59,7 @@ MonoBehaviour:
   trailLifeTime: 0.15
   arrowPrefab: {fileID: 8504349010670632558, guid: b7c769d4cdcba5143ad688ddb80416a1, type: 3}
   arrowLaunchDelay: 0
-  arrowLaunchInterval: 0.1
+  arrowLaunchInterval: 0.15
 --- !u!114 &-548798552259963496
 MonoBehaviour:
   m_ObjectHideFlags: 0

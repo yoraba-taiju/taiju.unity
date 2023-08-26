@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Witch.Momiji {
   public class ArrowOfLight : ReversibleBehaviour {
     [SerializeField] public Color color = Color.white;
-    [SerializeField] private float period = 1.0f;
+    [SerializeField] private float period = 0.75f;
     [SerializeField] public Vector3 initialVelocity;
 
     // Position management
