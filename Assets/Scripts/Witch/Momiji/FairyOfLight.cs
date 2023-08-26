@@ -23,9 +23,9 @@ namespace Witch.Momiji {
     [SerializeField] public float initialPoleAngle;
 
     // Time management
-    [SerializeField] private float bornTime = 0.5f;
-    [SerializeField] private float rotateTime = 3.5f;
-    [SerializeField] private float endTime = 4.0f;
+    [SerializeField] private float bornTime = 0.25f;
+    [SerializeField] private float rotateTime = 3.25f;
+    [SerializeField] private float endTime = 3.5f;
     [SerializeField] private float trailLifeTime = 0.15f;
     public float Duration => endTime + trailLifeTime;
 

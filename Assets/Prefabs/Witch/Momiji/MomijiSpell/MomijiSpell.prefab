@@ -46,4 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spiritPrefab: {fileID: 6582577784227367628, guid: b4e98b3b5f4b321478f1eda3e4755d56, type: 3}
   ringPrefab: {fileID: -4040903219042324590, guid: a2c58a948ba650045964791f337db7ce, type: 3}
-  duration: 4.5
+  duration: 4

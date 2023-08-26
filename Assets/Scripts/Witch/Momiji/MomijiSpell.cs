@@ -10,7 +10,7 @@ namespace Witch.Momiji {
 
     private Transform field_;
     private float startAt_;
-    [SerializeField] private float duration = 4.5f;
+    [SerializeField] private float duration = 4.0f;
 
     protected override void OnStart() {
       field_ = GameObject.FindWithTag("Field").transform;
