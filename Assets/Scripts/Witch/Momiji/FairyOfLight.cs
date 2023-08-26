@@ -38,7 +38,7 @@ namespace Witch.Momiji {
     // Arrow emission
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] public float arrowLaunchDelay;
-    [SerializeField] public float arrowLaunchInterval = 0.2f;
+    [SerializeField] public float arrowLaunchInterval = 0.1f;
     private Dense<float> nextArrowLaunch_;
 
     protected override void OnStart() {
