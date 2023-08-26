@@ -53,8 +53,8 @@ MonoBehaviour:
   selfRadius: 4
   initialAngle: 0
   initialPoleAngle: 0
-  bornTime: 1
-  rotateTime: 2
+  bornTime: 0.5
+  rotateTime: 3.5
   endTime: 4
   trailLifeTime: 0.15
   arrowPrefab: {fileID: 8504349010670632558, guid: b7c769d4cdcba5143ad688ddb80416a1, type: 3}
