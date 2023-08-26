@@ -17,7 +17,7 @@ namespace Witch.Momiji {
       var startFrom = IntegrationTime - startAt_;
       var trans = transform;
       float scale;
-      if (startFrom <= duration/2.0f) {
+      if (startFrom <= duration / 2.0f) {
         scale = Mathf.Min(Mathf.Pow(startFrom ,2.0f) * 6.0f, 6.0f);
       } else {
         var t = duration - startFrom;

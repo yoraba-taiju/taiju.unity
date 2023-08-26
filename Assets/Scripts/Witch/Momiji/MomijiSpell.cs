@@ -19,8 +19,7 @@ namespace Witch.Momiji {
         var spirit = Instantiate(spiritPrefab, transform.localPosition, Quaternion.identity, field_);
         var fairy = spirit.GetComponent<FairyOfLight>();
         fairy.color = MagicElement.Colors[i];
-        var rot = Quaternion.Euler(Random.Range(-180.0f, 180.0f), Random.Range(-180.0f, 180.0f),
-          Random.Range(-180.0f, 180.0f));
+        var rot = Quaternion.Euler(Random.Range(-180.0f, 180.0f), Random.Range(-180.0f, 180.0f), Random.Range(-180.0f, 180.0f));
         fairy.poleRotationAxis = rot * Vector3.right;
         fairy.initialAngle = Random.Range(-180.0f, 180.0f);
         fairy.initialPoleAngle = Random.Range(-180.0f, 180.0f);
