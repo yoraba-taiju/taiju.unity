@@ -78,3 +78,7 @@
 ## Asset Management
 
 - [【Unity】僕はそろそろResourcesフォルダを卒業しようと思う - LIGHT11](https://light11.hatenadiary.com/entry/2020/07/29/202755)
+
+## ECS
+
+- [Unity2022.2からのECS入門【Advent Calendar 12/6】｜Colorful Palette](https://media.colorfulpalette.co.jp/n/n669486062bf7)
